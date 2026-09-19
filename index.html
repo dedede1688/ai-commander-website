@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#141F60">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141F60'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%2300EDBD' stroke-width='6'/%3E%3C/svg%3E">
 <title>《AI指挥官》联合出版人 · AI素质报告 V2</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -238,9 +240,11 @@ h3:first-of-type { margin-top:0; }
 .ring-lv.mid { color:#2c6fb5; }
 .ring-lv.low { color:#c88a00; }
 
-/* 图例 */
-.legend { display:flex; gap:22px; flex-wrap:wrap; margin-top:20px; padding-top:16px; border-top:1px solid #eef1f6; font-size:12.5px; }
-.legend span { display:flex; align-items:center; gap:7px; color:#4a5b7c; }
+/* 图例：每行一条，圆点钉在首行左侧，文字悬挂缩进（折行后不会顶到圆点下面） */
+.legend { display:block; margin-top:20px; padding-top:16px; border-top:1px solid #eef1f6; font-size:12.5px; }
+.legend span { display:block; position:relative; padding-left:18px; line-height:1.6; color:#4a5b7c; margin-bottom:8px; }
+.legend span:last-child { margin-bottom:0; }
+.legend .dot { position:absolute; left:0; top:.42em; }
 .dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
 .dot.hi { background:#008f70; }
 .dot.mid { background:#2c6fb5; }
@@ -427,7 +431,8 @@ html { -webkit-text-size-adjust:100%; }
   .m-role { font-size:14px; }
   .m-bio { font-size:15px; line-height:1.85; }
 
-  .legend { gap:10px 16px; font-size:13.5px; margin-top:16px; padding-top:12px; }
+  .legend { font-size:13.5px; margin-top:16px; padding-top:12px; }
+  .legend span { margin-bottom:9px; }
   .note { padding:12px 14px; font-size:14px; }
   .new-card { padding:16px; }
   .new-name { font-size:18px; }
