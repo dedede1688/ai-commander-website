@@ -1,1003 +1,2880 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#141F60">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141F60'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%2300EDBD' stroke-width='6'/%3E%3C/svg%3E">
-<title>《AI指挥官》联合出版人 · AI素质报告 V2</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --navy:#141F60; --navy-d:#0d1440; --teal:#00edbd; --blue:#5aa7e0;
-  --purple:#7b5ce0; --ink:#0b1426; --body:#1a2233; --grey:#8a93a6;
-}
-body {
-  font-family:'Noto Sans SC','Microsoft YaHei',-apple-system,sans-serif;
-  background:#eef1f6; color:var(--body); line-height:1.75;
-  padding:0 0 70px;
-}
-html { scroll-behavior:smooth; }
-.wrap { max-width:1100px; margin:0 auto; padding:26px 16px 0; }
-.card { background:#fff; border-radius:6px; box-shadow:0 1px 4px rgba(20,31,96,.10); padding:30px 34px; margin-bottom:20px; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#141F60" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141F60'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%2300EDBD' stroke-width='6'/%3E%3C/svg%3E"
+    />
+    <title>《AI指挥官》联合出版人 · AI素质报告 V2</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --navy: #141f60;
+        --navy-d: #0d1440;
+        --teal: #00edbd;
+        --blue: #5aa7e0;
+        --purple: #7b5ce0;
+        --ink: #0b1426;
+        --body: #1a2233;
+        --grey: #8a93a6;
+      }
+      body {
+        font-family:
+          "Noto Sans SC",
+          "Microsoft YaHei",
+          -apple-system,
+          sans-serif;
+        background: #eef1f6;
+        color: var(--body);
+        line-height: 1.75;
+        padding: 0 0 70px;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 26px 16px 0;
+      }
+      .card {
+        background: #fff;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(20, 31, 96, 0.1);
+        padding: 30px 34px;
+        margin-bottom: 20px;
+      }
 
-/* ===== 顶部常驻导航栏 ===== */
-.topnav {
-  position:sticky; top:0; z-index:300;
-  background:rgba(11,18,54,.97);
-  border-bottom:1px solid rgba(0,237,189,.28);
-  box-shadow:0 2px 16px rgba(11,20,38,.34);
-  backdrop-filter:saturate(150%) blur(10px);
-  -webkit-backdrop-filter:saturate(150%) blur(10px);
-}
-.nav-inner {
-  max-width:1100px; margin:0 auto; padding:0 16px;
-  height:52px; display:flex; align-items:center; gap:22px;
-}
-.nav-brand {
-  font-family:Consolas,monospace; font-size:12.5px; font-weight:700;
-  color:var(--teal); letter-spacing:1.5px; white-space:nowrap;
-  display:flex; align-items:center; gap:8px;
-}
-.nav-brand::before {
-  content:""; width:7px; height:7px; border-radius:50%;
-  background:var(--teal); box-shadow:0 0 8px var(--teal);
-}
-.nav-links {
-  display:flex; align-items:center; gap:2px;
-  overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
-  flex:1;
-}
-.nav-links::-webkit-scrollbar { display:none; }
-.nav-link {
-  font-size:13px; color:#b9c4dc; text-decoration:none;
-  padding:7px 12px; border-radius:6px; white-space:nowrap;
-  transition:color .16s, background .16s; cursor:pointer;
-}
-.nav-link:hover { color:#fff; background:rgba(0,237,189,.13); }
-.nav-link.active {
-  color:var(--teal); background:rgba(0,237,189,.17); font-weight:700;
-}
-/* 锚点定位留出导航高度 */
-.preamble, .card { scroll-margin-top:66px; }
+      /* ===== 顶部常驻导航栏 ===== */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 300;
+        background: rgba(11, 18, 54, 0.97);
+        border-bottom: 1px solid rgba(0, 237, 189, 0.28);
+        box-shadow: 0 2px 16px rgba(11, 20, 38, 0.34);
+        backdrop-filter: saturate(150%) blur(10px);
+        -webkit-backdrop-filter: saturate(150%) blur(10px);
+      }
+      .nav-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 16px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      .nav-brand {
+        font-family: Consolas, monospace;
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--teal);
+        letter-spacing: 1.5px;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-brand::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--teal);
+        box-shadow: 0 0 8px var(--teal);
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        flex: 1;
+      }
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-link {
+        font-size: 13px;
+        color: #b9c4dc;
+        text-decoration: none;
+        padding: 7px 12px;
+        border-radius: 6px;
+        white-space: nowrap;
+        transition:
+          color 0.16s,
+          background 0.16s;
+        cursor: pointer;
+      }
+      .nav-link:hover {
+        color: #fff;
+        background: rgba(0, 237, 189, 0.13);
+      }
+      .nav-link.active {
+        color: var(--teal);
+        background: rgba(0, 237, 189, 0.17);
+        font-weight: 700;
+      }
+      /* 锚点定位留出导航高度 */
+      .preamble,
+      .card {
+        scroll-margin-top: 66px;
+      }
 
-/* ===== 报告头 ===== */
-.rpt-head {
-  /* 底层深色渐变 + 书籍区域独立提亮（聚光/光晕），使立体书更突出 */
-  background:
-    radial-gradient(circle 300px at 81% 49%, rgba(152,188,255,.36) 0%, rgba(122,108,236,.19) 45%, rgba(34,21,85,0) 76%),
-    radial-gradient(circle 540px at 84% 50%, rgba(90,167,224,.16) 0%, rgba(90,167,224,0) 78%),
-    linear-gradient(120deg,#0d0722 0%,#170f3a 48%,#221555 100%);
-  color:#fff; border-radius:6px; padding:36px 40px 32px; margin-bottom:20px;
-  position:relative; overflow:hidden;
-  display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto;
-  column-gap:34px; align-items:start;
-  box-shadow:inset 0 0 90px rgba(123,92,224,.14);
-}
-.rpt-head::after { content:""; position:absolute; right:-50px; top:-50px; width:250px; height:250px; border:1px solid rgba(0,237,189,.22); border-radius:50%; }
-.rpt-head::before { content:""; position:absolute; right:20px; top:30px; width:150px; height:150px; border:1px solid rgba(160,130,255,.22); border-radius:50%; }
-.rpt-main { grid-column:1; grid-row:1; min-width:0; position:relative; top:30px; z-index:2; }
-.rpt-eyebrow { position:relative; top:-15px; font-size:11.5px; letter-spacing:4px; color:var(--teal); margin-bottom:10px; font-family:Consolas,monospace; }
-.rpt-title { position:relative; top:-10px; font-size:28px; font-weight:700; letter-spacing:1.5px; margin-bottom:10px; }
-.rpt-sub { font-size:13px; color:#a9b6d8; letter-spacing:.5px; }
+      /* ===== 报告头 ===== */
+      .rpt-head {
+        /* 底层深色渐变 + 书籍区域独立提亮（聚光/光晕），使立体书更突出 */
+        background:
+          radial-gradient(
+            circle 300px at 81% 49%,
+            rgba(152, 188, 255, 0.36) 0%,
+            rgba(122, 108, 236, 0.19) 45%,
+            rgba(34, 21, 85, 0) 76%
+          ),
+          radial-gradient(
+            circle 540px at 84% 50%,
+            rgba(90, 167, 224, 0.16) 0%,
+            rgba(90, 167, 224, 0) 78%
+          ),
+          linear-gradient(120deg, #0d0722 0%, #170f3a 48%, #221555 100%);
+        color: #fff;
+        border-radius: 6px;
+        padding: 36px 40px 32px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        column-gap: 34px;
+        align-items: start;
+        box-shadow: inset 0 0 90px rgba(123, 92, 224, 0.14);
+      }
+      .rpt-head::after {
+        content: "";
+        position: absolute;
+        right: -50px;
+        top: -50px;
+        width: 250px;
+        height: 250px;
+        border: 1px solid rgba(0, 237, 189, 0.22);
+        border-radius: 50%;
+      }
+      .rpt-head::before {
+        content: "";
+        position: absolute;
+        right: 20px;
+        top: 30px;
+        width: 150px;
+        height: 150px;
+        border: 1px solid rgba(160, 130, 255, 0.22);
+        border-radius: 50%;
+      }
+      .rpt-main {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+        position: relative;
+        top: 30px;
+        z-index: 2;
+      }
+      .rpt-eyebrow {
+        position: relative;
+        top: -15px;
+        font-size: 11.5px;
+        letter-spacing: 4px;
+        color: var(--teal);
+        margin-bottom: 10px;
+        font-family: Consolas, monospace;
+      }
+      .rpt-title {
+        position: relative;
+        top: -10px;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        margin-bottom: 10px;
+      }
+      .rpt-sub {
+        font-size: 13px;
+        color: #a9b6d8;
+        letter-spacing: 0.5px;
+      }
 
-.rpt-seats { display:flex; align-items:baseline; gap:38px; margin-top:22px; position:relative; top:15px; z-index:2; flex-wrap:wrap; }
-.rpt-seats .seats-item { display:flex; align-items:baseline; gap:9px; }
-.rpt-seats .lb { font-size:12.5px; color:#a9b6d8; letter-spacing:1px; }
-.rpt-seats .vl { font-family:Consolas,monospace; font-size:23px; font-weight:700; color:var(--teal); line-height:1; }
-.rpt-seats .vl.plain { color:#fff; }
-.rpt-seats .vl small { font-size:12px; font-weight:400; color:#8e9dc4; margin-left:2px; }
+      .rpt-seats {
+        display: flex;
+        align-items: baseline;
+        gap: 38px;
+        margin-top: 22px;
+        position: relative;
+        top: 15px;
+        z-index: 2;
+        flex-wrap: wrap;
+      }
+      .rpt-seats .seats-item {
+        display: flex;
+        align-items: baseline;
+        gap: 9px;
+      }
+      .rpt-seats .lb {
+        font-size: 12.5px;
+        color: #a9b6d8;
+        letter-spacing: 1px;
+      }
+      .rpt-seats .vl {
+        font-family: Consolas, monospace;
+        font-size: 23px;
+        font-weight: 700;
+        color: var(--teal);
+        line-height: 1;
+      }
+      .rpt-seats .vl.plain {
+        color: #fff;
+      }
+      .rpt-seats .vl small {
+        font-size: 12px;
+        font-weight: 400;
+        color: #8e9dc4;
+        margin-left: 2px;
+      }
 
-.rpt-meta { grid-column:1; grid-row:2; position:relative; top:30px; margin-top:18px; padding-top:36px; border-top:1px solid rgba(255,255,255,.14); font-size:12px; color:#8e9dc4; display:flex; gap:20px 26px; flex-wrap:wrap; z-index:2; }
-.rpt-meta .rpt-date { color:var(--teal); font-weight:700; letter-spacing:.5px; }
+      .rpt-meta {
+        grid-column: 1;
+        grid-row: 2;
+        position: relative;
+        top: 30px;
+        margin-top: 18px;
+        padding-top: 36px;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        font-size: 12px;
+        color: #8e9dc4;
+        display: flex;
+        gap: 20px 26px;
+        flex-wrap: wrap;
+        z-index: 2;
+      }
+      .rpt-meta .rpt-date {
+        color: var(--teal);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
 
-/* ===== 立体书（真实图片，不旋转/不调色/无背景） ===== */
-.rpt-book { grid-column:2; grid-row:1 / -1; align-self:center; position:relative; z-index:2; justify-self:end; margin-right:60px; }
-.book-img { display:block; height:300px; width:auto; }
-.book-edge {
-  position:absolute; right:-11px; top:4px; bottom:4px; width:11px;
-  background:linear-gradient(90deg,#f4f7fc 0%,#ccd5e5 45%,#eef2f8 100%);
-  border-radius:0 3px 3px 0; transform:skewY(-5deg);
-}
-.book-edge::after {
-  content:""; position:absolute; inset:0;
-  background-image:repeating-linear-gradient(180deg, rgba(150,165,195,.5) 0 1px, transparent 1px 3px);
-  opacity:.5;
-}
-.book-cover {
-  position:absolute; inset:0;
-  background:linear-gradient(140deg,#3544a8 0%,#1a2470 46%,#0a1236 100%);
-  border-radius:2px 5px 5px 2px;
-  box-shadow:inset 0 0 0 1.2px rgba(0,237,189,.38), inset 0 0 34px rgba(0,237,189,.07);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:20px 14px; text-align:center; overflow:hidden;
-}
-.book-cover::before {
-  content:""; position:absolute; left:0; top:0; bottom:0; width:7px;
-  background:linear-gradient(90deg, rgba(0,0,0,.5), rgba(255,255,255,.06));
-}
-.bc-en { font-family:Consolas,monospace; font-size:7.5px; letter-spacing:2.5px; color:var(--teal); margin-bottom:15px; position:relative; }
-.bc-title { font-size:25px; font-weight:700; color:#fff; letter-spacing:2px; margin-bottom:9px; position:relative; text-shadow:0 0 18px rgba(0,237,189,.35); }
-.bc-sub { font-size:8.5px; color:#93a6d0; line-height:1.55; margin-bottom:16px; position:relative; max-width:112px; }
-.bc-line { width:32px; height:2px; background:var(--teal); margin-bottom:16px; opacity:.85; position:relative; }
-.bc-author { font-size:9.5px; color:#c2cee8; letter-spacing:1.5px; position:relative; }
-.bc-star { position:absolute; width:3px; height:3px; background:var(--teal); border-radius:50%; opacity:.6; }
-@media (max-width:900px) {
-  .rpt-head { grid-template-columns:1fr; grid-template-rows:auto auto auto; padding-bottom:74px; }
-  .rpt-main { grid-column:1; grid-row:1; }
-  .rpt-book { grid-column:1; grid-row:2; justify-self:center; margin-top:60px; margin-right:0; }
-  .rpt-meta { grid-column:1; grid-row:3; }
-}
+      /* ===== 立体书（真实图片，不旋转/不调色/无背景） ===== */
+      .rpt-book {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        align-self: center;
+        position: relative;
+        z-index: 2;
+        justify-self: end;
+        margin-right: 60px;
+      }
+      .book-img {
+        display: block;
+        height: 300px;
+        width: auto;
+      }
+      .book-edge {
+        position: absolute;
+        right: -11px;
+        top: 4px;
+        bottom: 4px;
+        width: 11px;
+        background: linear-gradient(
+          90deg,
+          #f4f7fc 0%,
+          #ccd5e5 45%,
+          #eef2f8 100%
+        );
+        border-radius: 0 3px 3px 0;
+        transform: skewY(-5deg);
+      }
+      .book-edge::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(
+          180deg,
+          rgba(150, 165, 195, 0.5) 0 1px,
+          transparent 1px 3px
+        );
+        opacity: 0.5;
+      }
+      .book-cover {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          140deg,
+          #3544a8 0%,
+          #1a2470 46%,
+          #0a1236 100%
+        );
+        border-radius: 2px 5px 5px 2px;
+        box-shadow:
+          inset 0 0 0 1.2px rgba(0, 237, 189, 0.38),
+          inset 0 0 34px rgba(0, 237, 189, 0.07);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 14px;
+        text-align: center;
+        overflow: hidden;
+      }
+      .book-cover::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 7px;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.5),
+          rgba(255, 255, 255, 0.06)
+        );
+      }
+      .bc-en {
+        font-family: Consolas, monospace;
+        font-size: 7.5px;
+        letter-spacing: 2.5px;
+        color: var(--teal);
+        margin-bottom: 15px;
+        position: relative;
+      }
+      .bc-title {
+        font-size: 25px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 2px;
+        margin-bottom: 9px;
+        position: relative;
+        text-shadow: 0 0 18px rgba(0, 237, 189, 0.35);
+      }
+      .bc-sub {
+        font-size: 8.5px;
+        color: #93a6d0;
+        line-height: 1.55;
+        margin-bottom: 16px;
+        position: relative;
+        max-width: 112px;
+      }
+      .bc-line {
+        width: 32px;
+        height: 2px;
+        background: var(--teal);
+        margin-bottom: 16px;
+        opacity: 0.85;
+        position: relative;
+      }
+      .bc-author {
+        font-size: 9.5px;
+        color: #c2cee8;
+        letter-spacing: 1.5px;
+        position: relative;
+      }
+      .bc-star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: var(--teal);
+        border-radius: 50%;
+        opacity: 0.6;
+      }
+      @media (max-width: 900px) {
+        .rpt-head {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto auto;
+          padding-bottom: 74px;
+        }
+        .rpt-main {
+          grid-column: 1;
+          grid-row: 1;
+        }
+        .rpt-book {
+          grid-column: 1;
+          grid-row: 2;
+          justify-self: center;
+          margin-top: 60px;
+          margin-right: 0;
+        }
+        .rpt-meta {
+          grid-column: 1;
+          grid-row: 3;
+        }
+      }
 
-/* ===== 导语（500字） ===== */
-.preamble {
-  background:linear-gradient(#fff,#fff) padding-box,
-             linear-gradient(135deg,#00edbd 0%,#5aa7e0 50%,#7b5ce0 100%) border-box;
-  border:1.5px solid transparent;
-  border-radius:8px; padding:32px 38px; margin-bottom:20px;
-  box-shadow:0 2px 10px rgba(20,31,96,.08);
-}
-.pr-eyebrow { font-family:Consolas,monospace; font-size:11px; letter-spacing:3px; color:#00b89c; margin-bottom:12px; }
-.pr-title { font-size:20px; font-weight:700; color:var(--navy); letter-spacing:1px; margin-bottom:18px; }
-.pr-body p { font-size:13.5px; line-height:2.0; color:#2b3852; text-align:justify; margin-bottom:13px; }
-.pr-body p:last-child { margin-bottom:0; }
-.pr-body .hl { color:#00a37f; font-weight:700; }
-.pr-body .hlb { color:var(--navy); font-weight:700; }
-.pr-sign { margin-top:20px; padding-top:14px; border-top:1px dashed #dde3ec; font-size:12px; color:var(--grey); text-align:right; letter-spacing:.5px; }
+      /* ===== 导语（500字） ===== */
+      .preamble {
+        background:
+          linear-gradient(#fff, #fff) padding-box,
+          linear-gradient(135deg, #00edbd 0%, #5aa7e0 50%, #7b5ce0 100%)
+            border-box;
+        border: 1.5px solid transparent;
+        border-radius: 8px;
+        padding: 32px 38px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(20, 31, 96, 0.08);
+      }
+      .pr-eyebrow {
+        font-family: Consolas, monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        color: #00b89c;
+        margin-bottom: 12px;
+      }
+      .pr-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--navy);
+        letter-spacing: 1px;
+        margin-bottom: 18px;
+      }
+      .pr-body p {
+        font-size: 13.5px;
+        line-height: 2;
+        color: #2b3852;
+        text-align: justify;
+        margin-bottom: 13px;
+      }
+      .pr-body p:last-child {
+        margin-bottom: 0;
+      }
+      .pr-body .hl {
+        color: #00a37f;
+        font-weight: 700;
+      }
+      .pr-body .hlb {
+        color: var(--navy);
+        font-weight: 700;
+      }
+      .pr-sign {
+        margin-top: 20px;
+        padding-top: 14px;
+        border-top: 1px dashed #dde3ec;
+        font-size: 12px;
+        color: var(--grey);
+        text-align: right;
+        letter-spacing: 0.5px;
+      }
 
-/* ===== 标题 ===== */
-h2 { font-size:18px; color:var(--navy); letter-spacing:1px; padding-left:13px; border-left:4px solid #00b89c; margin-bottom:18px; line-height:1.3; }
-h3 { font-size:14.5px; color:var(--navy); margin:22px 0 12px; }
-h3:first-of-type { margin-top:0; }
-.sub-note { font-size:12.5px; color:#667; margin-bottom:16px; }
+      /* ===== 标题 ===== */
+      h2 {
+        font-size: 18px;
+        color: var(--navy);
+        letter-spacing: 1px;
+        padding-left: 13px;
+        border-left: 4px solid #00b89c;
+        margin-bottom: 18px;
+        line-height: 1.3;
+      }
+      h3 {
+        font-size: 14.5px;
+        color: var(--navy);
+        margin: 22px 0 12px;
+      }
+      h3:first-of-type {
+        margin-top: 0;
+      }
+      .sub-note {
+        font-size: 12.5px;
+        color: #667;
+        margin-bottom: 16px;
+      }
 
-/* ===== 行业图标卡（高级灰 + 圆角线框 · 上 2/3 图标数字 ｜ 下 1/3 行业名）===== */
-.sec-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-.sec-card {
-  position:relative; border-radius:10px; overflow:hidden;
-  background:#f5f6f9;
-  border:1px solid #e2e6ed;
-  display:grid; grid-template-rows:2fr 1fr; min-height:200px;
-  transition:transform .18s, box-shadow .18s, border-color .18s;
-}
-.sec-card:hover { transform:translateY(-3px); border-color:#00b89c; box-shadow:0 8px 20px rgba(20,31,96,.09); }
-.sec-top {
-  display:flex; align-items:center; justify-content:center; gap:18px;
-  padding:0 14px; border-bottom:1px solid #e8ecf2;
-}
-.sec-bottom {
-  position:relative; display:flex; align-items:center; justify-content:center;
-  padding:0 12px; text-align:center;
-}
-.sec-icon { width:45px; height:45px; flex:0 0 45px; stroke:#1f2d6b; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
-.sec-icon.blue { stroke:#2c6fb5; }
-.sec-icon.purple { stroke:#6b4fc8; }
-.sec-name { font-size:18px; color:#2b3852; font-weight:700; letter-spacing:.3px; line-height:1.2; text-align:center; }
-.sec-num { font-family:Consolas,monospace; font-size:36px; font-weight:700; color:#007a5f; line-height:1; white-space:nowrap; }
-.sec-num small { font-size:15px; color:#6b7688; font-weight:400; margin-left:3px; }
-@media (max-width:960px) { .sec-grid { grid-template-columns:repeat(2,1fr); } }
+      /* ===== 行业图标卡（高级灰 + 圆角线框 · 上 2/3 图标数字 ｜ 下 1/3 行业名）===== */
+      .sec-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .sec-card {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #f5f6f9;
+        border: 1px solid #e2e6ed;
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        min-height: 200px;
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s,
+          border-color 0.18s;
+      }
+      .sec-card:hover {
+        transform: translateY(-3px);
+        border-color: #00b89c;
+        box-shadow: 0 8px 20px rgba(20, 31, 96, 0.09);
+      }
+      .sec-top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        padding: 0 14px;
+        border-bottom: 1px solid #e8ecf2;
+      }
+      .sec-bottom {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 12px;
+        text-align: center;
+      }
+      .sec-icon {
+        width: 45px;
+        height: 45px;
+        flex: 0 0 45px;
+        stroke: #1f2d6b;
+        fill: none;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .sec-icon.blue {
+        stroke: #2c6fb5;
+      }
+      .sec-icon.purple {
+        stroke: #6b4fc8;
+      }
+      .sec-name {
+        font-size: 18px;
+        color: #2b3852;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        line-height: 1.2;
+        text-align: center;
+      }
+      .sec-num {
+        font-family: Consolas, monospace;
+        font-size: 36px;
+        font-weight: 700;
+        color: #007a5f;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .sec-num small {
+        font-size: 15px;
+        color: #6b7688;
+        font-weight: 400;
+        margin-left: 3px;
+      }
+      @media (max-width: 960px) {
+        .sec-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
 
-/* ===== 行业球体网络图 ===== */
-.net-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-.ind-block {
-  position:relative; border-radius:10px; overflow:hidden;
-  border:1px solid #e2e6ed;
-  background:#f5f6f9;
-  transition:border-color .18s, box-shadow .18s;
-}
-.ind-block:hover { border-color:#00b89c; box-shadow:0 8px 20px rgba(20,31,96,.09); }
-.ind-block svg { display:block; width:100%; position:relative; z-index:1; }
-.net-cap { position:absolute; left:12px; top:10px; z-index:2; font-family:Consolas,monospace; font-size:9.5px; color:#7a8496; letter-spacing:2px; }
+      /* ===== 行业球体网络图 ===== */
+      .net-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+      .ind-block {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #e2e6ed;
+        background: #f5f6f9;
+        transition:
+          border-color 0.18s,
+          box-shadow 0.18s;
+      }
+      .ind-block:hover {
+        border-color: #00b89c;
+        box-shadow: 0 8px 20px rgba(20, 31, 96, 0.09);
+      }
+      .ind-block svg {
+        display: block;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      }
+      .net-cap {
+        position: absolute;
+        left: 12px;
+        top: 10px;
+        z-index: 2;
+        font-family: Consolas, monospace;
+        font-size: 9.5px;
+        color: #7a8496;
+        letter-spacing: 2px;
+      }
 
-/* 条形图 */
-.bar-row { display:flex; align-items:center; gap:12px; margin-bottom:9px; font-size:12.5px; }
-.bar-name { flex:0 0 150px; color:#33405c; }
-.bar-track { flex:1; height:17px; background:#eef1f6; border-radius:9px; overflow:hidden; }
-.bar-fill { height:100%; background:linear-gradient(90deg,#00b89c,#00edbd); border-radius:9px; }
-.bar-fill.blue { background:linear-gradient(90deg,#2c3f96,#5aa7e0); }
-.bar-fill.grey { background:linear-gradient(90deg,#9aa4b2,#c4ccd6); }
-.bar-val { flex:0 0 78px; text-align:right; font-family:Consolas,monospace; color:var(--navy); font-weight:700; }
+      /* 条形图 */
+      .bar-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 9px;
+        font-size: 12.5px;
+      }
+      .bar-name {
+        flex: 0 0 150px;
+        color: #33405c;
+      }
+      .bar-track {
+        flex: 1;
+        height: 17px;
+        background: #eef1f6;
+        border-radius: 9px;
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #00b89c, #00edbd);
+        border-radius: 9px;
+      }
+      .bar-fill.blue {
+        background: linear-gradient(90deg, #2c3f96, #5aa7e0);
+      }
+      .bar-fill.grey {
+        background: linear-gradient(90deg, #9aa4b2, #c4ccd6);
+      }
+      .bar-val {
+        flex: 0 0 78px;
+        text-align: right;
+        font-family: Consolas, monospace;
+        color: var(--navy);
+        font-weight: 700;
+      }
 
-/* ===== 名录照片墙 ===== */
-.roster { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
-.rc {
-  border:1px solid #e3e8f0; border-radius:8px; padding:14px 10px 12px; text-align:center;
-  cursor:pointer; transition:all .18s; background:#fff; position:relative;
-}
-.rc:hover { border-color:#00b89c; transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,163,127,.16); }
-.rc:hover .rc-photo { box-shadow:0 0 0 3px rgba(0,237,189,.35); }
-.rc-photo { width:76px; height:76px; border-radius:50%; object-fit:cover; object-position:center top; margin:0 auto 10px; display:block; background:#eef1f6; border:2px solid #fff; box-shadow:0 0 0 1px #dde3ec; transition:box-shadow .18s; }
-.rc-seat { font-family:Consolas,monospace; font-size:9.5px; color:#00b89c; letter-spacing:1px; }
-.rc-name { font-size:13.5px; font-weight:700; color:var(--navy); margin:2px 0 5px; letter-spacing:.3px; }
-.rc-tag { font-size:10.5px; color:#7a879e; line-height:1.4; min-height:28px; }
-.rc-hint { font-size:10px; color:#c0c8d6; margin-top:7px; letter-spacing:.5px; }
-.rc.new::after { content:"新"; position:absolute; top:-6px; right:-6px; width:19px; height:19px; background:#00b89c; color:#fff; border-radius:50%; font-size:10px; line-height:19px; }
+      /* ===== 名录照片墙 ===== */
+      .roster {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+      }
+      .rc {
+        border: 1px solid #e3e8f0;
+        border-radius: 8px;
+        padding: 14px 10px 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.18s;
+        background: #fff;
+        position: relative;
+      }
+      .rc:hover {
+        border-color: #00b89c;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 163, 127, 0.16);
+      }
+      .rc:hover .rc-photo {
+        box-shadow: 0 0 0 3px rgba(0, 237, 189, 0.35);
+      }
+      .rc-photo {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        margin: 0 auto 10px;
+        display: block;
+        background: #eef1f6;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 1px #dde3ec;
+        transition: box-shadow 0.18s;
+      }
+      .rc-seat {
+        font-family: Consolas, monospace;
+        font-size: 9.5px;
+        color: #00b89c;
+        letter-spacing: 1px;
+      }
+      .rc-name {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--navy);
+        margin: 2px 0 5px;
+        letter-spacing: 0.3px;
+      }
+      .rc-tag {
+        font-size: 10.5px;
+        color: #7a879e;
+        line-height: 1.4;
+        min-height: 28px;
+      }
+      .rc-hint {
+        font-size: 10px;
+        color: #c0c8d6;
+        margin-top: 7px;
+        letter-spacing: 0.5px;
+      }
+      .rc.new::after {
+        content: "新";
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        width: 19px;
+        height: 19px;
+        background: #00b89c;
+        color: #fff;
+        border-radius: 50%;
+        font-size: 10px;
+        line-height: 19px;
+      }
 
-/* ===== 弹窗 ===== */
-.modal { position:fixed; inset:0; background:rgba(11,20,38,.72); display:none; align-items:center; justify-content:center; z-index:99; padding:20px; backdrop-filter:blur(3px); }
-.modal.on { display:flex; animation:fade .2s; }
-@keyframes fade { from{opacity:0} to{opacity:1} }
-.mbox { background:#fff; border-radius:10px; max-width:600px; width:100%; padding:32px 34px; position:relative; max-height:86vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.4); }
-.mbox::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--teal),var(--blue) 60%,var(--purple)); border-radius:10px 10px 0 0; }
-.mclose { position:absolute; top:14px; right:18px; font-size:24px; color:#b8c0cc; cursor:pointer; line-height:1; }
-.mclose:hover { color:#d0021b; }
-.m-top { display:flex; gap:18px; margin-bottom:20px; align-items:center; }
-.m-photo { width:96px; height:96px; border-radius:50%; object-fit:cover; object-position:center top; border:3px solid #fff; box-shadow:0 0 0 2px var(--teal); flex:0 0 96px; }
-.m-name { font-size:22px; font-weight:700; color:var(--navy); letter-spacing:1px; }
-.m-role { font-size:13px; color:#00a37f; margin-top:4px; }
-.m-seat { font-family:Consolas,monospace; font-size:11px; color:var(--grey); margin-top:5px; letter-spacing:1.5px; }
-.m-bio { font-size:14px; line-height:2.0; color:#2b3852; text-align:justify; padding-top:18px; border-top:1px solid #eef1f6; }
+      /* ===== 弹窗 ===== */
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(11, 20, 38, 0.72);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 99;
+        padding: 20px;
+        backdrop-filter: blur(3px);
+      }
+      .modal.on {
+        display: flex;
+        animation: fade 0.2s;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .mbox {
+        background: #fff;
+        border-radius: 10px;
+        max-width: 600px;
+        width: 100%;
+        padding: 32px 34px;
+        position: relative;
+        max-height: 86vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+      .mbox::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--teal),
+          var(--blue) 60%,
+          var(--purple)
+        );
+        border-radius: 10px 10px 0 0;
+      }
+      .mclose {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        font-size: 24px;
+        color: #b8c0cc;
+        cursor: pointer;
+        line-height: 1;
+      }
+      .mclose:hover {
+        color: #d0021b;
+      }
+      .m-top {
+        display: flex;
+        gap: 18px;
+        margin-bottom: 20px;
+        align-items: center;
+      }
+      .m-photo {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 2px var(--teal);
+        flex: 0 0 96px;
+      }
+      .m-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--navy);
+        letter-spacing: 1px;
+      }
+      .m-role {
+        font-size: 13px;
+        color: #00a37f;
+        margin-top: 4px;
+      }
+      .m-seat {
+        font-family: Consolas, monospace;
+        font-size: 11px;
+        color: var(--grey);
+        margin-top: 5px;
+        letter-spacing: 1.5px;
+      }
+      .m-bio {
+        font-size: 14px;
+        line-height: 2;
+        color: #2b3852;
+        text-align: justify;
+        padding-top: 18px;
+        border-top: 1px solid #eef1f6;
+      }
 
-/* ===== AI关联圆环 ===== */
-.ring-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:20px 14px; }
-.ring-item { text-align:center; }
-.ring-wrap { position:relative; width:86px; height:86px; margin:0 auto 9px; }
-.ring-wrap img { position:absolute; inset:6px; width:74px; height:74px; border-radius:50%; object-fit:cover; object-position:center top; }
-.ring-wrap svg { position:absolute; inset:0; width:86px; height:86px; }
-.ring-label { font-size:12.5px; font-weight:700; color:var(--navy); margin-bottom:3px; }
-.ring-lv { font-size:10px; letter-spacing:.5px; }
-.ring-lv.hi { color:#00a37f; }
-.ring-lv.mid { color:#2c6fb5; }
-.ring-lv.low { color:#c88a00; }
+      /* ===== AI关联圆环 ===== */
+      .ring-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px 14px;
+      }
+      .ring-item {
+        text-align: center;
+      }
+      .ring-wrap {
+        position: relative;
+        width: 86px;
+        height: 86px;
+        margin: 0 auto 9px;
+      }
+      .ring-wrap img {
+        position: absolute;
+        inset: 6px;
+        width: 74px;
+        height: 74px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .ring-wrap svg {
+        position: absolute;
+        inset: 0;
+        width: 86px;
+        height: 86px;
+      }
+      .ring-label {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 3px;
+      }
+      .ring-lv {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+      }
+      .ring-lv.hi {
+        color: #00a37f;
+      }
+      .ring-lv.mid {
+        color: #2c6fb5;
+      }
+      .ring-lv.low {
+        color: #c88a00;
+      }
 
-/* 图例：每行一条，圆点钉在首行左侧，文字悬挂缩进（折行后不会顶到圆点下面） */
-.legend { display:block; margin-top:20px; padding-top:16px; border-top:1px solid #eef1f6; font-size:12.5px; }
-.legend span { display:block; position:relative; padding-left:18px; line-height:1.6; color:#4a5b7c; margin-bottom:8px; }
-.legend span:last-child { margin-bottom:0; }
-.legend .dot { position:absolute; left:0; top:.42em; }
-.dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
-.dot.hi { background:#008f70; }
-.dot.mid { background:#2c6fb5; }
-.dot.low { background:#a06e00; }
+      /* 图例：每行一条，圆点钉在首行左侧，文字悬挂缩进（折行后不会顶到圆点下面） */
+      .legend {
+        display: block;
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid #eef1f6;
+        font-size: 12.5px;
+      }
+      .legend span {
+        display: block;
+        position: relative;
+        padding-left: 18px;
+        line-height: 1.6;
+        color: #4a5b7c;
+        margin-bottom: 8px;
+      }
+      .legend span:last-child {
+        margin-bottom: 0;
+      }
+      .legend .dot {
+        position: absolute;
+        left: 0;
+        top: 0.42em;
+      }
+      .dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .dot.hi {
+        background: #008f70;
+      }
+      .dot.mid {
+        background: #2c6fb5;
+      }
+      .dot.low {
+        background: #a06e00;
+      }
 
-/* ===== 其它 ===== */
-table { width:100%; border-collapse:collapse; font-size:12.5px; }
-th { background:var(--navy); color:#fff; font-weight:500; text-align:left; padding:10px 12px; white-space:nowrap; }
-td { padding:9px 12px; border-bottom:1px solid #e8ecf2; vertical-align:top; }
-tbody tr:nth-child(even) { background:#fafbfd; }
-.seat { font-family:Consolas,monospace; color:#00b89c; font-weight:700; white-space:nowrap; }
-.new-badge { display:inline-block; background:#00b89c; color:#fff; font-size:10px; padding:1px 7px; border-radius:9px; margin-left:6px; }
-.fix-badge { display:inline-block; background:var(--navy); color:var(--teal); font-size:10px; padding:1px 7px; border-radius:9px; margin-left:6px; }
-.ok { color:#00a37f; font-weight:700; }
-.note { background:#f6f9fb; border-left:3px solid #00b89c; padding:14px 18px; border-radius:0 4px 4px 0; margin:14px 0; font-size:13px; }
-.note.warn-note { background:#fffbf2; border-left-color:#e8a33d; }
-.note.alert { background:#fdf5f6; border-left-color:#d0021b; }
-.note-title { font-weight:700; color:var(--navy); margin-bottom:5px; font-size:13px; }
-.new-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.new-card { border:1px solid #dde3ec; border-radius:6px; padding:20px; background:#fcfdfe; }
-.new-card-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid #e8ecf2; }
-.new-avatar { width:52px; height:68px; object-fit:cover; object-position:center top; border-radius:3px; background:#eef1f6; }
-.new-name { font-size:17px; font-weight:700; color:var(--navy); }
-.new-role { font-size:12px; color:#00a37f; margin-top:2px; }
-.new-bio { font-size:12.5px; color:#33405c; text-align:justify; line-height:1.75; }
-.new-tags { margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; }
-.tg { font-size:11px; background:#eef4f8; color:#4a5b7c; padding:3px 10px; border-radius:10px; }
-.cols { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-ul.plain { list-style:none; font-size:13px; }
-ul.plain li { padding:6px 0 6px 20px; position:relative; border-bottom:1px dashed #eaeef4; }
-ul.plain li:last-child { border-bottom:none; }
-ul.plain li::before { content:"▸"; position:absolute; left:4px; color:#00b89c; font-weight:700; }
-/* ===== 字号整体放大（统一在此覆盖，手机端由下方媒体查询再定） ===== */
-.nav-brand { font-size:14.5px; }
-.nav-link { font-size:15px; }
-.rpt-eyebrow { font-size:13.5px; }
-.rpt-title { font-size:31px; }
-.rpt-sub { font-size:15px; }
-.rpt-seats .lb { font-size:14.5px; }
-.rpt-seats .vl { font-size:26px; }
-.rpt-seats .vl small { font-size:14px; }
-.rpt-meta { font-size:14px; }
-.pr-eyebrow { font-size:13px; }
-.pr-title { font-size:22px; }
-.pr-body p { font-size:16.5px; line-height:1.95; margin-bottom:15px; }
-.pr-sign { font-size:14px; }
-h2 { font-size:20.5px; }
-h3 { font-size:16px; }
-.sub-note { font-size:14.5px; }
-.sec-name { font-size:20.5px; }
-.sec-num { font-size:38px; }
-.sec-num small { font-size:16.5px; }
-.net-cap { font-size:12px; }
-.ind-block svg { max-width:560px; margin:0 auto; }
-.bar-row { font-size:14.5px; }
-.bar-name { flex:0 0 172px; }
-.rc-seat { font-size:12px; }
-.rc-name { font-size:15.5px; }
-.rc-tag { font-size:12.5px; }
-.rc-hint { font-size:12px; }
-.rc.new::after { font-size:12px; }
-.mclose { font-size:26px; }
-.m-name { font-size:24px; }
-.m-role { font-size:15px; }
-.m-seat { font-size:13px; }
-.m-bio { font-size:16px; }
-.legend { font-size:14.5px; }
-table { font-size:14.5px; }
-.new-badge { font-size:12px; }
-.fix-badge { font-size:12px; }
-.note { font-size:15px; }
-.note-title { font-size:15px; }
-.new-name { font-size:19px; }
-.new-role { font-size:14px; }
-.new-bio { font-size:14.5px; }
-.tg { font-size:13px; }
-ul.plain { font-size:15px; }
-.footer-note { text-align:center; font-size:14px; color:#98a2b3; margin-top:26px; line-height:1.9; }
+      /* ===== 其它 ===== */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12.5px;
+      }
+      th {
+        background: var(--navy);
+        color: #fff;
+        font-weight: 500;
+        text-align: left;
+        padding: 10px 12px;
+        white-space: nowrap;
+      }
+      td {
+        padding: 9px 12px;
+        border-bottom: 1px solid #e8ecf2;
+        vertical-align: top;
+      }
+      tbody tr:nth-child(even) {
+        background: #fafbfd;
+      }
+      .seat {
+        font-family: Consolas, monospace;
+        color: #00b89c;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .new-badge {
+        display: inline-block;
+        background: #00b89c;
+        color: #fff;
+        font-size: 10px;
+        padding: 1px 7px;
+        border-radius: 9px;
+        margin-left: 6px;
+      }
+      .fix-badge {
+        display: inline-block;
+        background: var(--navy);
+        color: var(--teal);
+        font-size: 10px;
+        padding: 1px 7px;
+        border-radius: 9px;
+        margin-left: 6px;
+      }
+      .ok {
+        color: #00a37f;
+        font-weight: 700;
+      }
+      .note {
+        background: #f6f9fb;
+        border-left: 3px solid #00b89c;
+        padding: 14px 18px;
+        border-radius: 0 4px 4px 0;
+        margin: 14px 0;
+        font-size: 13px;
+      }
+      .note.warn-note {
+        background: #fffbf2;
+        border-left-color: #e8a33d;
+      }
+      .note.alert {
+        background: #fdf5f6;
+        border-left-color: #d0021b;
+      }
+      .note-title {
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+      .new-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .new-card {
+        border: 1px solid #dde3ec;
+        border-radius: 6px;
+        padding: 20px;
+        background: #fcfdfe;
+      }
+      .new-card-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #e8ecf2;
+      }
+      .new-avatar {
+        width: 52px;
+        height: 68px;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 3px;
+        background: #eef1f6;
+      }
+      .new-name {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .new-role {
+        font-size: 12px;
+        color: #00a37f;
+        margin-top: 2px;
+      }
+      .new-bio {
+        font-size: 12.5px;
+        color: #33405c;
+        text-align: justify;
+        line-height: 1.75;
+      }
+      .new-tags {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tg {
+        font-size: 11px;
+        background: #eef4f8;
+        color: #4a5b7c;
+        padding: 3px 10px;
+        border-radius: 10px;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      ul.plain {
+        list-style: none;
+        font-size: 13px;
+      }
+      ul.plain li {
+        padding: 6px 0 6px 20px;
+        position: relative;
+        border-bottom: 1px dashed #eaeef4;
+      }
+      ul.plain li:last-child {
+        border-bottom: none;
+      }
+      ul.plain li::before {
+        content: "▸";
+        position: absolute;
+        left: 4px;
+        color: #00b89c;
+        font-weight: 700;
+      }
+      /* ===== 字号整体放大（统一在此覆盖，手机端由下方媒体查询再定） ===== */
+      .nav-brand {
+        font-size: 14.5px;
+      }
+      .nav-link {
+        font-size: 15px;
+      }
+      .rpt-eyebrow {
+        font-size: 13.5px;
+      }
+      .rpt-title {
+        font-size: 31px;
+      }
+      .rpt-sub {
+        font-size: 15px;
+      }
+      .rpt-seats .lb {
+        font-size: 14.5px;
+      }
+      .rpt-seats .vl {
+        font-size: 26px;
+      }
+      .rpt-seats .vl small {
+        font-size: 14px;
+      }
+      .rpt-meta {
+        font-size: 14px;
+      }
+      .pr-eyebrow {
+        font-size: 13px;
+      }
+      .pr-title {
+        font-size: 22px;
+      }
+      .pr-body p {
+        font-size: 16.5px;
+        line-height: 1.95;
+        margin-bottom: 15px;
+      }
+      .pr-sign {
+        font-size: 14px;
+      }
+      h2 {
+        font-size: 20.5px;
+      }
+      h3 {
+        font-size: 16px;
+      }
+      .sub-note {
+        font-size: 14.5px;
+      }
+      .sec-name {
+        font-size: 20.5px;
+      }
+      .sec-num {
+        font-size: 38px;
+      }
+      .sec-num small {
+        font-size: 16.5px;
+      }
+      .net-cap {
+        font-size: 12px;
+      }
+      .ind-block svg {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+      .bar-row {
+        font-size: 14.5px;
+      }
+      .bar-name {
+        flex: 0 0 172px;
+      }
+      .rc-seat {
+        font-size: 12px;
+      }
+      .rc-name {
+        font-size: 15.5px;
+      }
+      .rc-tag {
+        font-size: 12.5px;
+      }
+      .rc-hint {
+        font-size: 12px;
+      }
+      .rc.new::after {
+        font-size: 12px;
+      }
+      .mclose {
+        font-size: 26px;
+      }
+      .m-name {
+        font-size: 24px;
+      }
+      .m-role {
+        font-size: 15px;
+      }
+      .m-seat {
+        font-size: 13px;
+      }
+      .m-bio {
+        font-size: 16px;
+      }
+      .legend {
+        font-size: 14.5px;
+      }
+      table {
+        font-size: 14.5px;
+      }
+      .new-badge {
+        font-size: 12px;
+      }
+      .fix-badge {
+        font-size: 12px;
+      }
+      .note {
+        font-size: 15px;
+      }
+      .note-title {
+        font-size: 15px;
+      }
+      .new-name {
+        font-size: 19px;
+      }
+      .new-role {
+        font-size: 14px;
+      }
+      .new-bio {
+        font-size: 14.5px;
+      }
+      .tg {
+        font-size: 13px;
+      }
+      ul.plain {
+        font-size: 15px;
+      }
+      .footer-note {
+        text-align: center;
+        font-size: 14px;
+        color: #98a2b3;
+        margin-top: 26px;
+        line-height: 1.9;
+      }
 
-/* ===== 移动端适配 ===== */
-html { -webkit-text-size-adjust:100%; }
-.shift-table th:nth-child(1) { width:120px; }
-.shift-table th:nth-child(2) { width:200px; }
+      /* ===== 移动端适配 ===== */
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      .shift-table th:nth-child(1) {
+        width: 120px;
+      }
+      .shift-table th:nth-child(2) {
+        width: 200px;
+      }
 
-/* --- 平板竖屏 / 大屏手机 --- */
-@media (max-width:768px) {
-  .wrap { padding:20px 14px 0; }
-  .card { padding:22px 18px; }
-  .preamble { padding:24px 20px; }
+      /* --- 平板竖屏 / 大屏手机 --- */
+      @media (max-width: 768px) {
+        .wrap {
+          padding: 20px 14px 0;
+        }
+        .card {
+          padding: 22px 18px;
+        }
+        .preamble {
+          padding: 24px 20px;
+        }
 
-  .nav-inner { height:52px; gap:12px; padding:0 12px; }
-  .nav-brand { font-size:14px; letter-spacing:1px; }
-  .nav-link { font-size:14px; padding:6px 10px; }
-  /* 导航横向滑动提示：右缘渐隐，暗示右侧还有菜单 */
-  .nav-links {
-    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 28px),transparent 100%);
-    mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 28px),transparent 100%);
-  }
+        .nav-inner {
+          height: 52px;
+          gap: 12px;
+          padding: 0 12px;
+        }
+        .nav-brand {
+          font-size: 14px;
+          letter-spacing: 1px;
+        }
+        .nav-link {
+          font-size: 14px;
+          padding: 6px 10px;
+        }
+        /* 导航横向滑动提示：右缘渐隐，暗示右侧还有菜单 */
+        .nav-links {
+          -webkit-mask-image: linear-gradient(
+            90deg,
+            #000 0,
+            #000 calc(100% - 28px),
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            90deg,
+            #000 0,
+            #000 calc(100% - 28px),
+            transparent 100%
+          );
+        }
 
-  .rpt-head { padding:26px 22px 30px; column-gap:0; }
-  .rpt-main, .rpt-meta { top:0; }
-  .rpt-eyebrow, .rpt-title, .rpt-seats { top:0; }
-  .rpt-eyebrow { letter-spacing:2.5px; }
-  .rpt-title { font-size:27px; letter-spacing:.8px; }
-  .rpt-seats { gap:16px 24px; }
-  .rpt-seats .vl { font-size:24px; }
-  .rpt-meta { margin-top:14px; padding-top:20px; }
-  .rpt-book { margin-top:36px; }
-  .book-img { height:210px; }
+        .rpt-head {
+          padding: 26px 22px 30px;
+          column-gap: 0;
+        }
+        .rpt-main,
+        .rpt-meta {
+          top: 0;
+        }
+        .rpt-eyebrow,
+        .rpt-title,
+        .rpt-seats {
+          top: 0;
+        }
+        .rpt-eyebrow {
+          letter-spacing: 2.5px;
+        }
+        .rpt-title {
+          font-size: 27px;
+          letter-spacing: 0.8px;
+        }
+        .rpt-seats {
+          gap: 16px 24px;
+        }
+        .rpt-seats .vl {
+          font-size: 24px;
+        }
+        .rpt-meta {
+          margin-top: 14px;
+          padding-top: 20px;
+        }
+        .rpt-book {
+          margin-top: 36px;
+        }
+        .book-img {
+          height: 210px;
+        }
 
-  .pr-body p { font-size:17px; line-height:1.9; text-align:left; margin-bottom:16px; }
-  h2 { font-size:19px; }
+        .pr-body p {
+          font-size: 17px;
+          line-height: 1.9;
+          text-align: left;
+          margin-bottom: 16px;
+        }
+        h2 {
+          font-size: 19px;
+        }
 
-  .net-grid, .new-grid, .cols { grid-template-columns:1fr; }
-  .roster { grid-template-columns:repeat(3,1fr); gap:12px; }
+        .net-grid,
+        .new-grid,
+        .cols {
+          grid-template-columns: 1fr;
+        }
+        .roster {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
 
-  .mbox { padding:26px 20px; max-height:90vh; }
-  .m-top { gap:14px; }
-  .m-photo { width:78px; height:78px; flex:0 0 78px; }
-  .m-bio { line-height:1.9; text-align:left; padding-top:14px; }
-}
+        .mbox {
+          padding: 26px 20px;
+          max-height: 90vh;
+        }
+        .m-top {
+          gap: 14px;
+        }
+        .m-photo {
+          width: 78px;
+          height: 78px;
+          flex: 0 0 78px;
+        }
+        .m-bio {
+          line-height: 1.9;
+          text-align: left;
+          padding-top: 14px;
+        }
+      }
 
-/* --- 手机 --- */
-@media (max-width:480px) {
-  .wrap { padding:14px 12px 0; }
-  .card { padding:18px 14px; }
-  .preamble { padding:20px 14px; }
+      /* --- 手机 --- */
+      @media (max-width: 480px) {
+        .wrap {
+          padding: 14px 12px 0;
+        }
+        .card {
+          padding: 18px 14px;
+        }
+        .preamble {
+          padding: 20px 14px;
+        }
 
-  .nav-inner { padding:0 10px; gap:10px; }
-  .nav-brand { font-size:13px; }
-  .nav-link { font-size:13.5px; padding:6px 9px; }
+        .nav-inner {
+          padding: 0 10px;
+          gap: 10px;
+        }
+        .nav-brand {
+          font-size: 13px;
+        }
+        .nav-link {
+          font-size: 13.5px;
+          padding: 6px 9px;
+        }
 
-  .rpt-head { padding:22px 16px 24px; }
-  .rpt-eyebrow { font-size:12px; letter-spacing:2px; }
-  .rpt-title { font-size:23px; letter-spacing:.5px; }
-  .rpt-sub { font-size:13.5px; }
-  .rpt-seats { display:grid; grid-template-columns:repeat(2,auto); justify-content:space-between; gap:10px 16px; margin-top:18px; }
-  .rpt-seats .lb { font-size:13px; letter-spacing:.5px; }
-  .rpt-seats .vl { font-size:21px; }
-  .rpt-meta { font-size:13px; gap:10px 14px; }
-  .book-img { height:170px; }
+        .rpt-head {
+          padding: 22px 16px 24px;
+        }
+        .rpt-eyebrow {
+          font-size: 12px;
+          letter-spacing: 2px;
+        }
+        .rpt-title {
+          font-size: 23px;
+          letter-spacing: 0.5px;
+        }
+        .rpt-sub {
+          font-size: 13.5px;
+        }
+        .rpt-seats {
+          display: grid;
+          grid-template-columns: repeat(2, auto);
+          justify-content: space-between;
+          gap: 10px 16px;
+          margin-top: 18px;
+        }
+        .rpt-seats .lb {
+          font-size: 13px;
+          letter-spacing: 0.5px;
+        }
+        .rpt-seats .vl {
+          font-size: 21px;
+        }
+        .rpt-meta {
+          font-size: 13px;
+          gap: 10px 14px;
+        }
+        .book-img {
+          height: 170px;
+        }
 
-  h2 { font-size:18.5px; padding-left:10px; border-left-width:3px; margin-bottom:14px; }
-  h3 { font-size:15px; margin:18px 0 10px; }
-  .pr-title { font-size:21px; margin-bottom:14px; }
-  .pr-body p { font-size:18px; line-height:1.9; margin-bottom:18px; }
-  .pr-sign { font-size:15px; }
+        h2 {
+          font-size: 18.5px;
+          padding-left: 10px;
+          border-left-width: 3px;
+          margin-bottom: 14px;
+        }
+        h3 {
+          font-size: 15px;
+          margin: 18px 0 10px;
+        }
+        .pr-title {
+          font-size: 21px;
+          margin-bottom: 14px;
+        }
+        .pr-body p {
+          font-size: 18px;
+          line-height: 1.9;
+          margin-bottom: 18px;
+        }
+        .pr-sign {
+          font-size: 15px;
+        }
 
-  .sec-grid { gap:10px; }
-  .sec-card { min-height:158px; }
-  .sec-top { gap:10px; padding:0 10px; }
-  .sec-icon { width:34px; height:34px; flex:0 0 34px; }
-  .sec-num { font-size:28px; }
-  .sec-num small { font-size:14px; }
-  .sec-name { font-size:15.5px; }
-  .sec-bottom { padding:0 8px; }
+        .sec-grid {
+          gap: 10px;
+        }
+        .sec-card {
+          min-height: 158px;
+        }
+        .sec-top {
+          gap: 10px;
+          padding: 0 10px;
+        }
+        .sec-icon {
+          width: 34px;
+          height: 34px;
+          flex: 0 0 34px;
+        }
+        .sec-num {
+          font-size: 28px;
+        }
+        .sec-num small {
+          font-size: 14px;
+        }
+        .sec-name {
+          font-size: 15.5px;
+        }
+        .sec-bottom {
+          padding: 0 8px;
+        }
 
-  .roster { grid-template-columns:repeat(2,1fr); gap:10px; }
-  .rc { padding:12px 8px 10px; }
-  .rc-photo { width:64px; height:64px; margin-bottom:8px; }
-  .rc-name { font-size:15px; }
-  .rc-tag { font-size:12px; min-height:26px; }
+        .roster {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+        .rc {
+          padding: 12px 8px 10px;
+        }
+        .rc-photo {
+          width: 64px;
+          height: 64px;
+          margin-bottom: 8px;
+        }
+        .rc-name {
+          font-size: 15px;
+        }
+        .rc-tag {
+          font-size: 12px;
+          min-height: 26px;
+        }
 
-  /* 行业网络图：按原始比例(1:1)渲染并在卡片内横向滑动，避免图内人名被缩得太小 */
-  .ind-block { overflow-x:auto; }
-  .ind-block svg { min-width:500px; }
+        /* 行业网络图：按原始比例(1:1)渲染并在卡片内横向滑动，避免图内人名被缩得太小 */
+        .ind-block {
+          overflow-x: auto;
+        }
+        .ind-block svg {
+          min-width: 500px;
+        }
 
-  .bar-row { flex-wrap:wrap; row-gap:4px; margin-bottom:12px; }
-  .bar-name { flex:1 1 100%; }
-  .bar-track { flex:1 1 auto; }
-  .bar-val { flex:0 0 62px; }
+        .bar-row {
+          flex-wrap: wrap;
+          row-gap: 4px;
+          margin-bottom: 12px;
+        }
+        .bar-name {
+          flex: 1 1 100%;
+        }
+        .bar-track {
+          flex: 1 1 auto;
+        }
+        .bar-val {
+          flex: 0 0 62px;
+        }
 
-  .shift-table { font-size:13.5px; }
-  .shift-table th, .shift-table td { padding:8px 7px; }
-  .shift-table th { white-space:normal; }
-  .shift-table th:nth-child(1), .shift-table th:nth-child(2) { width:auto; }
-  .seat { font-size:13px; }
+        .shift-table {
+          font-size: 13.5px;
+        }
+        .shift-table th,
+        .shift-table td {
+          padding: 8px 7px;
+        }
+        .shift-table th {
+          white-space: normal;
+        }
+        .shift-table th:nth-child(1),
+        .shift-table th:nth-child(2) {
+          width: auto;
+        }
+        .seat {
+          font-size: 13px;
+        }
 
-  .modal { padding:10px; }
-  .mbox { padding:22px 16px 20px; max-height:92vh; }
-  .m-top { gap:12px; margin-bottom:16px; }
-  .m-photo { width:64px; height:64px; flex:0 0 64px; border-width:2px; }
-  .m-name { font-size:20px; }
-  .m-role { font-size:14px; }
-  .m-bio { font-size:15px; line-height:1.85; }
+        .modal {
+          padding: 10px;
+        }
+        .mbox {
+          padding: 22px 16px 20px;
+          max-height: 92vh;
+        }
+        .m-top {
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+        .m-photo {
+          width: 64px;
+          height: 64px;
+          flex: 0 0 64px;
+          border-width: 2px;
+        }
+        .m-name {
+          font-size: 20px;
+        }
+        .m-role {
+          font-size: 14px;
+        }
+        .m-bio {
+          font-size: 15px;
+          line-height: 1.85;
+        }
 
-  .legend { font-size:13.5px; margin-top:16px; padding-top:12px; }
-  .legend span { margin-bottom:9px; }
-  .note { padding:12px 14px; font-size:14px; }
-  .new-card { padding:16px; }
-  .new-name { font-size:18px; }
-  .footer-note { font-size:13px; margin-top:20px; }
-}
-</style>
-</head>
-<body>
-<nav class="topnav" id="topnav">
-  <div class="nav-inner">
-    <span class="nav-brand">AI 素质报告</span>
-    <div class="nav-links">
-      <a class="nav-link" href="#sec-intro">关于这群人</a>
-      <a class="nav-link" href="#sec-industry">联合出版人行业背景分布</a>
-      <a class="nav-link" href="#sec-roster">全量名录</a>
-      <a class="nav-link" href="#sec-ai">同业及AI关联指数</a>
-      <a class="nav-link" href="#sec-new">本轮新增</a>
-      <a class="nav-link" href="#sec-shift">席位变动</a>
-      <a class="nav-link" href="#sec-quant">量化分析</a>
-      <a class="nav-link" href="#sec-todo">待办事项</a>
-    </div>
-  </div>
-</nav>
-
-<div class="wrap">
-
-<!-- ===== 报告头 ===== -->
-<div class="rpt-head">
-  <div class="rpt-main">
-    <div class="rpt-eyebrow">CO-PUBLISHER · AI QUALITY REPORT</div>
-    <div class="rpt-title">《AI指挥官》联合出版人 · AI素质报告</div>
-    <div class="rpt-sub">19 席联合出版人资料全量核查 · 结构分析与 AI 关联度评估</div>
-    <div class="rpt-seats">
-      <span class="seats-item"><span class="lb">计划席位</span><span class="vl plain">30<small>席</small></span></span>
-      <span class="seats-item"><span class="lb">已登榜</span><span class="vl">19<small>席</small></span></span>
-      <span class="seats-item"><span class="lb">本轮新增</span><span class="vl">2<small>席</small></span></span>
-      <span class="seats-item"><span class="lb">剩余虚位</span><span class="vl plain">11<small>席</small></span></span>
-    </div>
-  </div>
-
-  <div class="rpt-book">
-    <img class="book-img" src="AI指挥官-立体书.png" alt="《AI指挥官》">
-  </div>
-
-  <div class="rpt-meta">
-    <span>版本：V2</span>
-    <span>数据源：01-联合出版人.md</span>
-    <span>照片库：照片/（19张）</span>
-    <span>核查范围：19席全量</span>
-    <span class="rpt-date" id="genDate">修订日期：—</span>
-  </div>
-</div>
-
-<!-- ===== 导语 ===== -->
-<div class="preamble" id="sec-intro">
-  <div class="pr-eyebrow">PREFACE · 关于这群人</div>
-  <div class="pr-title">十九位同行者：把 AI 落到实处的中国人</div>
-  <div class="pr-body">
-    <p>《AI指挥官》的联合出版人，是一群从真实一线战场走出来的人。有人用二十余年在运动面料行业织出从研发到出海的完整链路；有人把大健康、家政与美业做成社区里看得见的服务；有人穿梭于资本与实业之间，为企业跨越价值关口搭桥；也有人从传统行业纵身跃入互联网，在失败里重新站起，最终以平台 CEO 的身份回望来路。还有人在 AI 浪潮初起时便已入局，把 AI 获客、智能体应用、GEO 增长这些新名词，变成了可复制、可验证的方法。</p>
-    <p>这十九个名字背后，是三十余年的产业积淀与二十余载的深耕不辍。<span class="hl">他们中没有一个是 AI 的旁观者</span>——他们把自己的行业当作试验场，去回答同一个问题：AI 究竟能为中国的实体产业做些什么？</p>
-    <p>这正是《AI指挥官》的起点。他们不是冠名者，而是<span class="hlb">共创者</span>——在纸质书问世之前率先登榜，与作者并肩站在出版之战的最前线。他们的经验、踩过的坑、对 AI 的期待与审慎，都被写进书里。这本书因此不只有技术，更带着真实的产业体温。</p>
-    <p>比"读懂 AI"更重要的，是让 AI 真正落进千万家企业的车间、门店与货架。这需要有人沉得住气，在实业里一寸一寸推进；需要有人扛得起责任，把新技术用得稳、用得正；更需要有人愿意把经验与判断，回馈给仍在路上的同行者。</p>
-    <p>这十九位联合出版人，正是这样一群人。他们<span class="hlb">以实业为根、以 AI 为翼</span>，相信 AI 不是替代人，而是把人从重复劳动中解放出来，去做更有价值的事；也相信技术的温度，最终要靠人的担当来兑现。这份名录记录的不只是十九个席位，更是一份承诺——对这个时代，对这个行业，也对每一个正在学习如何与 AI 共处的普通人。</p>
-  </div>
-  <div class="pr-sign">——《AI指挥官》联合出版人 AI 素质报告</div>
-</div>
-
-<!-- ===== 一、行业背景分布 ===== -->
-<div class="card" id="sec-industry">
-  <h2>一、联合出版人行业背景分布</h2>
-  <p class="sub-note">依据各人简介文本归类，部分简介含多重身份，按主身份归入最贴切的一类。</p>
-
-  <h3>行业领域（图标视图 · 19 席）</h3>
-  <div class="sec-grid">
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon" viewBox="0 0 24 24"><path d="M3 20h18M6 20V11M11 20V6M16 20v-7M21 20V9"/></svg>
-        <div class="sec-num">5<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">金融 · 资本 · 投资</div>
-      </div>
-    </div>
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon blue" viewBox="0 0 24 24"><path d="M3 21V10l6-4 6 4v11M9 21v-5h6v5M21 21v-7l-3-2"/></svg>
-        <div class="sec-num">2<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">传统实业 · 制造</div>
-      </div>
-    </div>
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon" viewBox="0 0 24 24"><path d="M12 21s-7.5-5-7.5-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7.5 3.5C19.5 16 12 21 12 21z"/><path d="M12 11v4M10 13h4"/></svg>
-        <div class="sec-num">3<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">大健康 · 生活服务</div>
-      </div>
-    </div>
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon blue" viewBox="0 0 24 24"><path d="M8.5 6.5L3 12l5.5 5.5M15.5 6.5L21 12l-5.5 5.5"/></svg>
-        <div class="sec-num">3<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">IT · 互联网 · 数字化</div>
-      </div>
-    </div>
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M10 2.5v4M14 2.5v4M10 17.5v4M14 17.5v4M2.5 10h4M2.5 14h4M17.5 10h4M17.5 14h4"/></svg>
-        <div class="sec-num">2<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">AI 原生 · AI 营销</div>
-      </div>
-    </div>
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon purple" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="#a98cf0"/></svg>
-        <div class="sec-num">2<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">咨询 · 战略 · 架构</div>
-      </div>
-    </div>
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon purple" viewBox="0 0 24 24"><path d="M4 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15M14 21V12h4a2 2 0 0 1 2 2v7M8 8h2M8 12h2M8 16h2"/></svg>
-        <div class="sec-num">1<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">商业地产 · 产业园</div>
-      </div>
-    </div>
-    <div class="sec-card">
-      <div class="sec-top">
-        <svg class="sec-icon" viewBox="0 0 24 24"><path d="M20 3L9 14l-4 1 1-4L17 0l3 3z"/><path d="M9 14v6H3"/></svg>
-        <div class="sec-num">1<small>人</small></div>
-      </div>
-      <div class="sec-bottom">
-        <div class="sec-name">本书作者</div>
-      </div>
-    </div>
-  </div>
-
-  <h3>身份角色（一人可归多类）</h3>
-  <div class="bar-row"><div class="bar-name">专家 · 顾问 · 规划师</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">10 人</div></div>
-  <div class="bar-row"><div class="bar-name">技术 · IT · 互联网</div><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><div class="bar-val">7 人</div></div>
-  <div class="bar-row"><div class="bar-name">投资人 · 资本 · 金融</div><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><div class="bar-val">6 人</div></div>
-  <div class="bar-row"><div class="bar-name">创始人 · 董事长 · 股东</div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><div class="bar-val">5 人</div></div>
-  <div class="bar-row"><div class="bar-name">教育 · 内容 · 编委</div><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div><div class="bar-val">4 人</div></div>
-  <p style="font-size:14px;color:#8a93a6;margin-top:8px;">
-    "专家／顾问／规划师"型占比最高（10 人），说明榜单以具备专业话语权、能对外发声的人群为主，与"联合出版人"的传播属性相契合。
-  </p>
-
-  <h3>从业年限（简介中带明确数字者 7 人）</h3>
-  <div class="bar-row"><div class="bar-name">三十余年</div><div class="bar-track"><div class="bar-fill blue" style="width:25%"></div></div><div class="bar-val">1 人</div></div>
-  <div class="bar-row"><div class="bar-name">二十余年</div><div class="bar-track"><div class="bar-fill blue" style="width:100%"></div></div><div class="bar-val">4 人</div></div>
-  <div class="bar-row"><div class="bar-name">十年</div><div class="bar-track"><div class="bar-fill blue" style="width:25%"></div></div><div class="bar-val">1 人</div></div>
-  <div class="bar-row"><div class="bar-name">八年</div><div class="bar-track"><div class="bar-fill blue" style="width:25%"></div></div><div class="bar-val">1 人</div></div>
-  <div class="bar-row"><div class="bar-name">仅"多年"（未量化）</div><div class="bar-track"><div class="bar-fill grey" style="width:50%"></div></div><div class="bar-val">2 人</div></div>
-  <div class="bar-row"><div class="bar-name">简介未提及</div><div class="bar-track"><div class="bar-fill grey" style="width:100%"></div></div><div class="bar-val">10 人</div></div>
-  <p style="font-size:14px;color:#8a93a6;margin-top:8px;">
-    带明确年限的 7 人中，5 人为"二十年以上"，榜单资历整体偏深；另有 10 人简介未提及年限，是后续可补充的素材方向。
-  </p>
-
-  <h3>高频关键词（出现人次）</h3>
-  <div class="bar-row"><div class="bar-name">运营</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">9 人</div></div>
-  <div class="bar-row"><div class="bar-name">实体</div><div class="bar-track"><div class="bar-fill" style="width:89%"></div></div><div class="bar-val">8 人</div></div>
-  <div class="bar-row"><div class="bar-name">AI</div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><div class="bar-val">7 人</div></div>
-  <div class="bar-row"><div class="bar-name">企业</div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><div class="bar-val">7 人</div></div>
-  <div class="bar-row"><div class="bar-name">产业</div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><div class="bar-val">7 人</div></div>
-  <div class="bar-row"><div class="bar-name">商业</div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><div class="bar-val">7 人</div></div>
-  <div class="bar-row"><div class="bar-name">投资</div><div class="bar-track"><div class="bar-fill" style="width:56%"></div></div><div class="bar-val">5 人</div></div>
-  <div class="bar-row"><div class="bar-name">品牌</div><div class="bar-track"><div class="bar-fill" style="width:56%"></div></div><div class="bar-val">5 人</div></div>
-  <div class="bar-row"><div class="bar-name">互联网</div><div class="bar-track"><div class="bar-fill" style="width:44%"></div></div><div class="bar-val">4 人</div></div>
-
-  <div class="note">
-    <div class="note-title">结构观察</div>
-    榜单呈"<b>资本 + 实业</b>"双主力格局：金融资本类 5 人、实体经营类 5 人（制造 2 ＋ 大健康/生活服务 3），两类合计 10 人、超过半数。这批人正是本书"用 AI 提效降本"的核心受众，其"联合出版人"身份对同类人群有强示范效应。<br>
-    行业集中度同样值得注意：<b>5 人集中在金融资本领域</b>，是全榜最大的单一行业球体；而 19 人分散在 8 个行业，说明榜单既有纵深也有广度。<br>
-    关键词层面，"<b>运营（9 人）</b>""<b>实体（8 人）</b>"的出场率均高于"AI（7 人）"，印证了本书的基本假设——读者首先是实干经营者，其次才是 AI 学习者。
-  </div>
-</div>
-
-<!-- ===== 二、全量名录（照片墙 + 弹窗） ===== -->
-<div class="card" id="sec-roster">
-  <h2>二、全量名录（19 席 · 点击头像查看介绍）</h2>
-  <p class="sub-note">点击任意头像，查看该联合出版人的完整介绍。</p>
-  <div class="roster" id="roster"></div>
-  <div class="note">
-    <div class="note-title">提示</div>
-    姓名下方为各自的主身份标签；带"<b>新</b>"角标者为本轮新增或资料补齐席位。照片均达 300dpi 印刷标准（23×30.6mm 版面）。
-  </div>
-</div>
-
-<!-- ===== 三、同业及AI关联指数 ===== -->
-<div class="card" id="sec-ai">
-  <h2>三、同业及AI关联指数</h2>
-  <p class="sub-note">每个球体代表一个同业群体，球体连出的每条线对应一位该行业的联合出版人；节点圆环的颜色，标示其与 AI 的关联程度。全榜 8 个行业群体、19 位成员。</p>
-  <div class="net-grid" id="netGrid"></div>
-  <div class="legend">
-    <span><i class="dot hi"></i><b>绿环 · 已关联</b>（7 人）：简介中明确提及 AI、数智化或智能体</span>
-    <span><i class="dot mid"></i><b>蓝环 · 可衔接</b>（4 人）：IT／互联网／数字化背景，AI 交集待补写</span>
-    <span><i class="dot low"></i><b>黄环 · 待建立</b>（8 人）：实业／金融背景，建议补一句"关注式"表述或维持现状</span>
-  </div>
-  <div class="note alert" style="margin-top:20px;">
-    <div class="note-title">核心落差：AI 关联度 36.8%（7/19）</div>
-    《AI指挥官》的联合出版人，若简介中完全不见 AI，读者读到名录时会问"他与这本书的关系是什么"。建议按上表分档推进，强需求者优先。
-  </div>
-  <div class="cols" style="margin-top:18px;">
-    <div>
-      <h3 style="color:#00a37f;">已关联（7 人）</h3>
-      <ul class="plain">
-        <li><b>金朝霞</b> — AI营销生态发起人、AI获客、GEO增长</li>
-        <li><b>胡公平</b> — 探索 AI 数智化赋能实体商业</li>
-        <li><b>张成</b> — AI 全域生态规划师</li>
-        <li><b>赵卓一</b> — 深耕 AI 全域营销与商业落地</li>
-        <li><b>张武红</b> — 对 AI 领域高度认同</li>
-        <li><b>危杰棉</b> — 梳理 AI 在商业场景中的落地思考</li>
-        <li><b>胡子老师</b> — 理念：AI 是参谋，你是司令（作者）</li>
-      </ul>
-    </div>
-    <div>
-      <h3 style="color:#c88a00;">可衔接 / 待建立（12 人）</h3>
-      <ul class="plain">
-        <li><b>可衔接：</b>于亚永、吴琦、李海畅、谢眺（IT／互联网背景）</li>
-        <li><b>待建立：</b>鄢海珍、郭瑞元、张玉洁、熊俪</li>
-        <li><b>待建立：</b>韦健、李平、周一、Menger</li>
-      </ul>
-      <p style="font-size:14px;color:#8a93a6;margin-top:8px;">补写建议以本人口径为准，不做代拟。</p>
-    </div>
-  </div>
-</div>
-
-<!-- ===== 四、本轮新增内容 ===== -->
-<div class="card" id="sec-new">
-  <h2>四、本轮新增内容</h2>
-
-  <h3>1. 韦健 —— 原"韦行长"空格补齐 <span class="fix-badge">资料补齐</span></h3>
-  <p style="font-size:15px;color:#4a5b7c;margin-bottom:14px;">
-    该席位此前为"韦行长"占位，长期无简介、无正式姓名，已于上一轮暂缓上版。本轮补齐完整资料：正式姓名<b>韦健</b>、98字简介、高清形象照（1279×1624），正式入住 <b>NO.012</b>。
-  </p>
-
-  <h3>2. 危杰棉 —— 全新登榜 <span class="new-badge">新增</span></h3>
-  <p style="font-size:15px;color:#4a5b7c;margin-bottom:14px;">
-    本轮全新加入，直接携带完整资料（姓名、101字简介、高清形象照 1284×1697），入住 <b>NO.018</b>。
-  </p>
-
-  <div class="new-grid">
-    <div class="new-card">
-      <div class="new-card-top">
-        <img class="new-avatar" src="照片/NO012_韦健.jpg" alt="韦健">
-        <div>
-          <div class="new-name">韦健 <span class="fix-badge">NO.012</span></div>
-          <div class="new-role">金融投融资 · 并购重组（98字）</div>
+        .legend {
+          font-size: 13.5px;
+          margin-top: 16px;
+          padding-top: 12px;
+        }
+        .legend span {
+          margin-bottom: 9px;
+        }
+        .note {
+          padding: 12px 14px;
+          font-size: 14px;
+        }
+        .new-card {
+          padding: 16px;
+        }
+        .new-name {
+          font-size: 18px;
+        }
+        .footer-note {
+          font-size: 13px;
+          margin-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topnav" id="topnav">
+      <div class="nav-inner">
+        <span class="nav-brand">AI 素质报告</span>
+        <div class="nav-links">
+          <a class="nav-link" href="#sec-intro">关于这群人</a>
+          <a class="nav-link" href="#sec-industry">联合出版人行业背景分布</a>
+          <a class="nav-link" href="#sec-roster">全量名录</a>
+          <a class="nav-link" href="#sec-ai">同业及AI关联指数</a>
+          <a class="nav-link" href="#sec-new">本轮新增</a>
+          <a class="nav-link" href="#sec-shift">席位变动</a>
+          <a class="nav-link" href="#sec-quant">量化分析</a>
+          <a class="nav-link" href="#sec-todo">待办事项</a>
         </div>
       </div>
-      <div class="new-bio">深耕金融二十余年，聚焦实体项目投融资，全流程实操丰富。参与火车站基建及大型工商投资项目尽调、研判与价值分析，完成现金流测算、收益评估与风险识别。主导多项并购重组，熟悉交易架构、估值谈判与风险把控。</div>
-      <div class="new-tags"><span class="tg">金融投融资</span><span class="tg">并购重组</span><span class="tg">尽调估值</span><span class="tg">二十余年</span></div>
-    </div>
-    <div class="new-card">
-      <div class="new-card-top">
-        <img class="new-avatar" src="照片/NO018_危杰棉.jpg" alt="危杰棉">
-        <div>
-          <div class="new-name">危杰棉 <span class="new-badge">NO.018</span></div>
-          <div class="new-role">实体连续创业 · 美业大健康（101字）</div>
+    </nav>
+
+    <div class="wrap">
+      <!-- ===== 报告头 ===== -->
+      <div class="rpt-head">
+        <div class="rpt-main">
+          <div class="rpt-eyebrow">CO-PUBLISHER · AI QUALITY REPORT</div>
+          <div class="rpt-title">《AI指挥官》联合出版人 · AI素质报告</div>
+          <div class="rpt-sub">
+            19 席联合出版人资料全量核查 · 结构分析与 AI 关联度评估
+          </div>
+          <div class="rpt-seats">
+            <span class="seats-item"
+              ><span class="lb">计划席位</span
+              ><span class="vl plain">30<small>席</small></span></span
+            >
+            <span class="seats-item"
+              ><span class="lb">已登榜</span
+              ><span class="vl">19<small>席</small></span></span
+            >
+            <span class="seats-item"
+              ><span class="lb">本轮新增</span
+              ><span class="vl">2<small>席</small></span></span
+            >
+            <span class="seats-item"
+              ><span class="lb">剩余虚位</span
+              ><span class="vl plain">11<small>席</small></span></span
+            >
+          </div>
+        </div>
+
+        <div class="rpt-book">
+          <img class="book-img" src="AI指挥官-立体书.png" alt="《AI指挥官》" />
+        </div>
+
+        <div class="rpt-meta">
+          <span>版本：V2</span>
+          <span>数据源：01-联合出版人.md</span>
+          <span>照片库：照片/（19张）</span>
+          <span>核查范围：19席全量</span>
+          <span class="rpt-date" id="genDate">修订日期：—</span>
         </div>
       </div>
-      <div class="new-bio">实体连续创业者，深耕美业与大健康，擅长供应链整合、私域渠道搭建与商业资源对接。从一线实体经营视角，参与梳理AI在商业场景中的落地思考，聚焦普通人如何借助AI工具，把想法转化为实际商业价值，务实推进落地。</div>
-      <div class="new-tags"><span class="tg">连续创业</span><span class="tg">美业大健康</span><span class="tg">供应链整合</span><span class="tg">AI落地</span></div>
-    </div>
-  </div>
 
-  <div class="note">
-    <div class="note-title">两位新人的共同点</div>
-    均属"资本／实业"复合背景，且简介都自带可提炼的硬数字（"二十余年""连续创业"）。危杰棉的简介明确提到"AI在商业场景中的落地"与"普通人借助AI工具"，与本书读者画像高度重合，是天然的推荐语素材。
-  </div>
-</div>
+      <!-- ===== 导语 ===== -->
+      <div class="preamble" id="sec-intro">
+        <div class="pr-eyebrow">PREFACE · 关于这群人</div>
+        <div class="pr-title">十九位同行者：把 AI 落到实处的中国人</div>
+        <div class="pr-body">
+          <p>
+            《AI指挥官》的联合出版人，是一群从真实一线战场走出来的人。有人用二十余年在运动面料行业织出从研发到出海的完整链路；有人把大健康、家政与美业做成社区里看得见的服务；有人穿梭于资本与实业之间，为企业跨越价值关口搭桥；也有人从传统行业纵身跃入互联网，在失败里重新站起，最终以平台
+            CEO 的身份回望来路。还有人在 AI 浪潮初起时便已入局，把 AI
+            获客、智能体应用、GEO 增长这些新名词，变成了可复制、可验证的方法。
+          </p>
+          <p>
+            这十九个名字背后，是三十余年的产业积淀与二十余载的深耕不辍。<span
+              class="hl"
+              >他们中没有一个是 AI 的旁观者</span
+            >——他们把自己的行业当作试验场，去回答同一个问题：AI
+            究竟能为中国的实体产业做些什么？
+          </p>
+          <p>
+            这正是《AI指挥官》的起点。他们不是冠名者，而是<span class="hlb"
+              >共创者</span
+            >——在纸质书问世之前率先登榜，与作者并肩站在出版之战的最前线。他们的经验、踩过的坑、对
+            AI
+            的期待与审慎，都被写进书里。这本书因此不只有技术，更带着真实的产业体温。
+          </p>
+          <p>
+            比"读懂 AI"更重要的，是让 AI
+            真正落进千万家企业的车间、门店与货架。这需要有人沉得住气，在实业里一寸一寸推进；需要有人扛得起责任，把新技术用得稳、用得正；更需要有人愿意把经验与判断，回馈给仍在路上的同行者。
+          </p>
+          <p>
+            这十九位联合出版人，正是这样一群人。他们<span class="hlb"
+              >以实业为根、以 AI 为翼</span
+            >，相信 AI
+            不是替代人，而是把人从重复劳动中解放出来，去做更有价值的事；也相信技术的温度，最终要靠人的担当来兑现。这份名录记录的不只是十九个席位，更是一份承诺——对这个时代，对这个行业，也对每一个正在学习如何与
+            AI 共处的普通人。
+          </p>
+        </div>
+        <div class="pr-sign">——《AI指挥官》联合出版人 AI 素质报告</div>
+      </div>
 
-<!-- ===== 五、席位变动说明 ===== -->
-<div class="card" id="sec-shift">
-  <h2>五、席位变动说明</h2>
-  <p style="font-size:15px;color:#4a5b7c;margin-bottom:16px;">
-    韦健按登榜顺序（谢眺之后、李平之前）入住 NO.012，其后所有席位顺延一位；危杰棉入住 NO.018。照片文件已同步重命名，档案引用已同步更新。
-  </p>
-  <table class="shift-table">
-    <thead><tr><th>席位</th><th>姓名</th><th>变动</th></tr></thead>
-    <tbody>
-      <tr><td class="seat">NO.001–011</td><td>鄢海珍 … 谢眺</td><td>不变</td></tr>
-      <tr><td class="seat">NO.012</td><td>韦健 <span class="fix-badge">补</span></td><td>原空缺席位（韦行长）→ 资料补齐正式入住</td></tr>
-      <tr><td class="seat">NO.013</td><td>李平</td><td>原 NO.012 → 顺延</td></tr>
-      <tr><td class="seat">NO.014</td><td>周一</td><td>原 NO.013 → 顺延</td></tr>
-      <tr><td class="seat">NO.015</td><td>张武红</td><td>原 NO.014 → 顺延</td></tr>
-      <tr><td class="seat">NO.016</td><td>赵卓一</td><td>原 NO.015 → 顺延</td></tr>
-      <tr><td class="seat">NO.017</td><td>Menger</td><td>原 NO.016 → 顺延</td></tr>
-      <tr><td class="seat">NO.018</td><td>危杰棉 <span class="new-badge">新</span></td><td>全新登榜</td></tr>
-      <tr><td class="seat">NO.019</td><td>胡子老师</td><td>原 NO.017 → 顺延（本书作者）</td></tr>
-      <tr><td class="seat">NO.020–030</td><td>虚位以待</td><td>剩余 11 席</td></tr>
-    </tbody>
-  </table>
-</div>
+      <!-- ===== 一、行业背景分布 ===== -->
+      <div class="card" id="sec-industry">
+        <h2>一、联合出版人行业背景分布</h2>
+        <p class="sub-note">
+          依据各人简介文本归类，部分简介含多重身份，按主身份归入最贴切的一类。
+        </p>
 
-<!-- ===== 六、量化分析 ===== -->
-<div class="card" id="sec-quant">
-  <h2>六、量化分析</h2>
+        <h3>行业领域（图标视图 · 19 席）</h3>
+        <div class="sec-grid">
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon" viewBox="0 0 24 24">
+                <path d="M3 20h18M6 20V11M11 20V6M16 20v-7M21 20V9" />
+              </svg>
+              <div class="sec-num">5<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">金融 · 资本 · 投资</div>
+            </div>
+          </div>
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon blue" viewBox="0 0 24 24">
+                <path d="M3 21V10l6-4 6 4v11M9 21v-5h6v5M21 21v-7l-3-2" />
+              </svg>
+              <div class="sec-num">2<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">传统实业 · 制造</div>
+            </div>
+          </div>
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 21s-7.5-5-7.5-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7.5 3.5C19.5 16 12 21 12 21z"
+                />
+                <path d="M12 11v4M10 13h4" />
+              </svg>
+              <div class="sec-num">3<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">大健康 · 生活服务</div>
+            </div>
+          </div>
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon blue" viewBox="0 0 24 24">
+                <path d="M8.5 6.5L3 12l5.5 5.5M15.5 6.5L21 12l-5.5 5.5" />
+              </svg>
+              <div class="sec-num">3<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">IT · 互联网 · 数字化</div>
+            </div>
+          </div>
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon" viewBox="0 0 24 24">
+                <rect x="6.5" y="6.5" width="11" height="11" rx="2" />
+                <path
+                  d="M10 2.5v4M14 2.5v4M10 17.5v4M14 17.5v4M2.5 10h4M2.5 14h4M17.5 10h4M17.5 14h4"
+                />
+              </svg>
+              <div class="sec-num">2<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">AI 原生 · AI 营销</div>
+            </div>
+          </div>
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon purple" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="12" cy="12" r="1.3" fill="#a98cf0" />
+              </svg>
+              <div class="sec-num">2<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">咨询 · 战略 · 架构</div>
+            </div>
+          </div>
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon purple" viewBox="0 0 24 24">
+                <path
+                  d="M4 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15M14 21V12h4a2 2 0 0 1 2 2v7M8 8h2M8 12h2M8 16h2"
+                />
+              </svg>
+              <div class="sec-num">1<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">商业地产 · 产业园</div>
+            </div>
+          </div>
+          <div class="sec-card">
+            <div class="sec-top">
+              <svg class="sec-icon" viewBox="0 0 24 24">
+                <path d="M20 3L9 14l-4 1 1-4L17 0l3 3z" />
+                <path d="M9 14v6H3" />
+              </svg>
+              <div class="sec-num">1<small>人</small></div>
+            </div>
+            <div class="sec-bottom">
+              <div class="sec-name">本书作者</div>
+            </div>
+          </div>
+        </div>
 
-  <h3>简介字数分布</h3>
-  <div class="bar-row"><div class="bar-name">95–97 字</div><div class="bar-track"><div class="bar-fill blue" style="width:26%"></div></div><div class="bar-val">5 人</div></div>
-  <div class="bar-row"><div class="bar-name">98–99 字</div><div class="bar-track"><div class="bar-fill blue" style="width:26%"></div></div><div class="bar-val">5 人</div></div>
-  <div class="bar-row"><div class="bar-name">100 字</div><div class="bar-track"><div class="bar-fill blue" style="width:42%"></div></div><div class="bar-val">8 人</div></div>
-  <div class="bar-row"><div class="bar-name">101 字</div><div class="bar-track"><div class="bar-fill blue" style="width:5%"></div></div><div class="bar-val">1 人</div></div>
-  <p style="font-size:14.5px;color:#667;margin-top:8px;">
-    全部 19 席落在 <b>95–101 字</b> 的极窄区间内，平均 99.2 字 —— 100 字口径执行度接近完美，排版时不会出现长短悬殊、参差不齐的问题。
-  </p>
+        <h3>身份角色（一人可归多类）</h3>
+        <div class="bar-row">
+          <div class="bar-name">专家 · 顾问 · 规划师</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 100%"></div>
+          </div>
+          <div class="bar-val">10 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">技术 · IT · 互联网</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 70%"></div>
+          </div>
+          <div class="bar-val">7 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">投资人 · 资本 · 金融</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 60%"></div>
+          </div>
+          <div class="bar-val">6 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">创始人 · 董事长 · 股东</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 50%"></div>
+          </div>
+          <div class="bar-val">5 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">教育 · 内容 · 编委</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 40%"></div>
+          </div>
+          <div class="bar-val">4 人</div>
+        </div>
+        <p style="font-size: 14px; color: #8a93a6; margin-top: 8px">
+          "专家／顾问／规划师"型占比最高（10
+          人），说明榜单以具备专业话语权、能对外发声的人群为主，与"联合出版人"的传播属性相契合。
+        </p>
 
-  <h3>照片分辨率分布</h3>
-  <div class="bar-row"><div class="bar-name">≥1400 px 长边</div><div class="bar-track"><div class="bar-fill" style="width:21%"></div></div><div class="bar-val">4 张</div></div>
-  <div class="bar-row"><div class="bar-name">1000–1399 px</div><div class="bar-track"><div class="bar-fill" style="width:37%"></div></div><div class="bar-val">7 张</div></div>
-  <div class="bar-row"><div class="bar-name">700–999 px</div><div class="bar-track"><div class="bar-fill" style="width:32%"></div></div><div class="bar-val">6 张</div></div>
-  <div class="bar-row"><div class="bar-name">＜700 px（临界）</div><div class="bar-track"><div class="bar-fill grey" style="width:11%"></div></div><div class="bar-val">2 张</div></div>
-  <p style="font-size:14.5px;color:#667;margin-top:8px;">
-    临界两张为 Menger（357×498）、胡公平（427×573）。印刷可用，但若日后加印放大版面，建议优先向本人索取更高清原图。
-  </p>
-  <div class="note">
-    <div class="note-title">印刷达标基准</div>
-    版面照片尺寸 23×30.6 mm，300dpi 需 ≥272×361 px。19 张照片<b>全部达标</b>。
-  </div>
-</div>
+        <h3>从业年限（简介中带明确数字者 7 人）</h3>
+        <div class="bar-row">
+          <div class="bar-name">三十余年</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 25%"></div>
+          </div>
+          <div class="bar-val">1 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">二十余年</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 100%"></div>
+          </div>
+          <div class="bar-val">4 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">十年</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 25%"></div>
+          </div>
+          <div class="bar-val">1 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">八年</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 25%"></div>
+          </div>
+          <div class="bar-val">1 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">仅"多年"（未量化）</div>
+          <div class="bar-track">
+            <div class="bar-fill grey" style="width: 50%"></div>
+          </div>
+          <div class="bar-val">2 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">简介未提及</div>
+          <div class="bar-track">
+            <div class="bar-fill grey" style="width: 100%"></div>
+          </div>
+          <div class="bar-val">10 人</div>
+        </div>
+        <p style="font-size: 14px; color: #8a93a6; margin-top: 8px">
+          带明确年限的 7 人中，5 人为"二十年以上"，榜单资历整体偏深；另有 10
+          人简介未提及年限，是后续可补充的素材方向。
+        </p>
 
-<!-- ===== 七、待办事项 ===== -->
-<div class="card" id="sec-todo">
-  <h2>七、待办事项与建议</h2>
+        <h3>高频关键词（出现人次）</h3>
+        <div class="bar-row">
+          <div class="bar-name">运营</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 100%"></div>
+          </div>
+          <div class="bar-val">9 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">实体</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 89%"></div>
+          </div>
+          <div class="bar-val">8 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">AI</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 78%"></div>
+          </div>
+          <div class="bar-val">7 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">企业</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 78%"></div>
+          </div>
+          <div class="bar-val">7 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">产业</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 78%"></div>
+          </div>
+          <div class="bar-val">7 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">商业</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 78%"></div>
+          </div>
+          <div class="bar-val">7 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">投资</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 56%"></div>
+          </div>
+          <div class="bar-val">5 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">品牌</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 56%"></div>
+          </div>
+          <div class="bar-val">5 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">互联网</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 44%"></div>
+          </div>
+          <div class="bar-val">4 人</div>
+        </div>
 
-  <h3>已处理（本轮完成）</h3>
-  <ul class="plain">
-    <li>韦健、危杰棉两张新照片归位至 <code>照片/</code>，按 <code>NOxxx_姓名</code> 规范命名</li>
-    <li>因席位顺延，8 个既有照片文件同步重命名（NO.012→019 区间）</li>
-    <li>01 档案全部 19 条照片引用同步更新，与照片库一一对应，无失效引用</li>
-    <li>全量核查：19 席简介与照片均达标，无待补席位</li>
-  </ul>
+        <div class="note">
+          <div class="note-title">结构观察</div>
+          榜单呈"<b>资本 + 实业</b>"双主力格局：金融资本类 5 人、实体经营类 5
+          人（制造 2 ＋ 大健康/生活服务 3），两类合计 10
+          人、超过半数。这批人正是本书"用 AI
+          提效降本"的核心受众，其"联合出版人"身份对同类人群有强示范效应。<br />
+          行业集中度同样值得注意：<b>5 人集中在金融资本领域</b
+          >，是全榜最大的单一行业球体；而 19 人分散在 8
+          个行业，说明榜单既有纵深也有广度。<br />
+          关键词层面，"<b>运营（9 人）</b>""<b>实体（8 人）</b
+          >"的出场率均高于"AI（7
+          人）"，印证了本书的基本假设——读者首先是实干经营者，其次才是 AI
+          学习者。
+        </div>
+      </div>
 
-  <h3>建议跟进（3 项）</h3>
-  <ul class="plain">
-    <li><b>档案格式待规整（1处）：</b>胡公平、李海畅、张武红三位的"姓名"字段为空（仅条目标题有名字）；郭瑞元条目缺"介绍："标签。不影响出版，但影响档案检索一致性。</li>
-    <li><b>版式需重排：</b>当前书籍 V13.15 的群英谱仍为 17 人版式（4 页）。新增至 19 人后需重新排入 2 个席位，可维持 4 页结构不变。</li>
-    <li><b>AI 关联补写（12 人）：</b>建议按"可衔接 4 人 / 待建立 8 人"分批处理，文字以本人确认为准。</li>
-  </ul>
+      <!-- ===== 二、全量名录（照片墙 + 弹窗） ===== -->
+      <div class="card" id="sec-roster">
+        <h2>二、全量名录（19 席 · 点击头像查看介绍）</h2>
+        <p class="sub-note">点击任意头像，查看该联合出版人的完整介绍。</p>
+        <div class="roster" id="roster"></div>
+        <div class="note">
+          <div class="note-title">提示</div>
+          姓名下方为各自的主身份标签；带"<b>新</b>"角标者为本轮新增或资料补齐席位。照片均达
+          300dpi 印刷标准（23×30.6mm 版面）。
+        </div>
+      </div>
 
-  <div class="note warn-note">
-    <div class="note-title">关于版权页统计数字</div>
-    书籍当前版本为 362 页。若本轮 19 人版式重新排入后页数发生变动，版权页的页数／字数统计需同步复核。
-  </div>
-</div>
+      <!-- ===== 三、同业及AI关联指数 ===== -->
+      <div class="card" id="sec-ai">
+        <h2>三、同业及AI关联指数</h2>
+        <p class="sub-note">
+          每个球体代表一个同业群体，球体连出的每条线对应一位该行业的联合出版人；节点圆环的颜色，标示其与
+          AI 的关联程度。全榜 8 个行业群体、19 位成员。
+        </p>
+        <div class="net-grid" id="netGrid"></div>
+        <div class="legend">
+          <span
+            ><i class="dot hi"></i><b>绿环 · 已关联</b>（7 人）：简介中明确提及
+            AI、数智化或智能体</span
+          >
+          <span
+            ><i class="dot mid"></i><b>蓝环 · 可衔接</b>（4
+            人）：IT／互联网／数字化背景，AI 交集待补写</span
+          >
+          <span
+            ><i class="dot low"></i><b>黄环 · 待建立</b>（8
+            人）：实业／金融背景，建议补一句"关注式"表述或维持现状</span
+          >
+        </div>
+        <div class="note alert" style="margin-top: 20px">
+          <div class="note-title">核心落差：AI 关联度 36.8%（7/19）</div>
+          《AI指挥官》的联合出版人，若简介中完全不见
+          AI，读者读到名录时会问"他与这本书的关系是什么"。建议按上表分档推进，强需求者优先。
+        </div>
+        <div class="cols" style="margin-top: 18px">
+          <div>
+            <h3 style="color: #00a37f">已关联（7 人）</h3>
+            <ul class="plain">
+              <li><b>金朝霞</b> — AI营销生态发起人、AI获客、GEO增长</li>
+              <li><b>胡公平</b> — 探索 AI 数智化赋能实体商业</li>
+              <li><b>张成</b> — AI 全域生态规划师</li>
+              <li><b>赵卓一</b> — 深耕 AI 全域营销与商业落地</li>
+              <li><b>张武红</b> — 对 AI 领域高度认同</li>
+              <li><b>危杰棉</b> — 梳理 AI 在商业场景中的落地思考</li>
+              <li><b>胡子老师</b> — 理念：AI 是参谋，你是司令（作者）</li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="color: #c88a00">可衔接 / 待建立（12 人）</h3>
+            <ul class="plain">
+              <li>
+                <b>可衔接：</b>于亚永、吴琦、李海畅、谢眺（IT／互联网背景）
+              </li>
+              <li><b>待建立：</b>鄢海珍、郭瑞元、张玉洁、熊俪</li>
+              <li><b>待建立：</b>韦健、李平、周一、Menger</li>
+            </ul>
+            <p style="font-size: 14px; color: #8a93a6; margin-top: 8px">
+              补写建议以本人口径为准，不做代拟。
+            </p>
+          </div>
+        </div>
+      </div>
 
-<div class="footer-note">
-  《AI指挥官》联合出版人 · AI 素质报告 V2<br>
-  数据截至最新档案版本 ｜ 照片规格按 300dpi 印刷标准核验 ｜ 本报告仅用于内部资料管理
-</div>
+      <!-- ===== 四、本轮新增内容 ===== -->
+      <div class="card" id="sec-new">
+        <h2>四、本轮新增内容</h2>
 
-</div>
+        <h3>
+          1. 韦健 —— 原"韦行长"空格补齐 <span class="fix-badge">资料补齐</span>
+        </h3>
+        <p style="font-size: 15px; color: #4a5b7c; margin-bottom: 14px">
+          该席位此前为"韦行长"占位，长期无简介、无正式姓名，已于上一轮暂缓上版。本轮补齐完整资料：正式姓名<b>韦健</b>、98字简介、高清形象照（1279×1624），正式入住
+          <b>NO.013</b>。
+        </p>
 
-<!-- ===== 弹窗 ===== -->
-<div class="modal" id="modal">
-  <div class="mbox">
-    <span class="mclose" onclick="closeM()">&times;</span>
-    <div class="m-top">
-      <img class="m-photo" id="mPhoto" src="照片/NO001_鄢海珍.jpg" alt="">
-      <div>
-        <div class="m-name" id="mName"></div>
-        <div class="m-role" id="mRole"></div>
-        <div class="m-seat" id="mSeat"></div>
+        <h3>2. 危杰棉 —— 全新登榜 <span class="new-badge">新增</span></h3>
+        <p style="font-size: 15px; color: #4a5b7c; margin-bottom: 14px">
+          本轮全新加入，直接携带完整资料（姓名、101字简介、高清形象照
+          1284×1697），入住 <b>NO.018</b>。
+        </p>
+
+        <div class="new-grid">
+          <div class="new-card">
+            <div class="new-card-top">
+              <img class="new-avatar" src="照片/NO013_韦健.jpg" alt="韦健" />
+              <div>
+                <div class="new-name">
+                  韦健 <span class="fix-badge">NO.013</span>
+                </div>
+                <div class="new-role">金融投融资 · 并购重组（98字）</div>
+              </div>
+            </div>
+            <div class="new-bio">
+              深耕金融二十余年，聚焦实体项目投融资，全流程实操丰富。参与火车站基建及大型工商投资项目尽调、研判与价值分析，完成现金流测算、收益评估与风险识别。主导多项并购重组，熟悉交易架构、估值谈判与风险把控。
+            </div>
+            <div class="new-tags">
+              <span class="tg">金融投融资</span><span class="tg">并购重组</span
+              ><span class="tg">尽调估值</span><span class="tg">二十余年</span>
+            </div>
+          </div>
+          <div class="new-card">
+            <div class="new-card-top">
+              <img
+                class="new-avatar"
+                src="照片/NO018_危杰棉.jpg"
+                alt="危杰棉"
+              />
+              <div>
+                <div class="new-name">
+                  危杰棉 <span class="new-badge">NO.018</span>
+                </div>
+                <div class="new-role">实体连续创业 · 美业大健康（101字）</div>
+              </div>
+            </div>
+            <div class="new-bio">
+              实体连续创业者，深耕美业与大健康，擅长供应链整合、私域渠道搭建与商业资源对接。从一线实体经营视角，参与梳理AI在商业场景中的落地思考，聚焦普通人如何借助AI工具，把想法转化为实际商业价值，务实推进落地。
+            </div>
+            <div class="new-tags">
+              <span class="tg">连续创业</span><span class="tg">美业大健康</span
+              ><span class="tg">供应链整合</span><span class="tg">AI落地</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="note">
+          <div class="note-title">两位新人的共同点</div>
+          均属"资本／实业"复合背景，且简介都自带可提炼的硬数字（"二十余年""连续创业"）。危杰棉的简介明确提到"AI在商业场景中的落地"与"普通人借助AI工具"，与本书读者画像高度重合，是天然的推荐语素材。
+        </div>
+      </div>
+
+      <!-- ===== 五、席位变动说明 ===== -->
+      <div class="card" id="sec-shift">
+        <h2>五、席位变动说明</h2>
+        <p style="font-size: 15px; color: #4a5b7c; margin-bottom: 16px">
+          本轮席位按 MD 旧号体系重新编排：周一入住
+          NO.007，其后于亚永→李海畅→吴琦→熊俪→谢眺→韦健→李平顺延至
+          NO.008–NO.014；Menger 入住 NO.015，赵卓一 NO.016，张武红
+          NO.017；危杰棉全新登榜入住 NO.018；胡子老师顺延至
+          NO.019（本书作者）。照片文件与档案引用已同步重命名。
+        </p>
+        <table class="shift-table">
+          <thead>
+            <tr>
+              <th>席位</th>
+              <th>姓名</th>
+              <th>变动</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="seat">NO.001–006</td>
+              <td>鄢海珍 … 张玉洁</td>
+              <td>不变</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.007</td>
+              <td>周一 <span class="fix-badge">补</span></td>
+              <td>原空缺席位 → 资料补齐正式入住</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.008</td>
+              <td>于亚永</td>
+              <td>原 NO.007 → 顺延</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.009</td>
+              <td>李海畅</td>
+              <td>原 NO.008 → 顺延</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.010</td>
+              <td>吴琦</td>
+              <td>原 NO.009 → 顺延</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.011</td>
+              <td>熊俪</td>
+              <td>原 NO.010 → 顺延</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.012</td>
+              <td>谢眺</td>
+              <td>原 NO.011 → 顺延</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.013</td>
+              <td>韦健 <span class="fix-badge">补</span></td>
+              <td>原空缺席位（韦行长）→ 资料补齐正式入住</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.014</td>
+              <td>李平</td>
+              <td>原 NO.013 → 顺延</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.015</td>
+              <td>Menger</td>
+              <td>原 NO.017 → 重排</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.016</td>
+              <td>赵卓一</td>
+              <td>不变</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.017</td>
+              <td>张武红</td>
+              <td>原 NO.015 → 重排</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.018</td>
+              <td>危杰棉 <span class="new-badge">新</span></td>
+              <td>全新登榜</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.019</td>
+              <td>胡子老师</td>
+              <td>原 NO.017 → 顺延（本书作者）</td>
+            </tr>
+            <tr>
+              <td class="seat">NO.020–030</td>
+              <td>虚位以待</td>
+              <td>剩余 11 席</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===== 六、量化分析 ===== -->
+      <div class="card" id="sec-quant">
+        <h2>六、量化分析</h2>
+
+        <h3>简介字数分布</h3>
+        <div class="bar-row">
+          <div class="bar-name">95–97 字</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 26%"></div>
+          </div>
+          <div class="bar-val">5 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">98–99 字</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 26%"></div>
+          </div>
+          <div class="bar-val">5 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">100 字</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 42%"></div>
+          </div>
+          <div class="bar-val">8 人</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">101 字</div>
+          <div class="bar-track">
+            <div class="bar-fill blue" style="width: 5%"></div>
+          </div>
+          <div class="bar-val">1 人</div>
+        </div>
+        <p style="font-size: 14.5px; color: #667; margin-top: 8px">
+          全部 19 席落在 <b>95–101 字</b> 的极窄区间内，平均 99.2 字 —— 100
+          字口径执行度接近完美，排版时不会出现长短悬殊、参差不齐的问题。
+        </p>
+
+        <h3>照片分辨率分布</h3>
+        <div class="bar-row">
+          <div class="bar-name">≥1400 px 长边</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 21%"></div>
+          </div>
+          <div class="bar-val">4 张</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">1000–1399 px</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 37%"></div>
+          </div>
+          <div class="bar-val">7 张</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">700–999 px</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 32%"></div>
+          </div>
+          <div class="bar-val">6 张</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">＜700 px（临界）</div>
+          <div class="bar-track">
+            <div class="bar-fill grey" style="width: 11%"></div>
+          </div>
+          <div class="bar-val">2 张</div>
+        </div>
+        <p style="font-size: 14.5px; color: #667; margin-top: 8px">
+          临界两张为
+          Menger（357×498）、胡公平（427×573）。印刷可用，但若日后加印放大版面，建议优先向本人索取更高清原图。
+        </p>
+        <div class="note">
+          <div class="note-title">印刷达标基准</div>
+          版面照片尺寸 23×30.6 mm，300dpi 需 ≥272×361 px。19
+          张照片<b>全部达标</b>。
+        </div>
+      </div>
+
+      <!-- ===== 七、待办事项 ===== -->
+      <div class="card" id="sec-todo">
+        <h2>七、待办事项与建议</h2>
+
+        <h3>已处理（本轮完成）</h3>
+        <ul class="plain">
+          <li>
+            韦健、危杰棉两张新照片归位至 <code>照片/</code>，按
+            <code>NOxxx_姓名</code> 规范命名
+          </li>
+          <li>
+            因席位按 MD 旧号体系重排，10
+            个既有照片文件同步重命名（周一→NO007、于亚永→NO008、李海畅→NO009、吴琦→NO010、熊俪→NO011、谢眺→NO012、韦健→NO013、李平→NO014、Menger→NO015、张武红→NO017）
+          </li>
+          <li>
+            01 档案全部 19 条照片引用同步更新，与照片库一一对应，无失效引用
+          </li>
+          <li>全量核查：19 席简介与照片均达标，无待补席位</li>
+        </ul>
+
+        <h3>建议跟进（3 项）</h3>
+        <ul class="plain">
+          <li>
+            <b>档案格式待规整（1处）：</b
+            >胡公平、李海畅、张武红三位的"姓名"字段为空（仅条目标题有名字）；郭瑞元条目缺"介绍："标签。不影响出版，但影响档案检索一致性。
+          </li>
+          <li>
+            <b>版式需重排：</b>当前书籍 V13.15 的群英谱仍为 17 人版式（4
+            页）。新增至 19 人后需重新排入 2 个席位，可维持 4 页结构不变。
+          </li>
+          <li>
+            <b>AI 关联补写（12 人）：</b>建议按"可衔接 4 人 / 待建立 8
+            人"分批处理，文字以本人确认为准。
+          </li>
+        </ul>
+
+        <div class="note warn-note">
+          <div class="note-title">关于版权页统计数字</div>
+          书籍当前版本为 362 页。若本轮 19
+          人版式重新排入后页数发生变动，版权页的页数／字数统计需同步复核。
+        </div>
+      </div>
+
+      <div class="footer-note">
+        《AI指挥官》联合出版人 · AI 素质报告 V2<br />
+        数据截至最新档案版本 ｜ 照片规格按 300dpi 印刷标准核验 ｜
+        本报告仅用于内部资料管理
       </div>
     </div>
-    <div class="m-bio" id="mBio"></div>
-  </div>
-</div>
 
-<script>
-/* ===== 数据源：与 01-联合出版人.md 一一对应 ===== */
-var P = [
- {n:'鄢海珍', s:'NO.001', r:'运动面料全链路操盘 · 二十余年', f:'照片/NO001_鄢海珍.jpg', b:'深耕服装纺织二十余年，专注运动面料研发、生产、销售与进出口贸易，具完整供应链实操经验。熟悉品质管控、外贸报关与跨境订单全链路，拥有稳定上游工厂及海内外客户渠道。以诚为本，品质为先，期待与服装品牌合作。', lv:'low'},
- {n:'金朝霞', s:'NO.002', r:'AI 营销生态发起人', f:'照片/NO002_金朝霞.jpg', b:'AI营销生态发起人，企业增长与数字化运营专家，AI智能体应用实践者。多年运营、品牌、招商孵化及数字化经验，专注AI获客、GEO增长与商业化落地。理念：AI不是替代企业，而是重新定义增长方式。', lv:'hi'},
- {n:'胡公平', s:'NO.003', r:'商业地产招商运营专家', f:'照片/NO003_胡公平.jpg', b:'商业地产策划招商运营专家。深耕大湾区二十余年，计算机跨界，操盘数十个商业综合体与产业园，擅长前策、业态与头部品牌招商。倡导"运营赋能为王"，构建线上流量+线下实操体系，探索AI数智化赋能实体商业。', lv:'hi'},
- {n:'张成', s:'NO.004', r:'企业底层架构师 · 30年实体', f:'照片/NO004_张成.jpg', b:'实体产业深耕三十余年，企业底层架构师，AI全域生态规划师。著有《民企生态底层架构》《商协会资源生态》等专著。倡导制度优先、先理性再感性，坚持风险防控。探索AI+实体+全域生态，赋能民营企业与高认知群体。', lv:'hi'},
- {n:'郭瑞元', s:'NO.005', r:'碧水源集团董事长', f:'照片/NO005_郭瑞元.png', b:'碧水源集团董事长，广州赢联健康产业创始人，广州碧水源生物科技董事长，美国BSY集团控股公司负责人。深耕大健康产业，推动产业整合、国际化与产学研融合，以科技赋能健康，助力行业高质量发展，并坚持长期主义。', lv:'low'},
- {n:'张玉洁', s:'NO.006', r:'玉洁生活社区连锁创始人', f:'照片/NO006_张玉洁.jpg', b:'玉洁生活社区连锁创始人，家政行业特别奉献者，优秀家庭服务管理者，高级营养管理师。以社区门店为根基，提供保洁、保姆、月嫂、家电清洗、养生及绿色农特产品服务。爱生活，爱健康，爱分享，美好生活从洁净养生开始。', lv:'low'},
- {n:'于亚永', s:'NO.007', r:'资深IT工程师 · Web3观察者', f:'照片/NO007_于亚永.jpg', b:'资深IT技术工程师，深耕软件开发与底层架构，具工程研发与落地经验。深耕新媒体内容生态，擅长内容策划、流量运营与商业营销。专注Web3与数字经济，融合技术、传播与产业洞察，输出深度与落地并重的行业思考。', lv:'mid'},
- {n:'李海畅', s:'NO.008', r:'企业战略顾问 · 互联网运营', f:'照片/NO008_李海畅.jpg', b:'粤港澳大湾区本地生活联合运营中心联合创始人，广东华南经济发展研究会企业家访谈人，前中国网健康中国广东会客厅副主编、战略顾问，《企业家使命》编委。专注企业战略策划、定位、运营与互联网系统技术运营。', lv:'mid'},
- {n:'吴琦', s:'NO.009', r:'实体产业互联转型专家', f:'照片/NO009_吴琦.jpg', b:'原大型国企实操运营人，实体产业互联转型升级落地专家，八年互联网公域流量赋能实体应用者。湖南省驻广州天狼商务常务副会长，数字经济早期资深投资型顾问，原南京远见生物科技首席战略运营官，长期推动产业升级。', lv:'mid'},
- {n:'熊俪', s:'NO.010', r:'汉派女装 · 实业股东', f:'照片/NO010_熊俪.jpg', b:'深耕汉派女装批发，熟悉服装供应链与市场；广州秦火锅股份有限公司股东，参与餐饮投资；任康达（广州）品牌管理有限公司事业部经理，专注品牌管理与渠道。跨界实体与品牌运营，务实稳健，持续探索产业升级发展。', lv:'low'},
- {n:'谢眺', s:'NO.011', r:'传统行业 → 互联网转型者', f:'照片/NO011_谢眺.jpg', b:'从教育世家走出，历经传统实体与互联网双重淬炼。承包商场、经营餐饮百货、创办食品工厂，后转战深圳互联网，从失败中成长为团队长、系统领导、运营总监、平台CEO。整合资源，坚韧务实，持续探索新商业生态。', lv:'mid'},
- {n:'韦健', s:'NO.012', r:'金融投融资 · 并购重组', f:'照片/NO012_韦健.jpg', b:'深耕金融二十余年，聚焦实体项目投融资，全流程实操丰富。参与火车站基建及大型工商投资项目尽调、研判与价值分析，完成现金流测算、收益评估与风险识别。主导多项并购重组，熟悉交易架构、估值谈判与风险把控。', lv:'low', isNew:true},
- {n:'李平', s:'NO.013', r:'理财规划师 · 财商教育者', f:'照片/NO013_李平.jpg', b:'理财规划师，心理咨询师，青少年财商教育实践者。多年企业规划经验，融合财务、心理与教育视角，专注财富心智、家庭成长与组织发展，助力企业高质量发展，以专业与温度陪伴个人和企业长期稳健前行，持续创造价值。', lv:'low'},
- {n:'周一', s:'NO.014', r:'资深产业投资人', f:'照片/NO014_周一.png', b:'资深产业投资人，资本跃迁与上市培育实战专家。从工程师到集团董事，深耕实业二十余载。产业资本双视角，价值诊断、资本规划、产融对接、并购整合；优质企业上市费用最高九成垫资，合规为底线，助企业低门槛资本跃迁。', lv:'low'},
- {n:'张武红', s:'NO.015', r:'语文老师 · 互联网投资顾问', f:'照片/NO015_张武红.png', b:'安徒生语文老师，互联网投资顾问，多个支付公司汇聚二维码平台指导人。深耕企业投资与教育板块，对AI领域高度认同，善于跨界连接资源，以教育者与投资人双重视角，助力更多人拥抱智能时代，携手更多伙伴共创未来！', lv:'hi'},
- {n:'赵卓一', s:'NO.016', r:'AI 全域营销专家', f:'照片/NO016_赵卓一.jpg', b:'深耕AI全域营销与商业落地，专注AI转化为实体、美业与创业项目的增长工具。擅长AI短剧、AIGC内容、AI获客，搭建商业化运营方案，打造低成本引流、沙龙招商与短视频矩阵，务实落地，赋能实体破局。', lv:'hi'},
- {n:'Menger', s:'NO.017', r:'品牌上市运营总指导', f:'照片/NO017_Menger.png', b:'品牌上市运营总指导。深耕实业与资本，涉足五金、农业、电商，深谙平衡之道。专注市值管理十年，参与创建市值研究中心，是市值管理实践的传承者与践行者。以实业为根、资本为翼，务实理性，助力企业价值提升。', lv:'low'},
- {n:'危杰棉', s:'NO.018', r:'实体连续创业 · 美业大健康', f:'照片/NO018_危杰棉.jpg', b:'实体连续创业者，深耕美业与大健康，擅长供应链整合、私域渠道搭建与商业资源对接。从一线实体经营视角，参与梳理AI在商业场景中的落地思考，聚焦普通人如何借助AI工具，把想法转化为实际商业价值，务实推进落地。', lv:'hi', isNew:true},
- {n:'胡子老师', s:'NO.019', r:'《AI指挥官》作者', f:'照片/NO019_胡子老师.png', b:'资本视角商业策划师，首席战略官，资本运作专家。精财务模型与资本架构，擅模式创新与组织激活。独创"商学院+招商+资本"铁三角，打通治理、模式、资产证券化。理念：AI是参谋，你是司令。《AI指挥官》作者。', lv:'hi'}
-];
+    <!-- ===== 弹窗 ===== -->
+    <div class="modal" id="modal">
+      <div class="mbox">
+        <span class="mclose" onclick="closeM()">&times;</span>
+        <div class="m-top">
+          <img class="m-photo" id="mPhoto" src="照片/NO001_鄢海珍.jpg" alt="" />
+          <div>
+            <div class="m-name" id="mName"></div>
+            <div class="m-role" id="mRole"></div>
+            <div class="m-seat" id="mSeat"></div>
+          </div>
+        </div>
+        <div class="m-bio" id="mBio"></div>
+      </div>
+    </div>
 
-/* ===== 行业球体网络图 ===== */
-var IND = [
-  { name:'金融·资本·投资', icon:'<path d="M3 20h18M6 20V11M11 20V6M16 20v-7M21 20V9"/>', m:['韦健','周一','Menger','李平','张武红'] },
-  { name:'传统实业·制造', icon:'<path d="M3 21V10l6-4 6 4v11M9 21v-5h6v5M21 21v-7l-3-2"/>', m:['鄢海珍','熊俪'] },
-  { name:'大健康·生活服务', icon:'<path d="M12 21s-7.5-5-7.5-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7.5 3.5C19.5 16 12 21 12 21z"/><path d="M12 11v4M10 13h4"/>', m:['郭瑞元','张玉洁','危杰棉'] },
-  { name:'IT·互联网·数字化', icon:'<path d="M8.5 6.5L3 12l5.5 5.5M15.5 6.5L21 12l-5.5 5.5"/>', m:['于亚永','吴琦','谢眺'] },
-  { name:'AI 原生·AI 营销', icon:'<rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M10 2.5v4M14 2.5v4M10 17.5v4M14 17.5v4M2.5 10h4M2.5 14h4M17.5 10h4M17.5 14h4"/>', m:['金朝霞','赵卓一'] },
-  { name:'咨询·战略·架构', icon:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>', m:['张成','李海畅'] },
-  { name:'商业地产·产业园', icon:'<path d="M4 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15M14 21V12h4a2 2 0 0 1 2 2v7M8 8h2M8 12h2M8 16h2"/>', m:['胡公平'] },
-  { name:'本书作者', icon:'<path d="M20 3L9 14l-4 1 1-4L17 0l3 3z"/><path d="M9 14v6H3"/>', m:['胡子老师'] }
-];
+    <script>
+      /* ===== 数据源：与 01-联合出版人.md 一一对应 ===== */
+      var P = [
+        {
+          n: "鄢海珍",
+          s: "NO.001",
+          r: "运动面料全链路操盘 · 二十余年",
+          f: "照片/NO001_鄢海珍.jpg",
+          b: "深耕服装纺织二十余年，专注运动面料研发、生产、销售与进出口贸易，具完整供应链实操经验。熟悉品质管控、外贸报关与跨境订单全链路，拥有稳定上游工厂及海内外客户渠道。以诚为本，品质为先，期待与服装品牌合作。",
+          lv: "low",
+        },
+        {
+          n: "金朝霞",
+          s: "NO.002",
+          r: "AI 营销生态发起人",
+          f: "照片/NO002_金朝霞.jpg",
+          b: "AI营销生态发起人，企业增长与数字化运营专家，AI智能体应用实践者。多年运营、品牌、招商孵化及数字化经验，专注AI获客、GEO增长与商业化落地。理念：AI不是替代企业，而是重新定义增长方式。",
+          lv: "hi",
+        },
+        {
+          n: "胡公平",
+          s: "NO.003",
+          r: "商业地产招商运营专家",
+          f: "照片/NO003_胡公平.jpg",
+          b: '商业地产策划招商运营专家。深耕大湾区二十余年，计算机跨界，操盘数十个商业综合体与产业园，擅长前策、业态与头部品牌招商。倡导"运营赋能为王"，构建线上流量+线下实操体系，探索AI数智化赋能实体商业。',
+          lv: "hi",
+        },
+        {
+          n: "张成",
+          s: "NO.004",
+          r: "企业底层架构师 · 30年实体",
+          f: "照片/NO004_张成.jpg",
+          b: "实体产业深耕三十余年，企业底层架构师，AI全域生态规划师。著有《民企生态底层架构》《商协会资源生态》等专著。倡导制度优先、先理性再感性，坚持风险防控。探索AI+实体+全域生态，赋能民营企业与高认知群体。",
+          lv: "hi",
+        },
+        {
+          n: "郭瑞元",
+          s: "NO.005",
+          r: "碧水源集团董事长",
+          f: "照片/NO005_郭瑞元.png",
+          b: "碧水源集团董事长，广州赢联健康产业创始人，广州碧水源生物科技董事长，美国BSY集团控股公司负责人。深耕大健康产业，推动产业整合、国际化与产学研融合，以科技赋能健康，助力行业高质量发展，并坚持长期主义。",
+          lv: "low",
+        },
+        {
+          n: "张玉洁",
+          s: "NO.006",
+          r: "玉洁生活社区连锁创始人",
+          f: "照片/NO006_张玉洁.jpg",
+          b: "玉洁生活社区连锁创始人，家政行业特别奉献者，优秀家庭服务管理者，高级营养管理师。以社区门店为根基，提供保洁、保姆、月嫂、家电清洗、养生及绿色农特产品服务。爱生活，爱健康，爱分享，美好生活从洁净养生开始。",
+          lv: "low",
+        },
+        {
+          n: "周一",
+          s: "NO.007",
+          r: "资深产业投资人",
+          f: "照片/NO007_周一.png",
+          b: "资深产业投资人，资本跃迁与上市培育实战专家。从工程师到集团董事，深耕实业二十余载。产业资本双视角，价值诊断、资本规划、产融对接、并购整合；优质企业上市费用最高九成垫资，合规为底线，助企业低门槛资本跃迁。",
+          lv: "low",
+        },
+        {
+          n: "于亚永",
+          s: "NO.008",
+          r: "资深IT工程师 · Web3观察者",
+          f: "照片/NO008_于亚永.jpg",
+          b: "资深IT技术工程师，深耕软件开发与底层架构，具工程研发与落地经验。深耕新媒体内容生态，擅长内容策划、流量运营与商业营销。专注Web3与数字经济，融合技术、传播与产业洞察，输出深度与落地并重的行业思考。",
+          lv: "mid",
+        },
+        {
+          n: "李海畅",
+          s: "NO.009",
+          r: "企业战略顾问 · 互联网运营",
+          f: "照片/NO009_李海畅.jpg",
+          b: "大湾区本地生活联合运营中心联合创始人，广东华南经济发展研究会企业家访谈人，原中国网健康中国广东会客厅副主编、战略顾问，《企业家使命》编委。AI+全域视觉战略官，品牌传播顾问，短视频视觉传播、全域获客。",
+          lv: "mid",
+        },
+        {
+          n: "吴琦",
+          s: "NO.010",
+          r: "实体产业互联转型专家",
+          f: "照片/NO010_吴琦.jpg",
+          b: "原大型国企实操运营人，实体产业互联转型升级落地专家，八年互联网公域流量赋能实体应用者。湖南省驻广州天狼商务处常务副会长，数字经济早期资深投资型顾问，原南京远见生物科技首席战略运营官，并长期推动产业升级。",
+          lv: "mid",
+        },
+        {
+          n: "熊俪",
+          s: "NO.011",
+          r: "汉派女装 · 实业股东",
+          f: "照片/NO011_熊俪.jpg",
+          b: "深耕汉派女装批发，熟悉服装供应链与市场；广州秦火锅股份有限公司股东，参与餐饮投资；任康达（广州）品牌管理有限公司事业部经理，专注品牌管理与渠道。跨界实体与品牌运营，务实稳健，持续探索产业升级发展。",
+          lv: "low",
+        },
+        {
+          n: "谢眺",
+          s: "NO.012",
+          r: "传统行业 → 互联网转型者",
+          f: "照片/NO012_谢眺.jpg",
+          b: "从教育世家走出，历经传统实体与互联网双重淬炼。承包商场、经营餐饮百货、创办食品工厂，后转战深圳互联网，从失败中成长为团队长、系统领导、运营总监、平台CEO。整合资源，坚韧务实，持续探索新商业生态。",
+          lv: "mid",
+        },
+        {
+          n: "韦健",
+          s: "NO.013",
+          r: "金融投融资 · 并购重组",
+          f: "照片/NO013_韦健.jpg",
+          b: "深耕金融二十余年，聚焦实体项目投融资，全流程实操丰富。参与火车站基建及大型工商投资项目尽调、研判与价值分析，完成现金流测算、收益评估与风险识别。主导多项并购重组，熟悉交易架构、估值谈判与风险把控。",
+          lv: "low",
+          isNew: true,
+        },
+        {
+          n: "李平",
+          s: "NO.014",
+          r: "理财规划师 · 财商教育者",
+          f: "照片/NO014_李平.jpg",
+          b: "理财规划师，心理咨询师，青少年财商教育实践者。多年企业规划经验，融合财务、心理与教育视角，专注财富心智、家庭成长与组织发展，助力企业高质量发展，以专业与温度陪伴个人和企业长期稳健前行，并持续创造价值。",
+          lv: "low",
+        },
+        {
+          n: "Menger",
+          s: "NO.015",
+          r: "品牌上市运营总指导",
+          f: "照片/NO015_Menger.png",
+          b: "品牌上市运营总指导。深耕实业与资本，涉足五金、农业、电商，深谙平衡之道。专注市值管理十年，参与创建市值研究中心，是市值管理实践的传承者与践行者。以实业为根、资本为翼，务实理性，助力企业价值提升。",
+          lv: "low",
+        },
+        {
+          n: "赵卓一",
+          s: "NO.016",
+          r: "AI 全域营销专家",
+          f: "照片/NO016_赵卓一.jpg",
+          b: "深耕AI全域营销与商业落地，专注AI转化为实体、美业与创业项目的增长工具。擅长AI短剧、AIGC内容、AI获客，搭建商业化运营方案，打造低成本引流、沙龙招商与短视频矩阵，务实落地，赋能实体破局。",
+          lv: "hi",
+        },
+        {
+          n: "张武红",
+          s: "NO.017",
+          r: "语文老师 · 互联网投资顾问",
+          f: "照片/NO017_张武红.png",
+          b: "安徒生语文老师，互联网投资顾问，多个支付公司聚合码平台指导人。深耕企业投资与教育板块，对AI领域高度认同，善于跨界连接资源，以教育者与投资人双重视角，助力更多人拥抱智能时代，携手更多伙伴共创未来！",
+          lv: "hi",
+        },
+        {
+          n: "危杰棉",
+          s: "NO.018",
+          r: "实体连续创业 · 美业大健康",
+          f: "照片/NO018_危杰棉.jpg",
+          b: "实体连续创业者，深耕美业与大健康，擅长供应链整合、私域渠道搭建与商业资源对接。从一线实体经营视角，参与梳理AI在商业场景中的落地思考，聚焦普通人如何借助AI工具，把想法转化为实际商业价值，务实推进落地。",
+          lv: "hi",
+          isNew: true,
+        },
+        {
+          n: "胡子老师",
+          s: "NO.019",
+          r: "《AI指挥官》作者",
+          f: "照片/NO019_胡子老师.png",
+          b: '资本视角商业策划师，首席战略官，资本运作专家。精财务模型与资本架构，擅模式创新与组织激活。独创"商学院+招商+资本"铁三角，打通治理、模式、资产证券化。理念：AI是参谋，你是司令。《AI指挥官》作者。',
+          lv: "hi",
+        },
+      ];
 
-var PHOTO = {}, AILV = {};
-P.forEach(function (x) { PHOTO[x.n] = x.f; AILV[x.n] = x.lv; });
-var NCOLOR = { hi:'#008f70', mid:'#2c6fb5', low:'#a06e00' };
+      /* ===== 行业球体网络图 ===== */
+      var IND = [
+        {
+          name: "金融·资本·投资",
+          icon: '<path d="M3 20h18M6 20V11M11 20V6M16 20v-7M21 20V9"/>',
+          m: ["韦健", "周一", "Menger", "李平", "张武红"],
+        },
+        {
+          name: "传统实业·制造",
+          icon: '<path d="M3 21V10l6-4 6 4v11M9 21v-5h6v5M21 21v-7l-3-2"/>',
+          m: ["鄢海珍", "熊俪"],
+        },
+        {
+          name: "大健康·生活服务",
+          icon: '<path d="M12 21s-7.5-5-7.5-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7.5 3.5C19.5 16 12 21 12 21z"/><path d="M12 11v4M10 13h4"/>',
+          m: ["郭瑞元", "张玉洁", "危杰棉"],
+        },
+        {
+          name: "IT·互联网·数字化",
+          icon: '<path d="M8.5 6.5L3 12l5.5 5.5M15.5 6.5L21 12l-5.5 5.5"/>',
+          m: ["于亚永", "吴琦", "谢眺"],
+        },
+        {
+          name: "AI 原生·AI 营销",
+          icon: '<rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M10 2.5v4M14 2.5v4M10 17.5v4M14 17.5v4M2.5 10h4M2.5 14h4M17.5 10h4M17.5 14h4"/>',
+          m: ["金朝霞", "赵卓一"],
+        },
+        {
+          name: "咨询·战略·架构",
+          icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+          m: ["张成", "李海畅"],
+        },
+        {
+          name: "商业地产·产业园",
+          icon: '<path d="M4 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15M14 21V12h4a2 2 0 0 1 2 2v7M8 8h2M8 12h2M8 16h2"/>',
+          m: ["胡公平"],
+        },
+        {
+          name: "本书作者",
+          icon: '<path d="M20 3L9 14l-4 1 1-4L17 0l3 3z"/><path d="M9 14v6H3"/>',
+          m: ["胡子老师"],
+        },
+      ];
 
-/* viewBox 坐标 */
-var VW = 500, VH = 350, CX = 250, CY = 172, RX = 168, RY = 112, HR = 54, AR = 25;
+      var PHOTO = {},
+        AILV = {};
+      P.forEach(function (x) {
+        PHOTO[x.n] = x.f;
+        AILV[x.n] = x.lv;
+      });
+      var NCOLOR = { hi: "#008f70", mid: "#2c6fb5", low: "#a06e00" };
 
-var netGrid = document.getElementById('netGrid');
-IND.forEach(function (ind, gi) {
-  var n = ind.m.length;
+      /* viewBox 坐标 */
+      var VW = 500,
+        VH = 350,
+        CX = 250,
+        CY = 172,
+        RX = 168,
+        RY = 112,
+        HR = 54,
+        AR = 25;
 
-  /* 节点坐标 */
-  var pos = [];
-  for (var i = 0; i < n; i++) {
-    var ang;
-    if (n === 1) { ang = 0; }                       /* 单人 → 右侧 */
-    else { ang = (-90 + i * (360 / n)) * Math.PI / 180; }
-    var rad = (n === 1) ? 0 : ang;
-    pos.push({ x: CX + RX * Math.cos(rad), y: CY + RY * Math.sin(rad) });
-  }
+      var netGrid = document.getElementById("netGrid");
+      IND.forEach(function (ind, gi) {
+        var n = ind.m.length;
 
-  var svg = '<svg viewBox="0 0 ' + VW + ' ' + VH + '" preserveAspectRatio="xMidYMid meet">';
-  svg += '<defs>'
-       +   '<radialGradient id="hub' + gi + '" cx="35%" cy="30%">'
-       +     '<stop offset="0%" stop-color="#ffffff"/><stop offset="65%" stop-color="#eef2f8"/><stop offset="100%" stop-color="#dbe2ee"/>'
-       +   '</radialGradient>'
-       +   '<linearGradient id="ln' + gi + '" x1="0" y1="0" x2="1" y2="1">'
-       +     '<stop offset="0%" stop-color="#00876a"/><stop offset="100%" stop-color="#5a86bd"/>'
-       +   '</linearGradient>';
-  pos.forEach(function (q, k) {
-    svg += '<clipPath id="cp' + gi + '_' + k + '"><circle cx="' + q.x.toFixed(1) + '" cy="' + q.y.toFixed(1) + '" r="' + AR + '"/></clipPath>';
-  });
-  svg += '</defs>';
+        /* 节点坐标 */
+        var pos = [];
+        for (var i = 0; i < n; i++) {
+          var ang;
+          if (n === 1) {
+            ang = 0;
+          } /* 单人 → 右侧 */ else {
+            ang = ((-90 + i * (360 / n)) * Math.PI) / 180;
+          }
+          var rad = n === 1 ? 0 : ang;
+          pos.push({ x: CX + RX * Math.cos(rad), y: CY + RY * Math.sin(rad) });
+        }
 
-  /* 连线：从球体边缘 ── 到节点边缘 */
-  pos.forEach(function (q, k) {
-    var dx = q.x - CX, dy = q.y - CY;
-    var L = Math.sqrt(dx * dx + dy * dy) || 1;
-    var sx = CX + dx / L * (HR + 2), sy = CY + dy / L * (HR + 2);
-    var ex = q.x - dx / L * (AR + 2), ey = q.y - dy / L * (AR + 2);
-    svg += '<line x1="' + sx.toFixed(1) + '" y1="' + sy.toFixed(1) + '" x2="' + ex.toFixed(1) + '" y2="' + ey.toFixed(1)
-         + '" stroke="url(#ln' + gi + ')" stroke-width="1.3" opacity=".62"/>';
-    /* 端点小圆 */
-    svg += '<circle cx="' + ex.toFixed(1) + '" cy="' + ey.toFixed(1) + '" r="2.1" fill="' + (NCOLOR[AILV[ind.m[k]] || 'low']) + '" opacity=".9"/>';
-  });
+        var svg =
+          '<svg viewBox="0 0 ' +
+          VW +
+          " " +
+          VH +
+          '" preserveAspectRatio="xMidYMid meet">';
+        svg +=
+          "<defs>" +
+          '<radialGradient id="hub' +
+          gi +
+          '" cx="35%" cy="30%">' +
+          '<stop offset="0%" stop-color="#ffffff"/><stop offset="65%" stop-color="#eef2f8"/><stop offset="100%" stop-color="#dbe2ee"/>' +
+          "</radialGradient>" +
+          '<linearGradient id="ln' +
+          gi +
+          '" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0%" stop-color="#00876a"/><stop offset="100%" stop-color="#5a86bd"/>' +
+          "</linearGradient>";
+        pos.forEach(function (q, k) {
+          svg +=
+            '<clipPath id="cp' +
+            gi +
+            "_" +
+            k +
+            '"><circle cx="' +
+            q.x.toFixed(1) +
+            '" cy="' +
+            q.y.toFixed(1) +
+            '" r="' +
+            AR +
+            '"/></clipPath>';
+        });
+        svg += "</defs>";
 
-  /* 中心球体 */
-  svg += '<circle cx="' + CX + '" cy="' + CY + '" r="' + HR + '" fill="url(#hub' + gi + ')" stroke="#008f70" stroke-width="1.8"/>';
-  svg += '<circle cx="' + CX + '" cy="' + CY + '" r="' + (HR - 7) + '" fill="none" stroke="rgba(0,143,112,.45)" stroke-width="1" stroke-dasharray="3 4"/>';
-  /* 中心图标 */
-  svg += '<g transform="translate(' + (CX - 11) + ',' + (CY - 34) + ') scale(0.92)" stroke="#1f2d6b" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ind.icon + '</g>';
-  /* 行业名（自动折行：按 · 分段） */
-  var parts = ind.name.split('·');
-  parts.forEach(function (seg, k) {
-    svg += '<text x="' + CX + '" y="' + (CY + 4 + k * 15) + '" text-anchor="middle" fill="#2b3852" font-size="12" font-family="Noto Sans SC,Microsoft YaHei,sans-serif">' + seg + '</text>';
-  });
-  svg += '<text x="' + CX + '" y="' + (CY + 4 + parts.length * 15 + 2) + '" text-anchor="middle" fill="#007a5f" font-size="14" font-weight="700" font-family="Consolas,monospace">' + n + ' 人</text>';
+        /* 连线：从球体边缘 ── 到节点边缘 */
+        pos.forEach(function (q, k) {
+          var dx = q.x - CX,
+            dy = q.y - CY;
+          var L = Math.sqrt(dx * dx + dy * dy) || 1;
+          var sx = CX + (dx / L) * (HR + 2),
+            sy = CY + (dy / L) * (HR + 2);
+          var ex = q.x - (dx / L) * (AR + 2),
+            ey = q.y - (dy / L) * (AR + 2);
+          svg +=
+            '<line x1="' +
+            sx.toFixed(1) +
+            '" y1="' +
+            sy.toFixed(1) +
+            '" x2="' +
+            ex.toFixed(1) +
+            '" y2="' +
+            ey.toFixed(1) +
+            '" stroke="url(#ln' +
+            gi +
+            ')" stroke-width="1.3" opacity=".62"/>';
+          /* 端点小圆 */
+          svg +=
+            '<circle cx="' +
+            ex.toFixed(1) +
+            '" cy="' +
+            ey.toFixed(1) +
+            '" r="2.1" fill="' +
+            NCOLOR[AILV[ind.m[k]] || "low"] +
+            '" opacity=".9"/>';
+        });
 
-  /* 人员节点 */
-  pos.forEach(function (q, k) {
-    var nm = ind.m[k];
-    svg += '<image href="' + PHOTO[nm] + '" x="' + (q.x - AR) + '" y="' + (q.y - AR) + '" width="' + (AR * 2) + '" height="' + (AR * 2)
-         + '" preserveAspectRatio="xMidYMid slice" clip-path="url(#cp' + gi + '_' + k + ')"/>';
-    var lv = AILV[nm] || 'low', nc = NCOLOR[lv];
-    svg += '<circle cx="' + q.x.toFixed(1) + '" cy="' + q.y.toFixed(1) + '" r="' + AR + '" fill="none" stroke="' + nc + '" stroke-width="' + (lv === 'hi' ? 2.2 : 1.6) + '"' + (lv === 'low' ? ' stroke-dasharray="4 3"' : '') + '/>';
-    svg += '<text x="' + q.x.toFixed(1) + '" y="' + (q.y + AR + 15).toFixed(1) + '" text-anchor="middle" fill="#2b3852" font-size="12" font-family="Noto Sans SC,Microsoft YaHei,sans-serif">' + nm + '</text>';
-  });
+        /* 中心球体 */
+        svg +=
+          '<circle cx="' +
+          CX +
+          '" cy="' +
+          CY +
+          '" r="' +
+          HR +
+          '" fill="url(#hub' +
+          gi +
+          ')" stroke="#008f70" stroke-width="1.8"/>';
+        svg +=
+          '<circle cx="' +
+          CX +
+          '" cy="' +
+          CY +
+          '" r="' +
+          (HR - 7) +
+          '" fill="none" stroke="rgba(0,143,112,.45)" stroke-width="1" stroke-dasharray="3 4"/>';
+        /* 中心图标 */
+        svg +=
+          '<g transform="translate(' +
+          (CX - 11) +
+          "," +
+          (CY - 34) +
+          ') scale(0.92)" stroke="#1f2d6b" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' +
+          ind.icon +
+          "</g>";
+        /* 行业名（自动折行：按 · 分段） */
+        var parts = ind.name.split("·");
+        parts.forEach(function (seg, k) {
+          svg +=
+            '<text x="' +
+            CX +
+            '" y="' +
+            (CY + 4 + k * 15) +
+            '" text-anchor="middle" fill="#2b3852" font-size="12" font-family="Noto Sans SC,Microsoft YaHei,sans-serif">' +
+            seg +
+            "</text>";
+        });
+        svg +=
+          '<text x="' +
+          CX +
+          '" y="' +
+          (CY + 4 + parts.length * 15 + 2) +
+          '" text-anchor="middle" fill="#007a5f" font-size="14" font-weight="700" font-family="Consolas,monospace">' +
+          n +
+          " 人</text>";
 
-  svg += '</svg>';
+        /* 人员节点 */
+        pos.forEach(function (q, k) {
+          var nm = ind.m[k];
+          svg +=
+            '<image href="' +
+            PHOTO[nm] +
+            '" x="' +
+            (q.x - AR) +
+            '" y="' +
+            (q.y - AR) +
+            '" width="' +
+            AR * 2 +
+            '" height="' +
+            AR * 2 +
+            '" preserveAspectRatio="xMidYMid slice" clip-path="url(#cp' +
+            gi +
+            "_" +
+            k +
+            ')"/>';
+          var lv = AILV[nm] || "low",
+            nc = NCOLOR[lv];
+          svg +=
+            '<circle cx="' +
+            q.x.toFixed(1) +
+            '" cy="' +
+            q.y.toFixed(1) +
+            '" r="' +
+            AR +
+            '" fill="none" stroke="' +
+            nc +
+            '" stroke-width="' +
+            (lv === "hi" ? 2.2 : 1.6) +
+            '"' +
+            (lv === "low" ? ' stroke-dasharray="4 3"' : "") +
+            "/>";
+          svg +=
+            '<text x="' +
+            q.x.toFixed(1) +
+            '" y="' +
+            (q.y + AR + 15).toFixed(1) +
+            '" text-anchor="middle" fill="#2b3852" font-size="12" font-family="Noto Sans SC,Microsoft YaHei,sans-serif">' +
+            nm +
+            "</text>";
+        });
 
-  var blk = document.createElement('div');
-  blk.className = 'ind-block';
-  blk.innerHTML = '<span class="net-cap">SECTOR ' + String(gi + 1).padStart(2, '0') + '</span>' + svg;
-  netGrid.appendChild(blk);
-});
+        svg += "</svg>";
 
-/* ===== 渲染名录照片墙 ===== */
-var roster = document.getElementById('roster');
-P.forEach(function (p, i) {
-  var d = document.createElement('div');
-  d.className = 'rc' + (p.isNew ? ' new' : '');
-  d.innerHTML =
-    '<img class="rc-photo" src="' + p.f + '" alt="' + p.n + '">' +
-    '<div class="rc-seat">' + p.s + '</div>' +
-    '<div class="rc-name">' + p.n + '</div>' +
-    '<div class="rc-tag">' + p.r + '</div>' +
-    '<div class="rc-hint">点击查看介绍</div>';
-  d.onclick = function () { openM(i); };
-  roster.appendChild(d);
-});
+        var blk = document.createElement("div");
+        blk.className = "ind-block";
+        blk.innerHTML =
+          '<span class="net-cap">SECTOR ' +
+          String(gi + 1).padStart(2, "0") +
+          "</span>" +
+          svg;
+        netGrid.appendChild(blk);
+      });
 
+      /* ===== 渲染名录照片墙 ===== */
+      var roster = document.getElementById("roster");
+      P.forEach(function (p, i) {
+        var d = document.createElement("div");
+        d.className = "rc" + (p.isNew ? " new" : "");
+        d.innerHTML =
+          '<img class="rc-photo" src="' +
+          p.f +
+          '" alt="' +
+          p.n +
+          '">' +
+          '<div class="rc-seat">' +
+          p.s +
+          "</div>" +
+          '<div class="rc-name">' +
+          p.n +
+          "</div>" +
+          '<div class="rc-tag">' +
+          p.r +
+          "</div>" +
+          '<div class="rc-hint">点击查看介绍</div>';
+        d.onclick = function () {
+          openM(i);
+        };
+        roster.appendChild(d);
+      });
 
-/* ===== 弹窗 ===== */
-function openM(i) {
-  var p = P[i];
-  document.getElementById('mPhoto').src = p.f;
-  document.getElementById('mName').textContent = p.n;
-  document.getElementById('mRole').textContent = p.r;
-  document.getElementById('mSeat').textContent = '席位 ' + p.s + ' ｜ CO-PUBLISHER';
-  document.getElementById('mBio').textContent = p.b;
-  document.getElementById('modal').classList.add('on');
-}
-function closeM() { document.getElementById('modal').classList.remove('on'); }
-document.getElementById('modal').addEventListener('click', function (e) {
-  if (e.target === this) closeM();
-});
-document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeM(); });
+      /* ===== 弹窗 ===== */
+      function openM(i) {
+        var p = P[i];
+        document.getElementById("mPhoto").src = p.f;
+        document.getElementById("mName").textContent = p.n;
+        document.getElementById("mRole").textContent = p.r;
+        document.getElementById("mSeat").textContent =
+          "席位 " + p.s + " ｜ CO-PUBLISHER";
+        document.getElementById("mBio").textContent = p.b;
+        document.getElementById("modal").classList.add("on");
+      }
+      function closeM() {
+        document.getElementById("modal").classList.remove("on");
+      }
+      document.getElementById("modal").addEventListener("click", function (e) {
+        if (e.target === this) closeM();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeM();
+      });
 
-/* ===== 顶部导航：点击跳转 + 滚动高亮 ===== */
-(function () {
-  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
-  var targets = links.map(function (l) { return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
+      /* ===== 顶部导航：点击跳转 + 滚动高亮 ===== */
+      (function () {
+        var links = Array.prototype.slice.call(
+          document.querySelectorAll(".nav-link"),
+        );
+        var targets = links
+          .map(function (l) {
+            return document.querySelector(l.getAttribute("href"));
+          })
+          .filter(Boolean);
 
-  links.forEach(function (l) {
-    l.addEventListener('click', function (e) {
-      var el = document.querySelector(this.getAttribute('href'));
-      if (!el) return;
-      e.preventDefault();
-      var y = el.getBoundingClientRect().top + window.pageYOffset - 62;
-      window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
-      links.forEach(function (x) { x.classList.remove('active'); });
-      this.classList.add('active');
-    });
-  });
+        var navLinks = document.querySelector(".nav-links");
+        function scrollLinkIntoView(l) {
+          if (!navLinks) return;
+          var cr = navLinks.getBoundingClientRect();
+          var lr = l.getBoundingClientRect();
+          var left = lr.left - cr.left;
+          var right = lr.right - cr.left;
+          var pad = 8;
+          if (left < pad) {
+            navLinks.scrollBy({ left: left - pad, behavior: "smooth" });
+          } else if (right > navLinks.clientWidth - pad) {
+            navLinks.scrollBy({
+              left: right - navLinks.clientWidth + pad,
+              behavior: "smooth",
+            });
+          }
+        }
+        links.forEach(function (l) {
+          l.addEventListener("click", function (e) {
+            var el = document.querySelector(this.getAttribute("href"));
+            if (!el) return;
+            e.preventDefault();
+            var y = el.getBoundingClientRect().top + window.pageYOffset - 62;
+            window.scrollTo({ top: y < 0 ? 0 : y, behavior: "smooth" });
+            links.forEach(function (x) {
+              x.classList.remove("active");
+            });
+            this.classList.add("active");
+            /* 窄屏：把被点击项滚到可见区，避免后续项被遮挡 */
+            scrollLinkIntoView(this);
+          });
+        });
+        /* 滚动侦测高亮切换时，同步让高亮项可见 */
+        function spy() {
+          var y = window.pageYOffset + 92;
+          var cur = targets[0];
+          targets.forEach(function (t) {
+            if (t.getBoundingClientRect().top + window.pageYOffset <= y)
+              cur = t;
+          });
+          if (!cur) return;
+          var curHref = "#" + cur.id;
+          var changed = false;
+          links.forEach(function (l) {
+            var on = l.getAttribute("href") === curHref;
+            if (on !== l.classList.contains("active")) {
+              l.classList.toggle("active", on);
+              if (on) changed = true;
+            }
+          });
+          /* 高亮项变化且不可见时，自动滚到可见（窄屏关键：手动滚动浏览时下一项不被遮挡） */
+          if (changed) {
+            var act = document.querySelector(".nav-link.active");
+            if (act) scrollLinkIntoView(act);
+          }
+        }
+        window.addEventListener("scroll", spy, { passive: true });
+        window.addEventListener("resize", spy);
+        spy();
+      })();
 
-  function spy() {
-    var y = window.pageYOffset + 92;
-    var cur = targets[0];
-    targets.forEach(function (t) {
-      if (t.getBoundingClientRect().top + window.pageYOffset <= y) cur = t;
-    });
-    if (!cur) return;
-    links.forEach(function (l) {
-      l.classList.toggle('active', l.getAttribute('href') === '#' + cur.id);
-    });
-  }
-  window.addEventListener('scroll', spy, { passive: true });
-  window.addEventListener('resize', spy);
-  spy();
-})();
-
-/* ===== 动态日期 ===== */
-(function () {
-  var d = new Date();
-  var txt = d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日';
-  var el = document.getElementById('genDate');
-  if (el) { el.textContent = '修订日期：' + txt; }
-})();
-</script>
-</body>
+      /* ===== 动态日期 ===== */
+      (function () {
+        var d = new Date();
+        var txt =
+          d.getFullYear() +
+          "年" +
+          (d.getMonth() + 1) +
+          "月" +
+          d.getDate() +
+          "日";
+        var el = document.getElementById("genDate");
+        if (el) {
+          el.textContent = "修订日期：" + txt;
+        }
+      })();
+    </script>
+  </body>
 </html>
