@@ -17,5 +17,5 @@ jobs:
           secretId: ${{ secrets.TCB_SECRET_ID }}
           secretKey: ${{ secrets.TCB_SECRET_KEY }}
           envId: ${{ secrets.TCB_ENV_ID }}
-          staticPath: ./
-          deployPath: /
+          staticSrcPath: ./
+          staticDestPath: /
