@@ -24,9 +24,9 @@ body {
   line-height: 1.75;
   padding: 0 0 70px;
 }
-html {
-  scroll-behavior: smooth;
-}
+/* 注意：不要在 html 上写 scroll-behavior: smooth。
+   它会把「刷新后恢复滚动位置」也变成从页顶平滑滚下来的动画，
+   看起来就像页面被弹回页顶。导航点击的平滑滚动由 script.js 显式指定行为。 */
 .wrap {
   max-width: 1100px;
   margin: 0 auto;
@@ -658,7 +658,7 @@ h3:first-of-type {
   flex: 0 0 auto;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 2px solid #6b7688;
+  border: 0.1rem solid #6b7688;
   background: #fff;
   overflow: hidden;
 }
@@ -1299,6 +1299,34 @@ ul.plain {
   margin-top: 26px;
   line-height: 1.9;
 }
+/* 页脚信息区：官网地址 / 联系方式 / 社交账号 / 出版方主体 */
+.ft-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 20px;
+  margin-top: 12px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #5b6675;
+}
+.ft-link {
+  color: #007a5f;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 122, 95, 0.35);
+  transition:
+    color 0.18s,
+    border-bottom-color 0.18s;
+}
+.ft-link:hover {
+  color: #00533f;
+  border-bottom-color: #00533f;
+}
+.ft-copy {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #5b6675;
+}
 
 /* ===== 移动端适配 ===== */
 html {
@@ -1910,7 +1938,7 @@ html {
 .honor-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 22px;
   margin-top: 6px;
 }
 .honor-tier {
@@ -1936,14 +1964,14 @@ html {
   color: #fff;
   border-radius: 9px 9px 0 0;
 }
-/* 徽章图标：右侧居中，上下突出标题栏 */
+/* 徽章图标：右侧居中，上下突出标题栏（整体再上移 15px） */
 .honor-icon {
   position: absolute;
   right: 16px;
   top: 50%;
   width: 64px;
   height: 64px;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% - 15px));
   filter: drop-shadow(0 5px 10px rgba(20, 31, 96, 0.3));
 }
 .honor-tier.t1 .honor-tier-head {
