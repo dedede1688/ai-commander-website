@@ -11,6 +11,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Remove .git directory
+        run: rm -rf .git
+
       - name: Deploy to CloudBase
         uses: TencentCloudBase/cloudbase-action@v1
         with:
