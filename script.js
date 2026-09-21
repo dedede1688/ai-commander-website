@@ -414,7 +414,50 @@ document.addEventListener("keydown", function (e) {
   });
 })();
 
-/* ===== 广告弹窗：书本式出版人轮播 · 每 1 分钟弹一次 · 3 秒后缩飞进「AI 大礼包」 ===== */
+/* ===== 记住滚动位置：刷新后回到原处，不被广告弹窗或刷新带回页顶 ===== */
+(function () {
+  var KEY = "__aiScrollY";
+  var y = 0;
+  try {
+    y = parseInt(sessionStorage.getItem(KEY) || "0", 10) || 0;
+  } catch (e) {}
+
+  /* 关掉浏览器自带的滚动恢复，改由本脚本接管：
+     否则它会和页面里的平滑滚动互相打断，最后停在页顶 */
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  function save() {
+    try {
+      sessionStorage.setItem(KEY, String(Math.round(window.pageYOffset)));
+    } catch (e) {}
+  }
+  window.addEventListener("pagehide", save);
+  window.addEventListener("beforeunload", save);
+
+  if (y <= 0) return;
+
+  /* 用户自己滚动过之后就不再干预，避免把滚动位置抢回来 */
+  var moved = false;
+  ["wheel", "touchstart", "keydown"].forEach(function (ev) {
+    window.addEventListener(
+      ev,
+      function () {
+        moved = true;
+      },
+      { passive: true },
+    );
+  });
+
+  /* 首屏图片会撑开高度，先定位一次，整页加载完再校正一次 */
+  window.scrollTo(0, y);
+  window.addEventListener("load", function () {
+    if (!moved) window.scrollTo(0, y);
+  });
+})();
+
+/* ===== 广告弹窗：书本式出版人轮播 · 每 3 分钟弹一次 · 3 秒后缩飞进「AI 大礼包」 ===== */
 (function () {
   var adModal = document.getElementById("adModal");
   if (!adModal) return;
@@ -467,9 +510,9 @@ document.addEventListener("keydown", function (e) {
     setTimeout(closeAd, 3000);
   }
 
-  /* 页面打开先弹一次，之后每 1 分钟弹一次 */
+  /* 页面打开先弹一次，之后每 3 分钟弹一次 */
   setTimeout(showAd, 400);
-  setInterval(showAd, 60000);
+  setInterval(showAd, 180000);
 
   /* 点击广告任意位置 → 直接退出（缩飞进「AI 大礼包」） */
   adModal.addEventListener("click", closeAd);
