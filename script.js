@@ -474,6 +474,8 @@ document.addEventListener("keydown", function (e) {
 
   /* 退场：整体缩小并飞向导航栏「AI 大礼包」按钮 */
   function closeAd() {
+    /* 已在退场中或已隐藏时跳过，防止自动退场定时器与点击重复触发 */
+    if (!adModal.classList.contains("on")) return;
     if (adBox && navGift) {
       var gr = navGift.getBoundingClientRect();
       var br = adBox.getBoundingClientRect();
@@ -514,8 +516,14 @@ document.addEventListener("keydown", function (e) {
   setTimeout(showAd, 400);
   setInterval(showAd, 180000);
 
-  /* 点击广告任意位置 → 直接退出（缩飞进「AI 大礼包」） */
-  adModal.addEventListener("click", closeAd);
+  /* 点击广告：按钮「共建 AI 生态」→ 弹出 AI 大礼包二维码（广告同时退场）；
+     点其它任何位置 → 按原方式退场（缩飞进「AI 大礼包」） */
+  adModal.addEventListener("click", function (e) {
+    if (e.target === adCta && qrLayer) {
+      qrLayer.classList.add("on");
+    }
+    closeAd();
+  });
 
   /* 导航「AI 大礼包」→ 直接弹出二维码 */
   if (navGift) {
