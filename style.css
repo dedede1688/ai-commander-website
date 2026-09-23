@@ -1491,21 +1491,11 @@ ul.plain {
   line-height: 1.6;
 }
 
-/* ===== 内部台账沉底（视觉动线：…→ 四级荣誉 → 量化分析 → 待办事项 → 页脚）=====
-   .wrap 改为纵向 flex，量化分析与待办两块内部台账用 order 挪到四级荣誉之后，
-   DOM 顺序与锚点（#sec-quant / #sec-todo）保持不变，仅调整显示顺序。 */
-.wrap {
-  display: flex;
-  flex-direction: column;
-}
-#sec-quant {
-  order: 1;
-}
+/* ===== 内部台账暂时隐藏（量化分析 / 待办事项仅对内使用）=====
+   恢复显示时：删除下方规则，并把 shared.js 下拉菜单中的对应项补回。 */
+#sec-quant,
 #sec-todo {
-  order: 2;
-}
-#footerNote {
-  order: 3;
+  display: none;
 }
 @media (max-width: 768px) {
   .book-grid {
