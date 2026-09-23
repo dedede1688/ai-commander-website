@@ -31,7 +31,7 @@
       content="https://www.ai-mmc.cn/%E7%B4%A0%E6%9D%90/%E4%B9%A6%E7%B1%8D/AI%E6%8C%87%E6%8C%A5%E5%AE%98-%E7%AB%8B%E4%BD%93%E4%B9%A6.webp"
     />
     <link rel="stylesheet" href="base.css?v=3" />
-    <link rel="stylesheet" href="style.css?v=12" />
+    <link rel="stylesheet" href="style.css?v=13" />
   </head>
   <body data-page="index">
     <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
@@ -186,7 +186,17 @@
           依据各人简介文本归类，部分简介含多重身份，按主身份归入最贴切的一类。
         </p>
 
-        <h3>身份角色（一人可归多类）</h3>
+        <!-- 总览数字 -->
+        <div class="pb-kpis">
+          <div class="pb-kpi"><b>20</b><span>联合出版人</span></div>
+          <div class="pb-kpi"><b>5</b><span>身份角色标签</span></div>
+          <div class="pb-kpi"><b>7</b><span>简介含明确年限</span></div>
+          <div class="pb-kpi"><b>9</b><span>高频关键词</span></div>
+        </div>
+
+        <div class="pb-grid">
+          <div class="pb-panel">
+            <h3>身份角色 <em>一人可归多类</em></h3>
         <div class="bar-row">
           <div class="bar-name">专家 · 顾问 · 规划师</div>
           <div class="bar-track">
@@ -222,12 +232,14 @@
           </div>
           <div class="bar-val">5 人</div>
         </div>
-        <p style="font-size: 14px; color: #8a93a6; margin-top: 8px">
-          "专家／顾问／规划师"型占比最高（10
-          人），说明榜单以具备专业话语权、能对外发声的人群为主，与"联合出版人"的传播属性相契合。
-        </p>
+            <p class="pb-note">
+              "专家／顾问／规划师"型占比最高（10
+              人），说明榜单以具备专业话语权、能对外发声的人群为主，与"联合出版人"的传播属性相契合。
+            </p>
+          </div>
 
-        <h3>从业年限（简介中带明确数字者 7 人）</h3>
+          <div class="pb-panel">
+            <h3>从业年限 <em>简介中带明确数字者 7 人</em></h3>
         <div class="bar-row">
           <div class="bar-name">三十余年</div>
           <div class="bar-track">
@@ -270,74 +282,24 @@
           </div>
           <div class="bar-val">11 人</div>
         </div>
-        <p style="font-size: 14px; color: #8a93a6; margin-top: 8px">
-          带明确年限的 7 人中，5 人为"二十年以上"，榜单资历整体偏深；另有 11
-          人简介未提及年限，是后续可补充的素材方向。
-        </p>
+            <p class="pb-note">
+              带明确年限的 7 人中，5 人为"二十年以上"，榜单资历整体偏深；另有 11
+              人简介未提及年限，是后续可补充的素材方向。
+            </p>
+          </div>
+        </div>
 
-        <h3>高频关键词（出现人次）</h3>
-        <div class="bar-row">
-          <div class="bar-name">运营</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 100%"></div>
-          </div>
-          <div class="bar-val">9 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">实体</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 89%"></div>
-          </div>
-          <div class="bar-val">8 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">AI</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 89%"></div>
-          </div>
-          <div class="bar-val">8 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">企业</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 89%"></div>
-          </div>
-          <div class="bar-val">8 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">产业</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 78%"></div>
-          </div>
-          <div class="bar-val">7 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">商业</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 78%"></div>
-          </div>
-          <div class="bar-val">7 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">投资</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 56%"></div>
-          </div>
-          <div class="bar-val">5 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">品牌</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 56%"></div>
-          </div>
-          <div class="bar-val">5 人</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-name">互联网</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: 44%"></div>
-          </div>
-          <div class="bar-val">4 人</div>
+        <h3>高频关键词 <em>简介出现人次</em></h3>
+        <div class="pb-tags">
+          <span class="pb-tag t1">运营<b>9</b></span>
+          <span class="pb-tag t2">实体<b>8</b></span>
+          <span class="pb-tag t2">AI<b>8</b></span>
+          <span class="pb-tag t2">企业<b>8</b></span>
+          <span class="pb-tag t2">产业<b>7</b></span>
+          <span class="pb-tag t2">商业<b>7</b></span>
+          <span class="pb-tag t3">投资<b>5</b></span>
+          <span class="pb-tag t3">品牌<b>5</b></span>
+          <span class="pb-tag t3">互联网<b>4</b></span>
         </div>
 
         <div class="note">
