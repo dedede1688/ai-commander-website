@@ -501,11 +501,136 @@
   background: linear-gradient(90deg, #9aa4b2, #c4ccd6);
 }
 .bar-val {
-  flex: 0 0 78px;
-  text-align: right;
+  flex: 0 0 auto;
   font-family: Consolas, monospace;
-  color: var(--navy);
+  font-size: 12px;
   font-weight: 700;
+  color: var(--navy);
+  background: #eef4f8;
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+
+/* ===== 共建出版 · 面板化排版 ===== */
+.pb-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.pb-kpi {
+  border: 1px solid #e2e6ed;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  padding: 12px 10px 10px;
+  text-align: center;
+}
+.pb-kpi b {
+  display: block;
+  font-family: Consolas, monospace;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--navy);
+}
+.pb-kpi:first-child b {
+  color: #00a37f;
+}
+.pb-kpi span {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  color: #6b7688;
+}
+.pb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.pb-panel {
+  border: 1px solid #e2e6ed;
+  border-radius: 10px;
+  background: #fcfdfe;
+  padding: 16px 18px 14px;
+}
+.pb-panel h3 {
+  margin-top: 0;
+}
+#sec-industry h3 em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 400;
+  color: #8a93a6;
+  margin-left: 8px;
+  letter-spacing: 0;
+}
+.pb-note {
+  font-size: 14px;
+  color: #8a93a6;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.pb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.pb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: 1px solid #e2e6ed;
+  background: #f5f6f9;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2b3852;
+  letter-spacing: 0.5px;
+}
+.pb-tag b {
+  font-family: Consolas, monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #00795f;
+  background: rgba(0, 237, 189, 0.16);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+.pb-tag.t1 {
+  font-size: 19px;
+  color: #fff;
+  background: linear-gradient(120deg, #0c1738 0%, #223a80 100%);
+  border-color: transparent;
+  box-shadow: 0 6px 14px rgba(20, 31, 96, 0.25);
+}
+.pb-tag.t1 b {
+  color: #00edbd;
+  background: rgba(255, 255, 255, 0.14);
+}
+.pb-tag.t3 {
+  font-size: 14.5px;
+  color: #55617a;
+}
+@media (max-width: 768px) {
+  .pb-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pb-grid {
+    grid-template-columns: 1fr;
+  }
+  .pb-panel {
+    padding: 14px 14px 12px;
+  }
+  .pb-tag {
+    font-size: 15px;
+    padding: 6px 13px;
+  }
+  .pb-tag.t1 {
+    font-size: 17px;
+  }
 }
 
 /* ===== 名录照片墙 ===== */
@@ -1211,7 +1336,7 @@ ul.plain {
     flex: 1 1 auto;
   }
   .bar-val {
-    flex: 0 0 62px;
+    flex: 0 0 auto;
   }
 
   .shift-table {
