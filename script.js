@@ -1,10 +1,14 @@
+/* 《AI指挥官》首页脚本（script.js）
+   整个文件包在 IIFE（立即执行函数 Immediately Invoked Function Expression）里，
+   避免把 P / IND / openM 等名字暴露到 window 上，后续新增页面脚本时互不干扰。 */
+(function () {
 /* ===== 数据源：与 01-联合出版人.md 一一对应 ===== */
 var P = [
   {
     n: "鄢海珍",
     s: "NO.001",
     r: "运动面料全链路操盘 · 二十余年",
-    f: "素材/照片/NO001_鄢海珍.jpg",
+    f: "素材/照片/NO001_鄢海珍.webp",
     b: "深耕服装纺织二十余年，专注运动面料研发、生产、销售与进出口贸易，具完整供应链实操经验。熟悉品质管控、外贸报关与跨境订单全链路，拥有稳定上游工厂及海内外客户渠道。以诚为本，品质为先，期待与服装品牌合作。",
     lv: "low",
   },
@@ -12,7 +16,7 @@ var P = [
     n: "金朝霞",
     s: "NO.002",
     r: "AI 营销生态发起人",
-    f: "素材/照片/NO002_金朝霞.jpg?v=2",
+    f: "素材/照片/NO002_金朝霞.webp",
     b: "AI营销生态发起人，企业增长与数字化运营专家，AI智能体应用实践者。多年运营、品牌、招商孵化及数字化实战经验，专注AI获客、GEO增长与商业化落地。理念：AI不是替代企业，而是重新定义增长方式。",
     lv: "hi",
   },
@@ -20,7 +24,7 @@ var P = [
     n: "胡公平",
     s: "NO.003",
     r: "商业地产招商运营专家",
-    f: "素材/照片/NO003_胡公平.jpg",
+    f: "素材/照片/NO003_胡公平.webp",
     b: '商业地产策划招商运营专家。深耕大湾区二十余年，计算机跨界，操盘数十个商业综合体与产业园，擅长前策、业态与头部品牌招商。倡导"运营赋能为王"，构建线上流量+线下实操体系，探索AI数智化赋能实体商业。',
     lv: "hi",
   },
@@ -28,7 +32,7 @@ var P = [
     n: "张成",
     s: "NO.004",
     r: "企业底层架构师 · 30年实体",
-    f: "素材/照片/NO004_张成.jpg",
+    f: "素材/照片/NO004_张成.webp",
     b: "实体产业深耕三十余年，企业底层架构师，AI全域生态规划师。著有《民企生态底层架构》《商协会资源生态》等专著。倡导制度优先、先理性再感性，坚持风险防控。探索AI+实体+全域生态，赋能民营企业与高认知群体。",
     lv: "hi",
   },
@@ -36,7 +40,7 @@ var P = [
     n: "郭瑞元",
     s: "NO.005",
     r: "碧水源集团董事长",
-    f: "素材/照片/NO005_郭瑞元.png",
+    f: "素材/照片/NO005_郭瑞元.webp",
     b: "碧水源集团董事长，广州赢联健康产业创始人，广州碧水源生物科技董事长，美国BSY集团控股公司负责人。深耕大健康产业，推动产业整合、国际化与产学研融合，以科技赋能健康，助力行业高质量发展，并坚持长期主义。",
     lv: "low",
   },
@@ -44,7 +48,7 @@ var P = [
     n: "张玉洁",
     s: "NO.006",
     r: "玉洁生活社区连锁创始人",
-    f: "素材/照片/NO006_张玉洁.jpg",
+    f: "素材/照片/NO006_张玉洁.webp",
     b: "玉洁生活社区连锁创始人，家政行业特别奉献者，优秀家庭服务管理者，高级营养管理师。以社区门店为根基，提供保洁、保姆、月嫂、家电清洗、养生及绿色农特产品服务。爱生活，爱健康，爱分享，美好生活从洁净养生开始。",
     lv: "low",
   },
@@ -52,7 +56,7 @@ var P = [
     n: "周一",
     s: "NO.007",
     r: "资深产业投资人",
-    f: "素材/照片/NO007_周一.png",
+    f: "素材/照片/NO007_周一.webp",
     b: "资深产业投资人，资本跃迁与上市培育实战专家。从工程师到集团董事，深耕实业二十余载。产业资本双视角，价值诊断、资本规划、产融对接、并购整合；优质企业上市费用最高九成垫资，合规为底线，助企业低门槛资本跃迁。",
     lv: "low",
   },
@@ -60,7 +64,7 @@ var P = [
     n: "于亚永",
     s: "NO.008",
     r: "资深IT工程师 · Web3观察者",
-    f: "素材/照片/NO008_于亚永.jpg",
+    f: "素材/照片/NO008_于亚永.webp",
     b: "资深IT工程师，深耕软件开发与底层架构，具工程研发与落地经验。深耕新媒体内容生态，擅长内容策划、流量运营与商业营销。专注Web3与数字经济，融合技术、传播与产业洞察，输出深度与落地并重的行业思考。",
     lv: "mid",
   },
@@ -68,7 +72,7 @@ var P = [
     n: "李海畅",
     s: "NO.009",
     r: "企业战略顾问 · 互联网运营",
-    f: "素材/照片/NO009_李海畅.jpg",
+    f: "素材/照片/NO009_李海畅.webp",
     b: "大湾区本地生活联合运营中心联合创始人，广东华南经济发展研究会企业家访谈人，原中国网健康中国广东会客厅副主编、战略顾问，《企业家使命》编委。AI+全域视觉战略官，品牌传播顾问，短视频视觉传播、全域获客。",
     lv: "mid",
   },
@@ -76,7 +80,7 @@ var P = [
     n: "吴琦",
     s: "NO.010",
     r: "实体产业互联转型专家",
-    f: "素材/照片/NO010_吴琦.jpg",
+    f: "素材/照片/NO010_吴琦.webp",
     b: "原大型国企实操运营人，实体产业互联转型升级落地专家，八年互联网公域流量赋能实体应用者。湖南省驻广州天狼商务处常务副会长，数字经济早期资深投资型顾问，原南京远见生物科技首席战略运营官，并长期推动产业升级。",
     lv: "mid",
   },
@@ -84,7 +88,7 @@ var P = [
     n: "熊俪",
     s: "NO.011",
     r: "汉派女装 · 实业股东",
-    f: "素材/照片/NO011_熊俪.jpg",
+    f: "素材/照片/NO011_熊俪.webp",
     b: "深耕汉派女装批发，熟悉服装供应链与市场；广州秦火锅股份有限公司股东，参与餐饮投资；任康达（广州）品牌管理有限公司事业部经理，专注品牌管理与渠道。跨界实体与品牌运营，务实稳健，持续探索产业升级发展。",
     lv: "low",
   },
@@ -92,7 +96,7 @@ var P = [
     n: "谢眺",
     s: "NO.012",
     r: "传统行业 → 互联网转型者",
-    f: "素材/照片/NO012_谢眺.jpg",
+    f: "素材/照片/NO012_谢眺.webp",
     b: "从教育世家走出，历经传统实体与互联网双重淬炼。承包商场、经营餐饮百货、创办食品工厂，后转战深圳互联网，从失败中成长为团队长、系统领导、运营总监、平台CEO。整合资源，坚韧务实，持续探索新商业生态。",
     lv: "mid",
   },
@@ -100,7 +104,7 @@ var P = [
     n: "韦健",
     s: "NO.013",
     r: "金融投融资 · 并购重组",
-    f: "素材/照片/NO013_韦健.jpg",
+    f: "素材/照片/NO013_韦健.webp",
     b: "深耕金融二十余年，聚焦实体项目投融资，全流程实操丰富。参与火车站基建及大型工商投资项目尽调、研判与价值分析，完成现金流测算、收益评估与风险识别。主导多项并购重组，熟悉交易架构、估值谈判与风险把控。",
     lv: "low",
     isNew: true,
@@ -109,7 +113,7 @@ var P = [
     n: "李平",
     s: "NO.014",
     r: "理财规划师 · 财商教育者",
-    f: "素材/照片/NO014_李平.jpg",
+    f: "素材/照片/NO014_李平.webp",
     b: "理财规划师，心理咨询师，青少年财商教育实践者。多年企业规划经验，融合财务、心理与教育视角，专注财富心智、家庭成长与组织发展，助力企业高质量发展，以专业与温度陪伴个人和企业长期稳健前行，并持续创造价值。",
     lv: "low",
   },
@@ -117,7 +121,7 @@ var P = [
     n: "Menger",
     s: "NO.015",
     r: "品牌上市运营总指导",
-    f: "素材/照片/NO015_Menger.png",
+    f: "素材/照片/NO015_Menger.webp",
     b: "品牌上市运营总指导。深耕实业与资本，涉足五金、农业、电商，深谙平衡之道。专注市值管理十年，参与创建市值研究中心，是市值管理实践的传承者与践行者。以实业为根、资本为翼，务实理性，助力企业价值提升。",
     lv: "low",
   },
@@ -125,7 +129,7 @@ var P = [
     n: "赵卓一",
     s: "NO.016",
     r: "AI 全域营销专家",
-    f: "素材/照片/NO016_赵卓一.jpg",
+    f: "素材/照片/NO016_赵卓一.webp",
     b: "深耕AI全域营销与商业落地，专注AI转化为实体、美业与创业项目的增长工具。擅长AI短剧、AIGC内容、AI获客，搭建商业化运营方案，打造低成本引流、沙龙招商与短视频矩阵，务实落地，赋能实体破局。",
     lv: "hi",
   },
@@ -133,7 +137,7 @@ var P = [
     n: "张武红",
     s: "NO.017",
     r: "语文老师 · 互联网投资顾问",
-    f: "素材/照片/NO017_张武红.png",
+    f: "素材/照片/NO017_张武红.webp",
     b: "安徒生语文老师，互联网投资顾问，多个支付公司聚合码平台指导人。深耕企业投资与教育板块，对AI领域高度认同，善于跨界连接资源，以教育者与投资人双重视角，助力更多人拥抱智能时代，携手更多伙伴共创未来！",
     lv: "hi",
   },
@@ -141,7 +145,7 @@ var P = [
     n: "危杰棉",
     s: "NO.018",
     r: "实体连续创业 · 美业大健康",
-    f: "素材/照片/NO018_危杰棉.jpg",
+    f: "素材/照片/NO018_危杰棉.webp",
     b: "实体连续创业者，深耕美业与大健康，擅长供应链整合、私域渠道搭建与商业资源对接。从一线实体经营视角，参与梳理AI在商业场景中的落地思考，聚焦普通人如何借助AI工具，把想法转化为实际商业价值，务实推进落地。",
     lv: "hi",
     isNew: true,
@@ -150,7 +154,7 @@ var P = [
     n: "牛顿老师",
     s: "NO.019",
     r: "AI 人才孵化 · 商学院院长",
-    f: "素材/照片/NO019_牛顿老师.png",
+    f: "素材/照片/NO019_牛顿老师.webp",
     b: "华中农大硕士，深耕企业人才培养与输送，兼任多家商学院院长。现聚焦AI时代核心人才孵化，定向培养讲师、店长及AI部署工程师，打通培育、训练、输送全链路，助企业搭建可落地人才梯队，解决招人难、育人慢、留不住。",
     lv: "low",
     isNew: true,
@@ -159,7 +163,7 @@ var P = [
     n: "胡子老师",
     s: "NO.020",
     r: "《AI指挥官》作者",
-    f: "素材/照片/NO019_胡子老师.png",
+    f: "素材/照片/NO020_胡子老师.webp",
     b: '资本视角商业策划师，首席战略官，资本运作专家。精通财务模型与资本架构，擅长模式创新与组织激活。独创"商学院+招商+资本"铁三角，打通治理、模式、资产证券化。理念：AI是参谋，你是司令。《AI指挥官》作者。',
     lv: "hi",
   },
@@ -246,7 +250,7 @@ IND.forEach(function (ind) {
       LVNAME[lv] +
       '"><img src="' +
       PHOTO[nm] +
-      '" alt="" loading="lazy"></span>';
+      '" alt="" loading="lazy" decoding="async"></span>';
   });
 
   /* 分布条：宽度按本行业人数归一化，全绿即该行业全员已关联 AI */
@@ -293,7 +297,7 @@ P.forEach(function (p, i) {
     p.f +
     '" alt="' +
     p.n +
-    '">' +
+    '" loading="lazy" decoding="async">' +
     '<div class="rc-seat">' +
     p.s +
     "</div>" +
@@ -344,7 +348,8 @@ document.addEventListener("keydown", function (e) {
 
   var navLinks = document.querySelector(".nav-links");
   function scrollLinkIntoView(l) {
-    if (!navLinks) return;
+    /* 下拉收起时菜单项不可见（rect 全 0），跳过避免误滚导航条 */
+    if (!navLinks || !l.offsetParent) return;
     var cr = navLinks.getBoundingClientRect();
     var lr = l.getBoundingClientRect();
     var left = lr.left - cr.left;
@@ -377,12 +382,31 @@ document.addEventListener("keydown", function (e) {
   /* 滚动侦测高亮切换时，同步让高亮项可见 */
   function spy() {
     var y = window.pageYOffset + 92;
-    var cur = targets[0];
+    /* 取「已滚过参考线」的区块中物理位置最深的一个。
+       「联合出版」下拉重排后，链接的 DOM 顺序不再等于页面区块顺序，
+       不能再按数组顺序取最后一个满足项。 */
+    var cur = null;
+    var curTop = -Infinity;
     targets.forEach(function (t) {
-      if (t.getBoundingClientRect().top + window.pageYOffset <= y)
+      var top = t.getBoundingClientRect().top + window.pageYOffset;
+      if (top <= y && top > curTop) {
         cur = t;
+        curTop = top;
+      }
     });
-    if (!cur) return;
+    if (!cur) {
+      /* 模型页没有本页区块，保持页面级高亮（如「AI 模型」）不动 */
+      if (!targets.length) return;
+      /* 首页顶部没有任何区块过线：清除全部高亮。
+         原来兜底点亮第一项，但「AI 前线」删除后首项是页面中部的
+         「指挥官军团」，回到顶部时点亮它属于误亮。 */
+      links.forEach(function (l) {
+        l.classList.toggle("active", false);
+      });
+      var dropBtnTop = document.querySelector(".nav-drop");
+      if (dropBtnTop) dropBtnTop.classList.remove("active");
+      return;
+    }
     var curHref = "#" + cur.id;
     var changed = false;
     links.forEach(function (l) {
@@ -396,6 +420,15 @@ document.addEventListener("keydown", function (e) {
     if (changed) {
       var act = document.querySelector(".nav-link.active");
       if (act) scrollLinkIntoView(act);
+    }
+    /* 下拉子项处于高亮时，顶级「联合出版」同步亮起（子项在下拉里，用户看不见） */
+    var dropBtn = document.querySelector(".nav-drop");
+    if (dropBtn) {
+      var dropOn = !!document.querySelector(".dd-link.active");
+      if (dropOn !== dropBtn.classList.contains("active")) {
+        dropBtn.classList.toggle("active", dropOn);
+        if (dropOn) scrollLinkIntoView(dropBtn);
+      }
     }
   }
   window.addEventListener("scroll", spy, { passive: true });
@@ -482,6 +515,7 @@ document.addEventListener("keydown", function (e) {
   var adPName = document.getElementById("adPName");
   var adPSeat = document.getElementById("adPSeat");
   var adPRole = document.getElementById("adPRole");
+  var adCta = document.getElementById("adCta");
 
   /* 本次打开页面随机选一位起始出版人，之后按席位顺序 1→20 轮下去；刷新页面重新随机 */
   var idx = Math.floor(Math.random() * P.length);
@@ -526,8 +560,7 @@ document.addEventListener("keydown", function (e) {
     setTimeout(closeAd, 3000);
   }
 
-  /* 页面打开先弹一次，之后每 3 分钟弹一次 */
-  setTimeout(showAd, 400);
+  /* 打开页面不立即弹出（首次弹出已按需求去掉），之后每 3 分钟弹一次 */
   setInterval(showAd, 180000);
 
   /* 点击广告：按钮「共建 AI 生态」→ 弹出 AI 大礼包二维码（广告同时退场）；
@@ -539,28 +572,6 @@ document.addEventListener("keydown", function (e) {
     closeAd();
   });
 
-  /* 导航「AI 大礼包」→ 直接弹出二维码 */
-  if (navGift) {
-    navGift.addEventListener("click", function (e) {
-      e.preventDefault();
-      if (qrLayer) qrLayer.classList.add("on");
-    });
-  }
-
-  /* 四级荣誉模块：所有带 data-open-qr 的元素（扫码咨询 / CTA 条）→ 弹出二维码 */
-  Array.prototype.forEach.call(
-    document.querySelectorAll("[data-open-qr]"),
-    function (el) {
-      el.addEventListener("click", function () {
-        if (qrLayer) qrLayer.classList.add("on");
-      });
-    },
-  );
-
-  /* 点击二维码层任意位置 → 关闭 */
-  if (qrLayer) {
-    qrLayer.addEventListener("click", function () {
-      qrLayer.classList.remove("on");
-    });
-  }
+  /* 导航「AI 大礼包」与 data-open-qr 元素的绑定已抽到 shared.js（全站共享层），此处不再重复绑定 */
+})();
 })();

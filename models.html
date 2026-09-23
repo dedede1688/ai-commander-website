@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#141F60" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141F60'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%2300EDBD' stroke-width='6'/%3E%3C/svg%3E" />
+    <title>《AI指挥官》· AI 模型能力速查 V1</title>
+    <link rel="stylesheet" href="base.css?v=3" />
+    <link rel="stylesheet" href="models.css?v=5" />
+  </head>
+  <body data-page="models">
+    <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
+    <nav class="topnav" id="topnav"></nav>
+
+    <div class="wrap">
+      <!-- ===== Hero 标题区 ===== -->
+      <div class="models-hero">
+        <div class="mh-main">
+          <div class="mh-eyebrow">MODEL COMPARISON · AI COMMANDER</div>
+          <div class="mh-title">AI 模型能力速查 · 五维对比</div>
+          <div class="mh-sub">
+            推理 × 写作 × 编程 × 图像生成 × 视频生成 —— 基于公开定位与架构特性综合评估<br />
+            数据截至 2026 年 9 月，部分新模型评分带推断性质
+          </div>
+          <div class="mh-stats">
+            <span class="mh-stat"><span class="mh-num" id="mhModelCount">—</span><small>模型</small></span>
+            <span class="mh-stat"><span class="mh-num">5</span><small>维度</small></span>
+            <span class="mh-stat"><span class="mh-num">10</span><small>分制</small></span>
+            <span class="mh-stat"><span class="mh-num mh-green" id="mhBestModel">—</span><small>综合旗舰</small></span>
+          </div>
+        </div>
+        <div class="mh-badge">
+          <div class="mb-ring"></div>
+          <div class="mb-core">
+            <div class="mb-label">AI MODELS</div>
+            <div class="mb-sub">速查卡 V1</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 一、全景对比：模型选择 + 雷达 + 条形 + 折扣（全通栏）===== -->
+      <div class="card" id="sec-dashboard">
+        <h2>一、模型全景对比</h2>
+        <div class="model-selector" id="modelSelector"></div>
+
+        <div class="radar-wrap radar-solo">
+          <canvas id="radarCanvas" width="560" height="560"></canvas>
+          <div class="scan-line"></div>
+          <div class="radar-legend" id="radarLegend"></div>
+        </div>
+
+        <div class="dash-sub">
+          <div class="dash-sub-hd">单维条形排序</div>
+          <div class="dim-tabs" id="dimTabs">
+            <button class="dim-tab active" data-dim="reasoning">推理</button>
+            <button class="dim-tab" data-dim="writing">写作</button>
+            <button class="dim-tab" data-dim="coding">编程</button>
+            <button class="dim-tab" data-dim="image">图像</button>
+            <button class="dim-tab" data-dim="video">视频</button>
+            <button class="dim-tab" data-dim="agent">Agent</button>
+            <button class="dim-tab" data-dim="multimodal">多模态</button>
+            <button class="dim-tab" data-dim="longctx">长文本</button>
+            <button class="dim-tab" data-dim="composite">综合</button>
+          </div>
+          <div class="bar-compare" id="barCompare"></div>
+        </div>
+
+        <div class="dash-sub">
+          <div class="dash-sub-hd">闲时折扣热力图</div>
+          <div class="discount-grid discount-6col" id="discountGrid"></div>
+          <div class="note note-sm">
+            <div class="discount-legend">
+              <span><i class="lg lg-5"></i>&lt; 0.10x</span>
+              <span><i class="lg lg-4"></i>0.10–0.30x</span>
+              <span><i class="lg lg-3"></i>0.30–0.60x</span>
+              <span><i class="lg lg-2"></i>0.60–1.00x</span>
+              <span><i class="lg lg-1"></i>&gt; 1.00x</span>
+              <span><i class="lg lg-0"></i>无数据</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 二、按需求类型推荐（整宽） ===== -->
+      <div class="card" id="sec-recommend">
+        <h2>二、按需求类型推荐</h2>
+        <p class="sub-note">6 类典型用户场景的首选模型与备选方案</p>
+        <div class="recommend-grid" id="recommendGrid"></div>
+      </div>
+
+      <!-- ===== 三、成本效益综合建议（整宽） ===== -->
+      <div class="card" id="sec-cost">
+        <h2>三、成本效益综合建议</h2>
+        <p class="sub-note">结合闲时折扣与综合能力的高性价比组合</p>
+        <div class="cost-grid" id="costGrid"></div>
+        <div class="note alert">
+          <div class="note-title">⚠️ 注意事项</div>
+          Kimi-K3 闲时折扣为 1.83x（即闲时反而涨价 83%），建议核对平台定价规则；标注 <code>*</code> 的模型为推断评分，建议实测确认。
+        </div>
+      </div>
+
+      <!-- ===== 页脚 ===== -->
+      <!-- 页脚内容由 shared.js 注入，data-footer 用 | 分隔多行 -->
+      <div
+        class="footer-note"
+        id="footerNote"
+        data-footer="《AI指挥官》· AI 模型能力速查 V1|评分基于公开定位与架构特性综合评估 ｜ 部分新模型数据待补充"
+      ></div>
+    </div>
+
+    <!-- ===== 二维码放大层（点击导航「AI 大礼包」显示）===== -->
+    <div class="qr-layer" id="qrLayer">
+      <div class="qr-panel">
+        <img
+          src="素材/二维码/AI指挥官-二维码.webp"
+          width="640"
+          height="640"
+          loading="lazy"
+          decoding="async"
+          alt="AI指挥官 小程序二维码"
+        />
+        <div class="qr-hint">
+          进入「AI 指挥官」
+          <small>扫码或长按进入</small>
+        </div>
+      </div>
+    </div>
+
+    <script src="shared.js?v=9"></script>
+    <script src="models.js?v=8"></script>
+  </body>
+</html>
