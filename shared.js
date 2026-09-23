@@ -16,12 +16,13 @@
 (function () {
   /* ---------- 站点配置（改这里，全站生效） ---------- */
   /* 同页锚点栏目：首页直接用 #hash，其他页面自动补 index.html 前缀。
-     「指挥官军团」（原共建名录）为顶级导航项，排在「联合出版」之前。 */
+     前 ANCHORS_BEFORE_DROP 个锚点排在「联合出版」下拉之前，其余排在其后。 */
   var ANCHORS = [
     { hash: "sec-book", text: "关于本书" },
     { hash: "sec-roster", text: "指挥官军团" },
     { hash: "sec-honor", text: "四级荣誉" },
   ];
+  var ANCHORS_BEFORE_DROP = 2;
   /* 「联合出版」下拉菜单：原「共建出版」改名并升级为下拉入口。
      量化分析 / 待办事项为内部台账，页面临时隐藏，恢复显示时同步补回这两项。 */
   var DROP_MENU = {
@@ -66,11 +67,16 @@
         .join("") +
       "</div>";
 
-    /* 「共建名录」（ANCHORS 首项）排在「联合出版」之前，其余锚点排在其后 */
+    /* 前 ANCHORS_BEFORE_DROP 个锚点（关于本书 / 指挥官军团）排在「联合出版」之前，
+       其余锚点（四级荣誉）排在其后 */
     var links =
-      anchorLink(ANCHORS[0]) +
+      ANCHORS.slice(0, ANCHORS_BEFORE_DROP)
+        .map(function (a) {
+          return anchorLink(a);
+        })
+        .join("") +
       dropBtn +
-      ANCHORS.slice(1)
+      ANCHORS.slice(ANCHORS_BEFORE_DROP)
         .map(function (a) {
           return anchorLink(a);
         })
