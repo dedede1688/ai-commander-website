@@ -18,6 +18,7 @@
   /* 同页锚点栏目：首页直接用 #hash，其他页面自动补 index.html 前缀。
      「指挥官军团」（原共建名录）为顶级导航项，排在「联合出版」之前。 */
   var ANCHORS = [
+    { hash: "sec-book", text: "关于本书" },
     { hash: "sec-roster", text: "指挥官军团" },
     { hash: "sec-honor", text: "四级荣誉" },
   ];
@@ -26,7 +27,6 @@
   var DROP_MENU = {
     text: "联合出版",
     items: [
-      { hash: "sec-book", text: "关于本书" },
       { hash: "sec-ai", text: "共建指数" },
       { hash: "sec-new", text: "本轮新增" },
     ],
