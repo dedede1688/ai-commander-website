@@ -19,11 +19,16 @@ jobs:
         with:
           node-version: '20'
 
+      # 数据校验门禁：素材引用失效即失败终止，阻断坏数据上线
+      - name: Run data check
+        run: node tools/check-data.js
+
       # 只把站点文件挑出来，内部文件（.trae/ .github/ .vscode/ tools/ 等）一律不上传
       - name: Stage site files
         run: |
           mkdir -p _site
           cp *.html *.js *.css _site/
+          cp robots.txt sitemap.xml _site/
           cp -r 素材 _site/素材
 
       - name: Install CloudBase CLI
