@@ -26,6 +26,7 @@
   var DROP_MENU = {
     text: "联合出版",
     items: [
+      { hash: "sec-book", text: "关于本书" },
       { hash: "sec-ai", text: "共建指数" },
       { hash: "sec-new", text: "本轮新增" },
     ],
