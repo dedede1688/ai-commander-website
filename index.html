@@ -13,27 +13,12 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141F60'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%2300EDBD' stroke-width='6'/%3E%3C/svg%3E"
     />
     <title>《AI指挥官》联合出版人 · AI素质报告 V2</title>
-    <link rel="stylesheet" href="style.css?v=8" />
+    <link rel="stylesheet" href="base.css?v=3" />
+    <link rel="stylesheet" href="style.css?v=9" />
   </head>
-  <body>
-    <nav class="topnav" id="topnav">
-      <div class="nav-inner">
-        <span class="nav-brand" id="navBrand" style="cursor: pointer"
-          ><img class="nav-logo" src="素材/logo.png" alt="AI 指挥官" />AI 指挥官</span
-        >
-        <div class="nav-links">
-          <a class="nav-link" href="#sec-intro">AI 前线</a>
-          <a class="nav-link" href="#sec-industry">共建出版</a>
-          <a class="nav-link" href="#sec-roster">共建名录</a>
-          <a class="nav-link" href="#sec-ai">共建指数</a>
-          <a class="nav-link" href="#sec-new">本轮新增</a>
-          <a class="nav-link" href="#sec-quant">量化分析</a>
-          <a class="nav-link" href="#sec-todo">待办事项</a>
-          <a class="nav-link" href="#sec-honor">四级荣誉</a>
-          <a class="nav-link nav-gift" id="navGift">AI 大礼包</a>
-        </div>
-      </div>
-    </nav>
+  <body data-page="index">
+    <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
+    <nav class="topnav" id="topnav"></nav>
 
     <div class="wrap">
       <!-- ===== 报告头 ===== -->
@@ -65,7 +50,13 @@
         </div>
 
         <div class="rpt-book">
-          <img class="book-img" src="素材/书籍/AI指挥官-立体书.png" alt="《AI指挥官》" />
+          <img
+            class="book-img"
+            src="素材/书籍/AI指挥官-立体书.webp"
+            width="426"
+            height="640"
+            alt="《AI指挥官》"
+          />
         </div>
 
         <div class="rpt-meta">
@@ -494,7 +485,15 @@
         <div class="new-grid">
           <div class="new-card">
             <div class="new-card-top">
-              <img class="new-avatar" src="素材/照片/NO013_韦健.jpg" alt="韦健" />
+              <img
+                class="new-avatar"
+                src="素材/照片/NO013_韦健.webp"
+                width="189"
+                height="240"
+                loading="lazy"
+                decoding="async"
+                alt="韦健"
+              />
               <div>
                 <div class="new-name">
                   韦健 <span class="fix-badge">NO.013</span>
@@ -514,7 +513,11 @@
             <div class="new-card-top">
               <img
                 class="new-avatar"
-                src="素材/照片/NO018_危杰棉.jpg"
+                src="素材/照片/NO018_危杰棉.webp"
+                width="182"
+                height="240"
+                loading="lazy"
+                decoding="async"
                 alt="危杰棉"
               />
               <div>
@@ -536,7 +539,11 @@
             <div class="new-card-top">
               <img
                 class="new-avatar"
-                src="素材/照片/NO019_牛顿老师.png"
+                src="素材/照片/NO019_牛顿老师.webp"
+                width="170"
+                height="240"
+                loading="lazy"
+                decoding="async"
                 alt="牛顿老师"
               />
               <div>
@@ -698,7 +705,11 @@
               ><span class="honor-name">首发指挥官</span>
               <img
                 class="honor-icon"
-                src="素材/荣誉/honor-icon-1.png"
+                src="素材/荣誉/honor-icon-1.webp"
+                width="128"
+                height="128"
+                loading="lazy"
+                decoding="async"
                 alt="首发指挥官徽章"
               />
             </div>
@@ -724,7 +735,11 @@
               ><span class="honor-name">领袖撰稿人</span>
               <img
                 class="honor-icon"
-                src="素材/荣誉/honor-icon-2.png"
+                src="素材/荣誉/honor-icon-2.webp"
+                width="128"
+                height="128"
+                loading="lazy"
+                decoding="async"
                 alt="领袖撰稿人徽章"
               />
             </div>
@@ -751,7 +766,11 @@
               ><span class="honor-name">联合出版人</span>
               <img
                 class="honor-icon"
-                src="素材/荣誉/honor-icon-3.png"
+                src="素材/荣誉/honor-icon-3.webp"
+                width="128"
+                height="128"
+                loading="lazy"
+                decoding="async"
                 alt="联合出版人徽章"
               />
             </div>
@@ -778,7 +797,11 @@
               ><span class="honor-name">特约编委会</span>
               <img
                 class="honor-icon"
-                src="素材/荣誉/honor-icon-4.png"
+                src="素材/荣誉/honor-icon-4.webp"
+                width="128"
+                height="128"
+                loading="lazy"
+                decoding="async"
                 alt="特约编委会徽章"
               />
             </div>
@@ -811,31 +834,27 @@
         </div>
       </div>
 
-      <div class="footer-note">
-        《AI指挥官》联合出版人 · AI 素质报告 V2<br />
-        数据截至最新档案版本 ｜ 照片规格按 300dpi 印刷标准核验 ｜
-        本报告仅用于内部资料管理
-        <div class="ft-meta">
-          <span
-            >官网地址：<a
-              class="ft-link"
-              href="https://www.ai-mmc.cn"
-              target="_blank"
-              rel="noopener"
-              >www.ai-mmc.cn</a
-            ></span
-          >
-        </div>
-        <div class="ft-copy">© 2026 《AI指挥官》 保留所有权利</div>
-      </div>
+      <!-- 页脚内容由 shared.js 注入，data-footer 用 | 分隔多行 -->
+      <div
+        class="footer-note"
+        id="footerNote"
+        data-footer="《AI指挥官》联合出版人 · AI 素质报告 V2|数据截至最新档案版本 ｜ 照片规格按 300dpi 印刷标准核验 ｜ 本报告仅用于内部资料管理"
+      ></div>
     </div>
 
     <!-- ===== 弹窗 ===== -->
     <div class="modal" id="modal">
       <div class="mbox">
-        <span class="mclose" onclick="closeM()">&times;</span>
+        <span class="mclose" data-close-modal>&times;</span>
         <div class="m-top">
-          <img class="m-photo" id="mPhoto" src="素材/照片/NO001_鄢海珍.jpg" alt="" />
+          <img
+            class="m-photo"
+            id="mPhoto"
+            src="素材/照片/NO001_鄢海珍.webp"
+            width="181"
+            height="240"
+            alt=""
+          />
           <div>
             <div class="m-name" id="mName"></div>
             <div class="m-role" id="mRole"></div>
@@ -852,7 +871,11 @@
         <div class="ad-slogan">从产业一线，到 AI 前线——我们，指挥 AI</div>
         <img
           class="ad-book-img"
-          src="素材/书籍/招商海报.png"
+          src="素材/书籍/招商海报.webp"
+          width="660"
+          height="495"
+          loading="lazy"
+          decoding="async"
           alt="《AI指挥官》图书"
         />
         <div class="ad-title">《AI指挥官》</div>
@@ -860,7 +883,11 @@
           <img
             class="ad-avatar"
             id="adAvatar"
-            src="素材/照片/NO001_鄢海珍.jpg"
+            src="素材/照片/NO001_鄢海珍.webp"
+            width="181"
+            height="240"
+            loading="lazy"
+            decoding="async"
             alt="联合出版人"
           />
           <div class="ad-pinfo">
@@ -876,7 +903,14 @@
     <!-- ===== 二维码放大层（点击广告「共建 AI 生态」按钮或「AI 大礼包」显示） ===== -->
     <div class="qr-layer" id="qrLayer">
       <div class="qr-panel">
-        <img src="素材/二维码/AI指挥官-二维码.png" alt="AI指挥官 小程序二维码" />
+        <img
+          src="素材/二维码/AI指挥官-二维码.webp"
+          width="640"
+          height="640"
+          loading="lazy"
+          decoding="async"
+          alt="AI指挥官 小程序二维码"
+        />
         <div class="qr-hint">
           进入「AI 指挥官」
           <small>扫码或长按进入</small>
@@ -884,6 +918,7 @@
       </div>
     </div>
 
-    <script src="script.js?v=7"></script>
+    <script src="shared.js?v=9"></script>
+    <script src="script.js?v=13"></script>
   </body>
 </html>

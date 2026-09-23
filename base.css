@@ -1,0 +1,447 @@
+/* ===== 全站公共样式（base.css）=====
+   被 index.html 与 models.html 共同引用。新增页面只需引入本文件 + 本页专属 CSS。
+
+   内含：样式重置、设计变量、顶部导航栏、页脚、卡片与标题、提示条、
+        弹窗与二维码层的公共部分。
+
+   加载顺序要求：base.css 必须排在各页专属 CSS（style.css / models.css / …）之前，
+   这样「公共默认值 → 页面覆盖值」的级联关系与拆分前完全一致。 */
+
+/* ---------- 样式重置（preflight） ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --navy: #141f60;
+  --navy-d: #0d1440;
+  --teal: #00edbd;
+  --blue: #5aa7e0;
+  --purple: #7b5ce0;
+  --ink: #0b1426;
+  --body: #1a2233;
+  --grey: #8a93a6;
+}
+body {
+  font-family:
+    "Noto Sans SC",
+    "Microsoft YaHei",
+    -apple-system,
+    sans-serif;
+  background: #eef1f6;
+  color: var(--body);
+  line-height: 1.75;
+  padding: 0 0 70px;
+}
+/* 注意：不要在 html 上写 scroll-behavior: smooth。
+   它会把「刷新后恢复滚动位置」也变成从页顶平滑滚下来的动画，
+   看起来就像页面被弹回页顶。导航点击的平滑滚动由 script.js 显式指定行为。 */
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 26px 16px 0;
+}
+.card {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(20, 31, 96, 0.1);
+  padding: 30px 34px;
+  margin-bottom: 20px;
+}
+
+/* ---------- 顶部常驻导航栏 ---------- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: rgba(11, 18, 54, 0.97);
+  border-bottom: 1px solid rgba(0, 237, 189, 0.28);
+  box-shadow: 0 2px 16px rgba(11, 20, 38, 0.34);
+  backdrop-filter: saturate(150%) blur(10px);
+  -webkit-backdrop-filter: saturate(150%) blur(10px);
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.nav-brand {
+  font-family: Consolas, monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px; /* 撑满导航栏高度，扩大点击回顶的命中区域 */
+  padding-right: 6px;
+  text-decoration: none;
+}
+/* 左上角圆形 logo */
+.nav-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+  box-shadow: 0 0 8px rgba(0, 237, 189, 0.55);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  /* 标签背景块之间留出明显且一致的缝隙（原 2px 会让相邻色块几乎粘连） */
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex: 1;
+}
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+.nav-link {
+  font-size: 13px;
+  color: #b9c4dc;
+  text-decoration: none;
+  padding: 7px 12px;
+  /* 统一占位边框：「AI 大礼包」的可见边框不再把它撑得比其他标签高 */
+  border: 1px solid transparent;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition:
+    color 0.16s,
+    background 0.16s;
+  cursor: pointer;
+}
+.nav-link:hover {
+  color: #fff;
+  background: rgba(0, 237, 189, 0.13);
+}
+.nav-link.active {
+  color: var(--teal);
+  background: rgba(0, 237, 189, 0.17);
+  /* 不加粗：激活时文字变宽会让标签尺寸跳动，用颜色与底色区分即可 */
+}
+/* 导航「AI 大礼包」入口（金色高亮，区别于普通章节链接） */
+.nav-gift {
+  color: #ffd479;
+  background: rgba(232, 163, 61, 0.12);
+  border: 1px solid rgba(232, 163, 61, 0.5);
+}
+.nav-gift:hover {
+  color: #fff;
+  background: rgba(232, 163, 61, 0.28);
+}
+/* 导航「联合出版」下拉（面板挂在 .topnav 下，absolute 于导航栏，打开时 left 由 shared.js 设置） */
+.nav-drop::after {
+  content: " ▾";
+  font-size: 11px;
+  opacity: 0.75;
+}
+.nav-dropdown {
+  position: absolute;
+  top: 100%; /* 紧贴导航栏下缘 */
+  left: 0;
+  min-width: 150px;
+  background: #0b1236;
+  border: 1px solid rgba(0, 237, 189, 0.35);
+  border-radius: 8px;
+  padding: 6px;
+  display: none;
+  z-index: 310;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+.nav-dropdown.on {
+  display: block;
+  animation: fade 0.16s;
+}
+.nav-dropdown .nav-link {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+/* 锚点定位留出导航高度 */
+.card {
+  scroll-margin-top: 66px;
+}
+
+/* ---------- 标题 ---------- */
+h2 {
+  font-size: 18px;
+  color: var(--navy);
+  letter-spacing: 1px;
+  padding-left: 13px;
+  border-left: 4px solid #00b89c;
+  margin-bottom: 18px;
+  line-height: 1.3;
+}
+h3 {
+  font-size: 14.5px;
+  color: var(--navy);
+  margin: 22px 0 12px;
+}
+h3:first-of-type {
+  margin-top: 0;
+}
+.sub-note {
+  font-size: 12.5px;
+  color: #667;
+  margin-bottom: 16px;
+}
+
+/* ---------- 弹窗（遮罩层公共部分，具体内容由各页自定义） ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 20, 38, 0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  padding: 20px;
+  backdrop-filter: blur(3px);
+}
+.modal.on {
+  display: flex;
+  animation: fade 0.2s;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- 提示条 ---------- */
+.note {
+  background: #f6f9fb;
+  border-left: 3px solid #00b89c;
+  padding: 14px 18px;
+  border-radius: 0 4px 4px 0;
+  margin: 14px 0;
+  font-size: 13px;
+}
+.note.warn-note {
+  background: #fffbf2;
+  border-left-color: #e8a33d;
+}
+.note.alert {
+  background: #fdf5f6;
+  border-left-color: #d0021b;
+}
+.note-title {
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+/* ===== 字号整体放大（统一在此覆盖，手机端由下方媒体查询再定） ===== */
+.nav-brand {
+  font-size: 14.5px;
+}
+.nav-link {
+  font-size: 15px;
+}
+h2 {
+  font-size: 20.5px;
+}
+h3 {
+  font-size: 16px;
+}
+.sub-note {
+  font-size: 14.5px;
+}
+.note {
+  font-size: 15px;
+}
+.note-title {
+  font-size: 15px;
+}
+
+/* ---------- 页脚 ---------- */
+.footer-note {
+  text-align: center;
+  font-size: 14px;
+  color: #98a2b3;
+  margin-top: 26px;
+  line-height: 1.9;
+}
+/* 页脚信息区：官网地址 / 版权 */
+.ft-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 20px;
+  margin-top: 12px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #5b6675;
+}
+.ft-link {
+  color: #007a5f;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 122, 95, 0.35);
+  transition:
+    color 0.18s,
+    border-bottom-color 0.18s;
+}
+.ft-link:hover {
+  color: #00533f;
+  border-bottom-color: #00533f;
+}
+.ft-copy {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #5b6675;
+}
+
+/* ---------- 二维码放大层 ---------- */
+.qr-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(11, 20, 38, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  cursor: pointer;
+}
+.qr-layer.on {
+  display: flex;
+  animation: fade 0.2s;
+}
+.qr-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+/* height: auto 是必需的：图片标签带 width/height 属性（用于预留空间、防止布局抖动），
+   若这里只写 width: 100% 而不重置 height，浏览器会把属性里的像素高度当成实际高度，
+   导致二维码被纵向拉伸变形。 */
+.qr-panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.qr-hint {
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 1px;
+}
+.qr-hint small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--grey);
+}
+
+/* ===== 移动端适配 ===== */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* --- 平板竖屏 / 大屏手机 --- */
+@media (max-width: 768px) {
+  .wrap {
+    padding: 20px 14px 0;
+  }
+  .card {
+    padding: 22px 18px;
+  }
+  .nav-inner {
+    height: 52px;
+    gap: 12px;
+    padding: 0 12px;
+  }
+  .nav-brand {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .nav-link {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  /* 导航横向滑动提示：右缘渐隐，暗示右侧还有菜单 */
+  .nav-links {
+    gap: 6px;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      #000 0,
+      #000 calc(100% - 28px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      #000 0,
+      #000 calc(100% - 28px),
+      transparent 100%
+    );
+  }
+  h2 {
+    font-size: 19px;
+  }
+}
+
+/* --- 手机 --- */
+@media (max-width: 480px) {
+  .wrap {
+    padding: 14px 12px 0;
+  }
+  .card {
+    padding: 18px 14px;
+  }
+  .nav-inner {
+    padding: 0 10px;
+    gap: 10px;
+  }
+  .nav-brand {
+    font-size: 13px;
+  }
+  .nav-link {
+    font-size: 13.5px;
+    padding: 6px 9px;
+  }
+  h2 {
+    font-size: 18.5px;
+    padding-left: 10px;
+    border-left-width: 3px;
+    margin-bottom: 14px;
+  }
+  h3 {
+    font-size: 15px;
+    margin: 18px 0 10px;
+  }
+  .modal {
+    padding: 10px;
+  }
+  .note {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  .footer-note {
+    font-size: 13px;
+    margin-top: 20px;
+  }
+  .qr-panel {
+    max-width: 280px;
+  }
+}
