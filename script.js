@@ -594,33 +594,59 @@ document.addEventListener("keydown", function (e) {
   ];
   var page = 0;
   var TOTAL = 2;
+  var AUTO_MS = 4000; /* 自动轮播间隔：4 秒 */
+  var autoTimer = null;
 
   function go(n) {
-    page = (n + TOTAL) % TOTAL;
+    page = (n + TOTAL) % TOTAL; /* 取模实现循环：最后一张 → 第一张 */
     track.style.transform = "translateX(-" + page * 100 + "%)";
     dots.forEach(function (d, i) {
       d.classList.toggle("on", i === page);
     });
   }
 
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(function () {
+      go(page + 1);
+    }, AUTO_MS);
+  }
+  function stopAuto() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
   function show() {
     posterModal.classList.add("on");
+    startAuto();
   }
   function hide() {
     posterModal.classList.remove("on");
+    stopAuto();
   }
 
   prevBtn.addEventListener("click", function () {
     go(page - 1);
+    startAuto(); /* 手动切换后重置倒计时，避免刚切完立刻被自动翻页打断 */
   });
   nextBtn.addEventListener("click", function () {
     go(page + 1);
+    startAuto();
   });
   dots.forEach(function (d, i) {
     d.style.cursor = "pointer";
     d.addEventListener("click", function () {
       go(i);
+      startAuto();
     });
+  });
+  /* 鼠标悬停时暂停自动轮播，移开后恢复（仅弹窗打开时生效） */
+  var posterBox = posterModal.querySelector(".poster-box");
+  posterBox.addEventListener("mouseenter", stopAuto);
+  posterBox.addEventListener("mouseleave", function () {
+    if (posterModal.classList.contains("on")) startAuto();
   });
   closeBtn.addEventListener("click", hide);
   /* 点击海报以外的遮罩区域关闭 */
