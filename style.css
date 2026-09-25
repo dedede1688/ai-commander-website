@@ -1779,35 +1779,75 @@ ul.plain {
     transform: translateY(0) scale(1);
   }
 }
-/* 叠层轮播：新海报从右侧进入，旧海报向左侧退出，方向统一 */
+/* 分屏合拢轮播：每张海报拆为左右两半，入场时从屏幕两侧同时向中间滑动合拢 */
 .poster-track {
   position: relative;
   aspect-ratio: 1672 / 941;
   overflow: hidden;
 }
-.poster-img {
+.poster-slide {
   position: absolute;
   inset: 0;
-  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+.poster-slide.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+.poster-slide.out {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+/* 左右裁切窗口：各占一半，内部图片按整幅定位，保证拼合后无缝 */
+.half {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  overflow: hidden;
+}
+.half img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
   height: 100%;
   object-fit: cover;
   display: block;
   user-select: none;
-  opacity: 0;
-  transform: translateX(48px);
-  transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
-  pointer-events: none;
 }
-.poster-img.on {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
+.hl {
+  left: 0;
 }
-.poster-img.out {
-  opacity: 0;
-  transform: translateX(-48px);
+.hr {
+  right: 0;
+}
+.hr img {
+  left: -100%;
+}
+/* 入场动画：左半从屏幕左缘、右半从屏幕右缘向中间缓慢合拢 */
+@keyframes posterHalfL {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes posterHalfR {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.poster-slide.on .hl {
+  animation: posterHalfL 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+.poster-slide.on .hr {
+  animation: posterHalfR 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 .poster-close {
   position: absolute;

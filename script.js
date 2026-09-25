@@ -584,7 +584,7 @@ document.addEventListener("keydown", function (e) {
   var END = new Date(2026, 9, 10, 23, 59, 59);
   if (new Date() > END) return;
 
-  var slides = document.querySelectorAll("#posterTrack .poster-img");
+  var slides = document.querySelectorAll("#posterTrack .poster-slide");
   var prevBtn = document.getElementById("posterPrev");
   var nextBtn = document.getElementById("posterNext");
   var closeBtn = document.getElementById("posterClose");
@@ -600,10 +600,11 @@ document.addEventListener("keydown", function (e) {
   function go(n) {
     var next = (n + TOTAL) % TOTAL; /* 取模实现循环：最后一张 → 第一张 */
     if (next === page) return;
-    /* 方向统一：旧海报向左退出（out），新海报从右侧进入（on） */
+    /* 分屏合拢入场：新海报左右两半从屏幕两侧向中间合拢，旧海报淡出 */
     slides[page].classList.remove("on");
     slides[page].classList.add("out");
     slides[next].classList.remove("out");
+    void slides[next].offsetWidth; /* 强制重排，确保合拢动画每次都重新触发 */
     slides[next].classList.add("on");
     page = next;
     dots.forEach(function (d, i) {
@@ -626,6 +627,11 @@ document.addEventListener("keydown", function (e) {
 
   function show() {
     posterModal.classList.add("on");
+    /* 重播当前海报的分屏合拢入场动画（弹窗隐藏期间动画不会自动重新触发） */
+    var cur = slides[page];
+    cur.classList.remove("on");
+    void cur.offsetWidth;
+    cur.classList.add("on");
     startAuto();
   }
   function hide() {
