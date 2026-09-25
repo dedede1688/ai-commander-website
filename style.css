@@ -1779,16 +1779,35 @@ ul.plain {
     transform: translateY(0) scale(1);
   }
 }
+/* 叠层轮播：新海报从右侧进入，旧海报向左侧退出，方向统一 */
 .poster-track {
-  display: flex;
-  transition: transform 0.35s ease;
+  position: relative;
+  aspect-ratio: 1672 / 941;
+  overflow: hidden;
 }
 .poster-img {
-  flex: 0 0 100%;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   user-select: none;
+  opacity: 0;
+  transform: translateX(48px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+  pointer-events: none;
+}
+.poster-img.on {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.poster-img.out {
+  opacity: 0;
+  transform: translateX(-48px);
 }
 .poster-close {
   position: absolute;

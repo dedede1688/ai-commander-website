@@ -584,7 +584,7 @@ document.addEventListener("keydown", function (e) {
   var END = new Date(2026, 9, 10, 23, 59, 59);
   if (new Date() > END) return;
 
-  var track = document.getElementById("posterTrack");
+  var slides = document.querySelectorAll("#posterTrack .poster-img");
   var prevBtn = document.getElementById("posterPrev");
   var nextBtn = document.getElementById("posterNext");
   var closeBtn = document.getElementById("posterClose");
@@ -598,8 +598,14 @@ document.addEventListener("keydown", function (e) {
   var autoTimer = null;
 
   function go(n) {
-    page = (n + TOTAL) % TOTAL; /* 取模实现循环：最后一张 → 第一张 */
-    track.style.transform = "translateX(-" + page * 100 + "%)";
+    var next = (n + TOTAL) % TOTAL; /* 取模实现循环：最后一张 → 第一张 */
+    if (next === page) return;
+    /* 方向统一：旧海报向左退出（out），新海报从右侧进入（on） */
+    slides[page].classList.remove("on");
+    slides[page].classList.add("out");
+    slides[next].classList.remove("out");
+    slides[next].classList.add("on");
+    page = next;
     dots.forEach(function (d, i) {
       d.classList.toggle("on", i === page);
     });
