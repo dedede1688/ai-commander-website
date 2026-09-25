@@ -31,7 +31,7 @@
       content="https://www.ai-mmc.cn/%E7%B4%A0%E6%9D%90/%E4%B9%A6%E7%B1%8D/AI%E6%8C%87%E6%8C%A5%E5%AE%98-%E7%AB%8B%E4%BD%93%E4%B9%A6.webp"
     />
     <link rel="stylesheet" href="base.css?v=3" />
-    <link rel="stylesheet" href="style.css?v=13" />
+    <link rel="stylesheet" href="style.css?v=14" />
   </head>
   <body data-page="index">
     <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
@@ -830,6 +830,38 @@
       </div>
     </div>
 
+    <!-- ===== 国庆海报弹窗（上线即弹 · 至 2026-10-10 结束 · 每 30 分钟一次 · 两张轮播） ===== -->
+    <div class="modal" id="posterModal">
+      <div class="poster-box">
+        <button class="poster-close" id="posterClose" type="button" aria-label="关闭海报">&times;</button>
+        <div class="poster-track" id="posterTrack">
+          <img
+            class="poster-img"
+            src="素材/海报/国庆海报-家国同庆.webp"
+            width="1672"
+            height="941"
+            decoding="async"
+            alt="国庆海报：家国同庆，AI同行"
+          />
+          <img
+            class="poster-img"
+            src="素材/海报/国庆海报-出版人名录.webp"
+            width="1672"
+            height="941"
+            loading="lazy"
+            decoding="async"
+            alt="国庆海报：联合出版人名录"
+          />
+        </div>
+        <button class="poster-nav poster-prev" id="posterPrev" type="button" aria-label="上一张海报">&#8249;</button>
+        <button class="poster-nav poster-next" id="posterNext" type="button" aria-label="下一张海报">&#8250;</button>
+        <div class="poster-dots">
+          <span class="poster-dot on" id="posterDot0"></span>
+          <span class="poster-dot" id="posterDot1"></span>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== 二维码放大层（点击广告「共建 AI 生态」按钮或「AI 大礼包」显示） ===== -->
     <div class="qr-layer" id="qrLayer">
       <div class="qr-panel">
@@ -849,7 +881,7 @@
     </div>
 
     <script src="shared.js?v=13"></script>
-    <script src="script.js?v=13"></script>
+    <script src="script.js?v=14"></script>
     <!-- 百度统计：占位。拿到站点代码后，用官方 hm.js 脚本整体替换下方注释 -->
     <!-- <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?站点代码";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script> -->
   </body>

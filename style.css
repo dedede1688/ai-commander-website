@@ -1752,6 +1752,125 @@ ul.plain {
   }
 }
 
+/* ===== 国庆海报弹窗 ===== */
+.poster-box {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a1236;
+  box-shadow:
+    inset 0 0 0 1.2px rgba(0, 237, 189, 0.38),
+    0 24px 70px rgba(0, 0, 0, 0.5);
+  will-change: transform, opacity;
+}
+/* 入场动画「明月升起」：从下方上浮 + 放大，带轻微回弹过冲 */
+#posterModal.on .poster-box {
+  animation: posterRise 0.64s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes posterRise {
+  from {
+    opacity: 0;
+    transform: translateY(56px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.poster-track {
+  display: flex;
+  transition: transform 0.35s ease;
+}
+.poster-img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+.poster-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  z-index: 2;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.poster-close:hover {
+  color: #fff;
+}
+.poster-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(10, 18, 54, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.poster-nav:hover {
+  background: rgba(10, 18, 54, 0.85);
+}
+.poster-prev {
+  left: 12px;
+}
+.poster-next {
+  right: 12px;
+}
+.poster-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 2;
+}
+.poster-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.15s;
+}
+.poster-dot.on {
+  background: var(--teal);
+}
+/* 国庆海报弹窗（手机） */
+@media (max-width: 480px) {
+  .poster-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 22px;
+  }
+  .poster-prev {
+    left: 6px;
+  }
+  .poster-next {
+    right: 6px;
+  }
+  .poster-close {
+    top: 6px;
+    right: 8px;
+    font-size: 26px;
+  }
+}
+
 /* ===== 模块七：四级荣誉 ===== */
 .honor-grid {
   display: grid;

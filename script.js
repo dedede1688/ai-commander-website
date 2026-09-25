@@ -574,4 +574,62 @@ document.addEventListener("keydown", function (e) {
 
   /* 导航「AI 大礼包」与 data-open-qr 元素的绑定已抽到 shared.js（全站共享层），此处不再重复绑定 */
 })();
+
+/* ===== 国庆海报弹窗：上线即弹 · 至 2026-10-10 23:59 结束 · 之后每 30 分钟弹一次 · 两张轮播 ===== */
+(function () {
+  var posterModal = document.getElementById("posterModal");
+  if (!posterModal) return;
+
+  /* 时间窗口：2026-10-10 23:59:59 之后不再弹出（代码可保留，明年复用改日期即可） */
+  var END = new Date(2026, 9, 10, 23, 59, 59);
+  if (new Date() > END) return;
+
+  var track = document.getElementById("posterTrack");
+  var prevBtn = document.getElementById("posterPrev");
+  var nextBtn = document.getElementById("posterNext");
+  var closeBtn = document.getElementById("posterClose");
+  var dots = [
+    document.getElementById("posterDot0"),
+    document.getElementById("posterDot1"),
+  ];
+  var page = 0;
+  var TOTAL = 2;
+
+  function go(n) {
+    page = (n + TOTAL) % TOTAL;
+    track.style.transform = "translateX(-" + page * 100 + "%)";
+    dots.forEach(function (d, i) {
+      d.classList.toggle("on", i === page);
+    });
+  }
+
+  function show() {
+    posterModal.classList.add("on");
+  }
+  function hide() {
+    posterModal.classList.remove("on");
+  }
+
+  prevBtn.addEventListener("click", function () {
+    go(page - 1);
+  });
+  nextBtn.addEventListener("click", function () {
+    go(page + 1);
+  });
+  dots.forEach(function (d, i) {
+    d.style.cursor = "pointer";
+    d.addEventListener("click", function () {
+      go(i);
+    });
+  });
+  closeBtn.addEventListener("click", hide);
+  /* 点击海报以外的遮罩区域关闭 */
+  posterModal.addEventListener("click", function (e) {
+    if (e.target === posterModal) hide();
+  });
+
+  /* 打开页面立即弹出一次，之后每 30 分钟再弹一次 */
+  show();
+  setInterval(show, 1800000);
+})();
 })();
