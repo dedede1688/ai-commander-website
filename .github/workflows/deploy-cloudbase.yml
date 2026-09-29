@@ -11,11 +11,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to CloudBase
-        uses: TencentCloudBase/cloudbase-action@v1.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          secretId: ${{ secrets.TCB_SECRET_ID }}
-          secretKey: ${{ secrets.TCB_SECRET_KEY }}
-          envId: ${{ secrets.TCB_ENV_ID }}
-          staticSrcPath: ./
-          staticDestPath: /
+          node-version: '18'
+
+      # 保留你之前写的：数据校验
+      - name: Run data check
+        run: node tools/check-data.js
+
+      # 保留你之前写的：筛选出纯净的网页文件，避免打包多余文件
+      - name: Stage site files
+        run: |
+          mkdir -p _site
+          cp *.html *.js *.css _site/
+          cp robots.txt sitemap.xml _site/ 2>/dev/null || true
+          cp -r 素材 _site/素材 2>/dev/null || true
+
+      - name: Install CloudBase CLI
+        run: npm install -g @cloudbase/cli
+
+      # 关键一：删除版本控制文件夹，避免云端扫描报错
+      - name: Remove .git directory
+        run: rm -rf .git
+
+      # 关键二：使用最直接的命令，明确部署到根目录
+      - name: Deploy to CloudBase Static Hosting
+        run: |
+          tcb login --apiKeyId ${{ secrets.TCB_SECRET_ID }} --apiKey ${{ secrets.TCB_SECRET_KEY }}
+          tcb hosting deploy _site --envId ${{ secrets.TCB_ENV_ID }}
