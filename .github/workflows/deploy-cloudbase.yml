@@ -35,8 +35,11 @@ jobs:
       - name: Remove .git directory
         run: rm -rf .git
 
-      # 关键二：使用最直接的命令，明确部署到根目录
+      # 关键二：部署到"域名实际绑定的环境"
+      # 注意：www.ai-mmc.cn 绑定在 ai-commander 环境的 HTTP 网关上；
+      # 之前 Secret 里的 TCB_ENV_ID 指向另一个环境（ai-mmc），导致部署了但线上看不到新文件。
+      # 环境 ID 不是敏感信息（控制台 URL 中可见），此处直接写死，避免再被 Secret 值误导。
       - name: Deploy to CloudBase Static Hosting
         run: |
           tcb login --apiKeyId ${{ secrets.TCB_SECRET_ID }} --apiKey ${{ secrets.TCB_SECRET_KEY }}
-          tcb hosting deploy _site --envId ${{ secrets.TCB_ENV_ID }}
+          tcb hosting deploy _site --envId ai-commander-d9g2lgrtb79054a6f
