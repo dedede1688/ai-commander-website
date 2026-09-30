@@ -35,10 +35,10 @@ jobs:
       - name: Remove .git directory
         run: rm -rf .git
 
-      # 关键二：诊断实验——用当前密钥部署到 ai-mmc 环境（www.ai-mmc.cn 实际指向的存储桶）
-      # 已验证：ai-mmc 环境不在账号A（1251703810）也不在账号B（100047910813）名下；
-      # 若本步骤成功且 www 更新，说明密钥有权限，一步到位；若失败则确认密钥无法触达该环境。
+      # 关键二：部署到 ai-commander 环境（账号A）
+      # 诊断结论（run 36743980274）：当前密钥无法部署到 ai-mmc-2g4gxl0t5b5731c8，
+      # 该环境（www.ai-mmc.cn 实际指向的存储桶）属于第三个腾讯云账号，待定位。
       - name: Deploy to CloudBase Static Hosting
         run: |
           tcb login --apiKeyId ${{ secrets.TCB_SECRET_ID }} --apiKey ${{ secrets.TCB_SECRET_KEY }}
-          tcb hosting deploy _site --env-id ai-mmc-2g4gxl0t5b5731c8
+          tcb hosting deploy _site --env-id ai-commander-d9g2lggrtb79054a6
