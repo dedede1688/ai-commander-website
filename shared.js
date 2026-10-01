@@ -23,14 +23,10 @@
     { hash: "sec-honor", text: "四级荣誉" },
   ];
   var ANCHORS_BEFORE_DROP = 2;
-  /* 「联合出版」下拉菜单：原「共建出版」改名并升级为下拉入口。
-     量化分析 / 待办事项为内部台账，页面临时隐藏，恢复显示时同步补回这两项。 */
+  /* 「联合出版」下拉菜单：原「共建出版」改名并升级为下拉入口。 */
   var DROP_MENU = {
     text: "联合出版",
-    items: [
-      { hash: "sec-ai", text: "共建指数" },
-      { hash: "sec-new", text: "本轮新增" },
-    ],
+    items: [{ hash: "sec-ai", text: "共建指数" }],
   };
   /* 独立页面：key 与 body[data-page] 对应，用于判断当前页高亮 */
   var PAGES = [{ file: "models.html", key: "models", text: "AI 模型" }];

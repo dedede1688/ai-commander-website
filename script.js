@@ -2,7 +2,7 @@
    整个文件包在 IIFE（立即执行函数 Immediately Invoked Function Expression）里，
    避免把 P / IND / openM 等名字暴露到 window 上，后续新增页面脚本时互不干扰。 */
 (function () {
-/* ===== 数据源：与 01-联合出版人.md 一一对应 ===== */
+/* ===== 出版人名录数据（20 席） ===== */
 var P = [
   {
     n: "鄢海珍",
