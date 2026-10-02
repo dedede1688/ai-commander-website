@@ -139,34 +139,6 @@ body {
   color: #fff;
   background: rgba(232, 163, 61, 0.28);
 }
-/* 导航「联合出版」下拉（面板挂在 .topnav 下，absolute 于导航栏，打开时 left 由 shared.js 设置） */
-.nav-drop::after {
-  content: " ▾";
-  font-size: 11px;
-  opacity: 0.75;
-}
-.nav-dropdown {
-  position: absolute;
-  top: 100%; /* 紧贴导航栏下缘 */
-  left: 0;
-  min-width: 150px;
-  background: #0b1236;
-  border: 1px solid rgba(0, 237, 189, 0.35);
-  border-radius: 8px;
-  padding: 6px;
-  display: none;
-  z-index: 310;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
-}
-.nav-dropdown.on {
-  display: block;
-  animation: fade 0.16s;
-}
-.nav-dropdown .nav-link {
-  display: block;
-  padding: 8px 14px;
-  border-radius: 6px;
-}
 /* 锚点定位留出导航高度 */
 .card {
   scroll-margin-top: 66px;

@@ -382,9 +382,7 @@ document.addEventListener("keydown", function (e) {
   /* 滚动侦测高亮切换时，同步让高亮项可见 */
   function spy() {
     var y = window.pageYOffset + 92;
-    /* 取「已滚过参考线」的区块中物理位置最深的一个。
-       「联合出版」下拉重排后，链接的 DOM 顺序不再等于页面区块顺序，
-       不能再按数组顺序取最后一个满足项。 */
+    /* 取「已滚过参考线」的区块中物理位置最深的一个，不依赖链接的 DOM 顺序 */
     var cur = null;
     var curTop = -Infinity;
     targets.forEach(function (t) {
@@ -403,8 +401,6 @@ document.addEventListener("keydown", function (e) {
       links.forEach(function (l) {
         l.classList.toggle("active", false);
       });
-      var dropBtnTop = document.querySelector(".nav-drop");
-      if (dropBtnTop) dropBtnTop.classList.remove("active");
       return;
     }
     var curHref = "#" + cur.id;
@@ -420,15 +416,6 @@ document.addEventListener("keydown", function (e) {
     if (changed) {
       var act = document.querySelector(".nav-link.active");
       if (act) scrollLinkIntoView(act);
-    }
-    /* 下拉子项处于高亮时，顶级「联合出版」同步亮起（子项在下拉里，用户看不见） */
-    var dropBtn = document.querySelector(".nav-drop");
-    if (dropBtn) {
-      var dropOn = !!document.querySelector(".dd-link.active");
-      if (dropOn !== dropBtn.classList.contains("active")) {
-        dropBtn.classList.toggle("active", dropOn);
-        if (dropOn) scrollLinkIntoView(dropBtn);
-      }
     }
   }
   window.addEventListener("scroll", spy, { passive: true });
