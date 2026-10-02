@@ -44,6 +44,32 @@
     }
   }
 
+  /* ---------- 样书实拍画廊：点缩略图换主图 ---------- */
+  var shot = document.getElementById("xfShot");
+  var thumbs = document.getElementById("xfThumbs");
+  if (shot && thumbs) {
+    var btnList = Array.prototype.slice.call(
+      thumbs.querySelectorAll(".xf-thumb"),
+    );
+    /* 预加载另外两张，避免首次切换时主图空白一下 */
+    btnList.forEach(function (b) {
+      var pre = new Image();
+      pre.src = b.dataset.shot;
+    });
+    btnList.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (btn.classList.contains("on")) return;
+        shot.src = btn.dataset.shot;
+        shot.alt = btn.dataset.alt;
+        btnList.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle("on", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+      });
+    });
+  }
+
   /* ---------- 倒计时 ---------- */
   var cd = document.getElementById("xfCountdown");
   if (cd) {
