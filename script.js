@@ -666,8 +666,19 @@ document.addEventListener("keydown", function (e) {
     if (e.target === posterModal) hide();
   });
 
-  /* 打开页面立即弹出一次，之后每 30 分钟再弹一次 */
-  show();
+  /* 打开页面立即弹出一次，之后每 30 分钟再弹一次。
+     例外：从其他页面点「四级荣誉」「关于本书」等锚点进来时，网址会带 #（如
+     index.html#sec-honor），那属于「跳到首页的某一段」，不是「打开首页」，
+     此时不弹——否则刚跳过去就被海报盖住，看不到想看的那一段。
+     但「刷新」要照常弹：刷新带 # 的地址时 hash 仍在，故用导航类型把它区分开
+     （reload = 刷新，navigate = 点链接跳转）。 */
+  var navEntry = performance.getEntriesByType
+    ? performance.getEntriesByType("navigation")[0]
+    : null;
+  var navType = navEntry ? navEntry.type : "";
+  var isAnchorJump =
+    location.hash && location.hash !== "#" && navType !== "reload";
+  if (!isAnchorJump) show();
   setInterval(show, 1800000);
 })();
 })();
