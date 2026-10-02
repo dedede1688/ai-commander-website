@@ -46,7 +46,8 @@
   position: relative;
   /* 与模型页一致：裁掉越界的描边圆环，同时管住页面宽度 */
   overflow: hidden;
-  border-radius: 10px;
+  /* 只保留上圆角：底部与下方标语条紧贴，接口处取平，避免两块圆角相接“掐腰” */
+  border-radius: 10px 10px 0 0;
   box-shadow: inset 0 0 120px rgba(0, 237, 189, 0.08);
 }
 .xf-hero::before {
@@ -310,7 +311,10 @@
   color: var(--teal);
 }
 
-/* ---------- 一句话（深色通栏，与模型页 .book-strip 同语言） ---------- */
+/* ---------- 一句话标语条 ----------
+   它是首屏的收尾句，视觉上与首屏同属一块深色面板：
+   首屏底部取平、本条约顶部取平，两者紧贴（间距 0）合成整体，
+   顶部用一条青色细线作分界，避免“两块圆角紧贴”在左右两端露底、看着像错位。 */
 .xf-oneliner {
   text-align: center;
   background: var(--navy-d);
@@ -319,7 +323,8 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   padding: 18px 20px;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
+  border-top: 1px solid rgba(0, 237, 189, 0.14);
   margin-bottom: 20px;
 }
 .xf-oneliner span {
