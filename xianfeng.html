@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://www.ai-mmc.cn/xianfeng.html" />
     <meta property="og:image" content="https://www.ai-mmc.cn/%E7%B4%A0%E6%9D%90/%E4%B9%A6%E7%B1%8D/AI%E6%8C%87%E6%8C%A5%E5%AE%98-%E7%AB%8B%E4%BD%93%E4%B9%A6.webp" />
     <link rel="stylesheet" href="base.css?v=3" />
-    <link rel="stylesheet" href="xianfeng.css?v=2" />
+    <link rel="stylesheet" href="xianfeng.css?v=3" />
   </head>
   <body data-page="xianfeng" data-footer="书未上市，券不再发——指挥，而不是追随。|样板书为出版前试印本：凭券购书支持 7 天无理由退换（页面无破损），印刷质量问题拍照即补寄；券属资格凭证，2026 年 10 月 31 日 24:00 后未使用自动作废。">
     <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
@@ -24,16 +24,33 @@
     <div class="xf-wrap">
       <!-- ===== 先锋营 Hero ===== -->
       <header class="xf-hero" id="xfTop">
-        <div class="xf-hero-inner">
-          <div class="xf-tag">《AI指挥官》先锋营 · 仅 30 席</div>
-          <h1 class="xf-title">先锋，就位！</h1>
-          <p class="xf-sub">
-            免费领券入伍，凭券 <b class="xf-price-em">98 元</b>（上市价 128 元/套），先于上市读完全书<br />
-            10 月 31 日截止领券，券发完即止、永不再发
-          </p>
-          <div class="xf-stage">
-            <img class="xf-book" src="素材/书籍/AI指挥官-立体书.webp" alt="《AI指挥官》立体书" loading="eager" decoding="async" />
-            <div class="xf-coupon">
+        <div class="xf-hero-grid">
+          <div class="xf-hero-copy">
+            <div class="xf-tag">《AI指挥官》先锋营 · 仅 30 席</div>
+            <h1 class="xf-title">先锋，就位！</h1>
+            <p class="xf-sub">
+              免费领券入伍，凭券 <b class="xf-price-em">98 元</b>（上市价 128 元/套），先于上市读完全书<br />
+              10 月 31 日截止领券，券发完即止、永不再发
+            </p>
+            <div class="xf-cta-row">
+              <button class="xf-btn xf-btn-main" data-xf-claim>立即领券 · 锁定编号席位</button>
+              <button class="xf-btn xf-btn-ghost" data-xf-trial>先试读 2 章，再决定</button>
+            </div>
+            <div class="xf-hero-deadline">⏰ 领券通道 <b>10 月 31 日 24:00</b> 准时关闭 · 剩 <b id="xfStockTop">30</b> 席</div>
+          </div>
+          <div class="xf-hero-visual">
+            <figure class="xf-photo">
+              <img
+                src="素材/样板书/样板书实拍-第1章.webp"
+                alt="《AI指挥官》样板书实拍：第 1 章 认识你的士兵"
+                width="1000"
+                height="1777"
+                loading="eager"
+                decoding="async"
+              />
+              <figcaption class="xf-photo-badge">📷 印厂实拍 · 样板书已下线</figcaption>
+            </figure>
+            <div class="xf-coupon xf-coupon-float">
               <div class="xf-cp-left">
                 <b>¥98</b>
                 <span>凭券价</span>
@@ -46,11 +63,6 @@
               </div>
             </div>
           </div>
-          <div class="xf-cta-row">
-            <button class="xf-btn xf-btn-main" data-xf-claim>立即领券 · 锁定编号席位</button>
-            <button class="xf-btn xf-btn-ghost" data-xf-trial>先试读 2 章，再决定</button>
-          </div>
-          <div class="xf-hero-deadline">⏰ 领券通道 <b>10 月 31 日 24:00</b> 准时关闭 · 剩 <b id="xfStockTop">30</b> 席</div>
         </div>
       </header>
 
