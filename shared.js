@@ -29,7 +29,10 @@
     items: [{ hash: "sec-ai", text: "共建指数" }],
   };
   /* 独立页面：key 与 body[data-page] 对应，用于判断当前页高亮 */
-  var PAGES = [{ file: "models.html", key: "models", text: "AI 模型" }];
+  var PAGES = [
+    { file: "models.html", key: "models", text: "AI 模型" },
+    { file: "xianfeng.html", key: "xianfeng", text: "先锋营" },
+  ];
   var LOGO = "素材/logo.webp";
   var SITE_URL = "https://www.ai-mmc.cn";
   var SITE_DOMAIN = "www.ai-mmc.cn";
