@@ -153,16 +153,20 @@
 .xf-hero-visual {
   position: relative;
   padding: 0 0 30px 22px;
+  /* 栅格项默认 min-width:auto，会被内部横排缩略图的 min-content 撑宽，
+     导致整列超出视口、主图被 hero 的 overflow:hidden 裁掉 */
+  min-width: 0;
 }
-/* 主图 + 右侧缩略图条。主图不裁切：宽度吃满剩余空间，高度由 800:1085 的比例自然得出 */
+/* 主图 + 右侧缩略图窗口。
+   缩略图用绝对定位撑满画廊高度（高度由主图决定），这样它可以超出主图高度而不把主图撑高；
+   默认 overflow-y: hidden 不响应滚轮，指针进入这个窗口后才切成 auto —— 即"鼠标在里面才能滚"。 */
 .xf-gallery {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
+  position: relative;
+  padding-right: 76px;
+  min-width: 0;
 }
 .xf-photo {
-  flex: 1 1 auto;
-  min-width: 0;
+  aspect-ratio: 760 / 1031;
   margin: 0;
   position: relative;
   border-radius: 10px;
@@ -173,17 +177,41 @@
 .xf-photo img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
-/* 缩略图竖排在主图右侧；窄屏由下方媒体查询转为横排（见 max-width 560px） */
+/* 缩略图窗口：竖排、限高、默认不滚；窄屏由下方媒体查询转为横排 */
 .xf-thumbs {
-  flex: 0 0 64px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 64px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: hidden; /* 默认不滚：滚轮交给页面 */
+  /* 预留滚动条槽位，指针进入出现滚动条时缩略图不会横向跳动 */
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 237, 189, 0.45) transparent;
+}
+/* 指针设备：只有指到窗口里才允许滚动 */
+@media (hover: hover) {
+  .xf-thumbs:hover,
+  .xf-thumbs:focus-within {
+    overflow-y: auto;
+  }
+}
+/* 触摸设备没有悬停，保持可直接滑动 */
+@media (hover: none) {
+  .xf-thumbs {
+    overflow-y: auto;
+  }
 }
 .xf-thumb {
   display: block;
+  flex: 0 0 auto; /* 关键：禁止收缩，否则 9 个缩略图会被压扁、撑不出滚动条 */
   width: 100%;
   padding: 0;
   font-family: inherit;
@@ -1081,19 +1109,22 @@
     margin: 14px auto 0;
     width: min(300px, 92%);
   }
-  /* 窄屏缩略图转为横排：竖排会把主图挤成一条窄缝。
+  /* 窄屏缩略图转为横排（竖排会把主图挤成一条窄缝）。
+     横排时不限高、改为横向滚动：9 张在一行放不下，允许左右滑。
      此时券卡排在缩略图下方，故上边距不能再负（负值会压住缩略图）。 */
   .xf-gallery {
-    flex-direction: column;
+    padding-right: 0;
   }
   .xf-thumbs {
-    flex: 0 0 auto;
+    position: static;
     flex-direction: row;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 4px;
   }
   .xf-thumb {
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 0 0 76px;
   }
   /* 窄屏按钮改为上下堆叠：并排时每个仅约 150px，文案会被折成两行 */
   .xf-cta-row {

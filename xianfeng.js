@@ -51,12 +51,21 @@
     var btnList = Array.prototype.slice.call(
       thumbs.querySelectorAll(".xf-thumb"),
     );
-    /* 预加载另外两张，避免首次切换时主图空白一下 */
-    btnList.forEach(function (b) {
+    /* 缩略图走单独的小图，主图只在用户点开时才下载。
+       指针移到某个缩略图上（或键盘聚焦）时提前取主图，点下去就不会空一下。 */
+    function warm(btn) {
+      if (btn.dataset.warmed) return;
+      btn.dataset.warmed = "1";
       var pre = new Image();
-      pre.src = b.dataset.shot;
-    });
+      pre.src = btn.dataset.shot;
+    }
     btnList.forEach(function (btn) {
+      btn.addEventListener("mouseenter", function () {
+        warm(btn);
+      });
+      btn.addEventListener("focus", function () {
+        warm(btn);
+      });
       btn.addEventListener("click", function () {
         if (btn.classList.contains("on")) return;
         shot.src = btn.dataset.shot;
