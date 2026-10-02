@@ -1,0 +1,795 @@
+/* ===== 先锋营 · 样板书优惠券页 专属样式 =====
+   依赖 base.css 的设计变量与共享组件（.topnav / .footer-note / .qr-layer）。
+   页面级类一律 xf- 前缀，避免与全站样式冲突。 */
+
+.xf-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ---------- Hero ---------- */
+.xf-hero {
+  background: linear-gradient(140deg, #3544a8 0%, #1a2470 46%, #0a1236 100%);
+  color: #fff;
+  padding: 56px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.xf-hero::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 237, 189, 0.18), transparent 70%);
+  pointer-events: none;
+}
+.xf-hero-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.xf-tag {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--teal);
+  border: 1px solid rgba(0, 237, 189, 0.55);
+  border-radius: 999px;
+  padding: 4px 14px;
+  margin-bottom: 18px;
+}
+.xf-title {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  margin: 0 0 14px;
+  background: linear-gradient(135deg, #00edbd 0%, #5aa7e0 55%, #7b5ce0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.xf-sub {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #c9d3ea;
+  margin: 0 0 26px;
+}
+.xf-price-em {
+  color: var(--teal);
+  font-weight: 700;
+}
+
+/* 券 + 书 视觉区 */
+.xf-stage {
+  position: relative;
+  min-height: 220px;
+  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.xf-book {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+  transform: rotate(-4deg);
+  z-index: 2;
+}
+.xf-coupon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  min-height: 140px;
+  display: flex;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  border: 1.5px solid rgba(200, 138, 0, 0.65);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  z-index: 1;
+}
+.xf-cp-left {
+  flex: 0 0 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-right: 1.5px dashed rgba(200, 138, 0, 0.7);
+}
+.xf-cp-left b {
+  font-size: 28px;
+  color: var(--gold, #c88a00);
+  font-family: Consolas, monospace;
+  line-height: 1;
+}
+.xf-cp-left span {
+  font-size: 10px;
+  color: #8a93a6;
+}
+.xf-cp-left s {
+  font-size: 11px;
+  color: #b6bdc9;
+}
+.xf-cp-right {
+  flex: 1;
+  padding: 16px 14px;
+  position: relative;
+}
+.xf-cp-t1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 5px;
+}
+.xf-cp-t2 {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #5c6657;
+}
+.xf-cp-no {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #c88a00;
+  font-family: Consolas, monospace;
+}
+
+/* CTA */
+.xf-cta-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.xf-btn {
+  flex: 1;
+  display: block;
+  text-align: center;
+  padding: 14px 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.xf-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+.xf-btn-main {
+  background: linear-gradient(135deg, #00edbd 0%, #5aa7e0 50%, #7b5ce0 100%);
+  color: #0b1426;
+  box-shadow: 0 6px 20px rgba(0, 237, 189, 0.28);
+}
+.xf-btn-ghost {
+  background: transparent;
+  color: #dfe6f0;
+  border: 1px solid rgba(223, 230, 240, 0.45);
+}
+.xf-btn-wide {
+  display: block;
+  max-width: 360px;
+  margin: 0 auto;
+  width: 100%;
+}
+.xf-hero-deadline {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--teal);
+}
+
+/* ---------- 一句话 ---------- */
+.xf-oneliner {
+  text-align: center;
+  background: var(--navy-d);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 18px 20px;
+}
+.xf-oneliner span {
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- 通用 section ---------- */
+.xf-sec {
+  padding: 46px 24px;
+}
+.xf-kicker {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--teal);
+  border: 1px solid rgba(0, 237, 189, 0.45);
+  border-radius: 999px;
+  padding: 3px 12px;
+  margin-bottom: 14px;
+}
+.xf-sec h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+.xf-lead {
+  font-size: 13.5px;
+  color: #8a93a6;
+  margin: 0 0 22px;
+}
+.xf-h2b {
+  margin-top: 38px;
+}
+.xf-block {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #c9d3ea;
+  margin: 16px 0 0;
+}
+.xf-block b {
+  color: #fff;
+}
+.xf-gold {
+  color: #e8b93e;
+}
+.xf-red {
+  color: #ff8f7a;
+}
+
+/* ---------- FAB ---------- */
+.xf-fab-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.xf-fab {
+  border: 1px solid rgba(90, 167, 224, 0.22);
+  border-radius: 14px;
+  padding: 16px;
+  background: linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
+}
+.xf-fab-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.xf-badge {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  color: #0b1426;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+}
+.xf-fab h3 {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+.xf-fab p {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #c9d3ea;
+  margin: 0 0 6px;
+}
+.xf-fab p b {
+  color: #fff;
+}
+.xf-gain {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* ---------- 痛点 ---------- */
+.xf-pains {
+  margin-top: 4px;
+}
+.xf-pain {
+  display: flex;
+  gap: 12px;
+  border: 1px solid rgba(90, 167, 224, 0.22);
+  border-radius: 14px;
+  padding: 15px 16px;
+  margin-bottom: 11px;
+  background: linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
+}
+.xf-q {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 143, 122, 0.16);
+  color: #ff8f7a;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.xf-p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.xf-s {
+  font-size: 13px;
+  color: var(--teal);
+  line-height: 1.7;
+}
+.xf-s::before {
+  content: "▸ ";
+}
+
+/* ---------- 规则表 ---------- */
+.xf-callout {
+  background: rgba(0, 237, 189, 0.07);
+  border: 1.5px solid rgba(0, 237, 189, 0.45);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: #c9d3ea;
+}
+.xf-callout b {
+  color: var(--teal);
+}
+.xf-rules {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 0;
+  font-size: 13.5px;
+}
+.xf-rules th,
+.xf-rules td {
+  border: 1px solid rgba(90, 167, 224, 0.22);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.7;
+}
+.xf-rules th {
+  background: rgba(20, 31, 96, 0.7);
+  width: 88px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--teal);
+}
+.xf-rules td {
+  background: rgba(12, 23, 56, 0.55);
+  color: #c9d3ea;
+}
+.xf-rules td b {
+  color: #e8b93e;
+}
+
+/* ---------- 为什么是券 ---------- */
+.xf-why {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: #c9d3ea;
+}
+.xf-why li {
+  padding: 6px 0 6px 22px;
+  position: relative;
+}
+.xf-why li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-weight: 800;
+}
+.xf-why b {
+  color: #fff;
+}
+.xf-meta-line {
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  color: #8a93a6;
+  line-height: 1.8;
+}
+.xf-meta-line b {
+  color: #fff;
+}
+
+/* ---------- 结构 / 军衔 ---------- */
+.xf-pills {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin-top: 16px;
+}
+.xf-pill {
+  border: 1px solid rgba(90, 167, 224, 0.22);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
+}
+.xf-pill b {
+  display: block;
+  font-size: 13.5px;
+  color: #fff;
+}
+.xf-pill span {
+  font-size: 11.5px;
+  color: #8a93a6;
+}
+.xf-pill.xf-hl {
+  border: 1.5px solid var(--teal);
+}
+.xf-pill.xf-hl b::after {
+  content: "第 5 章 · 第一道命令";
+  display: block;
+  font-size: 10.5px;
+  color: var(--teal);
+  font-weight: 600;
+  margin-top: 2px;
+}
+.xf-pill-note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: #8a93a6;
+  text-align: center;
+}
+.xf-ranks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 18px;
+  background: rgba(20, 31, 96, 0.7);
+  border: 1px solid rgba(90, 167, 224, 0.22);
+  border-radius: 10px;
+  padding: 12px 10px;
+}
+.xf-ranks span {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #dfe6f0;
+}
+.xf-ranks span:not(:last-child)::after {
+  content: "→";
+  color: var(--teal);
+  margin-left: 4px;
+  font-weight: 400;
+}
+
+/* ---------- 背书 ---------- */
+.xf-endorse {
+  border-left: 3px solid var(--teal);
+  padding: 2px 0 2px 14px;
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.85;
+  color: #c9d3ea;
+}
+.xf-endorse b {
+  color: #fff;
+}
+.xf-authors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin: 16px 0 4px;
+}
+.xf-ind {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.xf-ind i {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--teal);
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+}
+.xf-ind em {
+  font-style: normal;
+  font-size: 10.5px;
+  color: #8a93a6;
+  text-align: center;
+}
+
+/* ---------- 促单 ---------- */
+.xf-promo {
+  background: linear-gradient(180deg, #0c1738, #0a1236);
+}
+.xf-price-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  border: 1.5px solid rgba(200, 138, 0, 0.65);
+  border-radius: 14px;
+  padding: 20px;
+  margin: 4px 0 20px;
+}
+.xf-old {
+  font-size: 16px;
+  color: #8a93a6;
+  text-decoration: line-through;
+}
+.xf-new {
+  font-size: 44px;
+  font-weight: 800;
+  color: #c88a00;
+  line-height: 1;
+  font-family: Consolas, monospace;
+}
+.xf-new small {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a2233;
+}
+.xf-save {
+  font-size: 12px;
+  background: #c88a00;
+  color: #fff;
+  border-radius: 999px;
+  padding: 3px 10px;
+  align-self: flex-start;
+}
+.xf-checklist {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+}
+.xf-checklist li {
+  padding: 7px 0 7px 28px;
+  position: relative;
+  font-size: 14.5px;
+  color: #dfe6f0;
+}
+.xf-checklist li b {
+  color: #fff;
+}
+.xf-checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  color: #0b1426;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.xf-deadline {
+  background: linear-gradient(120deg, #3a2c05, #6b4e08);
+  border: 1px solid rgba(232, 185, 62, 0.5);
+  color: #ffe9ad;
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+.xf-cd {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+  color: #fff;
+  font-family: Consolas, monospace;
+}
+.xf-cd i {
+  font-style: normal;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 2px 7px;
+  margin: 0 2px;
+}
+.xf-grid-tip {
+  text-align: center;
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  color: #8a93a6;
+}
+.xf-stock-num {
+  color: var(--teal);
+  font-family: Consolas, monospace;
+}
+.xf-grid30 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 7px;
+  margin-top: 14px;
+}
+.xf-cell {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(90, 167, 224, 0.25);
+  background: rgba(12, 23, 56, 0.6);
+  color: #8a93a6;
+  font-family: Consolas, monospace;
+}
+.xf-cell em {
+  font-style: normal;
+  font-size: 9px;
+  font-weight: 400;
+}
+.xf-cell.on {
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  color: #0b1426;
+  border-color: var(--teal);
+}
+.xf-cell.on em {
+  color: rgba(11, 20, 38, 0.6);
+}
+.xf-stock-line {
+  text-align: center;
+  margin: 12px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--teal);
+}
+.xf-trustbar {
+  display: flex;
+  gap: 10px;
+  margin: 22px 0 0;
+}
+.xf-trustbar div {
+  flex: 1;
+  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+}
+.xf-trustbar b {
+  display: block;
+  font-size: 12.5px;
+  color: var(--navy);
+}
+.xf-trustbar span {
+  font-size: 10.5px;
+  color: #8a93a6;
+}
+.xf-interact {
+  border: 1px dashed rgba(0, 237, 189, 0.5);
+  border-radius: 14px;
+  padding: 18px;
+  background: rgba(0, 237, 189, 0.05);
+  margin-top: 24px;
+}
+.xf-interact > b {
+  color: var(--teal);
+  font-size: 14px;
+}
+.xf-interact p {
+  font-size: 13.5px;
+  line-height: 1.8;
+  margin: 8px 0 0;
+  color: #c9d3ea;
+}
+.xf-interact p b {
+  color: var(--teal);
+}
+.xf-contact {
+  margin-top: 26px;
+  text-align: center;
+}
+.xf-qrbox {
+  margin: 14px auto 0;
+  max-width: 300px;
+  border: 1.5px dashed rgba(0, 237, 189, 0.5);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--teal);
+  font-size: 13px;
+  line-height: 1.8;
+  cursor: pointer;
+}
+.xf-qrbox b {
+  display: block;
+}
+.xf-qrbox span {
+  color: #8a93a6;
+  font-size: 12px;
+}
+.xf-qrbox.xf-qrbox-dim {
+  border-color: rgba(200, 138, 0, 0.5);
+  background: rgba(200, 138, 0, 0.07);
+}
+.xf-qrbox.xf-qrbox-dim b {
+  color: #e8b93e;
+}
+
+/* ---------- 响应式 ---------- */
+@media (min-width: 640px) {
+  .xf-sec {
+    padding: 52px 34px;
+  }
+  .xf-hero {
+    padding: 72px 34px 64px;
+  }
+  .xf-title {
+    font-size: 52px;
+  }
+  .xf-fab-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .xf-pills {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .xf-stage {
+    min-height: 240px;
+  }
+  .xf-book {
+    width: 170px;
+    margin-right: 220px;
+  }
+}
+@media (max-width: 560px) {
+  .xf-coupon {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 16px auto 0;
+    width: 100%;
+    max-width: 320px;
+  }
+  .xf-stage {
+    flex-direction: column;
+    min-height: 0;
+    padding-bottom: 6px;
+  }
+  .xf-title {
+    font-size: 34px;
+  }
+  .xf-grid30 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
