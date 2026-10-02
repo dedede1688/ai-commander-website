@@ -2,6 +2,30 @@
    依赖 base.css 的设计变量与共享组件（.topnav / .footer-note / .qr-layer）。
    页面级类一律 xf- 前缀，避免与全站样式冲突。 */
 
+/* ---------- 页面底色 ----------
+   base.css 给 body 设的是浅灰底（#eef1f6），那是给首页的卡片式排版用的；
+   而本页文字全部按深色主题配色（白字、#c9d3ea、#dfe6f0 等），
+   落在浅底上会导致标题、正文、表格几乎看不见。
+   这里只针对先锋营页换成深底，首页与 models 页不受影响。 */
+body[data-page="xianfeng"] {
+  background: var(--ink);
+}
+
+/* 深底下的页脚：base.css 的页脚配色是按浅底写的，需在此覆盖 */
+body[data-page="xianfeng"] .footer-note,
+body[data-page="xianfeng"] .ft-meta,
+body[data-page="xianfeng"] .ft-copy {
+  color: #9aa6bd;
+}
+body[data-page="xianfeng"] .ft-link {
+  color: var(--teal);
+  border-bottom-color: rgba(0, 237, 189, 0.35);
+}
+body[data-page="xianfeng"] .ft-link:hover {
+  color: #6ff5d8;
+  border-bottom-color: #6ff5d8;
+}
+
 .xf-wrap {
   max-width: 1100px;
   margin: 0 auto;
