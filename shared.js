@@ -16,18 +16,13 @@
 (function () {
   /* ---------- 站点配置（改这里，全站生效） ---------- */
   /* 同页锚点栏目：首页直接用 #hash，其他页面自动补 index.html 前缀。
-     前 ANCHORS_BEFORE_DROP 个锚点排在「联合出版」下拉之前，其余排在其后。 */
+     数组顺序 = 导航栏从左到右的顺序，与页面区块顺序一致。 */
   var ANCHORS = [
     { hash: "sec-book", text: "关于本书" },
     { hash: "sec-roster", text: "指挥官军团" },
+    { hash: "sec-ai", text: "共建指数" },
     { hash: "sec-honor", text: "四级荣誉" },
   ];
-  var ANCHORS_BEFORE_DROP = 2;
-  /* 「联合出版」下拉菜单：原「共建出版」改名并升级为下拉入口。 */
-  var DROP_MENU = {
-    text: "联合出版",
-    items: [{ hash: "sec-ai", text: "共建指数" }],
-  };
   /* 独立页面：key 与 body[data-page] 对应，用于判断当前页高亮 */
   var PAGES = [
     { file: "models.html", key: "models", text: "AI 模型" },
@@ -53,33 +48,10 @@
       );
     }
 
-    /* 「联合出版」触发按钮 + 下拉面板。
-       面板放在 .nav-inner 之外（.topnav 直接子元素）：.nav-links 是横向滚动容器
-       （overflow-x: auto），下拉若放里面会被裁剪；挂在 .topnav 下用 absolute 定位。 */
-    var dropBtn = '<a class="nav-link nav-drop" id="navDrop">' + DROP_MENU.text + "</a>";
-    var dropPanel =
-      '<div class="nav-dropdown" id="navDropdown">' +
-      DROP_MENU.items
-        .map(function (it) {
-          return '<a class="nav-link dd-link" href="' + prefix + "#" + it.hash + '">' + it.text + "</a>";
-        })
-        .join("") +
-      "</div>";
-
-    /* 前 ANCHORS_BEFORE_DROP 个锚点（关于本书 / 指挥官军团）排在「联合出版」之前，
-       其余锚点（四级荣誉）排在其后 */
-    var links =
-      ANCHORS.slice(0, ANCHORS_BEFORE_DROP)
-        .map(function (a) {
-          return anchorLink(a);
-        })
-        .join("") +
-      dropBtn +
-      ANCHORS.slice(ANCHORS_BEFORE_DROP)
-        .map(function (a) {
-          return anchorLink(a);
-        })
-        .join("");
+    /* 锚点栏目按 ANCHORS 数组顺序平铺，全部是直接可见的独立导航项 */
+    var links = ANCHORS.map(function (a) {
+      return anchorLink(a);
+    }).join("");
 
     PAGES.forEach(function (p) {
       links +=
@@ -103,46 +75,7 @@
       '<div class="nav-links">' +
       links +
       "</div>" +
-      "</div>" +
-      dropPanel;
-  }
-
-  /* ---------- 1.5 「联合出版」下拉交互 ---------- */
-  var dropBtnEl = document.getElementById("navDrop");
-  var dropPanelEl = document.getElementById("navDropdown");
-  if (dropBtnEl && dropPanelEl) {
-    function closeDrop() {
-      dropPanelEl.classList.remove("on");
-    }
-    function openDrop() {
-      /* 面板 absolute 于 .topnav，left 对齐按钮左缘；右缘越界时收进来 */
-      var navEl = document.getElementById("topnav");
-      var btnLeft = dropBtnEl.getBoundingClientRect().left;
-      var navLeft = navEl ? navEl.getBoundingClientRect().left : 0;
-      dropPanelEl.style.left = btnLeft - navLeft + "px";
-      dropPanelEl.classList.add("on");
-    }
-    dropBtnEl.addEventListener("click", function (e) {
-      e.preventDefault(); /* 按钮无目标页，仅作菜单开关 */
-      if (dropPanelEl.classList.contains("on")) closeDrop();
-      else openDrop();
-    });
-    /* 点击菜单项后收起（跳转由锚点默认行为 / script.js 平滑滚动完成） */
-    dropPanelEl.addEventListener("click", closeDrop);
-    /* 点击按钮与面板以外的区域收起 */
-    document.addEventListener("click", function (e) {
-      if (!dropPanelEl.classList.contains("on")) return;
-      if (dropBtnEl.contains(e.target) || dropPanelEl.contains(e.target)) return;
-      closeDrop();
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeDrop();
-    });
-    window.addEventListener("resize", closeDrop);
-    var navScroll = document.querySelector(".nav-links");
-    if (navScroll) {
-      navScroll.addEventListener("scroll", closeDrop, { passive: true });
-    }
+      "</div>";
   }
 
   /* ---------- 2. 页脚注入 ---------- */
