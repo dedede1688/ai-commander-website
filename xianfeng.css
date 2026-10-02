@@ -1,30 +1,21 @@
 /* ===== 先锋营 · 样板书优惠券页 专属样式 =====
    依赖 base.css 的设计变量与共享组件（.topnav / .footer-note / .qr-layer）。
-   页面级类一律 xf- 前缀，避免与全站样式冲突。 */
+   页面级类一律 xf- 前缀，避免与全站样式冲突。
+
+   【视觉规范】与首页（index.html）、模型页（models.html）严格对齐：
+   - 骨架：深色首屏面板 + 浅灰底（#eef1f6）白卡正文，不再是通篇深色
+   - 标题：h2 不再自定义，完全交给 base.css 的「深蓝字 + 青色左竖条」签名
+   - 强调色：--teal #00edbd 只用于深色底（首屏）；浅色卡上一律用
+     #00b89c / #007a5f（站点在浅底上的既有做法）
+   - 金色系：浅底上统一用 #8a5d00（深金），避免 #c88a00 在白底上对比度过低
+   - 弱化文字：浅底上统一用 #5b6675（站点页脚/次级说明的既有灰），
+     不用 --grey #8a93a6——后者在白卡上对比度仅约 3.0，读起来发虚
+   - 圆角：正文卡片 6px、Hero 面板 10px、内部功能块 10px
+   加载顺序：base.css 在前，本文件在后。 */
 
 /* ---------- 页面底色 ----------
-   base.css 给 body 设的是浅灰底（#eef1f6），那是给首页的卡片式排版用的；
-   而本页文字全部按深色主题配色（白字、#c9d3ea、#dfe6f0 等），
-   落在浅底上会导致标题、正文、表格几乎看不见。
-   这里只针对先锋营页换成深底，首页与 models 页不受影响。 */
-body[data-page="xianfeng"] {
-  background: var(--ink);
-}
-
-/* 深底下的页脚：base.css 的页脚配色是按浅底写的，需在此覆盖 */
-body[data-page="xianfeng"] .footer-note,
-body[data-page="xianfeng"] .ft-meta,
-body[data-page="xianfeng"] .ft-copy {
-  color: #9aa6bd;
-}
-body[data-page="xianfeng"] .ft-link {
-  color: var(--teal);
-  border-bottom-color: rgba(0, 237, 189, 0.35);
-}
-body[data-page="xianfeng"] .ft-link:hover {
-  color: #6ff5d8;
-  border-bottom-color: #6ff5d8;
-}
+   首屏是深色面板，正文区沿用全站浅灰底 + 白卡，
+   故此处不再覆盖 body 背景（原来是通篇 --ink 深底，已与全站统一）。 */
 
 .xf-wrap {
   max-width: 1100px;
@@ -32,7 +23,7 @@ body[data-page="xianfeng"] .ft-link:hover {
   padding: 26px 16px 0;
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero（深色首屏，与首页 .rpt-head / 模型页 .models-hero 同策略） ---------- */
 .xf-hero {
   background: linear-gradient(140deg, #3544a8 0%, #1a2470 46%, #0a1236 100%);
   color: #fff;
@@ -40,7 +31,7 @@ body[data-page="xianfeng"] .ft-link:hover {
   position: relative;
   /* 只裁剪横向：拦住右上角装饰光晕（right:-90px）把页面撑宽，纵向保留券卡与照片的外溢 */
   overflow-x: clip;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 .xf-hero::after {
   content: "";
@@ -77,7 +68,7 @@ body[data-page="xianfeng"] .ft-link:hover {
   margin-bottom: 18px;
 }
 .xf-title {
-  font-size: 42px;
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: 0.04em;
   line-height: 1.25;
@@ -88,9 +79,9 @@ body[data-page="xianfeng"] .ft-link:hover {
   color: transparent;
 }
 .xf-sub {
-  font-size: 14.5px;
-  line-height: 1.8;
-  color: #c9d3ea;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #a9b6d8;
   margin: 0 0 26px;
 }
 .xf-price-em {
@@ -106,10 +97,10 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-photo {
   margin: 0;
   position: relative;
-  border-radius: 14px;
+  border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(0, 237, 189, 0.35);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 18px 44px rgba(13, 20, 64, 0.4);
   transform: rotate(2deg);
 }
 .xf-photo img {
@@ -137,14 +128,14 @@ body[data-page="xianfeng"] .ft-link:hover {
   bottom: -8px;
   width: 272px;
   transform: rotate(-2deg);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 36px rgba(20, 31, 96, 0.28);
   z-index: 2;
 }
 .xf-coupon {
   display: flex;
-  border-radius: 12px;
+  border-radius: 10px;
   background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
-  border: 1.5px solid rgba(200, 138, 0, 0.65);
+  border: 1.5px solid rgba(138, 93, 0, 0.5);
   overflow: hidden;
 }
 .xf-cp-left {
@@ -154,21 +145,21 @@ body[data-page="xianfeng"] .ft-link:hover {
   align-items: center;
   justify-content: center;
   gap: 2px;
-  border-right: 1.5px dashed rgba(200, 138, 0, 0.7);
+  border-right: 1.5px dashed rgba(138, 93, 0, 0.45);
 }
 .xf-cp-left b {
   font-size: 28px;
-  color: var(--gold, #c88a00);
+  color: #8a5d00;
   font-family: Consolas, monospace;
   line-height: 1;
 }
 .xf-cp-left span {
   font-size: 10px;
-  color: #8a93a6;
+  color: #5b6675;
 }
 .xf-cp-left s {
   font-size: 11px;
-  color: #b6bdc9;
+  color: #5b6675;
 }
 .xf-cp-right {
   flex: 1;
@@ -184,7 +175,7 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-cp-t2 {
   font-size: 11px;
   line-height: 1.7;
-  color: #5c6657;
+  color: #5b6675;
 }
 .xf-cp-no {
   position: absolute;
@@ -192,7 +183,7 @@ body[data-page="xianfeng"] .ft-link:hover {
   bottom: 8px;
   font-size: 11px;
   letter-spacing: 0.12em;
-  color: #c88a00;
+  color: #8a5d00;
   font-family: Consolas, monospace;
 }
 
@@ -242,7 +233,7 @@ body[data-page="xianfeng"] .ft-link:hover {
   color: var(--teal);
 }
 
-/* ---------- 一句话 ---------- */
+/* ---------- 一句话（深色通栏，与模型页 .book-strip 同语言） ---------- */
 .xf-oneliner {
   text-align: center;
   background: var(--navy-d);
@@ -251,6 +242,8 @@ body[data-page="xianfeng"] .ft-link:hover {
   font-weight: 600;
   letter-spacing: 0.06em;
   padding: 18px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 .xf-oneliner span {
   background: linear-gradient(90deg, #00b89c, #00edbd);
@@ -259,30 +252,31 @@ body[data-page="xianfeng"] .ft-link:hover {
   color: transparent;
 }
 
-/* ---------- 通用 section ---------- */
+/* ---------- 通用 section：改为全站白卡 ---------- */
 .xf-sec {
-  padding: 46px 24px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(20, 31, 96, 0.1);
+  padding: 30px 34px;
+  margin-bottom: 20px;
+  scroll-margin-top: 66px; /* 锚点定位留出导航高度，与 base.css 的 .card 一致 */
 }
+/* 提示：h2 不再在此自定义，直接继承 base.css 的全局规则
+   （20.5px / --navy / 字距 1px / 左内边距 13px + 4px 青色竖条），
+   这样移动端字号也自动跟随 base.css 的媒体查询。 */
 .xf-kicker {
   display: inline-block;
   font-size: 11px;
   letter-spacing: 0.22em;
-  color: var(--teal);
-  border: 1px solid rgba(0, 237, 189, 0.45);
+  color: #007a5f;
+  border: 1px solid rgba(0, 184, 156, 0.5);
   border-radius: 999px;
   padding: 3px 12px;
   margin-bottom: 14px;
 }
-.xf-sec h2 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 6px;
-  line-height: 1.4;
-}
 .xf-lead {
   font-size: 13.5px;
-  color: #8a93a6;
+  color: #5b6675;
   margin: 0 0 22px;
 }
 .xf-h2b {
@@ -291,17 +285,19 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-block {
   font-size: 14px;
   line-height: 1.85;
-  color: #c9d3ea;
+  color: var(--body);
   margin: 16px 0 0;
 }
 .xf-block b {
-  color: #fff;
+  color: var(--navy);
 }
-.xf-gold {
-  color: #e8b93e;
+/* 浅底上的金色 / 红色：用深金保证可读性。
+   加 .xf-sec 前缀是为了压过 .xf-block b / .xf-why b 等「加粗即深蓝」的规则。 */
+.xf-sec .xf-gold {
+  color: #8a5d00;
 }
-.xf-red {
-  color: #ff8f7a;
+.xf-sec .xf-red {
+  color: #d0021b;
 }
 
 /* ---------- FAB ---------- */
@@ -311,10 +307,10 @@ body[data-page="xianfeng"] .ft-link:hover {
   gap: 12px;
 }
 .xf-fab {
-  border: 1px solid rgba(90, 167, 224, 0.22);
-  border-radius: 14px;
+  border: 1px solid #e2e6ed;
+  border-radius: 10px;
   padding: 16px;
-  background: linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
+  background: #fcfdfe;
 }
 .xf-fab-head {
   display: flex;
@@ -335,23 +331,21 @@ body[data-page="xianfeng"] .ft-link:hover {
   font-weight: 800;
   font-size: 15px;
 }
+/* h3 的颜色与字号交给 base.css（16px / --navy），这里只清掉默认外边距 */
 .xf-fab h3 {
-  font-size: 15.5px;
-  font-weight: 700;
-  color: #fff;
   margin: 0;
 }
 .xf-fab p {
   font-size: 13.5px;
   line-height: 1.75;
-  color: #c9d3ea;
+  color: var(--body);
   margin: 0 0 6px;
 }
 .xf-fab p b {
-  color: #fff;
+  color: var(--navy);
 }
 .xf-gain {
-  color: var(--teal);
+  color: #007a5f;
   font-weight: 600;
 }
 
@@ -362,19 +356,19 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-pain {
   display: flex;
   gap: 12px;
-  border: 1px solid rgba(90, 167, 224, 0.22);
-  border-radius: 14px;
+  border: 1px solid #e2e6ed;
+  border-radius: 10px;
   padding: 15px 16px;
   margin-bottom: 11px;
-  background: linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
+  background: #fcfdfe;
 }
 .xf-q {
   flex: 0 0 26px;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: rgba(255, 143, 122, 0.16);
-  color: #ff8f7a;
+  background: #fdf0f1;
+  color: #d0021b;
   font-weight: 800;
   font-size: 13px;
   display: flex;
@@ -385,12 +379,12 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-p {
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: var(--navy);
   margin-bottom: 3px;
 }
 .xf-s {
   font-size: 13px;
-  color: var(--teal);
+  color: #007a5f;
   line-height: 1.7;
 }
 .xf-s::before {
@@ -399,17 +393,18 @@ body[data-page="xianfeng"] .ft-link:hover {
 
 /* ---------- 规则表 ---------- */
 .xf-callout {
-  background: rgba(0, 237, 189, 0.07);
-  border: 1.5px solid rgba(0, 237, 189, 0.45);
-  border-radius: 12px;
-  padding: 14px 16px;
+  background: #f6f9fb;
+  border: 1px solid #dcece7;
+  border-left: 4px solid #00b89c;
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
   margin: 16px 0 0;
   font-size: 13.5px;
   line-height: 1.8;
-  color: #c9d3ea;
+  color: var(--body);
 }
 .xf-callout b {
-  color: var(--teal);
+  color: #007a5f;
 }
 .xf-rules {
   width: 100%;
@@ -419,25 +414,25 @@ body[data-page="xianfeng"] .ft-link:hover {
 }
 .xf-rules th,
 .xf-rules td {
-  border: 1px solid rgba(90, 167, 224, 0.22);
+  border: 1px solid #e2e6ed;
   padding: 10px 12px;
   text-align: left;
   vertical-align: top;
   line-height: 1.7;
 }
 .xf-rules th {
-  background: rgba(20, 31, 96, 0.7);
+  background: #f5f6f9;
   width: 88px;
   font-weight: 700;
   white-space: nowrap;
-  color: var(--teal);
+  color: var(--navy);
 }
 .xf-rules td {
-  background: rgba(12, 23, 56, 0.55);
-  color: #c9d3ea;
+  background: #fff;
+  color: var(--body);
 }
 .xf-rules td b {
-  color: #e8b93e;
+  color: #8a5d00;
 }
 
 /* ---------- 为什么是券 ---------- */
@@ -447,7 +442,7 @@ body[data-page="xianfeng"] .ft-link:hover {
   padding: 0;
   font-size: 14px;
   line-height: 1.85;
-  color: #c9d3ea;
+  color: var(--body);
 }
 .xf-why li {
   padding: 6px 0 6px 22px;
@@ -457,20 +452,20 @@ body[data-page="xianfeng"] .ft-link:hover {
   content: "—";
   position: absolute;
   left: 0;
-  color: var(--teal);
+  color: #00b89c;
   font-weight: 800;
 }
 .xf-why b {
-  color: #fff;
+  color: var(--navy);
 }
 .xf-meta-line {
   margin: 14px 0 0;
   font-size: 13.5px;
-  color: #8a93a6;
+  color: #5b6675;
   line-height: 1.8;
 }
 .xf-meta-line b {
-  color: #fff;
+  color: var(--navy);
 }
 
 /* ---------- 结构 / 军衔 ---------- */
@@ -481,35 +476,35 @@ body[data-page="xianfeng"] .ft-link:hover {
   margin-top: 16px;
 }
 .xf-pill {
-  border: 1px solid rgba(90, 167, 224, 0.22);
+  border: 1px solid #e2e6ed;
   border-radius: 10px;
   padding: 10px 12px;
-  background: linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
+  background: #fcfdfe;
 }
 .xf-pill b {
   display: block;
   font-size: 13.5px;
-  color: #fff;
+  color: var(--navy);
 }
 .xf-pill span {
   font-size: 11.5px;
-  color: #8a93a6;
+  color: #5b6675;
 }
 .xf-pill.xf-hl {
-  border: 1.5px solid var(--teal);
+  border: 1.5px solid #00b89c;
 }
 .xf-pill.xf-hl b::after {
   content: "第 5 章 · 第一道命令";
   display: block;
   font-size: 10.5px;
-  color: var(--teal);
+  color: #007a5f;
   font-weight: 600;
   margin-top: 2px;
 }
 .xf-pill-note {
   margin: 12px 0 0;
   font-size: 12px;
-  color: #8a93a6;
+  color: #5b6675;
   text-align: center;
 }
 .xf-ranks {
@@ -519,34 +514,34 @@ body[data-page="xianfeng"] .ft-link:hover {
   flex-wrap: wrap;
   gap: 4px;
   margin-top: 18px;
-  background: rgba(20, 31, 96, 0.7);
-  border: 1px solid rgba(90, 167, 224, 0.22);
+  background: #f5f6f9;
+  border: 1px solid #e2e6ed;
   border-radius: 10px;
   padding: 12px 10px;
 }
 .xf-ranks span {
   font-size: 11.5px;
   font-weight: 600;
-  color: #dfe6f0;
+  color: var(--navy);
 }
 .xf-ranks span:not(:last-child)::after {
   content: "→";
-  color: var(--teal);
+  color: #00b89c;
   margin-left: 4px;
   font-weight: 400;
 }
 
 /* ---------- 背书 ---------- */
 .xf-endorse {
-  border-left: 3px solid var(--teal);
+  border-left: 3px solid #00b89c;
   padding: 2px 0 2px 14px;
   margin: 18px 0;
   font-size: 14px;
   line-height: 1.85;
-  color: #c9d3ea;
+  color: var(--body);
 }
 .xf-endorse b {
-  color: #fff;
+  color: var(--navy);
 }
 .xf-authors {
   display: grid;
@@ -577,45 +572,42 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-ind em {
   font-style: normal;
   font-size: 10.5px;
-  color: #8a93a6;
+  color: #5b6675;
   text-align: center;
 }
 
 /* ---------- 促单 ---------- */
-.xf-promo {
-  background: linear-gradient(180deg, #0c1738, #0a1236);
-}
 .xf-price-card {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
   background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
-  border: 1.5px solid rgba(200, 138, 0, 0.65);
-  border-radius: 14px;
+  border: 1.5px solid rgba(138, 93, 0, 0.5);
+  border-radius: 10px;
   padding: 20px;
   margin: 4px 0 20px;
 }
 .xf-old {
   font-size: 16px;
-  color: #8a93a6;
+  color: #5b6675;
   text-decoration: line-through;
 }
 .xf-new {
   font-size: 44px;
   font-weight: 800;
-  color: #c88a00;
+  color: #8a5d00;
   line-height: 1;
   font-family: Consolas, monospace;
 }
 .xf-new small {
   font-size: 15px;
   font-weight: 600;
-  color: #1a2233;
+  color: var(--body);
 }
 .xf-save {
   font-size: 12px;
-  background: #c88a00;
+  background: #8a5d00;
   color: #fff;
   border-radius: 999px;
   padding: 3px 10px;
@@ -630,10 +622,10 @@ body[data-page="xianfeng"] .ft-link:hover {
   padding: 7px 0 7px 28px;
   position: relative;
   font-size: 14.5px;
-  color: #dfe6f0;
+  color: var(--body);
 }
 .xf-checklist li b {
-  color: #fff;
+  color: var(--navy);
 }
 .xf-checklist li::before {
   content: "✓";
@@ -650,11 +642,12 @@ body[data-page="xianfeng"] .ft-link:hover {
   align-items: center;
   justify-content: center;
 }
+/* 限时提示：浅金块（与 base.css 的 .note.warn-note 同语言） */
 .xf-deadline {
-  background: linear-gradient(120deg, #3a2c05, #6b4e08);
-  border: 1px solid rgba(232, 185, 62, 0.5);
-  color: #ffe9ad;
-  border-radius: 12px;
+  background: #fffbf2;
+  border: 1px solid #f0d9a8;
+  color: #8a5d00;
+  border-radius: 10px;
   padding: 14px 16px;
   text-align: center;
   font-size: 14px;
@@ -666,12 +659,12 @@ body[data-page="xianfeng"] .ft-link:hover {
   font-weight: 800;
   letter-spacing: 0.05em;
   margin-top: 4px;
-  color: #fff;
+  color: #8a5d00;
   font-family: Consolas, monospace;
 }
 .xf-cd i {
   font-style: normal;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(138, 93, 0, 0.12);
   border-radius: 6px;
   padding: 2px 7px;
   margin: 0 2px;
@@ -680,10 +673,10 @@ body[data-page="xianfeng"] .ft-link:hover {
   text-align: center;
   margin: 14px 0 0;
   font-size: 12.5px;
-  color: #8a93a6;
+  color: #5b6675;
 }
 .xf-stock-num {
-  color: var(--teal);
+  color: #007a5f;
   font-family: Consolas, monospace;
 }
 .xf-grid30 {
@@ -701,9 +694,9 @@ body[data-page="xianfeng"] .ft-link:hover {
   justify-content: center;
   font-size: 12px;
   font-weight: 700;
-  border: 1px solid rgba(90, 167, 224, 0.25);
-  background: rgba(12, 23, 56, 0.6);
-  color: #8a93a6;
+  border: 1px solid #e2e6ed;
+  background: #f5f6f9;
+  color: #5b6675;
   font-family: Consolas, monospace;
 }
 .xf-cell em {
@@ -714,7 +707,7 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-cell.on {
   background: linear-gradient(90deg, #00b89c, #00edbd);
   color: #0b1426;
-  border-color: var(--teal);
+  border-color: #00b89c;
 }
 .xf-cell.on em {
   color: rgba(11, 20, 38, 0.6);
@@ -724,7 +717,7 @@ body[data-page="xianfeng"] .ft-link:hover {
   margin: 12px 0 0;
   font-size: 13px;
   font-weight: 700;
-  color: var(--teal);
+  color: #007a5f;
 }
 .xf-trustbar {
   display: flex;
@@ -733,7 +726,8 @@ body[data-page="xianfeng"] .ft-link:hover {
 }
 .xf-trustbar div {
   flex: 1;
-  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  background: #f5f6f9;
+  border: 1px solid #e2e6ed;
   border-radius: 10px;
   padding: 12px 8px;
   text-align: center;
@@ -745,27 +739,27 @@ body[data-page="xianfeng"] .ft-link:hover {
 }
 .xf-trustbar span {
   font-size: 10.5px;
-  color: #8a93a6;
+  color: #5b6675;
 }
 .xf-interact {
-  border: 1px dashed rgba(0, 237, 189, 0.5);
-  border-radius: 14px;
+  border: 1px dashed #a8ded1;
+  border-radius: 10px;
   padding: 18px;
-  background: rgba(0, 237, 189, 0.05);
+  background: #f6f9fb;
   margin-top: 24px;
 }
 .xf-interact > b {
-  color: var(--teal);
+  color: #007a5f;
   font-size: 14px;
 }
 .xf-interact p {
   font-size: 13.5px;
   line-height: 1.8;
   margin: 8px 0 0;
-  color: #c9d3ea;
+  color: var(--body);
 }
 .xf-interact p b {
-  color: var(--teal);
+  color: #007a5f;
 }
 .xf-contact {
   margin-top: 26px;
@@ -774,10 +768,10 @@ body[data-page="xianfeng"] .ft-link:hover {
 .xf-qrbox {
   margin: 14px auto 0;
   max-width: 300px;
-  border: 1.5px dashed rgba(0, 237, 189, 0.5);
-  border-radius: 12px;
+  border: 1.5px dashed #7fd6c2;
+  border-radius: 10px;
   padding: 14px 16px;
-  color: var(--teal);
+  color: #007a5f;
   font-size: 13px;
   line-height: 1.8;
   cursor: pointer;
@@ -786,27 +780,43 @@ body[data-page="xianfeng"] .ft-link:hover {
   display: block;
 }
 .xf-qrbox span {
-  color: #8a93a6;
+  color: #5b6675;
   font-size: 12px;
 }
 .xf-qrbox.xf-qrbox-dim {
-  border-color: rgba(200, 138, 0, 0.5);
-  background: rgba(200, 138, 0, 0.07);
+  border-color: #e0c08a;
+  background: #fffbf2;
 }
 .xf-qrbox.xf-qrbox-dim b {
-  color: #e8b93e;
+  color: #8a5d00;
 }
 
 /* ---------- 响应式 ---------- */
-@media (min-width: 640px) {
-  .xf-sec {
-    padding: 52px 44px;
+/* 正文卡内边距跟随 base.css 的 .card 断点（30/34 → 22/18 → 18/14） */
+@media (max-width: 768px) {
+  .xf-wrap {
+    padding: 20px 14px 0;
   }
+  .xf-sec {
+    padding: 22px 18px;
+  }
+}
+@media (max-width: 480px) {
+  .xf-wrap {
+    padding: 14px 12px 0;
+  }
+  .xf-sec {
+    padding: 18px 14px;
+  }
+}
+
+/* Hero 断点：640px 起放大字号与双列功能块 */
+@media (min-width: 640px) {
   .xf-hero {
     padding: 72px 56px 64px;
   }
   .xf-title {
-    font-size: 52px;
+    font-size: 46px;
   }
   .xf-fab-grid {
     grid-template-columns: 1fr 1fr;
@@ -848,7 +858,7 @@ body[data-page="xianfeng"] .ft-link:hover {
     width: min(300px, 92%);
   }
   .xf-title {
-    font-size: 34px;
+    font-size: 30px;
   }
   /* 窄屏按钮改为上下堆叠：并排时每个仅约 150px，文案会被折成两行 */
   .xf-cta-row {
