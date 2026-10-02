@@ -3,17 +3,19 @@
    页面级类一律 xf- 前缀，避免与全站样式冲突。 */
 
 .xf-wrap {
-  max-width: 860px;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 26px 16px 0;
 }
 
 /* ---------- Hero ---------- */
 .xf-hero {
   background: linear-gradient(140deg, #3544a8 0%, #1a2470 46%, #0a1236 100%);
   color: #fff;
-  padding: 56px 24px 60px;
+  padding: 56px 40px 60px;
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
 }
 .xf-hero::after {
   content: "";
@@ -27,7 +29,7 @@
   pointer-events: none;
 }
 .xf-hero-inner {
-  max-width: 640px;
+  max-width: 920px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -749,10 +751,10 @@
 /* ---------- 响应式 ---------- */
 @media (min-width: 640px) {
   .xf-sec {
-    padding: 52px 34px;
+    padding: 52px 44px;
   }
   .xf-hero {
-    padding: 72px 34px 64px;
+    padding: 72px 56px 64px;
   }
   .xf-title {
     font-size: 52px;
@@ -772,6 +774,10 @@
   }
 }
 @media (max-width: 560px) {
+  .xf-hero {
+    border-radius: 10px;
+    padding: 44px 22px 48px;
+  }
   .xf-coupon {
     position: relative;
     top: auto;
