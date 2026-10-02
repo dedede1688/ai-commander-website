@@ -826,6 +826,10 @@
   .xf-title {
     font-size: 34px;
   }
+  /* 窄屏按钮改为上下堆叠：并排时每个仅约 150px，文案会被折成两行 */
+  .xf-cta-row {
+    flex-direction: column;
+  }
   .xf-grid30 {
     grid-template-columns: repeat(5, 1fr);
   }
