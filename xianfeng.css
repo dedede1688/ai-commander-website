@@ -14,7 +14,8 @@
   color: #fff;
   padding: 48px 40px 64px;
   position: relative;
-  overflow: visible;
+  /* 只裁剪横向：拦住右上角装饰光晕（right:-90px）把页面撑宽，纵向保留券卡与照片的外溢 */
+  overflow-x: clip;
   border-radius: 12px;
 }
 .xf-hero::after {
@@ -30,7 +31,7 @@
 }
 .xf-hero-grid {
   display: grid;
-  grid-template-columns: 1.02fr 0.98fr;
+  grid-template-columns: 1fr;
   gap: 44px;
   align-items: center;
   max-width: 980px;
@@ -789,10 +790,6 @@
   .xf-pills {
     grid-template-columns: repeat(4, 1fr);
   }
-  .xf-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
   .xf-hero-visual {
     max-width: 460px;
     margin: 0 auto;
@@ -800,6 +797,17 @@
   }
   .xf-photo img {
     height: 420px;
+  }
+}
+/* 直到 900px 才切「左文右图」双栏：640–899px 保持单栏，免得平板被挤成两条窄柱 */
+@media (min-width: 900px) {
+  .xf-hero-grid {
+    grid-template-columns: 1.02fr 0.98fr;
+    gap: 44px;
+  }
+  .xf-hero-visual {
+    max-width: none;
+    margin: 0;
   }
 }
 @media (max-width: 560px) {
