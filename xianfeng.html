@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://www.ai-mmc.cn/xianfeng.html" />
     <meta property="og:image" content="https://www.ai-mmc.cn/%E7%B4%A0%E6%9D%90/%E4%B9%A6%E7%B1%8D/AI%E6%8C%87%E6%8C%A5%E5%AE%98-%E7%AB%8B%E4%BD%93%E4%B9%A6.webp" />
     <link rel="stylesheet" href="base.css?v=6" />
-    <link rel="stylesheet" href="xianfeng.css?v=23" />
+    <link rel="stylesheet" href="xianfeng.css?v=24" />
   </head>
   <body data-page="xianfeng">
     <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
@@ -36,164 +36,6 @@
         <button class="xf-hot xf-hot-claim" type="button" data-xf-claim aria-label="立即领券，锁定席位"></button>
         <button class="xf-hot xf-hot-trial" type="button" data-xf-trial aria-label="可试读 2 章，再做决定"></button>
       </header>
-
-      <!-- ===== 样书实拍画廊（海报下方深色卡，原首屏右栏移入） ===== -->
-      <section class="xf-sec xf-sec--dark xf-gallery-sec" aria-label="样板书实拍画廊">
-          <div class="xf-hero-visual">
-            <!-- 样书实拍画廊：主图 + 右侧缩略图，点缩略图切换主图。
-                 角标放在照片外面：封面是满幅图、书名就在最上沿，压在上面会挡字 -->
-            <div class="xf-photo-badge">📷 印厂实拍 · 样板书已下线</div>
-            <div class="xf-gallery">
-              <figure
-                class="xf-photo"
-                id="xfPhoto"
-                role="button"
-                tabindex="0"
-                aria-pressed="false"
-                aria-label="点击放大 2 倍查看样书"
-              >
-                <img
-                  id="xfShot"
-                  src="素材/样板书/样板书实拍-00-立体书影.webp"
-                  data-main="素材/样板书/样板书实拍-00-立体书影.webp"
-                  data-full="素材/样板书/大图/样板书实拍-00-立体书影.webp"
-                  alt="《AI指挥官》样板书立体书影"
-                  width="900"
-                  height="835"
-                  draggable="false"
-                  loading="eager"
-                  decoding="async"
-                />
-                <span class="xf-zoom-hint" id="xfZoomHint">点击放大 2 倍</span>
-              </figure>
-              <div class="xf-thumbs" id="xfThumbs" role="group" aria-label="样板书实拍图切换">
-                <button
-                  type="button"
-                  class="xf-thumb on"
-                  data-shot="素材/样板书/样板书实拍-00-立体书影.webp"
-                  data-full="素材/样板书/大图/样板书实拍-00-立体书影.webp"
-                  data-alt="《AI指挥官》样板书立体书影"
-                  aria-pressed="true"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-00-立体书影.webp" alt="" width="160" height="148" loading="lazy" decoding="async" />
-                  <span>封面</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-02-书名页.webp"
-                  data-full="素材/样板书/大图/样板书实拍-02-书名页.webp"
-                  data-alt="《AI指挥官》样板书实拍：书名页"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-02-书名页.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>书名页</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-03-封底.webp"
-                  data-full="素材/样板书/大图/样板书实拍-03-封底.webp"
-                  data-alt="《AI指挥官》样板书实拍：封底与图书信息"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-03-封底.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>封底</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-04-两册叠放.webp"
-                  data-full="素材/样板书/大图/样板书实拍-04-两册叠放.webp"
-                  data-alt="《AI指挥官》样板书实拍：两册叠放"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-04-两册叠放.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>两册叠放</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-05-群英谱.webp"
-                  data-full="素材/样板书/大图/样板书实拍-05-群英谱.webp"
-                  data-alt="《AI指挥官》样板书实拍：群英谱 联合出版人"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-05-群英谱.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>群英谱</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-06-趋势瞭望.webp"
-                  data-full="素材/样板书/大图/样板书实拍-06-趋势瞭望.webp"
-                  data-alt="《AI指挥官》样板书实拍：趋势瞭望 篇章页"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-06-趋势瞭望.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>趋势瞭望</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-07-目录.webp"
-                  data-full="素材/样板书/大图/样板书实拍-07-目录.webp"
-                  data-alt="《AI指挥官》样板书实拍：目录"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-07-目录.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>目录</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-08-章节插图.webp"
-                  data-full="素材/样板书/大图/样板书实拍-08-章节插图.webp"
-                  data-alt="《AI指挥官》样板书实拍：章节插图"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-08-章节插图.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>章节插图</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-09-第19章.webp"
-                  data-full="素材/样板书/大图/样板书实拍-09-第19章.webp"
-                  data-alt="《AI指挥官》样板书实拍：第 19 章 图像特种兵"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-09-第19章.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>第 19 章</span>
-                </button>
-                <button
-                  type="button"
-                  class="xf-thumb"
-                  data-shot="素材/样板书/样板书实拍-10-第28章.webp"
-                  data-full="素材/样板书/大图/样板书实拍-10-第28章.webp"
-                  data-alt="《AI指挥官》样板书实拍：第 28 章 任命你的 AI 副官"
-                  aria-pressed="false"
-                >
-                  <img src="素材/样板书/缩略图/样板书实拍-10-第28章.webp" alt="" width="152" height="206" loading="lazy" decoding="async" />
-                  <span>第 28 章</span>
-                </button>
-              </div>
-            </div>
-            <div class="xf-coupon xf-coupon-float">
-              <div class="xf-cp-left">
-                <b>¥98</b>
-                <span>凭券价</span>
-                <s>¥128</s>
-              </div>
-              <div class="xf-cp-right">
-                <div class="xf-cp-t1">样板书优惠券</div>
-                <div class="xf-cp-t2">免费领取 · 凭券以优惠价优先购买样板书 1 套<br />编号收藏卡 + 作者亲笔签名致谢卡</div>
-                <div class="xf-cp-no">NO.001 – 030</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <div class="xf-oneliner">别人等上市，<span>你手里有券</span>。</div>
 
@@ -442,7 +284,7 @@
     ></div>
 
     <script src="shared.js?v=17"></script>
-    <script src="xianfeng.js?v=12"></script>
+    <script src="xianfeng.js?v=13"></script>
     <!-- 百度统计：占位。拿到站点代码后，用官方 hm.js 脚本整体替换下方注释 -->
     <!-- <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?站点代码";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script> -->
   </body>
