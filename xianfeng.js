@@ -66,7 +66,9 @@
     function zoomed() {
       return !!(photo && photo.classList.contains("zoomed"));
     }
-    /* 载入某张图：按当前是否处于放大状态，决定取小图还是全分辨率大图 */
+    /* 载入某张图：按当前是否处于放大状态，决定取小图还是大图。
+       放大是 3 倍，宽屏上最多需要 2200px 左右的实际像素，
+       所以放大时用「大图」而不是主图，避免被拉糊。 */
     function load(btn) {
       var want = zoomed() ? btn.dataset.full : btn.dataset.shot;
       if (want && shot.getAttribute("src") !== want) shot.src = want;
@@ -95,7 +97,7 @@
       })[0];
       photo.classList.toggle("zoomed", on);
       photo.setAttribute("aria-pressed", on ? "true" : "false");
-      if (hint) hint.textContent = on ? "点击还原" : "点击放大 1:1";
+      if (hint) hint.textContent = on ? "点击还原" : "点击放大 3 倍";
       if (cur) load(cur);
       resetScroll();
     }
@@ -114,7 +116,73 @@
     });
 
     if (photo) {
+      /* 放大后按住鼠标左键拖动平移。用「滚动位置」实现，而不是改 transform：
+         浏览器会把 scrollLeft/scrollTop 自动钳制在 [0, 最大滚动量] 内，
+         因此图片不可能被拖到完全脱离可视区，边界情况天然安全，
+         松手即停在当前位置，不做惯性滚动，放大状态保持不变。 */
+      var drag = null;
+      var suppressClick = false; /* 刚发生过拖动时，抑制随之而来的 click（否则会误还原） */
+      var DRAG_MIN = 4; /* 位移超过 4px 才算拖动，用来区分「点击还原」与「拖动平移」 */
+
+      function pannable() {
+        return (
+          zoomed() &&
+          (photo.scrollWidth > photo.clientWidth ||
+            photo.scrollHeight > photo.clientHeight)
+        );
+      }
+
+      photo.addEventListener("pointerdown", function (e) {
+        /* 只接管鼠标左键：触摸设备交给浏览器原生滚动，手感更自然 */
+        suppressClick = false;
+        if (e.pointerType !== "mouse" || e.button !== 0 || !pannable()) return;
+        drag = {
+          id: e.pointerId,
+          x: e.clientX,
+          y: e.clientY,
+          left: photo.scrollLeft,
+          top: photo.scrollTop,
+          moved: false,
+        };
+      });
+
+      photo.addEventListener("pointermove", function (e) {
+        if (!drag || e.pointerId !== drag.id) return;
+        var dx = e.clientX - drag.x;
+        var dy = e.clientY - drag.y;
+        if (!drag.moved) {
+          if (Math.abs(dx) + Math.abs(dy) < DRAG_MIN) return;
+          drag.moved = true;
+          suppressClick = true;
+          photo.classList.add("dragging");
+          /* 捕获指针：拖出框外也能继续平移，不会中途"丢手"。
+             指针恰好已失效时该调用会抛错，兜住即可，拖动照常进行 */
+          if (photo.setPointerCapture) {
+            try {
+              photo.setPointerCapture(drag.id);
+            } catch (err) {
+              /* 忽略：拿不到捕获不影响框内拖动 */
+            }
+          }
+        }
+        /* 只写不读，避免逐帧触发布局抖动；拖动方向与图片移动方向一致 */
+        photo.scrollLeft = drag.left - dx;
+        photo.scrollTop = drag.top - dy;
+      });
+
+      function endDrag(e) {
+        if (!drag || (e && e.pointerId !== drag.id)) return;
+        photo.classList.remove("dragging");
+        drag = null;
+      }
+      photo.addEventListener("pointerup", endDrag);
+      photo.addEventListener("pointercancel", endDrag);
+
       photo.addEventListener("click", function () {
+        if (suppressClick) {
+          suppressClick = false; /* 刚才是拖动，不当作点击 */
+          return;
+        }
         setZoom(!zoomed());
       });
       photo.addEventListener("keydown", function (e) {
