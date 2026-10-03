@@ -76,6 +76,36 @@
       links +
       "</div>" +
       "</div>";
+
+    /* ---------- 窄屏单行滚动的可达性 ----------
+       窄屏下放不下的标签会被裁掉一半露在右缘（露出一点 = 滚动暗示），
+       但滚动条是隐藏的，鼠标用户没有任何办法滚到后面 —— 这里补上两种手段：
+       1. 指针悬停导航时，纵向滚轮直接转为横向滚动（触控板横扫走原生通道）；
+       2. 载入后把当前页高亮标签居中滚入可视区，用户立刻能看到自己站在哪。 */
+    var navLinks = nav.querySelector(".nav-links");
+    if (navLinks) {
+      navLinks.addEventListener(
+        "wheel",
+        function (e) {
+          /* 无横向溢出（宽屏）或本来就是横向手势时不接管 */
+          if (navLinks.scrollWidth <= navLinks.clientWidth) return;
+          if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+          e.preventDefault();
+          navLinks.scrollLeft += e.deltaY;
+        },
+        { passive: false },
+      );
+
+      var active = nav.querySelector(".nav-link.active");
+      if (active) {
+        /* 用几何中心对齐而不是 offsetLeft：offsetLeft 相对的是定位祖先
+           （sticky 的 .topnav），不是滚动容器本身，直接用会算错 */
+        var lr = active.getBoundingClientRect();
+        var nr = navLinks.getBoundingClientRect();
+        navLinks.scrollLeft +=
+          lr.left + lr.width / 2 - (nr.left + nr.width / 2);
+      }
+    }
   }
 
   /* ---------- 2. 页脚注入 ---------- */
