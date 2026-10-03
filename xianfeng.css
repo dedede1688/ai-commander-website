@@ -91,17 +91,21 @@
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
+    background-position 0.3s ease,
     border-color 0.18s ease,
     color 0.18s ease,
     opacity 0.18s ease;
 }
 .xf-btn-main {
   background: linear-gradient(135deg, #00edbd 0%, #5aa7e0 50%, #7b5ce0 100%);
+  background-size: 135% 135%;
+  background-position: 0% 50%;
   color: #0b1426;
   box-shadow: 0 6px 20px rgba(0, 237, 189, 0.28);
 }
 .xf-btn-main:hover {
   transform: translateY(-2px);
+  background-position: 100% 50%;
   box-shadow: 0 10px 26px rgba(0, 237, 189, 0.42);
 }
 .xf-btn:active {
@@ -134,7 +138,7 @@
   padding: 18px 20px;
   border-radius: 0 0 10px 10px;
   border-top: 1px solid rgba(0, 237, 189, 0.14);
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 .xf-oneliner span {
   background: linear-gradient(90deg, #00b89c, #00edbd);
@@ -171,7 +175,7 @@
   background: #fcfdfe;
   border: 1px solid #e2e6ed;
   border-radius: 10px;
-  margin-top: 16px;
+  margin-top: 18px;
 }
 .xf-subhd {
   font-size: 13px;
@@ -240,6 +244,7 @@
   justify-content: center;
   font-weight: 800;
   font-size: 15px;
+  box-shadow: 0 3px 8px rgba(0, 184, 156, 0.3);
 }
 /* h3 的颜色与字号交给 base.css（16px / --navy），这里只清掉默认外边距 */
 .xf-fab h3 {
@@ -266,7 +271,7 @@
   border: 1px solid #e2e6ed;
   border-radius: 10px;
   padding: 15px 16px;
-  margin-bottom: 11px;
+  margin-bottom: 12px;
   background: #fff;
   transition:
     transform 0.18s,
@@ -491,6 +496,14 @@
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+/* 行业圆：悬停轻放 + 青色光环，呼应“20 位联合出版人”的背书分量 */
+.xf-ind:hover i {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px rgba(0, 237, 189, 0.18);
 }
 .xf-ind em {
   font-style: normal;
@@ -581,19 +594,31 @@
   margin: 0;
 }
 .xf-cd {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 800;
   letter-spacing: 0.05em;
-  margin-top: 4px;
+  margin-top: 8px;
   color: #8a5d00;
   font-family: Consolas, monospace;
 }
+/* 数字底块：加描边 + 呼吸辉光，让倒计时在浅色金块里更跳 */
 .xf-cd i {
   font-style: normal;
   background: rgba(138, 93, 0, 0.12);
+  border: 1px solid rgba(138, 93, 0, 0.25);
   border-radius: 6px;
-  padding: 2px 7px;
+  padding: 3px 9px;
   margin: 0 2px;
+  animation: xf-cd-breathe 2.4s ease-in-out infinite;
+}
+@keyframes xf-cd-breathe {
+  0%,
+  100% {
+    background: rgba(138, 93, 0, 0.1);
+  }
+  50% {
+    background: rgba(138, 93, 0, 0.2);
+  }
 }
 .xf-stock-coupon {
   display: flex;
@@ -674,6 +699,7 @@
 .xf-trustbar div:hover {
   transform: translateY(-2px);
   border-color: #00b89c;
+  background: #f8fdfb;
   box-shadow: 0 8px 18px rgba(20, 31, 96, 0.08);
 }
 .xf-trustbar b {
@@ -759,7 +785,7 @@
     linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
   border-radius: 10px;
   padding: 16px 22px;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 .xf-bs-img {
   height: 86px;
