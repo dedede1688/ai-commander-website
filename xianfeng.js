@@ -2,47 +2,29 @@
    依赖 shared.js（导航 / 页脚 / 二维码层）。页面缺少对应元素时自动跳过。
 
    上线前配置区：
-   - claimed：已领券号数组，如 [1,2,3] 表示 001–003 已领（数字必须与实际一致）
-   - claimUrl：领券/下单链接；为空时点击「领券」按钮唤起 AI 指挥官二维码
+   - remain：剩余张数（后台调控：每领出一张就减 1，也可增减），页面所有"剩 N"自动同步
+   - claimUrl：快团团等下单链接；配置后点「领取」新窗口直达付款，为空时唤起 AI 指挥官二维码
    - trialUrl：试读链接；为空时点击「试读」按钮同样唤起二维码 */
 (function () {
   var CONFIG = {
     deadline: new Date(2026, 9, 31, 23, 59, 59), // 2026-10-31 24:00 截止
-    claimed: [],
-    claimUrl: "", // 例："https://example.com/buy" 或小程序链接
-    trialUrl: "", // 例：试读 PDF / 文章链接
+    remain: 30, /* 【席位后台调控】每领出一张就把这个数字减 1（也可增减），页面所有"剩 N"自动同步 */
+    total: 30, /* 本批券总量，编号 001–030 */
+    claimUrl: "", /* 快团团下单链接：填入后点「领取」新窗口直达付款；为空则唤起二维码 */
+    trialUrl: "", /* 试读链接：填入后新窗口打开试读；为空则唤起二维码 */
   };
 
-  var TOTAL = 30;
-  var claimed = {};
-  CONFIG.claimed.forEach(function (n) {
-    if (n >= 1 && n <= TOTAL) claimed[n] = true;
-  });
-  var remain = TOTAL - Object.keys(claimed).length;
+  var TOTAL = CONFIG.total;
+  var remain = Math.max(0, Math.min(TOTAL, CONFIG.remain));
+  var claimed = TOTAL - remain;
 
   /* ---------- 剩余席位（多处同步） ---------- */
-  ["xfStockTop"].forEach(function (id) {
+  ["xfStockTop", "xfRemain"].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.textContent = remain;
   });
-  Array.prototype.forEach.call(
-    document.querySelectorAll(".xf-stock-num"),
-    function (el) {
-      el.textContent = remain;
-    },
-  );
-
-  /* ---------- 30 席公示矩阵 ---------- */
-  var grid = document.getElementById("xfGrid");
-  if (grid) {
-    for (var i = 1; i <= TOTAL; i++) {
-      var cell = document.createElement("div");
-      cell.className = "xf-cell" + (claimed[i] ? " on" : "");
-      var no = ("00" + i).slice(-3);
-      cell.innerHTML = no + "<em>" + (claimed[i] ? "已领 ✔" : "待领") + "</em>";
-      grid.appendChild(cell);
-    }
-  }
+  var claimedEl = document.getElementById("xfClaimed");
+  if (claimedEl) claimedEl.textContent = claimed;
 
   /* ---------- 样书实拍画廊：点缩略图换主图 + 点主图在框内按 1:1 放大 ---------- */
   var shot = document.getElementById("xfShot");
@@ -233,7 +215,8 @@
     function (el) {
       el.addEventListener("click", function () {
         if (CONFIG.claimUrl) {
-          window.location.href = CONFIG.claimUrl;
+          /* 快团团等下单页：新窗口直达付款，本页保留继续浏览 */
+          window.open(CONFIG.claimUrl, "_blank", "noopener");
         } else {
           openQr(); /* 链接未配置：唤起 AI 指挥官二维码（私域咨询） */
         }

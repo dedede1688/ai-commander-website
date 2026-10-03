@@ -930,52 +930,64 @@
   padding: 2px 7px;
   margin: 0 2px;
 }
-.xf-grid-tip {
-  margin: 0 0 10px;
-  font-size: 12.5px;
-  color: #5b6675;
+.xf-stock-coupon {
+  display: flex;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  border: 1.5px solid rgba(138, 93, 0, 0.5);
+  overflow: hidden;
 }
-.xf-stock-num {
-  color: #007a5f;
-  font-family: Consolas, monospace;
-}
-.xf-grid30 {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 7px;
-}
-.xf-cell {
-  aspect-ratio: 1;
-  border-radius: 8px;
+.xf-sc-left {
+  flex: 0 0 132px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  border: 1px solid #e2e6ed;
-  background: #f5f6f9;
+  gap: 3px;
+  padding: 14px 8px;
+  border-right: 1.5px dashed rgba(138, 93, 0, 0.45);
+}
+.xf-sc-left b {
+  font-size: 40px;
+  color: #8a5d00;
+  font-family: Consolas, monospace;
+  line-height: 1;
+}
+.xf-sc-left span {
+  font-size: 11px;
   color: #5b6675;
+}
+.xf-sc-left s {
+  font-size: 10.5px;
+  color: #5b6675;
+}
+.xf-sc-right {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+}
+.xf-sc-t1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.xf-sc-t2 {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #5b6675;
+}
+.xf-sc-t2 b {
+  color: #8a5d00;
   font-family: Consolas, monospace;
 }
-.xf-cell em {
-  font-style: normal;
-  font-size: 9px;
-  font-weight: 400;
-}
-.xf-cell.on {
-  background: linear-gradient(90deg, #00b89c, #00edbd);
-  color: #0b1426;
-  border-color: #00b89c;
-}
-.xf-cell.on em {
-  color: rgba(11, 20, 38, 0.6);
-}
-.xf-stock-line {
-  margin: 12px 0 0;
-  font-size: 13px;
-  font-weight: 700;
-  color: #007a5f;
+.xf-sc-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
 }
 .xf-trustbar {
   display: flex;
@@ -1195,9 +1207,6 @@
   /* 窄屏按钮改为上下堆叠：并排时每个仅约 150px，文案会被折成两行 */
   .xf-cta-row {
     flex-direction: column;
-  }
-  .xf-grid30 {
-    grid-template-columns: repeat(5, 1fr);
   }
 }
 
