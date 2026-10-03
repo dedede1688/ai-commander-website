@@ -177,11 +177,51 @@
 /* 主图：10 张实拍的宽高比不完全一致（0.63–0.89），用 contain 完整显示、
    绝不裁切书页；外框比例固定，切换时版式不跳动。
    图已去背景为透明，露出的就是首屏的深蓝底，没有留白框的观感。 */
+.xf-photo {
+  cursor: zoom-in;
+}
 .xf-photo img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+/* 框内 1:1 放大：外框当作取景窗，图片按原始像素尺寸呈现（一个图像像素对一个屏幕像素），
+   超出部分在框内滚动查看；不做弹窗。 */
+.xf-photo.zoomed {
+  overflow: auto;
+  cursor: zoom-out;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 237, 189, 0.5) transparent;
+}
+.xf-photo.zoomed img {
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  object-fit: none;
+}
+/* 放大提示：默认显示，放大后隐藏 */
+.xf-zoom-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  background: rgba(11, 20, 38, 0.85);
+  color: var(--teal);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 237, 189, 0.4);
+  pointer-events: none;
+}
+.xf-photo.zoomed .xf-zoom-hint {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  display: inline-block;
+  margin: 0 0 8px 8px;
 }
 /* 缩略图窗口：竖排、限高、默认不滚；窄屏由下方媒体查询转为横排 */
 .xf-thumbs {
