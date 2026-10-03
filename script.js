@@ -354,6 +354,7 @@ document.addEventListener("keydown", function (e) {
     return topnav ? topnav.offsetHeight : 52;
   }
   function scrollLinkIntoView(l) {
+    if (Date.now() < navLockUntil) return;
     /* 下拉收起时菜单项不可见（rect 全 0），跳过避免误滚导航条 */
     if (!navLinks || !l.offsetParent) return;
     var cr = navLinks.getBoundingClientRect();
@@ -374,13 +375,20 @@ document.addEventListener("keydown", function (e) {
      点右侧看不见的标签时，后面的标签滑出来，前面的标签向左滑进品牌区下面；
      点本就在中部的标签位移极小甚至为零，不会无谓乱动。
      scrollBy 超出可滚范围会被浏览器自动钳制，首尾标签天然安全。 */
+  var navLockUntil = 0;
   function centerNavLink(l) {
     if (!navLinks || !l.offsetParent) return;
     var lr = l.getBoundingClientRect();
     var nr = navLinks.getBoundingClientRect();
     var delta = lr.left + lr.width / 2 - (nr.left + nr.width / 2);
-    if (Math.abs(delta) < 8) return;
-    navLinks.scrollBy({ left: delta, behavior: "smooth" });
+    if (Math.abs(delta) >= 8) {
+      navLinks.scrollBy({ left: delta, behavior: "smooth" });
+    }
+    /* 关键：页面平滑滚向目标区块的途中 spy 会连环切换高亮，
+       每次切换都触发 scrollLinkIntoView，把导航条来回反拽
+       （实测会先拉回最左再推到最右）。点击后冻结 1.5s，
+       让居中动效独占导航条；期间手动滚轮不受影响。 */
+    navLockUntil = Date.now() + 1500;
   }
   links.forEach(function (l) {
     l.addEventListener("click", function (e) {
