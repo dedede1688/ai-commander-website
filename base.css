@@ -244,7 +244,9 @@ h3 {
 .footer-note {
   text-align: center;
   font-size: 14px;
-  color: #98a2b3;
+  /* 用站点次级灰 #5b6675：原 #98a2b3 对浅灰底对比度仅 2.27:1，
+     不达 WCAG 要求的 4.5:1，Lighthouse 无障碍审计会扣分 */
+  color: #5b6675;
   margin-top: 26px;
   line-height: 1.9;
 }
