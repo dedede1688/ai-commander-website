@@ -44,21 +44,62 @@
     }
   }
 
-  /* ---------- 样书实拍画廊：点缩略图换主图 ---------- */
+  /* ---------- 样书实拍画廊：点缩略图换主图 + 点主图在框内按 1:1 放大 ---------- */
   var shot = document.getElementById("xfShot");
   var thumbs = document.getElementById("xfThumbs");
+  var photo = document.getElementById("xfPhoto");
+  var hint = document.getElementById("xfZoomHint");
   if (shot && thumbs) {
     var btnList = Array.prototype.slice.call(
       thumbs.querySelectorAll(".xf-thumb"),
     );
-    /* 缩略图走单独的小图，主图只在用户点开时才下载。
-       指针移到某个缩略图上（或键盘聚焦）时提前取主图，点下去就不会空一下。 */
+
+    /* 缩略图走单独的小图，主图与 1:1 大图都按需加载：
+       - 指针移到缩略图上（或键盘聚焦）时提前取主图，点下去不空一下
+       - 大图只在真正点击放大时才下载，不占首屏流量 */
     function warm(btn) {
       if (btn.dataset.warmed) return;
       btn.dataset.warmed = "1";
       var pre = new Image();
       pre.src = btn.dataset.shot;
     }
+    function zoomed() {
+      return !!(photo && photo.classList.contains("zoomed"));
+    }
+    /* 载入某张图：按当前是否处于放大状态，决定取小图还是全分辨率大图 */
+    function load(btn) {
+      var want = zoomed() ? btn.dataset.full : btn.dataset.shot;
+      if (want && shot.getAttribute("src") !== want) shot.src = want;
+    }
+    function apply(btn) {
+      btnList.forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      shot.alt = btn.dataset.alt;
+      load(btn);
+      resetScroll();
+    }
+    /* 回到框内左上角：换图和切换放大状态都要复位，
+       否则放大态下换一张图会停在上一次的滚动位置，看着像"图缺了一块" */
+    function resetScroll() {
+      if (!photo) return;
+      photo.scrollTop = 0;
+      photo.scrollLeft = 0;
+    }
+    function setZoom(on) {
+      if (!photo) return;
+      var cur = btnList.filter(function (b) {
+        return b.classList.contains("on");
+      })[0];
+      photo.classList.toggle("zoomed", on);
+      photo.setAttribute("aria-pressed", on ? "true" : "false");
+      if (hint) hint.textContent = on ? "点击还原" : "点击放大 1:1";
+      if (cur) load(cur);
+      resetScroll();
+    }
+
     btnList.forEach(function (btn) {
       btn.addEventListener("mouseenter", function () {
         warm(btn);
@@ -68,15 +109,21 @@
       });
       btn.addEventListener("click", function () {
         if (btn.classList.contains("on")) return;
-        shot.src = btn.dataset.shot;
-        shot.alt = btn.dataset.alt;
-        btnList.forEach(function (b) {
-          var on = b === btn;
-          b.classList.toggle("on", on);
-          b.setAttribute("aria-pressed", on ? "true" : "false");
-        });
+        apply(btn);
       });
     });
+
+    if (photo) {
+      photo.addEventListener("click", function () {
+        setZoom(!zoomed());
+      });
+      photo.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          setZoom(!zoomed());
+        }
+      });
+    }
   }
 
   /* ---------- 倒计时 ---------- */
