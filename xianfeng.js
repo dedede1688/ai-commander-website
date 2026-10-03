@@ -67,8 +67,8 @@
       return !!(photo && photo.classList.contains("zoomed"));
     }
     /* 载入某张图：按当前是否处于放大状态，决定取小图还是大图。
-       放大是 3 倍，宽屏上最多需要 2200px 左右的实际像素，
-       所以放大时用「大图」而不是主图，避免被拉糊。 */
+       放大是 2 倍，需要的实际像素不多，
+       但「大图」更清楚，放大后看着不糊，所以放大时仍取大图。 */
     function load(btn) {
       var want = zoomed() ? btn.dataset.full : btn.dataset.shot;
       if (want && shot.getAttribute("src") !== want) shot.src = want;
@@ -80,8 +80,17 @@
         b.setAttribute("aria-pressed", on ? "true" : "false");
       });
       shot.alt = btn.dataset.alt;
+      /* 切换图片一律回到全图模式：新图不继承上一张的放大状态 */
+      setZoomUI(false);
       load(btn);
       resetScroll();
+    }
+    /* 只同步放大相关的界面状态（类名 / aria / 提示文案），不负责加载图片 */
+    function setZoomUI(on) {
+      if (!photo) return;
+      photo.classList.toggle("zoomed", on);
+      photo.setAttribute("aria-pressed", on ? "true" : "false");
+      if (hint) hint.textContent = on ? "点击还原" : "点击放大 2 倍";
     }
     /* 回到框内左上角：换图和切换放大状态都要复位，
        否则放大态下换一张图会停在上一次的滚动位置，看着像"图缺了一块" */
@@ -91,13 +100,10 @@
       photo.scrollLeft = 0;
     }
     function setZoom(on) {
-      if (!photo) return;
       var cur = btnList.filter(function (b) {
         return b.classList.contains("on");
       })[0];
-      photo.classList.toggle("zoomed", on);
-      photo.setAttribute("aria-pressed", on ? "true" : "false");
-      if (hint) hint.textContent = on ? "点击还原" : "点击放大 3 倍";
+      setZoomUI(on);
       if (cur) load(cur);
       resetScroll();
     }
