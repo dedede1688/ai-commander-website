@@ -71,7 +71,7 @@
       '<a class="nav-brand" id="navBrand" href="index.html">' +
       '<img class="nav-logo" src="' +
       LOGO +
-      '" width="84" height="84" alt="AI 指挥官" />AI 指挥官</a>' +
+      '" width="84" height="84" alt="AI 指挥官" /><span class="nav-brand-text">AI 指挥官</span></a>' +
       '<div class="nav-links">' +
       links +
       "</div>" +

@@ -347,6 +347,12 @@ document.addEventListener("keydown", function (e) {
     .filter(Boolean);
 
   var navLinks = document.querySelector(".nav-links");
+  var topnav = document.querySelector(".topnav");
+  /* 导航实际高度：窄窗口下导航换行会变高（52px → 逾百像素），
+     锚点让位与高亮参考线都按实际高度取值，写死会让标题藏到导航后面 */
+  function navH() {
+    return topnav ? topnav.offsetHeight : 52;
+  }
   function scrollLinkIntoView(l) {
     /* 下拉收起时菜单项不可见（rect 全 0），跳过避免误滚导航条 */
     if (!navLinks || !l.offsetParent) return;
@@ -369,7 +375,7 @@ document.addEventListener("keydown", function (e) {
       var el = document.querySelector(this.getAttribute("href"));
       if (!el) return;
       e.preventDefault();
-      var y = el.getBoundingClientRect().top + window.pageYOffset - 62;
+      var y = el.getBoundingClientRect().top + window.pageYOffset - navH() - 12;
       window.scrollTo({ top: y < 0 ? 0 : y, behavior: "smooth" });
       links.forEach(function (x) {
         x.classList.remove("active");
@@ -381,7 +387,7 @@ document.addEventListener("keydown", function (e) {
   });
   /* 滚动侦测高亮切换时，同步让高亮项可见 */
   function spy() {
-    var y = window.pageYOffset + 92;
+    var y = window.pageYOffset + navH() + 30;
     /* 取「已滚过参考线」的区块中物理位置最深的一个，不依赖链接的 DOM 顺序 */
     var cur = null;
     var curTop = -Infinity;

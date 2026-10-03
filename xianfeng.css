@@ -485,7 +485,7 @@
   box-shadow: 0 1px 4px rgba(20, 31, 96, 0.1);
   padding: 30px 34px;
   margin-bottom: 20px;
-  scroll-margin-top: 66px; /* 锚点定位留出导航高度，与 base.css 的 .card 一致 */
+  scroll-margin-top: var(--nav-clear); /* 锚点定位让位导航高度，变量随换行媒体查询自适应 */
 }
 /* 提示：h2 不在本文件自定义，直接继承 base.css 的全局规则
    （20.5px / --navy / 字距 1px / 左内边距 13px + 4px 青色竖条），
