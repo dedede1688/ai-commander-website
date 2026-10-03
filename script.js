@@ -370,6 +370,18 @@ document.addEventListener("keydown", function (e) {
       });
     }
   }
+  /* 点击标签时把它平滑滚到可视区中部（"翻书"动效）：
+     点右侧看不见的标签时，后面的标签滑出来，前面的标签向左滑进品牌区下面；
+     点本就在中部的标签位移极小甚至为零，不会无谓乱动。
+     scrollBy 超出可滚范围会被浏览器自动钳制，首尾标签天然安全。 */
+  function centerNavLink(l) {
+    if (!navLinks || !l.offsetParent) return;
+    var lr = l.getBoundingClientRect();
+    var nr = navLinks.getBoundingClientRect();
+    var delta = lr.left + lr.width / 2 - (nr.left + nr.width / 2);
+    if (Math.abs(delta) < 8) return;
+    navLinks.scrollBy({ left: delta, behavior: "smooth" });
+  }
   links.forEach(function (l) {
     l.addEventListener("click", function (e) {
       var el = document.querySelector(this.getAttribute("href"));
@@ -381,8 +393,8 @@ document.addEventListener("keydown", function (e) {
         x.classList.remove("active");
       });
       this.classList.add("active");
-      /* 窄屏：把被点击项滚到可见区，避免后续项被遮挡 */
-      scrollLinkIntoView(this);
+      /* 窄屏：把被点击项平滑滚到中部，带出后面的标签、收起前面的标签 */
+      centerNavLink(this);
     });
   });
   /* 滚动侦测高亮切换时，同步让高亮项可见 */

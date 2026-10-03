@@ -105,6 +105,14 @@
         navLinks.scrollLeft +=
           lr.left + lr.width / 2 - (nr.left + nr.width / 2);
       }
+
+      /* 滚过一点后给左缘加渐隐（.nav-links.scrolled 在 base.css）：
+         被滚出去的标签看起来是滑到「AI 指挥官」品牌区下面，而不是生硬切断 */
+      function syncFade() {
+        navLinks.classList.toggle("scrolled", navLinks.scrollLeft > 4);
+      }
+      navLinks.addEventListener("scroll", syncFade, { passive: true });
+      syncFade();
     }
   }
 

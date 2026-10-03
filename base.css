@@ -109,6 +109,13 @@ body {
 .nav-links::-webkit-scrollbar {
   display: none;
 }
+/* 导航条横向滚过之后：左缘 20px 渐隐，
+   被滚出去的标签像滑到「AI 指挥官」品牌区下面，而不是生硬切断。
+   类由 shared.js 在 scrollLeft > 4 时挂上，回到最左时摘掉。 */
+.nav-links.scrolled {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px);
+  mask-image: linear-gradient(90deg, transparent 0, #000 20px);
+}
 .nav-link {
   font-size: 13px;
   color: #b9c4dc;
