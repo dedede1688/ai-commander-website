@@ -3,9 +3,9 @@
    页脚、弹窗遮罩层、提示条、二维码层）已抽到 base.css。
    本文件只保留首页独有部分，base.css 必须先于本文件加载。 */
 
-/* 锚点定位留出导航高度（.card 的同名规则在 base.css） */
+/* 锚点定位留出导航高度（--nav-clear 在 base.css 定义，窄窗口换行时自动调大） */
 .preamble {
-  scroll-margin-top: 66px;
+  scroll-margin-top: var(--nav-clear);
 }
 
 /* ===== 报告头 ===== */
