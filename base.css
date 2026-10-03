@@ -22,8 +22,8 @@
   --ink: #0b1426;
   --body: #1a2233;
   --grey: #8a93a6;
-  /* 锚点定位时给导航让出的高度：窄窗口下导航换行变高，
-     由下方媒体查询调大，.card / .preamble / .xf-sec 统一引用本变量 */
+  /* 锚点定位时给导航让出的高度：导航为单行 52px，让位 66px，
+     .card / .preamble / .xf-sec 统一引用本变量 */
   --nav-clear: 66px;
 }
 body {
@@ -336,32 +336,6 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-/* --- 窄窗口 / 平板横竖屏：导航换行 ---
-   单行导航约需 800px 宽，再窄右侧标签会被裁切——滚动条已隐藏，
-   鼠标用户没有任何办法滚到后面，标签就点不到了。
-   改为允许换行成多行，所有标签始终完整可见、可直接点击。 */
-@media (max-width: 860px) {
-  .nav-inner {
-    height: auto;
-    flex-wrap: wrap;
-    row-gap: 6px;
-    padding: 8px 14px;
-  }
-  .nav-links {
-    flex-wrap: wrap;
-    overflow: visible;
-    row-gap: 6px;
-  }
-  .nav-brand {
-    height: auto;
-  }
-  /* 换行后导航变高：锚点定位让位高度同步放大
-     （.card / .preamble / .xf-sec 统一引用 :root 的 --nav-clear） */
-  :root {
-    --nav-clear: 108px;
-  }
-}
-
 /* --- 平板竖屏 / 大屏手机 --- */
 @media (max-width: 768px) {
   .wrap {
@@ -371,8 +345,9 @@ html {
     padding: 22px 18px;
   }
   .nav-inner {
+    height: 52px;
     gap: 12px;
-    padding: 8px 12px;
+    padding: 0 12px;
   }
   .nav-brand {
     font-size: 14px;
@@ -399,12 +374,11 @@ html {
     padding: 18px 14px;
   }
   .nav-inner {
-    padding: 6px 10px;
+    padding: 0 10px;
     gap: 10px;
   }
-  /* 品牌只留圆形徽标：给导航标签腾出宽度，换行后可少占一行 */
-  .nav-brand-text {
-    display: none;
+  .nav-brand {
+    font-size: 13px;
   }
   .nav-link {
     font-size: 13.5px;
