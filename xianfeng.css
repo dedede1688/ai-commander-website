@@ -86,23 +86,26 @@
   min-width: 0;
 }
 
-/* 眉标：等宽青色小字（对齐模型页 .mh-eyebrow） */
+/* 眉标：等宽白色小字（海报同款，为金色主标题让出视觉主角位） */
 .xf-eyebrow {
   font-family: Consolas, monospace;
   font-size: 12.5px;
   letter-spacing: 4px;
-  color: #00edbd;
+  color: #fff;
   margin-bottom: 14px;
 }
-/* 主标题：纯白 + 青色辉光（对齐模型页 .mh-title，不再用渐变文字） */
+/* 主标题：金色金属渐变字（呼应「先锋就位」海报），配金色光晕 */
 .xf-title {
   font-size: 26px;
   font-weight: 700;
   letter-spacing: 1.5px;
   line-height: 1.25;
   margin: 0 0 12px;
-  color: #fff;
-  text-shadow: 0 0 30px rgba(0, 237, 189, 0.25);
+  background: linear-gradient(180deg, #fff7d6 0%, #ffe08a 30%, #f0b445 55%, #c98a1a 80%, #e8b54a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 14px rgba(232, 163, 61, 0.35));
 }
 /* Hero 副文。注意：类名不能叫 .xf-sub——那是下方「子块容器」的类名，
    同名会让后定义的容器样式（浅底/边框/内边距）反向污染首屏副文。 */
@@ -113,34 +116,35 @@
   color: #a9b6d8;
   margin: 0 0 22px;
 }
-.xf-price-em {
-  color: var(--teal);
+/* 副文中的紧迫感数字（98 元 / 截止时间 / 席位）——海报式红色强调 */
+.xf-red-em {
+  color: #ff5a5a;
   font-weight: 700;
 }
 
-/* 数据条：顶部细线分隔的四个数字（对齐模型页 .mh-stats） */
+/* 数据条：四张金边小卡（海报同款"权益清单"仪式感） */
 .xf-stats {
-  display: flex;
-  gap: 26px 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   margin-top: 26px;
-  padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  flex-wrap: wrap;
 }
 .xf-stat {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  align-items: flex-start;
+  border: 1px solid rgba(232, 163, 61, 0.45);
+  background: rgba(232, 163, 61, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
 }
 .xf-stat-num {
   font-family: Consolas, monospace;
   font-size: 24px;
   font-weight: 700;
-  color: #fff;
+  color: #ffd479;
   line-height: 1;
-}
-.xf-stat-num.xf-green {
-  color: #00edbd;
 }
 .xf-stat small {
   font-size: 11.5px;
@@ -1173,8 +1177,13 @@
     font-size: 22px;
     letter-spacing: 0.8px;
   }
+  /* 手机端数据卡退化为 2×2，避免四列挤压 */
   .xf-stats {
-    gap: 20px 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .xf-stat {
+    padding: 10px 12px;
   }
 }
 @media (max-width: 560px) {
@@ -1244,7 +1253,7 @@
     font-size: 32px;
   }
   .xf-stats {
-    gap: 48px;
+    gap: 12px;
   }
   .xf-stat-num {
     font-size: 30px;
