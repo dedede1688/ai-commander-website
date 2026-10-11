@@ -21,6 +21,19 @@ const warns = [];
 const err = (m) => errors.push(m);
 const warn = (m) => warns.push(m);
 
+/* ---------- 已知不随仓库分发的素材 ----------
+   .gitignore 里排除了作者的本人照片（隐私考量，见 tools/README 约定）。
+   这些文件在本地存在、线上缺失，因此：
+     - 本地运行时（文件在）→ 照常校验，不产生任何噪音；
+     - CI 环境（文件不在）→ 不再报「引用失效」阻断部署，而是降为提示。
+   新增条目请一并确认 .gitignore 与 script.js 引用是配套的。 */
+const OPTIONAL_ASSETS = new Set(["素材/照片/NO020_胡子老师.webp"]);
+
+/** 文件不在仓库里时，是否属于「已知可选素材」 */
+function isOptionalAsset(rel) {
+  return OPTIONAL_ASSETS.has(rel.replace(/\\/g, "/"));
+}
+
 /* ---------- 工具：截取某个顶层数组的源码片段 ---------- */
 function sliceArray(src, decl) {
   const start = src.indexOf(decl);
@@ -104,19 +117,28 @@ people.forEach((p) => {
 /* ---------- 5. 检查 4：P 数组引用的照片真实存在 ---------- */
 people.forEach((p) => {
   const abs = path.join(ROOT, p.f);
-  if (!fs.existsSync(abs)) err(`照片文件不存在：${p.n} → ${p.f}`);
+  if (!fs.existsSync(abs)) {
+    if (isOptionalAsset(p.f)) {
+      warn(`照片为「已知不随仓库分发」素材，本机缺失属正常：${p.n} → ${p.f}`);
+    } else {
+      err(`照片文件不存在：${p.n} → ${p.f}`);
+    }
+  }
 });
 
 /* ---------- 6. 检查 5：全站「素材/」引用存在性 ---------- */
 const scanFiles = [
   "index.html",
   "models.html",
+  "xianfeng.html",
   "shared.js",
   "script.js",
   "models.js",
+  "xianfeng.js",
   "base.css",
   "style.css",
   "models.css",
+  "xianfeng.css",
 ];
 const refSeen = new Set();
 scanFiles.forEach((f) => {
@@ -130,7 +152,13 @@ scanFiles.forEach((f) => {
     const key = ref + "@" + f;
     if (refSeen.has(key)) continue;
     refSeen.add(key);
-    if (!fs.existsSync(path.join(ROOT, ref))) err(`素材引用失效：${f} → ${ref}`);
+    if (!fs.existsSync(path.join(ROOT, ref))) {
+      if (isOptionalAsset(ref)) {
+        warn(`素材为「已知不随仓库分发」，本机缺失属正常：${f} → ${ref}`);
+      } else {
+        err(`素材引用失效：${f} → ${ref}`);
+      }
+    }
   }
 });
 

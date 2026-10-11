@@ -184,6 +184,38 @@ var FAMILY_LABEL = {
 };
 var FAMILY_ORDER = ["ByteDance", "DeepSeek", "Zhipu", "Kimi", "Qwen", "StepFun", "MiniMax"];
 
+/* ===== 结构化数据：把 17 个模型注入页面的 ItemList =====
+   模型条目由 MODELS 数组实时生成 —— 页面改一个分数，
+   搜索引擎看到的对比数据同步跟着变，不会两套数据打架。
+   位置必须放在 FAMILY_LABEL 定义之后，否则厂商显示名取不到。 */
+(function () {
+  var base = document.querySelector('script[type="application/ld+json"]');
+  if (!base) return;
+  var host;
+  try {
+    host = JSON.parse(base.textContent);
+  } catch (e) {
+    return;
+  }
+  host.itemListElement = MODELS.map(function (m, i) {
+    return {
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "SoftwareApplication",
+        name: m.name,
+        applicationCategory: "AIApplication",
+        applicationSubCategory: FAMILY_LABEL[m.family] || m.family,
+        description:
+          (FAMILY_LABEL[m.family] || m.family) +
+          " · " + m.positioning +
+          "｜综合评分 " + m.composite.toFixed(1) + "/10",
+      },
+    };
+  });
+  base.textContent = JSON.stringify(host);
+})();
+
 /* ===== 折扣 -> tier ===== */
 function discountTier(d) {
   if (d == null || isNaN(d)) return 0;
@@ -419,12 +451,28 @@ var selectedModels = []; // 选中的 model id
   syncAllDropdowns();
 })();
 
-/* ===== 3. 雷达图 Canvas 绘制（深色科技风）===== */
+/* ===== 3. 雷达图 Canvas 绘制（深色科技风）=====
+   高分屏适配：画布的实际像素尺寸按 devicePixelRatio 放大，
+   再用 ctx.scale 把绘制坐标系缩回 CSS 尺寸。
+   不做这一步的话，2x/3x 屏上线条会被浏览器拉伸成锯齿 —— 手机和笔记本必现。 */
+var radarDpr = Math.min(window.devicePixelRatio || 1, 2);
+
 function drawRadar() {
   var canvas = document.getElementById("radarCanvas");
   if (!canvas) return;
   var ctx = canvas.getContext("2d");
-  var W = canvas.width, H = canvas.height;
+
+  /* CSS 尺寸决定布局；每画一次都按当前 DPR 重设后备缓冲，避免转屏后再次发虚 */
+  var cssW = canvas.clientWidth || 560;
+  var cssH = canvas.clientHeight || 560;
+  if (canvas.width !== Math.round(cssW * radarDpr) || canvas.height !== Math.round(cssH * radarDpr)) {
+    canvas.width = Math.round(cssW * radarDpr);
+    canvas.height = Math.round(cssH * radarDpr);
+  }
+  /* 以下所有绘制都用 CSS 像素坐标，缩放交给这一句 */
+  ctx.setTransform(radarDpr, 0, 0, radarDpr, 0, 0);
+
+  var W = cssW, H = cssH;
   var cx = W / 2, cy = H / 2;
   var R = Math.min(cx, cy) - 70;
 

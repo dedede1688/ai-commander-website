@@ -26,7 +26,7 @@
   /* 独立页面：key 与 body[data-page] 对应，用于判断当前页高亮 */
   var PAGES = [
     { file: "models.html", key: "models", text: "AI 模型" },
-    { file: "xianfeng.html", key: "xianfeng", text: "先锋营" },
+    { file: "xianfeng.html", key: "xianfeng", text: "领券" },
   ];
   var LOGO = "素材/logo.webp";
   var SITE_URL = "https://www.ai-mmc.cn";
@@ -64,7 +64,8 @@
         "</a>";
     });
 
-    links += '<a class="nav-link nav-gift" id="navGift">AI 大礼包</a>';
+    links +=
+      '<a class="nav-link nav-gift" id="navGift" data-track="qr|open|导航大礼包">AI 大礼包</a>';
 
     nav.innerHTML =
       '<div class="nav-inner">' +
@@ -169,7 +170,67 @@
     });
   }
 
-  /* ---------- 4. 通用弹窗关闭（事件委托） ----------
+  /* ---------- 4. 统计与转化埋点（全站唯一入口） ----------
+     三页原本各留一段百度统计注释，填的时候容易漏、也容易填错域名。
+     现在集中在这里：一处配置，三页自动生效。
+
+     ===== 怎么拿到百度统计的「站点代码」？=====
+     1. 打开 https://tongji.baidu.com，用百度账号登录并注册；
+     2. 按提示填站点域名：www.ai-mmc.cn      （只填域名，不要带 https:// 和路径）
+     3. 提交后会进入「管理」页，站点列表里有一行——
+        右侧「代码」图标点开后，会看到一段这样的代码：
+            <script>
+            var _hmt = _hmt || [];
+            (function () {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?xxxxxxxx";
+                                          ^^^^^^^^^
+                                          这串就是「站点代码」
+              ...
+            })();
+            </script>
+     4. 把那串字符（hm.js?后面的一串字母数字，通常 8-16 位）
+        填到下面BAIDU_SITE_ID 的引号里，保存本页文件即可。
+     5. 部署上线后约 30 分钟，进百度统计后台「实时访客」看到数据就说明接通了。
+
+     留空（现在的状态）= 不加载任何统计代码，站点访问不受影响。
+
+     ===== 转化埋点怎么用 =====
+     任何元素加上 data-track="类别|动作|标签" 即会被自动上报。
+     例：<span data-track="claim|click|领券按钮1">立即领券</span>
+     三段分别是「类别-动作-标签」，后台可按层级筛选。
+     当前已埋：先锋营领券 4 处、试读 2 处、首页荣誉席位 4 处、荣誉CTA 2 处、导航大礼包 1 处。 */
+  var BAIDU_SITE_ID = ""; /* 填百度统计的站点代码；留空则不启用 */
+  var STATS_ENABLED = true;
+
+  if (STATS_ENABLED && BAIDU_SITE_ID) {
+    var hmScript = document.createElement("script");
+    hmScript.src = "https://hm.baidu.com/hm.js?" + BAIDU_SITE_ID;
+    hmScript.async = true;
+    document.head.appendChild(hmScript);
+    window._hmt = window._hmt || [];
+    window._hmt.push(["_setAccount", BAIDU_SITE_ID]);
+
+    /* 自动上报页面 PV（共享层已知道当前页标识） */
+    if (pageKey) window._hmt.push(["trackPageview", "/" + pageKey]);
+
+    document.addEventListener("click", function (e) {
+      if (!e.target || !e.target.closest) return;
+      var el = e.target.closest("[data-track]");
+      if (!el) return;
+      var parts = (el.getAttribute("data-track") || "").split("|");
+      if (parts.length < 2 || !window._hmt) return;
+      window._hmt.push(["trackEvent", parts[0], parts[1], parts[2] || ""]);
+    });
+  }
+
+  /* 未启用时也给一个空实现，页面里调用 trackAction 不会报错 */
+  window.trackAction = function (category, action, label) {
+    if (!window._hmt) return;
+    window._hmt.push(["trackEvent", category, action, label || ""]);
+  };
+
+  /* ---------- 5. 通用弹窗关闭（事件委托） ----------
      任何带 data-close-modal 的元素被点击时，关闭它所在的 .modal。
      这样页面里不必再写内联 onclick，页面脚本才能安全地包进 IIFE。 */
   document.addEventListener("click", function (e) {

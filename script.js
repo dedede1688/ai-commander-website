@@ -218,12 +218,45 @@ var IND = [
   },
 ];
 
-var PHOTO = {},
-  AILV = {};
+var PHOTO = {};
+var AILV = {};
 P.forEach(function (x) {
   PHOTO[x.n] = x.f;
   AILV[x.n] = x.lv;
 });
+
+/* ===== 结构化数据：联合出版人名录的 ItemList =====
+   直接由 P 数组生成，保证「搜索引擎看到的名单」与「用户看到的照片墙」永远是同一份，
+   以后增删席位不需要再回来改这段。 */
+(function () {
+  if (!document.querySelector('script[type="application/ld+json"]')) return;
+  var el = document.createElement("script");
+  el.type = "application/ld+json";
+  el.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": "https://www.ai-mmc.cn/#publishers",
+    name: "《AI指挥官》联合出版人名录",
+    description: "20位产业一线联合出版人，覆盖9个行业群体。",
+    inLanguage: "zh-CN",
+    numberOfItems: P.length,
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    itemListElement: P.map(function (p, i) {
+      return {
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Person",
+          name: p.n,
+          jobTitle: p.r,
+          description: p.b,
+          image: "https://www.ai-mmc.cn/" + p.f,
+        },
+      };
+    }),
+  });
+  document.head.appendChild(el);
+})();
 
 /* ===== 行业卡（HTML 渲染）=====
    每个行业一张卡：图标 + 行业名 + 人数 ／ 头像行 ／ 姓名行 ／ 档位分布条。
@@ -314,10 +347,43 @@ P.forEach(function (p, i) {
   roster.appendChild(d);
 });
 
+/* ---------- 照片缺失降级 ----------
+   有几张照片刻意不随仓库分发（见 .gitignore 与 tools/check-data.js 的 OPTIONAL_ASSETS）。
+   线上取不到时不能给用户看浏览器自带的破图标：
+   改为渲染「姓氏首字 + 深蓝底」的占位卡，名录依然完整可读。 */
+var initialsOf = function (name) {
+  /* 中文取姓氏首字；英文名取首字母（长度 1~2） */
+  var m = /^([\u4e00-\u9fa5])/.exec(name);
+  if (m) return m[1];
+  return name.slice(0, 2).toUpperCase();
+};
+Array.prototype.forEach.call(
+  document.querySelectorAll(".rc-photo"),
+  function (img) {
+    img.addEventListener(
+      "error",
+      function () {
+        var ph = document.createElement("span");
+        ph.className = "rc-photo-fallback";
+        ph.textContent = initialsOf(img.alt || "");
+        ph.setAttribute("aria-hidden", "true");
+        if (img.parentNode) img.parentNode.insertBefore(ph, img);
+        img.style.display = "none";
+      },
+      { once: true },
+    );
+  },
+);
+
 /* ===== 弹窗 ===== */
 function openM(i) {
   var p = P[i];
-  document.getElementById("mPhoto").src = p.f;
+  var mPhoto = document.getElementById("mPhoto");
+  /* 先复位上一次的状态，否则从「占位态」再开另一位时图片不会重新加载 */
+  mPhoto.style.display = "";
+  var old = document.querySelector(".m-photo-fallback");
+  if (old && old.parentNode) old.parentNode.removeChild(old);
+  mPhoto.src = p.f;
   document.getElementById("mName").textContent = p.n;
   document.getElementById("mRole").textContent = p.r;
   document.getElementById("mSeat").textContent =
@@ -331,6 +397,26 @@ function closeM() {
 document.getElementById("modal").addEventListener("click", function (e) {
   if (e.target === this) closeM();
 });
+/* 弹窗大图同样走降级：作者本人的照片不随仓库分发，线上取不到时用首字占位 */
+(function () {
+  var mp = document.getElementById("mPhoto");
+  if (!mp) return;
+  mp.addEventListener(
+    "error",
+    function () {
+      mp.style.display = "none";
+      if (mp.parentNode.querySelector(".m-photo-fallback")) return;
+      var ph = document.createElement("span");
+      ph.className = "m-photo-fallback";
+      ph.textContent = initialsOf(
+        document.getElementById("mName").textContent || "",
+      );
+      ph.setAttribute("aria-hidden", "true");
+      mp.parentNode.insertBefore(ph, mp);
+    },
+    { once: false },
+  );
+})();
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") closeM();
 });
@@ -517,7 +603,50 @@ document.addEventListener("keydown", function (e) {
   });
 })();
 
-/* ===== 广告弹窗：书本式出版人轮播 · 每 3 分钟弹一次 · 3 秒后缩飞进「AI 大礼包」 ===== */
+/* ===== 全站弹窗频控（广告弹窗与海报弹窗共用一套计数）=====
+   原来的问题是两套机制各弹各的：广告每 3 分钟一次、海报每 30 分钟一次，
+   一次下午的阅读会被打断 40 次以上。而且都没记住「用户已经关过几次」。
+
+   现在的规则（集中在这一处，改这里就够）：
+     - 用 sessionStorage 记住本次会话已弹次数上限 3 次；
+     - 用户手动关闭过弹窗后，不再自动弹（主动关 = 明确不接受）；
+     - 广告与海报共享同一份额度，不叠加。*/
+var POPUP_CTRL = (function () {
+  var KEY = "__aiPopupState";
+  var MAX_PER_SESSION = 3;
+  var state = { shown: 0, dismissed: false };
+  try {
+    var raw = sessionStorage.getItem(KEY);
+    if (raw) state = JSON.parse(raw);
+  } catch (e) {
+    /* 隐私模式下 sessionStorage 不可用，退化为「本次页面有效」 */
+  }
+  function save() {
+    try {
+      sessionStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) {
+      /* 存不了就不存，仅影响跨页面记忆 */
+    }
+  }
+  return {
+    /** 是否还允许再弹一次 */
+    canShow: function () {
+      return !state.dismissed && state.shown < MAX_PER_SESSION;
+    },
+    /** 占用一次额度 */
+    consume: function () {
+      state.shown += 1;
+      save();
+    },
+    /** 用户主动关闭：本次会话不再打扰 */
+    markDismissed: function () {
+      state.dismissed = true;
+      save();
+    },
+  };
+})();
+
+/* ===== 广告弹窗：书本式出版人轮播 · 3 秒后缩飞进「AI 大礼包」 ===== */
 (function () {
   var adModal = document.getElementById("adModal");
   if (!adModal) return;
@@ -532,6 +661,8 @@ document.addEventListener("keydown", function (e) {
 
   /* 本次打开页面随机选一位起始出版人，之后按席位顺序 1→20 轮下去；刷新页面重新随机 */
   var idx = Math.floor(Math.random() * P.length);
+  /* 定时器句柄前置声明：showAd 里的 clearInterval(adTimer) 会用到它 */
+  var adTimer = null;
 
   /* 退场：整体缩小并飞向导航栏「AI 大礼包」按钮 */
   function closeAd() {
@@ -558,6 +689,11 @@ document.addEventListener("keydown", function (e) {
   }
 
   function showAd() {
+    /* 额度已用尽或用户已明确关闭过 → 不再打扰 */
+    if (!POPUP_CTRL.canShow()) {
+      clearInterval(adTimer);
+      return;
+    }
     var p = P[idx];
     if (adAvatar) {
       adAvatar.src = p.f;
@@ -567,35 +703,44 @@ document.addEventListener("keydown", function (e) {
     if (adPSeat) adPSeat.textContent = p.s + " · 联合出版人";
     if (adPRole) adPRole.textContent = p.r;
     adModal.classList.add("on");
+    POPUP_CTRL.consume();
     /* 下一次弹窗换下一位，到 NO.020 后回到 NO.001 */
     idx = (idx + 1) % P.length;
     /* 3 秒后自动退场，缩飞进「AI 大礼包」 */
     setTimeout(closeAd, 3000);
   }
 
-  /* 打开页面不立即弹出（首次弹出已按需求去掉），之后每 3 分钟弹一次 */
-  setInterval(showAd, 180000);
+  /* 打开页面不立即弹出（首次弹出已按需求去掉），之后每 8 分钟弹一次。
+     间隔从 3 分钟拉到 8 分钟：一次长阅读的打扰次数降到原来的四分之一，
+     而导航「AI 大礼包」与各页 data-open-qr 按钮始终在位，转化入口并未减少。 */
+  adTimer = setInterval(showAd, 480000);
 
   /* 点击广告：按钮「共建 AI 生态」→ 弹出 AI 大礼包二维码（广告同时退场）；
-     点其它任何位置 → 按原方式退场（缩飞进「AI 大礼包」） */
+     点其它任何位置 → 按原方式退场（缩飞进「AI 大礼包」）。
+     用户主动点掉弹窗，视为「这类弹窗我不需要」，本次会话不再自动出现。 */
   adModal.addEventListener("click", function (e) {
     if (e.target === adCta && qrLayer) {
       qrLayer.classList.add("on");
     }
+    POPUP_CTRL.markDismissed();
     closeAd();
   });
 
   /* 导航「AI 大礼包」与 data-open-qr 元素的绑定已抽到 shared.js（全站共享层），此处不再重复绑定 */
 })();
 
-/* ===== 国庆海报弹窗：上线即弹 · 至 2026-10-10 23:59 结束 · 之后每 30 分钟弹一次 · 两张轮播 ===== */
+/* ===== 国庆海报弹窗（已过截止日，当前不弹；保留代码与图片待复用）=====
+   再次启用只需改下面这个 END 日期。启用后自动接入 POPUP_CTRL 全局频控，
+   不会与广告弹窗叠加打扰用户。 */
 (function () {
   var posterModal = document.getElementById("posterModal");
   if (!posterModal) return;
 
-  /* 时间窗口：2026-10-10 23:59:59 之后不再弹出（代码可保留，明年复用改日期即可） */
+  /* 时间窗口：2026-10-10 23:59:59 之后不再弹出 */
   var END = new Date(2026, 9, 10, 23, 59, 59);
   if (new Date() > END) return;
+  /* 额度已用尽（如：先看了模型页、又被广告弹窗占用）→ 不弹 */
+  if (typeof POPUP_CTRL !== "undefined" && !POPUP_CTRL.canShow()) return;
 
   var slides = document.querySelectorAll("#posterTrack .poster-slide");
   var prevBtn = document.getElementById("posterPrev");
@@ -639,6 +784,10 @@ document.addEventListener("keydown", function (e) {
   }
 
   function show() {
+    if (typeof POPUP_CTRL !== "undefined") {
+      if (!POPUP_CTRL.canShow()) return;
+      POPUP_CTRL.consume();
+    }
     posterModal.classList.add("on");
     /* 重播当前海报的分屏合拢入场动画（弹窗隐藏期间动画不会自动重新触发） */
     var cur = slides[page];
@@ -673,10 +822,16 @@ document.addEventListener("keydown", function (e) {
   posterBox.addEventListener("mouseleave", function () {
     if (posterModal.classList.contains("on")) startAuto();
   });
-  closeBtn.addEventListener("click", hide);
+  closeBtn.addEventListener("click", function () {
+    if (typeof POPUP_CTRL !== "undefined") POPUP_CTRL.markDismissed();
+    hide();
+  });
   /* 点击海报以外的遮罩区域关闭 */
   posterModal.addEventListener("click", function (e) {
-    if (e.target === posterModal) hide();
+    if (e.target === posterModal) {
+      if (typeof POPUP_CTRL !== "undefined") POPUP_CTRL.markDismissed();
+      hide();
+    }
   });
 
   /* 打开页面立即弹出一次，之后每 30 分钟再弹一次。
@@ -692,6 +847,13 @@ document.addEventListener("keydown", function (e) {
   var isAnchorJump =
     location.hash && location.hash !== "#" && navType !== "reload";
   if (!isAnchorJump) show();
-  setInterval(show, 1800000);
+  /* 30 分钟一次；额度用尽时 show() 自行跳过并停掉本定时器 */
+  var posterTimer = setInterval(function () {
+    if (typeof POPUP_CTRL !== "undefined" && !POPUP_CTRL.canShow()) {
+      clearInterval(posterTimer);
+      return;
+    }
+    show();
+  }, 1800000);
 })();
 })();

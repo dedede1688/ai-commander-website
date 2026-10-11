@@ -3,6 +3,8 @@ name: Deploy to CloudBase Static Hosting
 on:
   push:
     branches: [ main ]
+  # 手动触发：想立刻验证部署时不必空提交
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -16,29 +18,56 @@ jobs:
         with:
           node-version: '18'
 
-      # 保留你之前写的：数据校验
+      # 数据与素材引用校验：引用失效会阻断部署，避免线上出现破图
       - name: Run data check
         run: node tools/check-data.js
 
-      # 保留你之前写的：筛选出纯净的网页文件，避免打包多余文件
+      # 只打包真正要上线的文件
       - name: Stage site files
         run: |
           mkdir -p _site
           cp *.html *.js *.css _site/
-          cp robots.txt sitemap.xml _site/ 2>/dev/null || true
+          cp robots.txt sitemap.xml CNAME _site/ 2>/dev/null || true
           cp -r 素材 _site/素材 2>/dev/null || true
+          echo "--- 待部署清单 ---"
+          du -sh _site
+          find _site -type f | wc -l
 
       - name: Install CloudBase CLI
         run: npm install -g @cloudbase/cli
 
-      # 关键一：删除版本控制文件夹，避免云端扫描报错
       - name: Remove .git directory
         run: rm -rf .git
 
-      # 关键二：部署到 ai-commander 环境（账号A）
-      # 诊断结论（run 36743980274）：当前密钥无法部署到 ai-mmc-2g4gxl0t5b5731c8，
-      # 该环境（www.ai-mmc.cn 实际指向的存储桶）属于第三个腾讯云账号，待定位。
+      # ===== 部署到目标环境 =====
+      # 部署目标编号不在代码里硬编码。以后换环境只需在网页上改一个值，
+      # 不用改代码、不用提交。
+      #
+      # 名称：CLOUDBASE_ENV_ID      值：ai-commander-d9g2lggrtb79054a6
+      #
+      # 放在「变量」还是「密钥」都可以 —— 下面两行会依次尝试，
+      # 先读变量，读不到再读密钥。所以下列两种放法都有效，任选其一：
+      #
+      #   A. 变量（推荐，明文可见，方便日后核对）
+      #      Settings → Secrets and variables → Actions → Variables 区
+      #      → New repository variable → Name / Value → Add variable
+      #
+      #   B. 密钥（同样有效，页面显示为 ••••）
+      #      Settings → Secrets and variables → Actions → Secrets 区
+      #      → New repository secret → Name / Secret → Add secret
+      #
+      # 两处都没设时下面会报错中止：宁可不部署，也不要推到错误的桶。
       - name: Deploy to CloudBase Static Hosting
+        env:
+          TCB_ENV_ID: ${{ vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID }}
         run: |
+          if [ -z "$TCB_ENV_ID" ]; then
+            echo "::error::未找到 CLOUDBASE_ENV_ID，部署已中止。"
+            echo "::error::请在 Settings → Secrets and variables → Actions 里"
+            echo "::error::新建 CLOUDBASE_ENV_ID（变量或密钥任选其一），值为："
+            echo "::error::ai-commander-d9g2lggrtb79054a6"
+            exit 1
+          fi
+          echo "部署目标环境：$TCB_ENV_ID"
           tcb login --apiKeyId ${{ secrets.TCB_SECRET_ID }} --apiKey ${{ secrets.TCB_SECRET_KEY }}
-          tcb hosting deploy _site --env-id ai-commander-d9g2lggrtb79054a6
+          tcb hosting deploy _site --env-id "$TCB_ENV_ID"

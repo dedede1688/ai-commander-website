@@ -5,17 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#141F60" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141F60'/%3E%3Ccircle cx='32' cy='32' r='12' fill='none' stroke='%2300EDBD' stroke-width='6'/%3E%3C/svg%3E" />
-    <title>《AI指挥官》· AI 模型能力速查 V1</title>
-    <meta name="description" content="17 款主流 AI 模型五维能力速查：推理、写作、编程、图像、视频，附闲时折扣与选型建议。数据截至 2026 年 9 月，来自《AI指挥官》官网。" />
+    <title>AI模型怎么选？17款主流AI模型五维对比速查｜《AI指挥官》配套工具</title>
+    <meta
+      name="description"
+      content="17款主流AI模型五维能力速查：推理、写作、编程、图像、视频、Agent。含闲时折扣热力图与6类用户场景选型建议。数据截至2026年9月，来自《AI指挥官》——胡子老师的本地AI实战手册。"
+    />
+    <meta
+      name="keywords"
+      content="AI模型对比,大模型选型,AI模型排行,DeepSeek,Qwen,通义千问,Kimi,GLM,文心一言,AI推理模型,AI编程模型,AI绘图模型,API价格对比,AI模型能力对比"
+    />
     <link rel="canonical" href="https://www.ai-mmc.cn/models.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AI 指挥官" />
-    <meta property="og:title" content="《AI指挥官》· AI 模型能力速查" />
-    <meta property="og:description" content="17 款主流 AI 模型五维能力对比与闲时折扣速查，附选型建议。" />
+    <meta property="og:title" content="AI模型怎么选？17款主流AI模型五维对比速查" />
+    <meta property="og:description" content="推理×写作×编程×图像×视频，五维对比 + 闲时折扣热力图 + 6类场景选型建议。" />
     <meta property="og:url" content="https://www.ai-mmc.cn/models.html" />
-    <meta property="og:image" content="https://www.ai-mmc.cn/%E7%B4%A0%E6%9D%90/%E4%B9%A6%E7%B1%8D/AI%E6%8C%87%E6%8C%A5%E5%AE%98-%E7%AB%8B%E4%BD%93%E4%B9%A6.webp" />
-    <link rel="stylesheet" href="base.css?v=6" />
+    <meta property="og:image" content="https://www.ai-mmc.cn/素材/og/ai-commander-og-1200x630.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="base.css?v=7" />
     <link rel="stylesheet" href="models.css?v=6" />
+    <!-- ItemList 由此处静态声明主体，模型条目由 models.js 依据 MODELS 数组动态注入，
+         保证结构化数据与页面渲染结果永远一致。 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": "https://www.ai-mmc.cn/models.html#list",
+        "name": "主流 AI 模型能力对比清单",
+        "description": "推理、写作、编程、图像生成、视频生成五维能力对比及闲时折扣速查。",
+        "inLanguage": "zh-CN",
+        "numberOfItems": 17,
+        "itemListOrder": "https://schema.org/ItemListUnordered"
+      }
+    </script>
   </head>
   <body data-page="models">
     <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
@@ -26,7 +50,7 @@
       <div class="models-hero">
         <div class="mh-main">
           <div class="mh-eyebrow">MODEL COMPARISON · AI COMMANDER</div>
-          <div class="mh-title">AI 模型能力速查 · 五维对比</div>
+          <h1 class="mh-title">AI 模型能力速查 · 五维对比</h1>
           <div class="mh-sub">
             推理 × 写作 × 编程 × 图像生成 × 视频生成 —— 基于公开定位与架构特性综合评估<br />
             数据截至 2026 年 9 月，部分新模型评分带推断性质
@@ -53,7 +77,7 @@
         <div class="model-selector" id="modelSelector"></div>
 
         <div class="radar-wrap radar-solo">
-          <canvas id="radarCanvas" width="560" height="560"></canvas>
+          <canvas id="radarCanvas" width="560" height="560" aria-label="AI模型五维能力雷达对比图" role="img"></canvas>
           <div class="scan-line"></div>
           <div class="radar-legend" id="radarLegend"></div>
         </div>
@@ -153,9 +177,7 @@
       </div>
     </div>
 
-    <script src="shared.js?v=17"></script>
-    <script src="models.js?v=8"></script>
-    <!-- 百度统计：占位。拿到站点代码后，用官方 hm.js 脚本整体替换下方注释 -->
-    <!-- <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?站点代码";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script> -->
+    <script src="shared.js?v=19"></script>
+    <script src="models.js?v=9"></script>
   </body>
 </html>
