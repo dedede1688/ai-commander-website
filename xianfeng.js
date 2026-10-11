@@ -18,7 +18,10 @@
   var remain = Math.max(0, Math.min(TOTAL, CONFIG.remain));
   var claimed = TOTAL - remain;
 
-  /* ---------- 剩余席位（多处同步） ---------- */
+  /* ---------- 剩余席位（多处同步） ----------
+     页面上「席位余量」区块已按需求删除，对应的展示位xfStockTop / xfRemain /
+     xfClaimed 目前不存在。这里保留代码：以后若要恢复该区块，把HTML 元素加回去
+     即可自动生效，无需改 JS。所有赋值都做了存在性判断，元素缺失不会报错。 */
   ["xfStockTop", "xfRemain"].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.textContent = remain;
