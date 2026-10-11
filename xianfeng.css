@@ -205,6 +205,218 @@
   color: #d0021b;
 }
 
+/* ==========================================================================
+   价值章节专用样式（2026-10-12 新增）
+   展示书里最有杀伤力的独家资产：RBTFC 公式、五大魔咒、六项进阶技术。
+   配色遵循本站约定：浅底一律深蓝 / 深金，青色只留给深色底。
+   ========================================================================== */
+
+/* 引子：一句话说清这章给什么 */
+.xf-lead {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--body);
+  margin: 0 0 14px;
+}
+
+/* --- RBTFC 公式：五格横排，字母为主体词为注解 --- */
+.xf-formula {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.xf-fitem {
+  background: linear-gradient(160deg, #eef1fa 0%, #f7f9fc 100%);
+  border: 1px solid #d7dded;
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.xf-fitem:hover {
+  transform: translateY(-2px);
+  border-color: var(--navy);
+  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.1);
+}
+.xf-fitem b {
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+.xf-fitem span {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #3f4a68;
+  letter-spacing: 0.2px;
+}
+.xf-fitem em {
+  display: block;
+  font-style: normal;
+  font-size: 11.5px;
+  color: #6b7690;
+  margin-top: 4px;
+}
+
+/* --- 五大魔咒：单列卡片，编号用汉字序号 --- */
+.xf-spells {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.xf-spell {
+  border: 1px solid #e2e6ed;
+  border-left: 3px solid var(--navy);
+  border-radius: 8px;
+  background: #fff;
+  padding: 13px 16px;
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
+}
+.xf-spell:hover {
+  transform: translateX(3px);
+  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.09);
+}
+.xf-spell-hd {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 7px;
+}
+.xf-spell-no {
+  flex: 0 0 auto;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.xf-spell-hd b {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.5px;
+}
+.xf-spell p {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--body);
+  margin: 0 0 5px;
+}
+.xf-spell p b {
+  color: var(--navy);
+}
+/* 书中实例：用浅金底托出，是「别人没写过的细节」的证据 */
+.xf-spell-eg {
+  font-size: 12.5px;
+  color: #8a5d00;
+  background: #fdf8ee;
+  border-radius: 6px;
+  padding: 7px 11px;
+  margin: 0;
+}
+
+/* --- 六项进阶技术：两列网格 --- */
+.xf-techs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.xf-tech {
+  border: 1px solid #e2e6ed;
+  border-radius: 8px;
+  background: #fff;
+  padding: 11px 14px;
+}
+.xf-tech b {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.xf-tech span {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #5a6478;
+}
+
+/* --- 收益卡：数字优先，最有商业说服力 --- */
+.xf-gains {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.xf-gain {
+  border: 1px solid #d7dded;
+  border-radius: 8px;
+  background: linear-gradient(160deg, #f4f6fc 0%, #fbfcfe 100%);
+  padding: 13px 15px;
+}
+.xf-gain b {
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 5px;
+  letter-spacing: 0.3px;
+}
+.xf-gain span {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #5a6478;
+}
+
+/* --- 说明性脚注 --- */
+.xf-note {
+  font-size: 13px;
+  line-height: 1.85;
+  color: #4a5468;
+  margin: 0;
+}
+.xf-note b {
+  color: var(--navy);
+}
+.xf-note-dim {
+  color: #6b7690;
+  font-size: 12.5px;
+}
+
+/* --- 窄屏：公式与网格降为单列 --- */
+@media (max-width: 700px) {
+  .xf-formula {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .xf-techs,
+  .xf-gains {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .xf-formula {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .xf-fitem b {
+    font-size: 22px;
+  }
+}
+
 /* ---------- 一、FAB 四重价值 ---------- */
 .xf-fab-grid {
   display: grid;
