@@ -1,0 +1,205 @@
+# 诊断 CloudBase 部署环境（只读）· v2
+#
+# 触发条件：仅 workflow_dispatch（手动触发）
+#   - workflow_dispatch 要求文件存在于 default branch（GitHub 官方设计）
+#   - 运行此 workflow 前必须先在 GitHub UI 临时禁用 deploy-cloudbase.yml，
+#     否则 push 此 workflow 到 main 会触发真实部署
+#
+# 安全约束：
+#   - 不调用任何写操作命令（hosting deploy / delete / create / update）
+#   - 所有密钥通过 env 注入，GitHub 已知其来源，自动 mask 任何 echo 输出
+#   - CLOUDBASE_ENV_ID 不论来自 vars 还是 secrets，都能在内部传给 tcb 命令
+#     （bash 中为真实值，用于 API 调用）；但 echo 时自动 mask，不进 step summary
+#   - secrets.* / TCB_SECRET_ID / TCB_SECRET_KEY 真值绝不写入 step summary
+#   - 不记录认证 token；不调用交互式 `tcb login`（只用 --apiKeyId/--apiKey 即时鉴权）
+#
+# 权限：
+#   - permissions: contents: read（仅读仓库，避免任何写权限）
+#
+# 输出位置：所有结论写到 $GITHUB_STEP_SUMMARY（UI 折叠面板），
+#           而非 stdout 日志（公开可见）
+#
+# 实际执行方式：
+#   1. UI 临时禁用 deploy workflow
+#   2. push 此文件到 main（单文件 commit）
+#   3. UI 触发 workflow_dispatch
+#   4. 看 Step Summary
+#   5. UI 立即重新启用 deploy workflow
+
+name: 诊断 CloudBase 部署环境（只读）
+
+on:
+  workflow_dispatch:
+    inputs:
+      dns_target:
+        description: 'DNS 目标域名（默认 www.ai-mmc.cn）'
+        required: false
+        default: 'www.ai-mmc.cn'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    name: 只读探测
+    runs-on: ubuntu-latest
+    # 双重保险：job 级别也声明只读权限
+    permissions:
+      contents: read
+
+    steps:
+      # ---------------------------------------------------------------
+      # 步骤 0：关闭 bash 调试回显（防密钥随 set -x 进入日志）
+      # ---------------------------------------------------------------
+      - name: 关闭调试回显
+        run: set +x
+
+      # ---------------------------------------------------------------
+      # 步骤 1：读 CLOUDBASE_ENV_ID，判断来源是 vars 还是 secrets
+      #
+      # 设计：
+      #   - SECRETS_VAL 用 env 块注入，GitHub 已知其值为 secret
+      #     → 后续任何 echo / printf / 日志引用都会被自动 mask 成 ***
+      #   - 我们**故意不 echo** SECRETS_VAL，只用它判空做布尔
+      #   - VARS_VAL 明文，可写入 summary
+      # ---------------------------------------------------------------
+      - name: 读取 CLOUDBASE_ENV_ID 并判断来源
+        id: read-env
+        env:
+          VARS_VAL: ${{ vars.CLOUDBASE_ENV_ID }}
+          SECRETS_VAL: ${{ secrets.CLOUDBASE_ENV_ID }}
+        run: |
+          {
+            echo "## 步骤 1：CLOUDBASE_ENV_ID 来源"
+            echo ""
+            if [ -n "$SECRETS_VAL" ]; then
+              echo "- 来源：**Secrets 区**（密钥区，真值已自动屏蔽）"
+              echo "- 是否配置：是"
+              echo ""
+              echo "> secrets 值无法在 workflow 内读取（GitHub 设计）。"
+              echo "> 若需确认真值，请到仓库 Settings → Secrets and variables → Actions → Secrets 查看。"
+              echo "source=secrets" >> "$GITHUB_OUTPUT"
+            elif [ -n "$VARS_VAL" ]; then
+              echo "- 来源：**Variables 区**（变量区，明文）"
+              echo "- 真值：\`$VARS_VAL\`"
+              echo ""
+              echo "source=vars" >> "$GITHUB_OUTPUT"
+            else
+              echo "- ❌ Secrets 与 Variables 两处都未配置"
+              echo ""
+              echo "source=none" >> "$GITHUB_OUTPUT"
+              exit 1
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ---------------------------------------------------------------
+      # 步骤 2：DNS CNAME 查询（不调腾讯云 API）
+      # ---------------------------------------------------------------
+      - name: DNS CNAME 解析查询
+        id: dns
+        run: |
+          TARGET="${{ inputs.dns_target }}"
+          CNAME=$(dig +short "$TARGET" CNAME 2>/dev/null || echo "<dig 未安装或解析失败>")
+          {
+            echo "## 步骤 2：DNS CNAME 解析"
+            echo ""
+            echo "- 查询域名：\`$TARGET\`"
+            echo "- CNAME 记录：\`$CNAME\`"
+            echo ""
+            echo "**腾讯云静态托管默认 CNAME 模板**：\`www.<env-alias>.cn.tcbaccess.tencentcloudbase.com\`"
+            echo ""
+            echo "cname=$CNAME" >> "$GITHUB_OUTPUT"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ---------------------------------------------------------------
+      # 步骤 3：装 CloudBase CLI（只读工具）
+      # ---------------------------------------------------------------
+      - name: 安装 CloudBase CLI
+        run: npm install -g @cloudbase/cli --silent
+
+      # ---------------------------------------------------------------
+      # 步骤 4：列出当前 API 密钥能访问的所有 CloudBase 环境
+      #
+      # 只读：tcb env list 是 GET 类查询，无写操作
+      # 安全：密钥通过 env 注入，命令行引用触发 GitHub 自动 mask
+      # ---------------------------------------------------------------
+      - name: 列出可访问的 CloudBase 环境（只读）
+        id: list-env
+        env:
+          TCB_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: |
+          {
+            echo "## 步骤 4：可访问的 CloudBase 环境"
+            echo ""
+            echo "（API 返回前 50 行；如报错会展示错误码）"
+            echo ""
+            echo '```'
+            tcb env list --limit 50 2>&1 | head -50 || echo "<命令执行失败>"
+            echo '```'
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ---------------------------------------------------------------
+      # 步骤 5：查询生效环境的静态托管详情
+      #
+      # 关键设计修正（v2）：vars 与 secrets 路径都执行托管详情查询
+      #   - ACTIVE_ENV 直接引用 `vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID`
+      #     （与 deploy workflow 同样的模式）
+      #   - bash 中为真实值（用于 `tcb hosting detail -e`）
+      #   - 任何 echo 输出触发 GitHub 自动 mask（不进 step summary 明文）
+      # 只读：tcb hosting detail 是 GET 类查询
+      # ---------------------------------------------------------------
+      - name: 查询目标环境静态托管详情（只读）
+        id: env-detail
+        if: steps.read-env.outputs.source != 'none'
+        env:
+          TCB_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          # 直接引用 vars || secrets 真值（GitHub 自动 mask echo 输出）
+          ACTIVE_ENV: ${{ vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID }}
+        run: |
+          {
+            echo "## 步骤 5：目标环境静态托管配置"
+            echo ""
+            echo '```'
+            tcb hosting detail -e "$ACTIVE_ENV" 2>&1 | head -80 || echo "<命令执行失败>"
+            echo '```'
+            echo ""
+            echo "**核对要点**（人工比对）："
+            echo "- DefaultDomain / 默认域名 是否与步骤 2 的 DNS CNAME 一致"
+            echo "- Domains / 自定义域名清单 中是否包含 \`www.ai-mmc.cn\` 或 \`ai-mmc.cn\`"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ---------------------------------------------------------------
+      # 步骤 6：汇总证据（始终执行，让用户看到全貌）
+      # ---------------------------------------------------------------
+      - name: 汇总
+        if: always()
+        run: |
+          {
+            echo "## 汇总"
+            echo ""
+            echo "| 项 | 值 |"
+            echo "|---|---|"
+            echo "| CLOUDBASE_ENV_ID 来源 | \`${{ steps.read-env.outputs.source }}\` |"
+            echo "| 实际生效环境真值 | （出于安全考虑不展示；请到 Secrets 页或参考步骤 4/5 输出） |"
+            echo "| DNS 目标域名 | \`${{ inputs.dns_target }}\` |"
+            echo "| DNS CNAME 记录 | \`${{ steps.dns.outputs.cname }}\` |"
+            echo ""
+            echo "---"
+            echo ""
+            echo "**人工核对方法**："
+            echo ""
+            echo "1. **DNS ↔ 环境匹配**：步骤 2 的 CNAME 短名（\`www\` 与 \`.cn.tcbaccess\` 之间）"
+            echo "   是否与步骤 4 中「可访问环境」表格的某个 Alias 对得上"
+            echo "2. **环境 ↔ 默认域名匹配**：步骤 5 的 \`DefaultDomain\` 字段是否等于步骤 2 的 CNAME"
+            echo "3. **自定义域名绑定**：步骤 5 的 \`Domains\` 清单里是否包含 \`www.ai-mmc.cn\`"
+            echo ""
+            echo "**结论建议**："
+            echo ""
+            echo "- 三项一致 → 环境 ID、密钥、域名三者对齐，可放心部署"
+            echo "- DNS 短名 ≠ 任何环境 Alias → 域名绑的是别处，需要修正 deploy-cloudbase.yml 第 46 行注释"
+            echo "- 步骤 5 报错/权限不足 → 密钥对该环境无访问权，需要换密钥或换环境"
+          } >> "$GITHUB_STEP_SUMMARY"
