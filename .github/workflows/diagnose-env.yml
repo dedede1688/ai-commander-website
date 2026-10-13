@@ -213,98 +213,130 @@ jobs:
 
           # 情形 2：JSON 解析失败
           cat > /tmp/parse-list-env.py << 'PYEOF'
-import json, os
-dns_cname = os.environ.get('DNS_FOR_MATCH', '')
-active_env = os.environ.get('ACTIVE_ENV_FOR_MATCH', '')
-try:
-    with open('/tmp/list-env.json', 'r') as f:
-        data = json.load(f)
-    if isinstance(data, list):
-        envs = data
-    elif isinstance(data, dict):
-        envs = (data.get('data') or data.get('Data') or
-                data.get('Envs') or data.get('envs') or [])
-    else:
-        envs = []
+          import json, os
+          dns_cname = os.environ.get('DNS_FOR_MATCH', '')
+          active_env = os.environ.get('ACTIVE_ENV_FOR_MATCH', '')
+          try:
+              with open('/tmp/list-env.json', 'r') as f:
+                  data = json.load(f)
+              if isinstance(data, list):
+                  envs = data
+              elif isinstance(data, dict):
+                  envs = (data.get('data') or data.get('Data') or
+                          data.get('Envs') or data.get('envs') or [])
+              else:
+                  envs = []
 
-    if not envs:
-        print('STATUS=EMPTY')
-        print('COUNT=0')
-        print('ALIASES=')
-        print('STATIC_DOMAINS=')
-        print('MATCHED_ALIASES=')
-        print('MATCH_COUNT=0')
-        print('DIRECT_MATCH=no')
-        print('MULTI_MATCH=no')
-        print('HAS_STATIC_DOMAINS=no')
-    else:
-        print('STATUS=OK')
-        print('COUNT=' + str(len(envs)))
-        aliases = []
-        static_domains = []
-        matched_aliases = []  # v6: 记录所有 CDN 域名 == DNS CNAME 的 Alias（可能多个）
-        has_static_domains = False
-        # v6: 用于 EnvId 就地比对——在内存里做，**不输出 EnvId 真值**
-        matched_env_ids_for_compare = []  # 不直接输出
+              # v7 修复：检测关键字段缺失——envs 非空但所有元素都没有 EnvId
+              has_valid_env = False
+              for e in envs:
+                  if isinstance(e, dict):
+                      if (e.get('EnvId') or e.get('envId')):
+                          has_valid_env = True
+                          break
 
-        for e in envs:
-            alias = e.get('Alias') or e.get('alias') or '?'
-            env_id = e.get('EnvId') or e.get('envId') or ''
-            aliases.append(alias)
-            static_storages = (e.get('StaticStorages') or e.get('staticStorages') or [])
-            if not static_storages:
-                # 该环境缺 StaticStorages 字段
-                continue
-            has_static_domains = True
-            for ss in static_storages:
-                if isinstance(ss, dict):
-                    sd = (ss.get('StaticDomain') or ss.get('staticDomain') or '').strip()
-                    if sd:
-                        static_domains.append(sd)
-                        if dns_cname and sd == dns_cname:
-                            matched_aliases.append(alias)
-                            if env_id:
-                                matched_env_ids_for_compare.append(env_id)
-                            break
+              if not envs:
+                  # 空响应——合法状态
+                  print('STATUS=EMPTY')
+                  print('COUNT=0')
+                  print('ALIASES=')
+                  print('STATIC_DOMAINS=')
+                  print('MATCHED_ALIASES=')
+                  print('MATCH_COUNT=0')
+                  print('DIRECT_MATCH=no')
+                  print('MULTI_MATCH=no')
+                  print('HAS_STATIC_DOMAINS=no')
+              elif not has_valid_env:
+                  # v7 修复：envs 非空但无 EnvId——字段缺失 = 脚本错误
+                  print('STATUS=INCOMPLETE')
+                  print('COUNT=' + str(len(envs)))
+                  print('ALIASES=')
+                  print('STATIC_DOMAINS=')
+                  print('MATCHED_ALIASES=')
+                  print('MATCH_COUNT=0')
+                  print('DIRECT_MATCH=no')
+                  print('MULTI_MATCH=no')
+                  print('HAS_STATIC_DOMAINS=no')
+              else:
+                  # envs 非空且 EnvId 存在——做 CDN 域名比对
+                  print('COUNT=' + str(len(envs)))
+                  aliases = []
+                  static_domains = []
+                  matched_aliases = []
+                  has_static_domains = False
+                  matched_env_ids_for_compare = []
+                  for e in envs:
+                      alias = e.get('Alias') or e.get('alias') or '?'
+                      env_id = e.get('EnvId') or e.get('envId') or ''
+                      aliases.append(alias)
+                      static_storages = (e.get('StaticStorages') or e.get('staticStorages') or [])
+                      if not static_storages:
+                          continue
+                      has_static_domains = True
+                      for ss in static_storages:
+                          if isinstance(ss, dict):
+                              sd = (ss.get('StaticDomain') or ss.get('staticDomain') or '').strip()
+                              if sd:
+                                  static_domains.append(sd)
+                                  if dns_cname and sd == dns_cname:
+                                      matched_aliases.append(alias)
+                                      if env_id:
+                                          matched_env_ids_for_compare.append(env_id)
+                                      break
+                  match_count = len(matched_aliases)
+                  multi_match = 'yes' if match_count > 1 else 'no'
+                  has_static = 'yes' if has_static_domains else 'no'
+                  if match_count == 1 and matched_env_ids_for_compare:
+                      direct_match = 'yes' if (active_env and matched_env_ids_for_compare[0] == active_env) else 'no'
+                  else:
+                      direct_match = 'no'
+                  # v7 修复：根据 match_count 决定 STATUS
+                  # MATCH_COUNT=0 但 HAS_STATIC_DOMAINS=yes → 查询成功但确实没匹配（合法"不匹配"）
+                  # MATCH_COUNT=0 且 HAS_STATIC_DOMAINS=no → 字段不全（INCOMPLETE）
+                  # MATCH_COUNT>=1 → 至少有一个匹配（OK，可能是部分匹配）
+                  if match_count >= 1:
+                      print('STATUS=OK')
+                  elif has_static_domains:
+                      print('STATUS=NO_MATCH')  # 合法不匹配——不是错误
+                  else:
+                      print('STATUS=INCOMPLETE')  # CDN 域名字段缺失
+                  print('ALIASES=' + ','.join(aliases))
+                  print('STATIC_DOMAINS=' + '||'.join(static_domains))
+                  print('MATCHED_ALIASES=' + ','.join(matched_aliases))
+                  print('MATCH_COUNT=' + str(match_count))
+                  print('DIRECT_MATCH=' + direct_match)
+                  print('MULTI_MATCH=' + multi_match)
+                  print('HAS_STATIC_DOMAINS=' + has_static)
+          except Exception as ex:
+              # v7 修复：明确区分真解析错误——STATUS=PARSE_ERROR
+              print('STATUS=PARSE_ERROR')
+              print('ERROR=' + type(ex).__name__ + ': ' + str(ex))
 
-        match_count = len(matched_aliases)
-        multi_match = 'yes' if match_count > 1 else 'no'
-        has_static = 'yes' if has_static_domains else 'no'
-
-        # v6 关键：DIRECT_MATCH 是 match_count==1 且 matched EnvId == ACTIVE_ENV 的二值判断
-        if match_count == 1 and matched_env_ids_for_compare:
-            direct_match = 'yes' if (active_env and matched_env_ids_for_compare[0] == active_env) else 'no'
-        else:
-            direct_match = 'no'  # 0 或 ≥1 个匹配都设为 no（前者因无匹配；后者因不唯一）
-
-        print('ALIASES=' + ','.join(aliases))
-        print('STATIC_DOMAINS=' + '||'.join(static_domains))
-        print('MATCHED_ALIASES=' + ','.join(matched_aliases))
-        print('MATCH_COUNT=' + str(match_count))
-        print('DIRECT_MATCH=' + direct_match)
-        print('MULTI_MATCH=' + multi_match)
-        print('HAS_STATIC_DOMAINS=' + has_static)
-except Exception as ex:
-    print('STATUS=PARSE_ERROR')
-    print('ERROR=' + type(ex).__name__ + ': ' + str(ex))
-PYEOF
+          PYEOF
 
           python3 /tmp/parse-list-env.py > /tmp/parse-list-env.out 2> /tmp/parse-list-env.err
           PARSE_RC=$?
 
-          if [ "$PARSE_RC" -ne 0 ] || ! grep -q "^STATUS=OK\|^STATUS=EMPTY" /tmp/parse-list-env.out; then
+          # v7 修复：bash 检查逻辑——明确区分合法诊断结论 vs 脚本错误
+          # 接受：STATUS=OK / STATUS=EMPTY / STATUS=NO_MATCH（合法诊断结论）
+          # 拒绝：STATUS=PARSE_ERROR / STATUS=INCOMPLETE（脚本错误或字段缺失）
+          if [ "$PARSE_RC" -ne 0 ] || ! grep -qE "^(STATUS=OK|STATUS=EMPTY|STATUS=NO_MATCH)$" /tmp/parse-list-env.out; then
             {
               echo "## 步骤 4：可访问的 CloudBase 环境"
               echo ""
               echo "- tcb env list 退出码：$LIST_RC（命令成功）"
               echo "- python3 解析退出码：$PARSE_RC"
               echo ""
-              echo "**状态**：❌ JSON 解析失败（命令成功但响应无法解析）"
+              echo "**状态**：❌ JSON 解析失败或关键字段缺失"
               echo ""
               echo "**错误详情**："
               echo '```'
+              grep "^STATUS=" /tmp/parse-list-env.out 2>/dev/null | head -1
+              echo ''
               grep "^ERROR=" /tmp/parse-list-env.err 2>/dev/null || grep "^ERROR=" /tmp/parse-list-env.out 2>/dev/null || echo "（未知错误）"
               echo '```'
+              echo ""
+              echo "**排查**：检查密钥有效性、API 响应结构是否变化、是否需要更新 tcb CLI 版本"
             } >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi
@@ -408,51 +440,63 @@ PYEOF
 
           # 情形 2：JSON 解析失败
           cat > /tmp/parse-detail.py << 'PYEOF'
-import json
-try:
-    with open('/tmp/detail.json', 'r') as f:
-        data = json.load(f)
-    if not isinstance(data, dict):
-        print('STATUS=PARSE_ERROR')
-        print('ERROR=响应不是对象（实际类型：' + type(data).__name__ + '）')
-    else:
-        default_domain = (data.get('DefaultDomain') or data.get('defaultDomain') or
-                          data.get('DefaultDomainName') or data.get('defaultDomainName') or '')
-        domains_raw = data.get('Domains') or data.get('domains') or []
-        domain_list = []
-        for d in domains_raw:
-            if isinstance(d, str):
-                domain_list.append(d)
-            elif isinstance(d, dict):
-                name = (d.get('DomainName') or d.get('domainName') or
-                        d.get('Name') or d.get('name') or
-                        d.get('Domain') or d.get('domain') or '')
-                if name:
-                    domain_list.append(name)
-        status = data.get('Status') or data.get('status') or ''
-        print('STATUS=OK')
-        print('DEFAULT_DOMAIN=' + default_domain)
-        print('DOMAIN_LIST=' + ','.join(domain_list))
-        print('STATUS_FIELD=' + status)
-except Exception as ex:
-    print('STATUS=PARSE_ERROR')
-    print('ERROR=' + type(ex).__name__ + ': ' + str(ex))
-PYEOF
+          import json
+          try:
+              with open('/tmp/detail.json', 'r') as f:
+                  data = json.load(f)
+              if not isinstance(data, dict):
+                  print('STATUS=PARSE_ERROR')
+                  print('ERROR=响应不是对象（实际类型：' + type(data).__name__ + '）')
+              else:
+                  default_domain = (data.get('DefaultDomain') or data.get('defaultDomain') or
+                                    data.get('DefaultDomainName') or data.get('defaultDomainName') or '')
+                  domains_raw = data.get('Domains') or data.get('domains') or []
+                  domain_list = []
+                  for d in domains_raw:
+                      if isinstance(d, str):
+                          domain_list.append(d)
+                      elif isinstance(d, dict):
+                          name = (d.get('DomainName') or d.get('domainName') or
+                                  d.get('Name') or d.get('name') or
+                                  d.get('Domain') or d.get('domain') or '')
+                          if name:
+                              domain_list.append(name)
+                  status = data.get('Status') or data.get('status') or ''
+                  # v7 修复：明确区分 STATUS 类型
+                  # - STATUS=OK：响应是 dict 且 DefaultDomain 非空（关键字段存在）
+                  # - STATUS=NO_MATCH：响应是 dict 但 DefaultDomain 为空（合法"无默认域名"——不是错误）
+                  # - STATUS=INCOMPLETE：响应是 dict 但缺关键字段（脚本错误）
+                  # 这里 data 已经是 dict，但 DefaultDomain 可能为空或缺
+                  if not default_domain:
+                      print('STATUS=NO_MATCH')
+                  else:
+                      print('STATUS=OK')
+                  print('DEFAULT_DOMAIN=' + default_domain)
+                  print('DOMAIN_LIST=' + ','.join(domain_list))
+                  print('STATUS_FIELD=' + status)
+          except Exception as ex:
+              print('STATUS=PARSE_ERROR')
+              print('ERROR=' + type(ex).__name__ + ': ' + str(ex))
+
+          PYEOF
 
           python3 /tmp/parse-detail.py > /tmp/parse-detail.out 2> /tmp/parse-detail.err
           PARSE_RC=$?
 
-          if [ "$PARSE_RC" -ne 0 ] || ! grep -q "^STATUS=OK" /tmp/parse-detail.out; then
+          # v7 修复：bash 检查逻辑——接受 OK/NO_MATCH，拒绝 PARSE_ERROR
+          if [ "$PARSE_RC" -ne 0 ] || ! grep -qE "^(STATUS=OK|STATUS=NO_MATCH)$" /tmp/parse-detail.out; then
             {
               echo "## 步骤 5：目标环境静态托管配置"
               echo ""
               echo "- tcb hosting detail 退出码：$DETAIL_RC"
               echo "- python3 解析退出码：$PARSE_RC"
               echo ""
-              echo "**状态**：❌ JSON 解析失败（命令成功但响应无法解析）"
+              echo "**状态**：❌ JSON 解析失败或响应结构异常"
               echo ""
               echo "**错误详情**："
               echo '```'
+              grep "^STATUS=" /tmp/parse-detail.out 2>/dev/null | head -1
+              echo ''
               grep "^ERROR=" /tmp/parse-detail.err 2>/dev/null || grep "^ERROR=" /tmp/parse-detail.out 2>/dev/null || echo "（未知错误）"
               echo '```'
             } >> "$GITHUB_STEP_SUMMARY"
