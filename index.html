@@ -44,7 +44,7 @@
     <meta name="twitter:image" content="https://www.ai-mmc.cn/素材/og/ai-commander-og-1200x630.webp" />
     <link rel="preload" as="image" href="素材/书籍/AI指挥官-立体书.webp" fetchpriority="high" />
     <link rel="stylesheet" href="base.css?v=7" />
-    <link rel="stylesheet" href="style.css?v=21" />
+    <link rel="stylesheet" href="style.css?v=22" />
 
     <!-- ===== 结构化数据：让搜索结果能显示书名、作者、篇幅，而不只是蓝色链接 =====
          Book 描述书本体；Person 描述作者胡子老师；WebSite + SearchAction 描述站点。
@@ -636,6 +636,12 @@
           </div>
         </div>
         <div class="m-bio" id="mBio"></div>
+        <!-- 个人主页入口。href 由 script.js 的 openM() 按当前成员注入，
+             静态标签里不写死地址，避免与名录数据脱节。 -->
+        <a class="m-link" id="mLink" href="#" hidden>
+          查看个人主页
+          <i class="m-link-arrow">→</i>
+        </a>
       </div>
     </div>
 
@@ -671,6 +677,12 @@
           </div>
         </div>
         <button class="ad-btn" id="adCta" type="button">共建 AI 生态</button>
+        <!-- 个人主页入口：与手动详情弹窗（#mLink）同一套生成逻辑，
+             由 showAd() 按当前轮播到的成员注入 href。 -->
+        <a class="ad-profile" id="adProfile" href="#" hidden>
+          查看个人主页
+          <i class="ad-profile-arrow">→</i>
+        </a>
       </div>
     </div>
 
@@ -755,6 +767,6 @@
     </div>
 
     <script src="shared.js?v=21"></script>
-    <script src="script.js?v=25"></script>
+    <script src="script.js?v=27"></script>
   </body>
 </html>

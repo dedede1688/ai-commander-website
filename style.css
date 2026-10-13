@@ -859,6 +859,97 @@
   border-top: 1px solid #eef1f6;
 }
 
+/* ===== 个人主页入口按钮 =====
+   两处共用一套视觉：.m-link（浅底弹窗）与 .ad-profile（深底宣传弹窗）
+   共享尺寸/字重/圆角，只有配色按所在底色各自翻转。
+   这样「看个人主页」在全站是同一个动作，肌肉记忆一致。
+   色值全部引用现有变量，未引入任何新颜色。 */
+
+/* ---- 手动详情弹窗（浅底）---- */
+.m-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 11px 26px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--navy);
+  background: #fff;
+  border: 1.5px solid var(--navy);
+  border-radius: 24px;
+  text-decoration: none;
+  transition:
+    background 0.16s,
+    color 0.16s,
+    transform 0.16s,
+    box-shadow 0.16s;
+}
+.m-link:hover {
+  background: var(--navy);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.18);
+}
+.m-link-arrow {
+  font-style: normal;
+  font-size: 15px;
+  line-height: 1;
+  transition: transform 0.16s;
+}
+.m-link:hover .m-link-arrow {
+  transform: translateX(3px);
+}
+/* 探测确认个人页尚未生成时不渲染按钮（script.js 会设 hidden） */
+.m-link[hidden],
+.ad-profile[hidden] {
+  display: none;
+}
+
+/* ---- 自动宣传弹窗（深底）---- */
+.ad-profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 9px 26px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--teal);
+  background: transparent;
+  border: 1.5px solid rgba(0, 237, 189, 0.55);
+  border-radius: 24px;
+  text-decoration: none;
+  transition:
+    background 0.16s,
+    border-color 0.16s,
+    transform 0.16s;
+}
+.ad-profile:hover {
+  background: rgba(0, 237, 189, 0.14);
+  border-color: var(--teal);
+  transform: translateY(-2px);
+}
+.ad-profile-arrow {
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 0.16s;
+}
+.ad-profile:hover .ad-profile-arrow {
+  transform: translateX(3px);
+}
+
+/* 窄屏：按钮独占一行，避免与文字挤在一起 */
+@media (max-width: 480px) {
+  .m-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ===== AI关联圆环 ===== */
 .ring-grid {
   display: grid;

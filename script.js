@@ -2,9 +2,28 @@
    整个文件包在 IIFE（立即执行函数 Immediately Invoked Function Expression）里，
    避免把 P / IND / openM 等名字暴露到 window 上，后续新增页面脚本时互不干扰。 */
 (function () {
-/* ===== 出版人名录数据（20 席） ===== */
+/* ===== 出版人名录数据（22 席）=====
+
+   字段说明（新增成员时照此填写）：
+     slug  个人主页标识，全站唯一。规则见下方 SLUG_RULE，改了等于作废旧链接
+     n姓 名
+     s     席号，如 NO.001
+     r     主身份标签
+     f照片  WebP 路径，170×240
+     b     个人简介
+     lv    AI 关联度：hi 已关联 / mid 可衔接 / low 待建立
+     isNew 是否本轮新增（卡片带「新」角标），稳定后可去掉
+
+   ---------- SLUG_RULE（重要）----------
+   slug 会出现在分享链接里，一经上线不可更改：
+     · 只用姓名拼音，不含席位号（席位会变，人不会变）
+     · 不含职位、公司（都可能变）
+     · 全小写 + 连字符分隔
+     · 冲突时在末尾加数字后缀，如 wang-wei-2
+   新增成员时先跑 tools/check-data.js 查重，重名会直接报错。 */
 var P = [
   {
+    slug: "yan-hai-zhen",
     n: "鄢海珍",
     s: "NO.001",
     r: "运动面料全链路操盘 · 二十余年",
@@ -13,6 +32,7 @@ var P = [
     lv: "low",
   },
   {
+    slug: "jin-zhao-xia",
     n: "金朝霞",
     s: "NO.002",
     r: "AI 营销生态发起人",
@@ -21,6 +41,7 @@ var P = [
     lv: "hi",
   },
   {
+    slug: "hu-gong-ping",
     n: "胡公平",
     s: "NO.003",
     r: "商业地产招商运营专家",
@@ -29,6 +50,7 @@ var P = [
     lv: "hi",
   },
   {
+    slug: "zhang-cheng",
     n: "张成",
     s: "NO.004",
     r: "企业底层架构师 · 30年实体",
@@ -37,6 +59,7 @@ var P = [
     lv: "hi",
   },
   {
+    slug: "guo-rui-yuan",
     n: "郭瑞元",
     s: "NO.005",
     r: "碧水源集团董事长",
@@ -45,6 +68,7 @@ var P = [
     lv: "low",
   },
   {
+    slug: "zhang-yu-jie",
     n: "张玉洁",
     s: "NO.006",
     r: "玉洁生活社区连锁创始人",
@@ -53,6 +77,7 @@ var P = [
     lv: "low",
   },
   {
+    slug: "zhou-yi",
     n: "周一",
     s: "NO.007",
     r: "资深产业投资人",
@@ -61,6 +86,7 @@ var P = [
     lv: "low",
   },
   {
+    slug: "yu-ya-yong",
     n: "于亚永",
     s: "NO.008",
     r: "资深IT工程师 · Web3观察者",
@@ -69,6 +95,7 @@ var P = [
     lv: "mid",
   },
   {
+    slug: "li-hai-chang",
     n: "李海畅",
     s: "NO.009",
     r: "AI+全域视觉战略官 · 品牌传播",
@@ -77,6 +104,7 @@ var P = [
     lv: "mid",
   },
   {
+    slug: "wu-qi",
     n: "吴琦",
     s: "NO.010",
     r: "实体产业互联转型专家",
@@ -85,6 +113,7 @@ var P = [
     lv: "mid",
   },
   {
+    slug: "xiong-li",
     n: "熊俪",
     s: "NO.011",
     r: "汉派女装 · 实业股东",
@@ -93,6 +122,7 @@ var P = [
     lv: "low",
   },
   {
+    slug: "xie-tiao",
     n: "谢眺",
     s: "NO.012",
     r: "传统行业 → 互联网转型者",
@@ -101,6 +131,7 @@ var P = [
     lv: "mid",
   },
   {
+    slug: "wei-jian",
     n: "韦健",
     s: "NO.013",
     r: "金融投融资 · 并购重组",
@@ -110,6 +141,7 @@ var P = [
     isNew: true,
   },
   {
+    slug: "li-ping",
     n: "李平",
     s: "NO.014",
     r: "理财规划师 · 财商教育者",
@@ -118,6 +150,7 @@ var P = [
     lv: "low",
   },
   {
+    slug: "menger",
     n: "Menger",
     s: "NO.015",
     r: "品牌上市运营总指导",
@@ -126,6 +159,7 @@ var P = [
     lv: "low",
   },
   {
+    slug: "zhao-zhuo-yi",
     n: "赵卓一",
     s: "NO.016",
     r: "AI 全域营销专家",
@@ -134,6 +168,7 @@ var P = [
     lv: "hi",
   },
   {
+    slug: "zhang-wu-hong",
     n: "张武红",
     s: "NO.017",
     r: "语文老师 · 互联网投资顾问",
@@ -142,6 +177,7 @@ var P = [
     lv: "hi",
   },
   {
+    slug: "wei-jie-mian",
     n: "危杰棉",
     s: "NO.018",
     r: "实体连续创业 · 美业大健康",
@@ -151,6 +187,7 @@ var P = [
     isNew: true,
   },
   {
+    slug: "newton-laoshi",
     n: "牛顿老师",
     s: "NO.019",
     r: "AI 时代人才孵化 · 商学院院长",
@@ -160,6 +197,7 @@ var P = [
     isNew: true,
   },
   {
+    slug: "wen-ni",
     n: "温妮",
     s: "NO.020",
     r: "女性健康品牌创始人",
@@ -169,6 +207,7 @@ var P = [
     isNew: true,
   },
   {
+    slug: "fan-qin-ming",
     n: "樊秦鸣",
     s: "NO.021",
     r: "商业顶层设计专家",
@@ -178,6 +217,7 @@ var P = [
     isNew: true,
   },
   {
+    slug: "huzi-laoshi",
     n: "胡子老师",
     s: "NO.022",
     r: "《AI指挥官》作者",
@@ -393,6 +433,35 @@ Array.prototype.forEach.call(
   },
 );
 
+/* ===== 个人主页链接 ===== */
+/* 页面文件由 tools/gen-member-pages.py 从 P 数组批量生成，命名为
+   member-<slug>.html，放在站点根目录（shared.js 的导航按与根同级写相对路径，
+   放子目录会导致全站链接失效）。
+
+   这里不硬编码 slug 列表，而是直接从 P 数组取 —— 单一数据源，
+   不会出现「名录加了人、主页链接却没跟上」的漂移。 */
+/* 个人页是否可显示入口。
+   这里刻意不做运行时探测（曾经用 fetch HEAD 逐个探测 22 个页面，代价高且脆弱：
+   一是每个新会话首次打开首页就要发 22 个请求，白耗带宽、拖慢首屏；
+   二是 Promise.all 一票否决 —— 只要有一个人页缺失，全部 22 个入口一起消失）。
+
+   改为「直接用已生成的有效链接」：
+     · 页面由 tools/gen-member-pages.py 从 P 数组批量生成，天然与名录一一对应；
+     · 缺页在部署前就被 tools/check-data.js 拦住（member-*.html 的素材引用、
+       canonical、姓名一致性都在校验范围内），不会漏到线上；
+     · 因此运行时无需再判断，直接给链接即可。
+
+   保留一层极轻的兜底：仅检查 slug 是否存在。名单里若有人没填 slug，
+   那一条就不给入口—— 属于数据问题，应当在 check-data 阶段报错，而不是
+   在页面上静默隐藏。 */
+function memberPageOf(p) {
+  if (!p || !p.slug) return "";
+  return "member-" + p.slug + ".html";
+}
+function hasMemberPage(p) {
+  return !!memberPageOf(p);
+}
+
 /* ===== 弹窗 ===== */
 function openM(i) {
   var p = P[i];
@@ -407,6 +476,15 @@ function openM(i) {
   document.getElementById("mSeat").textContent =
     "席位 " + p.s + " ｜ CO-PUBLISHER";
   document.getElementById("mBio").textContent = p.b;
+  var mLink = document.getElementById("mLink");
+  if (mLink) {
+    if (hasMemberPage(p)) {
+      mLink.href = memberPageOf(p);
+      mLink.hidden = false;
+    } else {
+      mLink.hidden = true;
+    }
+  }
   document.getElementById("modal").classList.add("on");
 }
 function closeM() {
@@ -676,6 +754,9 @@ var POPUP_CTRL = (function () {
   var adPSeat = document.getElementById("adPSeat");
   var adPRole = document.getElementById("adPRole");
   var adCta = document.getElementById("adCta");
+  /* 宣传弹窗里的个人主页入口。与手动详情弹窗（#mLink）是两个组件，
+     但取数与生成逻辑完全一致，都走 memberPageOf()。 */
+  var adProfile = document.getElementById("adProfile");
 
   /* 本次打开页面随机选一位起始出版人，之后按席位顺序 1→20 轮下去；刷新页面重新随机 */
   var idx = Math.floor(Math.random() * P.length);
@@ -720,6 +801,17 @@ var POPUP_CTRL = (function () {
     if (adPName) adPName.textContent = p.n;
     if (adPSeat) adPSeat.textContent = p.s + " · 联合出版人";
     if (adPRole) adPRole.textContent = p.r;
+    /* 同步个人主页链接。注意：idx 在本函数末尾才递增，
+       所以此处取的是「即将展示的那位」—— idx 的上一个值，
+       不能直接用 idx，否则按钮会指向上一个人。 */
+    if (adProfile) {
+      if (hasMemberPage(p)) {
+        adProfile.href = memberPageOf(p);
+        adProfile.hidden = false;
+      } else {
+        adProfile.hidden = true;
+      }
+    }
     adModal.classList.add("on");
     POPUP_CTRL.consume();
     /* 下一次弹窗换下一位，到 NO.020 后回到 NO.001 */
@@ -739,6 +831,12 @@ var POPUP_CTRL = (function () {
   adModal.addEventListener("click", function (e) {
     if (e.target === adCta && qrLayer) {
       qrLayer.classList.add("on");
+    }
+    /* 点「查看个人主页」是在接受内容，不是拒绝弹窗。
+       若在此标记 dismissed，用户点一次主页后本次会话就再也看不到宣传了 ——
+       那属于误伤。放行即可，跳页后本次会话自然结束。 */
+    if (e.target.closest && e.target.closest("#adProfile")) {
+      return;
     }
     POPUP_CTRL.markDismissed();
     closeAd();
