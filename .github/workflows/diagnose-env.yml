@@ -299,7 +299,7 @@ jobs:
                   elif has_static_domains:
                       print('STATUS=NO_MATCH')  # 合法不匹配——不是错误
                   else:
-                      print('STATUS=INCOMPLETE')  # CDN 域名字段缺失
+                      print('STATUS=UNKNOWN')  # EnvId 有效但 API 域名字段缺失
                   print('ALIASES=' + ','.join(aliases))
                   print('STATIC_DOMAINS=' + '||'.join(static_domains))
                   print('MATCHED_ALIASES=' + ','.join(matched_aliases))
@@ -320,7 +320,7 @@ jobs:
           # v7 修复：bash 检查逻辑——明确区分合法诊断结论 vs 脚本错误
           # 接受：STATUS=OK / STATUS=EMPTY / STATUS=NO_MATCH（合法诊断结论）
           # 拒绝：STATUS=PARSE_ERROR / STATUS=INCOMPLETE（脚本错误或字段缺失）
-          if [ "$PARSE_RC" -ne 0 ] || ! grep -qE "^(STATUS=OK|STATUS=EMPTY|STATUS=NO_MATCH)$" /tmp/parse-list-env.out; then
+          if [ "$PARSE_RC" -ne 0 ] || ! grep -qE "^(STATUS=OK|STATUS=EMPTY|STATUS=NO_MATCH|STATUS=UNKNOWN)$" /tmp/parse-list-env.out; then
             {
               echo "## 步骤 4：可访问的 CloudBase 环境"
               echo ""
@@ -627,7 +627,7 @@ jobs:
           elif [ "$MATCH_COUNT" = "0" ]; then
             echo "（C=no：无环境 CDN 域名 == DNS CNAME）" >> "$GITHUB_STEP_SUMMARY"
           elif [ "$HAS_STATIC_DOMAINS" = "no" ]; then
-            echo "⚠️ **C=no（字段缺失）**：API 响应缺 StaticStorages 字段——EnvId 比对无法进行" >> "$GITHUB_STEP_SUMMARY"
+            echo "⚠️ **C=no（步骤 4 = UNKNOWN）**：API 不返回 StaticStorages 字段——EnvId 直接比对无法进行，需结合步骤 5 结论综合判断" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "❌ **C=no**：匹配环境的 EnvId ≠ ACTIVE_ENV——密钥配置的目标环境可能不是 DNS 指向的环境" >> "$GITHUB_STEP_SUMMARY"
           fi
