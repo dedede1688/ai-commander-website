@@ -448,9 +448,12 @@ jobs:
                   print('STATUS=PARSE_ERROR')
                   print('ERROR=响应不是对象（实际类型：' + type(data).__name__ + '）')
               else:
-                  default_domain = (data.get('DefaultDomain') or data.get('defaultDomain') or
-                                    data.get('DefaultDomainName') or data.get('defaultDomainName') or '')
-                  domains_raw = data.get('Domains') or data.get('domains') or []
+                  # 解包 CLI outputJson 的 {data: ...} 包装层——v7 修复
+                  payload = data.get('data') if isinstance(data.get('data'), dict) else data
+                  default_domain = (payload.get('cdnDomain') or payload.get('CdnDomain') or
+                                    payload.get('DefaultDomain') or payload.get('defaultDomain') or
+                                    payload.get('DefaultDomainName') or payload.get('defaultDomainName') or '')
+                  domains_raw = payload.get('Domains') or payload.get('domains') or []
                   domain_list = []
                   for d in domains_raw:
                       if isinstance(d, str):
@@ -461,14 +464,15 @@ jobs:
                                   d.get('Domain') or d.get('domain') or '')
                           if name:
                               domain_list.append(name)
-                  status = data.get('Status') or data.get('status') or ''
+                  status = payload.get('Status') or payload.get('status') or ''
                   # v7 修复：明确区分 STATUS 类型
                   # - STATUS=OK：响应是 dict 且 DefaultDomain 非空（关键字段存在）
-                  # - STATUS=NO_MATCH：响应是 dict 但 DefaultDomain 为空（合法"无默认域名"——不是错误）
-                  # - STATUS=INCOMPLETE：响应是 dict 但缺关键字段（脚本错误）
+                  # - STATUS=UNKNOWN：响应是 dict 但 cdnDomain/DefaultDomain 等所有兼容域名字段都为空
+                  #   → 无法确认默认域名（合法"无默认域名"——无法判定匹配不算不匹配，是错误）
+                  # - STATUS=PARSE_ERROR：响应不是 dict（脚本错误或解析失败）
                   # 这里 data 已经是 dict，但 DefaultDomain 可能为空或缺
                   if not default_domain:
-                      print('STATUS=NO_MATCH')
+                      print('STATUS=UNKNOWN')
                   else:
                       print('STATUS=OK')
                   print('DEFAULT_DOMAIN=' + default_domain)
@@ -483,8 +487,10 @@ jobs:
           python3 /tmp/parse-detail.py > /tmp/parse-detail.out 2> /tmp/parse-detail.err
           PARSE_RC=$?
 
-          # v7 修复：bash 检查逻辑——接受 OK/NO_MATCH，拒绝 PARSE_ERROR
-          if [ "$PARSE_RC" -ne 0 ] || ! grep -qE "^(STATUS=OK|STATUS=NO_MATCH)$" /tmp/parse-detail.out; then
+          # v7 修复：bash 检查逻辑——接受 OK/UNKNOWN，拒绝 PARSE_ERROR
+          # - OK：拿到 cdnDomain 等兼容字段，证据完整
+          # - UNKNOWN：所有兼容域名字段都为空，无法确认默认域名——合法"信息缺失"，不能误判为不匹配
+          if [ "$PARSE_RC" -ne 0 ] || ! grep -qE "^(STATUS=OK|STATUS=UNKNOWN)$" /tmp/parse-detail.out; then
             {
               echo "## 步骤 5：目标环境静态托管配置"
               echo ""
