@@ -118,37 +118,260 @@ jobs:
         run: npm install -g @cloudbase/cli --silent
 
       # ---------------------------------------------------------------
-      # 步骤 4：列出当前 API 密钥能访问的所有 CloudBase 环境
+      # 步骤 3.5：登录 CloudBase（复用 deploy workflow 认证方式）
       #
-      # 只读：tcb env list 是 GET 类查询，无写操作
-      # 安全：密钥通过 env 注入，命令行引用触发 GitHub 自动 mask
+      # 必要性（v3 修复）：
+      #   - tcb 子命令（env list / hosting detail）依赖本地鉴权文件 ~/.cloudbase/auth.json
+      #   - deploy workflow 第 72 行已经显式调用 `tcb login --apiKeyId ... --apiKey ...`
+      #   - diagnose workflow 之前漏了 login，导致步骤 4/5 报 "No valid identity found"
+      #
+      # 安全：
+      #   - 密钥通过 env 注入（与 deploy workflow 同样的 env 块模式）
+      #   - 命令行引用 bash 变量（不直接出现在命令字符串里）
+      #   - 关闭 bash 调试回显（步骤 0 已 set +x）
+      #   - GitHub 自动 mask 任何 echo 输出
+      #
+      # 失败处理：
+      #   - 退出码非 0 → ::error:: 注释 + exit 1
+      #   - 整个 workflow 中止（后续步骤不再依赖 run 状态）
       # ---------------------------------------------------------------
-      - name: 列出可访问的 CloudBase 环境（只读）
-        id: list-env
+      - name: 登录 CloudBase（非交互式，复用 deploy 认证方式）
         env:
           TCB_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: |
+          # 把 tcb login 输出全部丢弃，避免任何潜在敏感信息进 step summary / log
+          tcb login --apiKeyId "$TCB_ID" --apiKey "$TCB_KEY" > /dev/null 2>&1
+          LOGIN_RC=$?
+          {
+            echo "## 步骤 3.5：CloudBase 登录"
+            echo ""
+            echo "- 退出码：$LOGIN_RC"
+            if [ "$LOGIN_RC" -ne 0 ]; then
+              echo "- 状态：❌ 失败"
+              echo ""
+              echo "**排查方向**："
+              echo "- TCB_SECRET_ID / TCB_SECRET_KEY 是否在 Secrets 区正确配置"
+              echo "- 密钥是否对当前腾讯云账号有效（密钥可能在腾讯云控制台被禁用或轮换）"
+              echo "- 密钥是否对该环境有访问权限（CAM 策略）"
+            else
+              echo "- 状态：✅ 成功"
+              echo "::notice::tcb login 成功（退出码 0）"
+            fi
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$LOGIN_RC" -ne 0 ]; then
+            echo "::error::tcb login 失败（退出码 $LOGIN_RC），诊断中止"
+            exit 1
+          fi
+
+      # ---------------------------------------------------------------
+      # 步骤 4：列出可见 CloudBase 环境（只读）
+      #
+      # v6 改进（EnvId 真值关联，杜绝间接证据误判）：
+      #   - **就地比对 EnvId**：从 tcb env list 取出"匹配 CDN 域名"的环境的 EnvId，
+      #     与 ACTIVE_ENV（来自 vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID）
+      #     做严格等值比对，输出 DIRECT_MATCH=yes/no（**不输出 EnvId 真值**）
+      #   - **多重匹配检测**：记录所有 CDN 域名 == DNS CNAME 的环境数，
+      #     若 > 1 则 MULTI_MATCH=yes（EnvId 唯一性无法保证 → 不能下"环境匹配"结论）
+      #   - **字段缺失检测**：若任一匹配环境缺 StaticStorages → HAS_STATIC_DOMAINS=no
+      #   - JSON 解析失败 exit 1（不假装成功）
+      #   - EnvId 真值**绝不写入** step summary / step output / stdout——只在 python 内存里用
+      # ---------------------------------------------------------------
+      - name: 列出可见 CloudBase 环境（只读）
+        id: list-env
+        env:
+          TCB_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          # v6 用于就地比对 DNS CNAME + EnvId
+          DNS_FOR_MATCH: ${{ steps.dns.outputs.cname }}
+          ACTIVE_ENV_FOR_MATCH: ${{ vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID }}
+        run: |
+          set -o pipefail
+
+          # 复用步骤 3.5 的鉴权状态（同 Job 共享 ~/.cloudbase/auth.json）
+
+          tcb env list --limit 50 --json > /tmp/list-env.json 2> /tmp/list-env.err
+          LIST_RC=$?
+
+          # 情形 1：tcb 命令本身失败
+          if [ "$LIST_RC" -ne 0 ]; then
+            {
+              echo "## 步骤 4：可访问的 CloudBase 环境"
+              echo ""
+              echo "- tcb env list 退出码：$LIST_RC"
+              echo ""
+              echo "**状态**：❌ 失败（tcb 命令本身失败）"
+              echo ""
+              echo "**错误信息前 10 行**（已过滤敏感关键词）："
+              echo '```'
+              head -10 /tmp/list-env.err | (grep -v -i -E "secret|api[_-]?key|token|password|credential" || true)
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          # 情形 2：JSON 解析失败
+          cat > /tmp/parse-list-env.py << 'PYEOF'
+import json, os
+dns_cname = os.environ.get('DNS_FOR_MATCH', '')
+active_env = os.environ.get('ACTIVE_ENV_FOR_MATCH', '')
+try:
+    with open('/tmp/list-env.json', 'r') as f:
+        data = json.load(f)
+    if isinstance(data, list):
+        envs = data
+    elif isinstance(data, dict):
+        envs = (data.get('data') or data.get('Data') or
+                data.get('Envs') or data.get('envs') or [])
+    else:
+        envs = []
+
+    if not envs:
+        print('STATUS=EMPTY')
+        print('COUNT=0')
+        print('ALIASES=')
+        print('STATIC_DOMAINS=')
+        print('MATCHED_ALIASES=')
+        print('MATCH_COUNT=0')
+        print('DIRECT_MATCH=no')
+        print('MULTI_MATCH=no')
+        print('HAS_STATIC_DOMAINS=no')
+    else:
+        print('STATUS=OK')
+        print('COUNT=' + str(len(envs)))
+        aliases = []
+        static_domains = []
+        matched_aliases = []  # v6: 记录所有 CDN 域名 == DNS CNAME 的 Alias（可能多个）
+        has_static_domains = False
+        # v6: 用于 EnvId 就地比对——在内存里做，**不输出 EnvId 真值**
+        matched_env_ids_for_compare = []  # 不直接输出
+
+        for e in envs:
+            alias = e.get('Alias') or e.get('alias') or '?'
+            env_id = e.get('EnvId') or e.get('envId') or ''
+            aliases.append(alias)
+            static_storages = (e.get('StaticStorages') or e.get('staticStorages') or [])
+            if not static_storages:
+                # 该环境缺 StaticStorages 字段
+                continue
+            has_static_domains = True
+            for ss in static_storages:
+                if isinstance(ss, dict):
+                    sd = (ss.get('StaticDomain') or ss.get('staticDomain') or '').strip()
+                    if sd:
+                        static_domains.append(sd)
+                        if dns_cname and sd == dns_cname:
+                            matched_aliases.append(alias)
+                            if env_id:
+                                matched_env_ids_for_compare.append(env_id)
+                            break
+
+        match_count = len(matched_aliases)
+        multi_match = 'yes' if match_count > 1 else 'no'
+        has_static = 'yes' if has_static_domains else 'no'
+
+        # v6 关键：DIRECT_MATCH 是 match_count==1 且 matched EnvId == ACTIVE_ENV 的二值判断
+        if match_count == 1 and matched_env_ids_for_compare:
+            direct_match = 'yes' if (active_env and matched_env_ids_for_compare[0] == active_env) else 'no'
+        else:
+            direct_match = 'no'  # 0 或 ≥1 个匹配都设为 no（前者因无匹配；后者因不唯一）
+
+        print('ALIASES=' + ','.join(aliases))
+        print('STATIC_DOMAINS=' + '||'.join(static_domains))
+        print('MATCHED_ALIASES=' + ','.join(matched_aliases))
+        print('MATCH_COUNT=' + str(match_count))
+        print('DIRECT_MATCH=' + direct_match)
+        print('MULTI_MATCH=' + multi_match)
+        print('HAS_STATIC_DOMAINS=' + has_static)
+except Exception as ex:
+    print('STATUS=PARSE_ERROR')
+    print('ERROR=' + type(ex).__name__ + ': ' + str(ex))
+PYEOF
+
+          python3 /tmp/parse-list-env.py > /tmp/parse-list-env.out 2> /tmp/parse-list-env.err
+          PARSE_RC=$?
+
+          if [ "$PARSE_RC" -ne 0 ] || ! grep -q "^STATUS=OK\|^STATUS=EMPTY" /tmp/parse-list-env.out; then
+            {
+              echo "## 步骤 4：可访问的 CloudBase 环境"
+              echo ""
+              echo "- tcb env list 退出码：$LIST_RC（命令成功）"
+              echo "- python3 解析退出码：$PARSE_RC"
+              echo ""
+              echo "**状态**：❌ JSON 解析失败（命令成功但响应无法解析）"
+              echo ""
+              echo "**错误详情**："
+              echo '```'
+              grep "^ERROR=" /tmp/parse-list-env.err 2>/dev/null || grep "^ERROR=" /tmp/parse-list-env.out 2>/dev/null || echo "（未知错误）"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          # 情形 3：解析成功
+          COUNT=$(grep "^COUNT=" /tmp/parse-list-env.out | cut -d= -f2)
+          ALIASES=$(grep "^ALIASES=" /tmp/parse-list-env.out | cut -d= -f2-)
+          STATIC_DOMAINS=$(grep "^STATIC_DOMAINS=" /tmp/parse-list-env.out | cut -d= -f2-)
+          MATCHED_ALIASES=$(grep "^MATCHED_ALIASES=" /tmp/parse-list-env.out | cut -d= -f2-)
+          MATCH_COUNT=$(grep "^MATCH_COUNT=" /tmp/parse-list-env.out | cut -d= -f2)
+          DIRECT_MATCH=$(grep "^DIRECT_MATCH=" /tmp/parse-list-env.out | cut -d= -f2)
+          MULTI_MATCH=$(grep "^MULTI_MATCH=" /tmp/parse-list-env.out | cut -d= -f2)
+          HAS_STATIC_DOMAINS=$(grep "^HAS_STATIC_DOMAINS=" /tmp/parse-list-env.out | cut -d= -f2)
+
+          # 写入 step output（不含 EnvId 真值）
+          echo "env_aliases=$ALIASES" >> "$GITHUB_OUTPUT"
+          echo "static_domains=$STATIC_DOMAINS" >> "$GITHUB_OUTPUT"
+          echo "matched_aliases=$MATCHED_ALIASES" >> "$GITHUB_OUTPUT"
+          echo "match_count=$MATCH_COUNT" >> "$GITHUB_OUTPUT"
+          echo "direct_match=$DIRECT_MATCH" >> "$GITHUB_OUTPUT"
+          echo "multi_match=$MULTI_MATCH" >> "$GITHUB_OUTPUT"
+          echo "has_static_domains=$HAS_STATIC_DOMAINS" >> "$GITHUB_OUTPUT"
+
           {
             echo "## 步骤 4：可访问的 CloudBase 环境"
             echo ""
-            echo "（API 返回前 50 行；如报错会展示错误码）"
+            echo "- tcb env list 退出码：$LIST_RC"
+            echo "- python3 解析退出码：$PARSE_RC"
+            echo "- 共可见 $COUNT 个环境"
             echo ""
+            echo "**状态**：✅ 成功"
+            echo ""
+            echo "**每个环境的静态托管 CDN 域名**（直接证据 C）："
             echo '```'
-            tcb env list --limit 50 2>&1 | head -50 || echo "<命令执行失败>"
+            if [ -n "$STATIC_DOMAINS" ]; then
+              echo "$STATIC_DOMAINS" | tr '||' '\n' | awk '{print "  - " $0}'
+            else
+              echo "（API 未返回 StaticStorages 字段——HAS_STATIC_DOMAINS=no）"
+            fi
             echo '```'
             echo ""
+            echo "**就地比对结果**（DNS CNAME vs 各环境 CDN 域名）："
+            echo "- 匹配数（MATCH_COUNT）：**$MATCH_COUNT**"
+            if [ "$MATCH_COUNT" = "0" ]; then
+              echo "- （无环境 CDN 域名等于 DNS CNAME）"
+            elif [ "$MATCH_COUNT" = "1" ]; then
+              echo "- ✅ 唯一匹配：Alias=\`$MATCHED_ALIASES\` 的环境 CDN 域名等于 DNS CNAME"
+              if [ "$DIRECT_MATCH" = "yes" ]; then
+                echo "- ✅ **DIRECT_MATCH=yes**：该环境 EnvId == ACTIVE_ENV（CLOUDBASE_ENV_ID）—— 真值关联已确认"
+              else
+                echo "- ❌ **DIRECT_MATCH=no**：该环境 EnvId ≠ ACTIVE_ENV——密钥配置的目标环境可能不是 DNS 指向的环境"
+              fi
+            else
+              echo "- ⚠️ **MULTI_MATCH=yes**：多个环境 CDN 域名 == DNS CNAME——EnvId 唯一性无法保证"
+            fi
+            echo ""
+            echo "**所有可见环境 Alias 列表**：\`$ALIASES\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
       # ---------------------------------------------------------------
-      # 步骤 5：查询生效环境的静态托管详情
+      # 步骤 5：查询生效环境静态托管详情（只读）
       #
-      # 关键设计修正（v2）：vars 与 secrets 路径都执行托管详情查询
-      #   - ACTIVE_ENV 直接引用 `vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID`
-      #     （与 deploy workflow 同样的模式）
-      #   - bash 中为真实值（用于 `tcb hosting detail -e`）
-      #   - 任何 echo 输出触发 GitHub 自动 mask（不进 step summary 明文）
-      # 只读：tcb hosting detail 是 GET 类查询
+      # v5 改进（CLI 兼容性 + 解析失败处理）：
+      #   - **不重复 login**（步骤 3.5 已鉴权）
+      #   - **JSON 解析失败立即 exit 1**（不假装成功）
+      #   - 用 --json flag + python3 提取 DefaultDomain / Domains
+      #   - 兼容多种字段名（大写驼峰和小写）
       # ---------------------------------------------------------------
       - name: 查询目标环境静态托管详情（只读）
         id: env-detail
@@ -159,47 +382,245 @@ jobs:
           # 直接引用 vars || secrets 真值（GitHub 自动 mask echo 输出）
           ACTIVE_ENV: ${{ vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID }}
         run: |
+          set -o pipefail
+
+          # 复用步骤 3.5 的鉴权状态（不重复 login）
+
+          tcb hosting detail -e "$ACTIVE_ENV" --json > /tmp/detail.json 2> /tmp/detail.err
+          DETAIL_RC=$?
+
+          # 情形 1：tcb 命令失败
+          if [ "$DETAIL_RC" -ne 0 ]; then
+            {
+              echo "## 步骤 5：目标环境静态托管配置"
+              echo ""
+              echo "- tcb hosting detail 退出码：$DETAIL_RC"
+              echo ""
+              echo "**状态**：❌ 失败（tcb 命令失败）"
+              echo ""
+              echo "**错误信息前 10 行**（已过滤敏感关键词）："
+              echo '```'
+              head -10 /tmp/detail.err | (grep -v -i -E "secret|api[_-]?key|token|password|credential" || true)
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          # 情形 2：JSON 解析失败
+          cat > /tmp/parse-detail.py << 'PYEOF'
+import json
+try:
+    with open('/tmp/detail.json', 'r') as f:
+        data = json.load(f)
+    if not isinstance(data, dict):
+        print('STATUS=PARSE_ERROR')
+        print('ERROR=响应不是对象（实际类型：' + type(data).__name__ + '）')
+    else:
+        default_domain = (data.get('DefaultDomain') or data.get('defaultDomain') or
+                          data.get('DefaultDomainName') or data.get('defaultDomainName') or '')
+        domains_raw = data.get('Domains') or data.get('domains') or []
+        domain_list = []
+        for d in domains_raw:
+            if isinstance(d, str):
+                domain_list.append(d)
+            elif isinstance(d, dict):
+                name = (d.get('DomainName') or d.get('domainName') or
+                        d.get('Name') or d.get('name') or
+                        d.get('Domain') or d.get('domain') or '')
+                if name:
+                    domain_list.append(name)
+        status = data.get('Status') or data.get('status') or ''
+        print('STATUS=OK')
+        print('DEFAULT_DOMAIN=' + default_domain)
+        print('DOMAIN_LIST=' + ','.join(domain_list))
+        print('STATUS_FIELD=' + status)
+except Exception as ex:
+    print('STATUS=PARSE_ERROR')
+    print('ERROR=' + type(ex).__name__ + ': ' + str(ex))
+PYEOF
+
+          python3 /tmp/parse-detail.py > /tmp/parse-detail.out 2> /tmp/parse-detail.err
+          PARSE_RC=$?
+
+          if [ "$PARSE_RC" -ne 0 ] || ! grep -q "^STATUS=OK" /tmp/parse-detail.out; then
+            {
+              echo "## 步骤 5：目标环境静态托管配置"
+              echo ""
+              echo "- tcb hosting detail 退出码：$DETAIL_RC"
+              echo "- python3 解析退出码：$PARSE_RC"
+              echo ""
+              echo "**状态**：❌ JSON 解析失败（命令成功但响应无法解析）"
+              echo ""
+              echo "**错误详情**："
+              echo '```'
+              grep "^ERROR=" /tmp/parse-detail.err 2>/dev/null || grep "^ERROR=" /tmp/parse-detail.out 2>/dev/null || echo "（未知错误）"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          # 情形 3：解析成功
+          DEFAULT_DOMAIN=$(grep "^DEFAULT_DOMAIN=" /tmp/parse-detail.out | cut -d= -f2-)
+          DOMAIN_LIST=$(grep "^DOMAIN_LIST=" /tmp/parse-detail.out | cut -d= -f2-)
+
+          # 写入 step output（不含 EnvId 真值）
+          echo "default_domain=$DEFAULT_DOMAIN" >> "$GITHUB_OUTPUT"
+          echo "domain_list=$DOMAIN_LIST" >> "$GITHUB_OUTPUT"
+
           {
             echo "## 步骤 5：目标环境静态托管配置"
             echo ""
+            echo "- tcb hosting detail 退出码：$DETAIL_RC"
+            echo "- python3 解析退出码：$PARSE_RC"
+            echo ""
+            echo "**状态**：✅ 成功"
+            echo ""
+            echo "**关键字段**（从 JSON 提取）："
             echo '```'
-            tcb hosting detail -e "$ACTIVE_ENV" 2>&1 | head -80 || echo "<命令执行失败>"
+            echo "默认域名（DefaultDomain）：$DEFAULT_DOMAIN"
+            echo "自定义域名清单：$DOMAIN_LIST"
             echo '```'
             echo ""
-            echo "**核对要点**（人工比对）："
-            echo "- DefaultDomain / 默认域名 是否与步骤 2 的 DNS CNAME 一致"
-            echo "- Domains / 自定义域名清单 中是否包含 \`www.ai-mmc.cn\` 或 \`ai-mmc.cn\`"
-            echo ""
+            echo "**直接证据 A**：上面'默认域名'是 ACTIVE_ENV 的官方 CDN 域名"
+            echo "如它等于步骤 2 的 DNS CNAME → ACTIVE_ENV 就是域名解析指向的环境"
           } >> "$GITHUB_STEP_SUMMARY"
 
       # ---------------------------------------------------------------
-      # 步骤 6：汇总证据（始终执行，让用户看到全貌）
+      # 步骤 6：汇总证据（始终执行）
+      #
+      # v6 严格判定（杜绝间接证据误判）：
+      #   - **检查步骤 4 / 5 结论**，任一失败时输出 ⚠️ 不给"成功"误导
+      #   - 全部成功时只用**直接证据**判定：
+      #     - **直接证据 A**：DNS CNAME（公网解析）
+      #     - **直接证据 B**：ACTIVE_ENV 的 DefaultDomain（用 CLOUDBASE_ENV_ID 直接查出来）
+      #     - **直接证据 C**：DIRECT_MATCH=yes（步骤 4 比对 MATCHED 环境的 EnvId == ACTIVE_ENV，**不输出 EnvId 真值**）
+      #   - **"环境匹配"必须 A == B ∧ DIRECT_MATCH=yes**
+      #   - **多重匹配**（MULTI_MATCH=yes）→ EnvId 唯一性无法保证 → "未确认"
+      #   - **字段缺失**（HAS_STATIC_DOMAINS=no）→ 无法做 EnvId 比对 → "未确认"
+      #   - 间接线索（DNS 短名 / Alias 列表 / ai-mmc 字样）只供人工参考，**不作为结论**
       # ---------------------------------------------------------------
       - name: 汇总
         if: always()
         run: |
+          LIST_CONCL=${{ steps.list-env.conclusion }}
+          DETAIL_CONCL=${{ steps.env-detail.conclusion }}
+          DNS_CNAME=${{ steps.dns.outputs.cname }}
+          DEFAULT_DOMAIN=${{ steps.env-detail.outputs.default_domain }}
+          MATCHED_ALIASES=${{ steps.list-env.outputs.matched_aliases }}
+          MATCH_COUNT=${{ steps.list-env.outputs.match_count }}
+          DIRECT_MATCH=${{ steps.list-env.outputs.direct_match }}
+          MULTI_MATCH=${{ steps.list-env.outputs.multi_match }}
+          HAS_STATIC_DOMAINS=${{ steps.list-env.outputs.has_static_domains }}
+          ENV_ALIASES=${{ steps.list-env.outputs.env_aliases }}
+
+          # 顶层汇总表
           {
             echo "## 汇总"
             echo ""
-            echo "| 项 | 值 |"
+            echo "| 项 | 结论 |"
             echo "|---|---|"
-            echo "| CLOUDBASE_ENV_ID 来源 | \`${{ steps.read-env.outputs.source }}\` |"
-            echo "| 实际生效环境真值 | （出于安全考虑不展示；请到 Secrets 页或参考步骤 4/5 输出） |"
-            echo "| DNS 目标域名 | \`${{ inputs.dns_target }}\` |"
-            echo "| DNS CNAME 记录 | \`${{ steps.dns.outputs.cname }}\` |"
+            echo "| 步骤 1（env 来源）| ${{ steps.read-env.outputs.source }} |"
+            echo "| 步骤 2（DNS CNAME）| \`$DNS_CNAME\` |"
+            echo "| 步骤 4（列环境）| $LIST_CONCL |"
+            echo "| 步骤 5（托管详情）| $DETAIL_CONCL |"
+            echo "| 步骤 4：MATCH_COUNT / MULTI_MATCH / DIRECT_MATCH | $MATCH_COUNT / $MULTI_MATCH / $DIRECT_MATCH |"
+            echo "| 步骤 4：HAS_STATIC_DOMAINS | $HAS_STATIC_DOMAINS |"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # 关键步骤失败 → 明确告知，不输出"成功"误导
+          if [ "$LIST_CONCL" != "success" ] || [ "$DETAIL_CONCL" != "success" ]; then
+            {
+              echo "---"
+              echo ""
+              echo "**⚠️ 关键步骤失败，无法给出绑定关系结论。**"
+              echo ""
+              echo "请查看步骤 4 / 5 的错误信息并排查后重跑。"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # 全部成功：直接证据判断
+          {
+            echo "---"
+            echo ""
+            echo "**直接证据判断（v6 严格判定）**："
+            echo ""
+            echo "| 证据 | 值 | 含义 |"
+            echo "|---|---|---|"
+            echo "| **直接证据 A**：DNS CNAME | \`$DNS_CNAME\` | DNS 解析实际指向 |"
+            echo "| **直接证据 B**：ACTIVE_ENV 默认域名 | \`$DEFAULT_DOMAIN\` | 密钥配置的目标环境默认 CDN 域名 |"
+            echo "| **直接证据 C**：DIRECT_MATCH | \`$DIRECT_MATCH\` | 步骤 4 中：匹配环境的 EnvId == ACTIVE_ENV |"
+            echo ""
+            echo "**辅助信息**："
+            echo ""
+            echo "- 匹配环境数（MATCH_COUNT）：$MATCH_COUNT"
+            echo "- 多个匹配（MULTI_MATCH）：$MULTI_MATCH"
+            echo "- 字段完整性（HAS_STATIC_DOMAINS）：$HAS_STATIC_DOMAINS"
+            echo "- 匹配环境的 Alias：\`$MATCHED_ALIASES\`"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # 判定 A == B
+          A_EQ_B="no"
+          if [ -n "$DNS_CNAME" ] && [ -n "$DEFAULT_DOMAIN" ] && [ "$DNS_CNAME" = "$DEFAULT_DOMAIN" ]; then
+            A_EQ_B="yes"
+          fi
+
+          if [ "$A_EQ_B" = "yes" ]; then
+            echo "✅ **A == B**：DNS 解析目标与 ACTIVE_ENV 默认域名一致" >> "$GITHUB_STEP_SUMMARY"
+          elif [ -n "$DNS_CNAME" ] && [ -n "$DEFAULT_DOMAIN" ]; then
+            echo "❌ **A ≠ B**：DNS 解析目标 ≠ ACTIVE_ENV 默认域名（域名绑定与密钥配置不一致）" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "（A 或 B 信息缺失）" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # 判定 C（DIRECT_MATCH）解释
+          if [ "$DIRECT_MATCH" = "yes" ]; then
+            echo "✅ **C=yes**：匹配环境的 EnvId == ACTIVE_ENV——真值关联已确认" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$MULTI_MATCH" = "yes" ]; then
+            echo "⚠️ **C=no（多重匹配）**：多个环境 CDN 域名 == DNS CNAME——EnvId 唯一性无法保证，不能确认 ACTIVE_ENV 是哪一个" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$MATCH_COUNT" = "0" ]; then
+            echo "（C=no：无环境 CDN 域名 == DNS CNAME）" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$HAS_STATIC_DOMAINS" = "no" ]; then
+            echo "⚠️ **C=no（字段缺失）**：API 响应缺 StaticStorages 字段——EnvId 比对无法进行" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "❌ **C=no**：匹配环境的 EnvId ≠ ACTIVE_ENV——密钥配置的目标环境可能不是 DNS 指向的环境" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # 最终结论（v6 严格判定）
+          {
             echo ""
             echo "---"
             echo ""
-            echo "**人工核对方法**："
+            echo "**最终结论（v6 严格判定）**："
             echo ""
-            echo "1. **DNS ↔ 环境匹配**：步骤 2 的 CNAME 短名（\`www\` 与 \`.cn.tcbaccess\` 之间）"
-            echo "   是否与步骤 4 中「可访问环境」表格的某个 Alias 对得上"
-            echo "2. **环境 ↔ 默认域名匹配**：步骤 5 的 \`DefaultDomain\` 字段是否等于步骤 2 的 CNAME"
-            echo "3. **自定义域名绑定**：步骤 5 的 \`Domains\` 清单里是否包含 \`www.ai-mmc.cn\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$MULTI_MATCH" = "yes" ]; then
+            echo "❓ **未确认（多重匹配）**：多个环境 CDN 域名都等于 DNS CNAME——EnvId 唯一性无法保证" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$HAS_STATIC_DOMAINS" = "no" ]; then
+            echo "❓ **未确认（字段缺失）**：API 响应缺 StaticStorages——无法做 EnvId 比对" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$A_EQ_B" = "yes" ] && [ "$DIRECT_MATCH" = "yes" ]; then
+            echo "✅ **环境匹配**（A == B ∧ C=yes 三项直接证据全部成立）：DNS ↔ ACTIVE_ENV 的默认域名 ↔ 匹配环境的 EnvId 三者一致，EnvId 真值关联已确认" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$A_EQ_B" = "yes" ] && [ "$DIRECT_MATCH" != "yes" ]; then
+            echo "❌ **不匹配**（A == B 成立但 C=no）：DNS 和 ACTIVE_ENV 默认域名一致，但匹配环境的 EnvId ≠ ACTIVE_ENV——可能密钥配置的目标环境不是 DNS 指向的环境，或数据不一致" >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$A_EQ_B" = "no" ] && [ -n "$DEFAULT_DOMAIN" ] && [ -n "$DNS_CNAME" ]; then
+            echo "❌ **不匹配**（A ≠ B）：DNS 解析目标 ≠ ACTIVE_ENV 默认域名——域名绑定与密钥配置不一致" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "❓ **未确认**：信息不完整，无法给出明确结论" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # 间接线索（明确标注为非证据）
+          {
             echo ""
-            echo "**结论建议**："
+            echo "---"
             echo ""
-            echo "- 三项一致 → 环境 ID、密钥、域名三者对齐，可放心部署"
-            echo "- DNS 短名 ≠ 任何环境 Alias → 域名绑的是别处，需要修正 deploy-cloudbase.yml 第 46 行注释"
-            echo "- 步骤 5 报错/权限不足 → 密钥对该环境无访问权，需要换密钥或换环境"
+            echo "**间接线索（仅供人工参考，不作为结论依据）**："
+            echo ""
+            echo "- DNS 短名：\`$(echo "$DNS_CNAME" | sed -n 's/^www\.\([^.]*\)\..*/\1/p')\`"
+            echo "- 可见环境 Alias 列表：\`$ENV_ALIASES\`"
+            echo ""
+            echo "> ⚠️ 'Alias 含 ai-mmc'或'DNS 短名匹配'**不代表** ACTIVE_ENV 就是该环境。"
+            echo "> 只有上方的 A == B ∧ C=yes 全部成立时，才能确认环境匹配。"
           } >> "$GITHUB_STEP_SUMMARY"
