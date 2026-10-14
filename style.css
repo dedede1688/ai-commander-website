@@ -873,7 +873,8 @@
    这样「看个人主页」在全站是同一个动作，肌肉记忆一致。
    色值全部引用现有变量，未引入任何新颜色。 */
 
-/* ---- 手动详情弹窗（浅底）---- */
+/* ---- 手动详情弹窗（浅底）----
+   与 .rc 名录卡片视觉统一：默认浅灰边 + 白底，hover 卡片青绿边 + 阴影抬起 */
 .m-link {
   display: flex;            /* block-level，让 margin-left:auto 生效推右 */
   align-items: center;
@@ -887,26 +888,20 @@
   letter-spacing: 1px;
   color: var(--navy);
   background: #fff;
-  /* 描边：深蓝紫（主）+ 1px 青蓝内层（与头像光晕呼应） */
-  border: 1.5px solid var(--navy);
+  /* 卡片默认浅灰细边框 + 白底 */
+  border: 1px solid #e3e8f0;
   border-radius: 24px;
   text-decoration: none;
-  transition:
-    background 0.16s,
-    color 0.16s,
-    border-color 0.16s,
-    transform 0.16s,
-    box-shadow 0.16s;
+  /* 复用 .rc 卡片 transition all 0.18s */
+  transition: all 0.18s;
 }
 .m-link:hover {
-  background: rgba(0, 237, 189, 0.10);   /* 淡青蓝填充（10% 不抢戏） */
+  /* 复用 .rc 卡片 hover：青绿边框 + 抬起 + 青绿阴影 */
+  border-color: #00b89c;
   color: var(--navy);
-  border-color: var(--teal);              /* 边框变青蓝 */
-  transform: translateY(-2px);
-  /* 光晕：青蓝 + 淡紫（与头像光晕协调） */
-  box-shadow:
-    0 8px 20px rgba(0, 237, 189, 0.22),
-    0 0 14px rgba(167, 139, 250, 0.14);
+  background: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 163, 127, 0.16);
 }
 .m-link-arrow {
   font-style: normal;
@@ -923,7 +918,8 @@
   display: none;
 }
 
-/* ---- 自动宣传弹窗（深底）---- */
+/* ---- 自动宣传弹窗（深底）----
+   与 .rc 名录卡片视觉统一：默认浅灰边 + 白底，hover 卡片青绿边 + 阴影抬起 */
 .ad-profile {
   display: flex;            /* block-level，让 margin-left:auto 生效 */
   align-items: center;
@@ -935,27 +931,22 @@
   font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--teal);
-  background: transparent;
-  border: 1.5px solid rgba(0, 237, 189, 0.55);
+  color: var(--navy);
+  background: #fff;
+  /* 卡片默认浅灰细边框 + 白底（与 .m-link 完全统一） */
+  border: 1px solid #e3e8f0;
   border-radius: 24px;
   text-decoration: none;
-  transition:
-    background 0.16s,
-    color 0.16s,
-    border-color 0.16s,
-    transform 0.16s,
-    box-shadow 0.16s;
+  /* 复用 .rc 卡片 transition all 0.18s */
+  transition: all 0.18s;
 }
 .ad-profile:hover {
-  background: rgba(0, 237, 189, 0.14);
-  color: var(--teal);
-  border-color: var(--teal);
-  transform: translateY(-2px);
-  /* 与详情弹窗按钮协调：青蓝 + 淡紫光晕 */
-  box-shadow:
-    0 8px 20px rgba(0, 237, 189, 0.22),
-    0 0 14px rgba(167, 139, 250, 0.14);
+  /* 复用 .rc 卡片 hover：青绿边框 + 抬起 + 青绿阴影 */
+  border-color: #00b89c;
+  color: var(--navy);
+  background: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 163, 127, 0.16);
 }
 .ad-profile-arrow {
   font-style: normal;
