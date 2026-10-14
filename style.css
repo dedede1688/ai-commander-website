@@ -812,9 +812,17 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 2px var(--teal);
   flex: 0 0 96px;
+  /* 升级：青蓝→淡紫渐变圆环 + 柔和光晕（box-shadow 三层近似渐变） */
+  border: 1.5px solid #fff;
+  box-shadow:
+    /* 渐变环：青绿 → 紫蓝 → 淡紫 */
+    0 0 0 1px #00edbd,
+    0 0 0 2.5px #818cf8,
+    0 0 0 4px rgba(167, 139, 250, 0.45),
+    /* 柔和光晕（双层青蓝 + 淡紫） */
+    0 0 10px rgba(0, 237, 189, 0.25),
+    0 0 22px rgba(167, 139, 250, 0.16);
 }
 /* 弹窗内大图的占位态，与 .rc-photo-fallback 同思路但尺寸更大 */
 .m-photo-fallback {
@@ -867,30 +875,38 @@
 
 /* ---- 手动详情弹窗（浅底）---- */
 .m-link {
-  display: inline-flex;
+  display: flex;            /* block-level，让 margin-left:auto 生效推右 */
   align-items: center;
   gap: 8px;
   margin-top: 20px;
+  margin-left: auto;        /* 推到弹窗右端，与正文右边缘对齐 */
+  width: fit-content;       /* 不强制拉伸，配合 margin-left:auto */
   padding: 11px 26px;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--navy);
   background: #fff;
+  /* 描边：深蓝紫（主）+ 1px 青蓝内层（与头像光晕呼应） */
   border: 1.5px solid var(--navy);
   border-radius: 24px;
   text-decoration: none;
   transition:
     background 0.16s,
     color 0.16s,
+    border-color 0.16s,
     transform 0.16s,
     box-shadow 0.16s;
 }
 .m-link:hover {
-  background: var(--navy);
-  color: #fff;
+  background: rgba(0, 237, 189, 0.10);   /* 淡青蓝填充（10% 不抢戏） */
+  color: var(--navy);
+  border-color: var(--teal);              /* 边框变青蓝 */
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.18);
+  /* 光晕：青蓝 + 淡紫（与头像光晕协调） */
+  box-shadow:
+    0 8px 20px rgba(0, 237, 189, 0.22),
+    0 0 14px rgba(167, 139, 250, 0.14);
 }
 .m-link-arrow {
   font-style: normal;
@@ -909,10 +925,12 @@
 
 /* ---- 自动宣传弹窗（深底）---- */
 .ad-profile {
-  display: inline-flex;
+  display: flex;            /* block-level，让 margin-left:auto 生效 */
   align-items: center;
   gap: 8px;
   margin-top: 14px;
+  margin-left: auto;        /* 推到弹窗右端 */
+  width: fit-content;
   padding: 9px 26px;
   font-size: 13.5px;
   font-weight: 700;
@@ -924,13 +942,20 @@
   text-decoration: none;
   transition:
     background 0.16s,
+    color 0.16s,
     border-color 0.16s,
-    transform 0.16s;
+    transform 0.16s,
+    box-shadow 0.16s;
 }
 .ad-profile:hover {
   background: rgba(0, 237, 189, 0.14);
+  color: var(--teal);
   border-color: var(--teal);
   transform: translateY(-2px);
+  /* 与详情弹窗按钮协调：青蓝 + 淡紫光晕 */
+  box-shadow:
+    0 8px 20px rgba(0, 237, 189, 0.22),
+    0 0 14px rgba(167, 139, 250, 0.14);
 }
 .ad-profile-arrow {
   font-style: normal;
@@ -942,10 +967,14 @@
   transform: translateX(3px);
 }
 
-/* 窄屏：按钮独占一行，避免与文字挤在一起 */
+/* 窄屏：按钮自适应宽度 + 仍右对齐，不拉伸到整宽，避免溢出 */
 @media (max-width: 480px) {
   .m-link {
-    width: 100%;
+    width: fit-content;
+    justify-content: center;
+  }
+  .ad-profile {
+    width: fit-content;
     justify-content: center;
   }
 }
@@ -1445,7 +1474,6 @@ ul.plain {
     width: 64px;
     height: 64px;
     flex: 0 0 64px;
-    border-width: 2px;
   }
   .m-name {
     font-size: 20px;
