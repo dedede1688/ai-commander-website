@@ -146,6 +146,17 @@ body {
   color: #fff;
   background: rgba(0, 237, 189, 0.13);
 }
+
+/* ===== Phase 1B-1：移动端汉堡菜单（默认桌面隐藏）===== */
+.menu-toggle {
+  display: none;
+}
+.nav-backdrop {
+  display: none;
+}
+.nav-drawer {
+  display: none;
+}
 .nav-link.active {
   color: var(--teal);
   background: rgba(0, 237, 189, 0.17);
@@ -372,12 +383,81 @@ html {
     font-size: 14px;
     letter-spacing: 1px;
   }
-  .nav-link {
-    font-size: 14px;
-    padding: 6px 10px;
-  }
+  /* Phase 1B-1：移动端隐藏横向 nav-links，显示汉堡按钮 + 抽屉 */
   .nav-links {
-    gap: 6px;
+    display: none;
+  }
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    background: transparent;
+    border: 1.5px solid var(--teal);
+    border-radius: 8px;
+    color: var(--teal);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .menu-toggle:hover,
+  .menu-toggle:focus-visible {
+    background: rgba(0, 237, 189, 0.12);
+    outline: none;
+  }
+  /* 抽屉遮罩 */
+.nav-backdrop:not([hidden]) {
+  display: block;
+  position: fixed;
+    inset: 0;
+    background: rgba(11, 20, 38, 0.55);
+    backdrop-filter: blur(2px);
+    z-index: 90;
+  }
+  /* 抽屉本体：右侧滑出 + 完整 nav 7 项 */
+  .nav-drawer {
+    display: block;
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    background: var(--navy);
+    border-top: 1px solid rgba(0, 237, 189, 0.25);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    z-index: 100;
+    max-height: calc(100vh - 52px);
+    overflow-y: auto;
+  }
+  .nav-drawer[hidden] {
+    display: none;
+  }
+  .nav-drawer-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+  }
+  .nav-drawer-inner a {
+    display: block;
+    padding: 14px 22px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    min-height: 44px; /* 移动端可点击区域 ≥ 44px（v2.1 4.1 规范）*/
+  }
+  .nav-drawer-inner a:hover,
+  .nav-drawer-inner a:focus-visible {
+    background: rgba(0, 237, 189, 0.1);
+    border-left-color: var(--teal);
+    outline: none;
+  }
+  .nav-drawer-inner a.nav-gift {
+    color: var(--teal);
+    font-weight: 700;
   }
   h2 {
     font-size: 19px;
@@ -399,10 +479,7 @@ html {
   .nav-brand {
     font-size: 13px;
   }
-  .nav-link {
-    font-size: 13.5px;
-    padding: 6px 9px;
-  }
+  /* Phase 1B-1：480px 块不再依赖缩小字号（已在 768 块用抽屉替代） */
   h2 {
     font-size: 18.5px;
     padding-left: 10px;

@@ -98,6 +98,84 @@
   letter-spacing: 0.5px;
 }
 
+/* ===== V3.1 Hero 融合：品牌宣言 + 双 CTA（V3.1 融合新增）===== */
+.rpt-tagline {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #fff;
+  line-height: 1.25;
+  margin-top: 18px;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 18px rgba(0, 237, 189, 0.25);
+}
+.rpt-tagline-emph {
+  color: var(--teal);
+  font-style: italic;
+  font-weight: 800;
+}
+.rpt-cta {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+.rpt-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 13px 26px;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #0d1440;
+  background: var(--teal);
+  border: 1px solid var(--teal);
+  border-radius: 26px;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 237, 189, 0.32);
+}
+.rpt-cta-primary:hover {
+  background: #00cba3;
+  color: #0d1440;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 237, 189, 0.5);
+}
+.rpt-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 13px 26px;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--teal);
+  background: transparent;
+  border: 1.5px solid rgba(0, 237, 189, 0.55);
+  border-radius: 26px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.rpt-cta-secondary:hover {
+  background: rgba(0, 237, 189, 0.14);
+  border-color: var(--teal);
+  color: #fff;
+  transform: translateY(-2px);
+}
+/* "剩余 8 席" 副标（在 22/30 数据格旁）*/
+.rpt-seats .seats-hint {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.5px;
+  margin-left: 4px;
+  font-weight: 400;
+  font-family: Consolas, monospace;
+}
+
 .rpt-seats {
   display: flex;
   align-items: baseline;
@@ -298,6 +376,14 @@
   .rpt-meta {
     grid-column: 1;
     grid-row: 3;
+  }
+  .rpt-tagline {
+    font-size: 28px;
+  }
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    padding: 11px 22px;
+    font-size: 14px;
   }
 }
 
@@ -1242,6 +1328,58 @@ ul.plain {
     margin-top: 14px;
     padding-top: 20px;
   }
+  .rpt-tagline {
+    font-size: 24px;
+    margin-top: 14px;
+  }
+  .rpt-cta {
+    margin-top: 18px;
+  }
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    padding: 12px 24px;
+    font-size: 14px;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  /* 768px 块：3 数据格 3 列紧凑 + Hero 间距压缩 + 立体书提前 */
+  .rpt-head {
+    padding: 26px 22px 24px;
+  }
+  .rpt-seats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .rpt-seats .seats-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+  .rpt-seats .lb {
+    font-size: 11px;
+  }
+  .rpt-seats .vl {
+    font-size: 22px;
+  }
+  .rpt-seats .vl small {
+    font-size: 10.5px;
+  }
+  .rpt-seats .seats-hint {
+    display: block;
+    font-size: 10px;
+    margin-left: 0;
+    margin-top: 2px;
+  }
+  .rpt-book {
+    margin-top: 24px;
+  }
+  .book-img {
+    height: 240px;
+  }
+  /* Phase 1B-1：768px 块不再依赖缩小字号（base.css 已切换为汉堡 + 抽屉） */
   .rpt-book {
     margin-top: 36px;
   }
@@ -1332,9 +1470,92 @@ ul.plain {
     font-size: 13px;
     gap: 10px 14px;
   }
+  .rpt-tagline {
+    font-size: 20px;
+    margin-top: 12px;
+  }
+  .rpt-cta {
+    flex-direction: column;
+    margin-top: 14px;
+    gap: 10px;
+  }
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    width: 100%;
+    padding: 11px 16px;
+    font-size: 13.5px;
+  }
   .book-img {
     height: 170px;
   }
+  /* 480px 块：3 数据格紧凑 + Hero 进一步压缩 + 顶 nav 字号 */
+  .rpt-head {
+    padding: 18px 14px 20px;
+  }
+  .rpt-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .rpt-title {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .rpt-by {
+    font-size: 0.55em;
+    margin-left: 6px;
+  }
+  .rpt-sub {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .rpt-tagline {
+    font-size: 18px;
+    margin-top: 10px;
+    line-height: 1.2;
+  }
+  .rpt-cta {
+    margin-top: 12px;
+    gap: 8px;
+  }
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+  .rpt-seats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-top: 12px;
+  }
+  .rpt-seats .seats-item {
+    gap: 2px;
+  }
+  .rpt-seats .lb {
+    font-size: 9.5px;
+    letter-spacing: 0.3px;
+  }
+  .rpt-seats .vl {
+    font-size: 18px;
+  }
+  .rpt-seats .vl small {
+    font-size: 9px;
+  }
+  .rpt-seats .seats-hint {
+    font-size: 8.5px;
+    margin-top: 1px;
+  }
+  .rpt-book {
+    margin-top: 18px;
+  }
+  .book-img {
+    height: 160px;
+  }
+  .rpt-meta {
+    margin-top: 10px;
+    padding-top: 14px;
+  }
+  /* Phase 1B-1：480px 块不再依赖 nav 缩小字号（base.css 抽屉替代） */
 
   .pr-title {
     font-size: 21px;
@@ -2195,4 +2416,622 @@ ul.plain {
     flex-direction: column;
     text-align: center;
   }
+}
+
+/* ========================================
+   V3.1 AI 课程模块 — 隔离样式
+   桌面 3 列 / 平板 2 列 / 手机 1 列
+   沿用品牌色：--navy #141F60 / --teal #00EDBD / 白底 #fff
+   ======================================== */
+.card .tag-plan {
+  display: inline-block;
+  background: rgba(0, 237, 189, 0.1);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(0, 237, 189, 0.3);
+  letter-spacing: 0.5px;
+}
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 24px 0;
+}
+.course-card {
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 10px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 8px rgba(20, 31, 96, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.course-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.12);
+}
+.course-num {
+  display: block;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--navy);
+  opacity: 0.85;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.course-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 8px 0 10px;
+  line-height: 1.3;
+}
+.course-card p {
+  font-size: 13.5px;
+  color: #555;
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
+.course-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  color: #778;
+  background: #f7f8fa;
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid #e3e8f0;
+  letter-spacing: 0.3px;
+}
+.course-more {
+  margin-top: 24px;
+  text-align: center;
+}
+.course-more-text {
+  display: block;
+  font-size: 12.5px;
+  color: #889;
+  line-height: 1.6;
+}
+
+/* --- 平板 480–768px：2 列 --- */
+@media (max-width: 768px) {
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .course-card {
+    padding: 18px 16px;
+  }
+  .course-num {
+    font-size: 26px;
+  }
+  .course-card h3 {
+    font-size: 15px;
+  }
+}
+
+/* --- 手机 ≤ 479px：1 列 --- */
+@media (max-width: 479px) {
+  .course-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .course-card {
+    padding: 16px 14px;
+  }
+  .course-num {
+    font-size: 24px;
+  }
+  .course-card h3 {
+    font-size: 14.5px;
+    margin: 6px 0 8px;
+  }
+  .course-card p {
+    font-size: 13px;
+    margin: 0 0 12px;
+  }
+  .card .tag-plan {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+  .course-more-text {
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   V3.1 AI 指挥官会员俱乐部（#club）— 隔离样式
+   桌面 4 列 / 平板 2 列 / 手机 1 列
+   沿用品牌色：--navy #141F60 / --teal #00EDBD / 白底 #fff
+   ======================================== */
+.club-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 24px 0;
+}
+.club-card {
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 10px;
+  padding: 22px 18px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(20, 31, 96, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.club-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.12);
+}
+.club-icon {
+  display: block;
+  font-size: 36px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.club-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+.club-card p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+.club-note {
+  margin-top: 20px;
+  text-align: center;
+}
+.club-note-text {
+  display: block;
+  font-size: 12.5px;
+  color: #889;
+  line-height: 1.6;
+}
+
+/* --- 平板 480–768px：2 列 --- */
+@media (max-width: 768px) {
+  .club-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .club-card {
+    padding: 18px 16px;
+  }
+  .club-icon {
+    font-size: 30px;
+  }
+  .club-card h3 {
+    font-size: 14px;
+  }
+}
+
+/* --- 手机 ≤ 479px：1 列 --- */
+@media (max-width: 479px) {
+  .club-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .club-card {
+    padding: 16px 14px;
+  }
+  .club-icon {
+    font-size: 26px;
+  }
+  .club-card h3 {
+    font-size: 13.5px;
+  }
+  .club-card p {
+    font-size: 12.5px;
+  }
+  .club-note-text {
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   V3.1 AI 工具模块（#tools）— 隔离样式
+   桌面 4 列 / 平板 2 列 / 手机 1 列
+   沿用品牌色：--navy #141F60 / --teal #00EDBD / 白底 #fff
+   ======================================== */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 24px 0;
+}
+.tool-card {
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 10px;
+  padding: 22px 18px;
+  box-shadow: 0 2px 8px rgba(20, 31, 96, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  display: flex;
+  flex-direction: column;
+}
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.12);
+}
+.tool-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 12px 0 8px;
+  line-height: 1.3;
+}
+.tool-card p {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+.tag-online {
+  display: inline-block;
+  background: rgba(0, 184, 156, 0.12);
+  color: #008a6d;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 184, 156, 0.35);
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+}
+.tool-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #008a6d;
+  text-decoration: none;
+  padding: 7px 16px;
+  border: 1.5px solid #00a37f;
+  border-radius: 18px;
+  transition: all 0.18s ease;
+  align-self: flex-start;
+}
+.tool-link:hover {
+  background: #00a37f;
+  color: #fff;
+}
+.tool-online {
+  border-color: rgba(0, 184, 156, 0.35);
+  background: linear-gradient(180deg, rgba(0, 237, 189, 0.04) 0%, #fff 100%);
+}
+.tools-note {
+  margin-top: 20px;
+  text-align: center;
+}
+.tools-note-text {
+  display: block;
+  font-size: 12.5px;
+  color: #889;
+  line-height: 1.6;
+}
+
+/* --- 平板 480–768px：2 列 --- */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .tool-card {
+    padding: 18px 16px;
+  }
+  .tool-card h3 {
+    font-size: 14px;
+  }
+}
+
+/* --- 手机 ≤ 479px：1 列 --- */
+@media (max-width: 479px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .tool-card {
+    padding: 16px 14px;
+  }
+  .tool-card h3 {
+    font-size: 13.5px;
+  }
+  .tool-card p {
+    font-size: 12.5px;
+  }
+  .tools-note-text {
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   V3.1 知识中心（#articles）— 隔离样式
+   桌面 3 列 / 平板 2 列 / 手机 1 列
+   沿用品牌色：--navy #141F60 / --teal #00EDBD / 白底 #fff
+   ======================================== */
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 24px 0;
+}
+.article-card {
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 10px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 8px rgba(20, 31, 96, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.12);
+}
+.article-icon {
+  display: block;
+  font-size: 36px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.article-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 8px 0 10px;
+  line-height: 1.3;
+}
+.article-card p {
+  font-size: 13.5px;
+  color: #444;
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
+.article-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  color: #778;
+  background: #f7f8fa;
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid #e3e8f0;
+  letter-spacing: 0.3px;
+}
+.article-note {
+  margin-top: 24px;
+  text-align: center;
+}
+.article-note-text {
+  display: block;
+  font-size: 12.5px;
+  color: #889;
+  line-height: 1.6;
+}
+
+/* --- 平板 480–768px：2 列 --- */
+@media (max-width: 768px) {
+  .article-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .article-card {
+    padding: 18px 16px;
+  }
+  .article-icon {
+    font-size: 30px;
+  }
+  .article-card h3 {
+    font-size: 14.5px;
+  }
+}
+
+/* --- 手机 ≤ 479px：1 列 --- */
+@media (max-width: 479px) {
+  .article-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .article-card {
+    padding: 16px 14px;
+  }
+  .article-icon {
+    font-size: 26px;
+  }
+  .article-card h3 {
+    font-size: 14px;
+  }
+  .article-card p {
+    font-size: 13px;
+  }
+  .article-note-text {
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   V3.1 学习交流（#community）— 隔离样式
+   简洁宽幅 Banner，三标签紧凑横排
+   沿用品牌色：--navy #141F60 / --teal #00EDBD / 白底 #fff
+   ======================================== */
+#community {
+  text-align: center;
+}
+.community-sub {
+  font-size: 14px;
+  color: #555;
+  margin: 10px 0 18px;
+  line-height: 1.7;
+}
+.community-tags {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.community-tag {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--navy);
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 24px;
+  transition: all 0.18s;
+}
+.community-tag:hover {
+  border-color: #00b89c;
+  color: var(--navy);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 163, 127, 0.12);
+}
+.community-note {
+  font-size: 12.5px;
+  color: #889;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- 平板 ≤ 768px --- */
+@media (max-width: 768px) {
+  .community-tags {
+    gap: 10px;
+  }
+  .community-tag {
+    padding: 7px 16px;
+    font-size: 13px;
+  }
+}
+
+/* --- 手机 ≤ 479px --- */
+@media (max-width: 479px) {
+  .community-tags {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .community-tag {
+    width: 100%;
+    max-width: 240px;
+    text-align: center;
+  }
+  .community-sub {
+    font-size: 13.5px;
+  }
+}
+
+/* ========================================
+   V3.1 商务合作（#business）— 隔离样式
+   3 列紧凑卡片 / 平板 2 列 / 手机 1 列
+   沿用品牌色：--navy #141F60 / --teal #00EDBD / 白底 #fff
+   ======================================== */
+#business {
+  text-align: center;
+}
+.business-sub {
+  font-size: 13.5px;
+  color: #555;
+  margin: 8px 0 18px;
+  line-height: 1.7;
+}
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.business-card {
+  text-align: left;
+  padding: 16px 14px;
+  background: #fafbfd;
+  border: 1px solid #eef1f6;
+  border-radius: 6px;
+  transition: all 0.18s;
+}
+.business-card:hover {
+  border-color: #00b89c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 163, 127, 0.1);
+}
+.business-icon {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.business-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+.business-card p {
+  font-size: 12.5px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+.business-note {
+  font-size: 12px;
+  color: #889;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- 平板 ≤ 768px：2 列 --- */
+@media (max-width: 768px) {
+  .business-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* --- 手机 ≤ 479px：1 列 --- */
+@media (max-width: 479px) {
+  .business-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .business-card {
+    padding: 14px 12px;
+  }
+}
+
+/* ========================================
+   V3.1 合作联系（#business-contact）— 隔离样式
+   简洁文字展示，无表单/按钮/二维码
+   ======================================== */
+#business-contact {
+  text-align: center;
+}
+.contact-info {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.75;
+  margin: 8px 0 0;
+}
+
+/* --- V3.1 标题居中青绿竖线修复 ---
+   h2 默认全局样式：border-left:4px solid #00b89c + padding-left:13px。
+   当父容器 text-align:center 时，h2 块占满卡片全宽，装饰线贴在卡片左边缘，
+   而文字居中，导致文字与装饰线视觉分离。
+   修复思路：h2 改为 width:fit-content + margin:0 auto，
+   使 h2 收缩为内容宽度并水平居中，装饰线紧贴文字左侧。
+   仅作用于 #community / #business / #business-contact，不影响全站其他 h2。 */
+#community h2,
+#business h2,
+#business-contact h2 {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }

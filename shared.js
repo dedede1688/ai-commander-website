@@ -20,6 +20,12 @@
   var ANCHORS = [
     { hash: "sec-book", text: "关于本书" },
     { hash: "sec-roster", text: "指挥官军团" },
+    { hash: "courses", text: "AI 课程" },
+    { hash: "club", text: "会员俱乐部" },
+    { hash: "tools", text: "AI 工具" },
+    { hash: "articles", text: "知识中心" },
+    { hash: "community", text: "学习交流" },
+    { hash: "business", text: "商务合作" },
     { hash: "sec-ai", text: "共建指数" },
     { hash: "sec-honor", text: "四级荣誉" },
   ];
@@ -76,6 +82,20 @@
       '<div class="nav-links">' +
       links +
       "</div>" +
+      // ===== Phase 1B-1 新增：移动端汉堡菜单按钮 =====
+      '<button class="menu-toggle" id="navToggle" type="button" ' +
+        'aria-controls="navDrawer" aria-expanded="false" ' +
+        'aria-label="打开导航菜单">' +
+        '<span class="menu-toggle-icon" aria-hidden="true">☰</span>' +
+      '</button>' +
+      "</div>" +
+      // ===== Phase 1B-1 新增：抽屉 + 遮罩 =====
+      '<div class="nav-backdrop" id="navBackdrop" hidden></div>' +
+      '<div class="nav-drawer" id="navDrawer" role="dialog" ' +
+        'aria-modal="true" aria-label="导航菜单" hidden>' +
+        '<div class="nav-drawer-inner">' +
+        links +
+        "</div>" +
       "</div>";
 
     /* ---------- 窄屏单行滚动的可达性 ----------
@@ -114,6 +134,95 @@
       }
       navLinks.addEventListener("scroll", syncFade, { passive: true });
       syncFade();
+    }
+
+    /* ---------- Phase 1B-1：移动端汉堡菜单 + 抽屉交互 ----------
+       桌面端 .menu-toggle 与 .nav-drawer 由 base.css 默认 display:none，移动端 @media 切换。 */
+    var navToggle = document.getElementById("navToggle");
+    var navDrawer = document.getElementById("navDrawer");
+    var navBackdrop = document.getElementById("navBackdrop");
+    if (navToggle && navDrawer) {
+      function openDrawer() {
+        navDrawer.hidden = false;
+        if (navBackdrop) navBackdrop.hidden = false;
+        navToggle.setAttribute("aria-expanded", "true");
+        navToggle.setAttribute("aria-label", "关闭导航菜单");
+        document.body.style.overflow = "hidden";
+        // 焦点移到第一个链接（可达性）
+        var firstLink = navDrawer.querySelector("a");
+        if (firstLink) setTimeout(function () { firstLink.focus(); }, 0);
+      }
+      function closeDrawer() {
+        navDrawer.hidden = true;
+        if (navBackdrop) navBackdrop.hidden = true;
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "打开导航菜单");
+        document.body.style.overflow = "";
+        // 焦点回到按钮（可达性）
+        navToggle.focus();
+      }
+      function toggleDrawer() {
+        if (navDrawer.hidden) openDrawer();
+        else closeDrawer();
+      }
+      // 汉堡按钮点击
+      navToggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        toggleDrawer();
+      });
+      // 链接点击 → 关闭抽屉
+      navDrawer.addEventListener("click", function (e) {
+        if (e.target.closest("a")) closeDrawer();
+      });
+      // 遮罩点击 → 关闭
+      if (navBackdrop) {
+        navBackdrop.addEventListener("click", closeDrawer);
+      }
+      // Esc 键 → 关闭
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !navDrawer.hidden) closeDrawer();
+      });
+      /* ---------- Phase 1B-1 修复1：抽屉焦点陷阱 ----------
+         抽屉打开时，Tab/Shift+Tab在抽屉链接间循环，不跳出也不关闭。
+         正向Tab：最后一项 → 循环回第一项；
+         反向Shift+Tab：第一项 → 循环回最后一项。
+         仅Esc / 菜单按钮 / 遮罩点击 / 链接点击可关闭抽屉。 */
+      navDrawer.addEventListener("keydown", function (e) {
+        if (e.key !== "Tab" || navDrawer.hidden) return;
+        var focusable = navDrawer.querySelectorAll('a[href]');
+        if (focusable.length === 0) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          // Shift+Tab：第一项 → 循环到抽屉最后一项（不关闭）
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          // Tab：最后一项 → 循环回第一项
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      });
+      /* ---------- Phase 1B-1 修复2：窗口resize复位 ----------
+         当视口从移动端（<=768px）切换到桌面端（>768px）时，
+         自动关闭抽屉、清除body overflow锁定、复位aria状态。
+         从桌面端切回移动端也让残留的hidden/overflow状态清零。 */
+      window.addEventListener("resize", function () {
+        if (!navDrawer.hidden) {
+          // 抽屉当前开着：切换到桌面则关闭（CSS会自动接管显示方式）
+          if (window.innerWidth > 768) {
+            closeDrawer();
+          }
+        }
+        /* 无论抽屉是否打开，只要视口回到桌面就强制清除可能残留的body锁定 */
+        if (window.innerWidth > 768) {
+          document.body.style.overflow = "";
+        }
+      });
     }
   }
 
