@@ -252,8 +252,24 @@
   /* ---------- 3. AI 大礼包二维码层 ---------- */
   var qrLayer = document.getElementById("qrLayer");
   if (qrLayer) {
-    function openQr() {
+    var _qrTrigger = null; /* 记录触发按钮，关闭时焦点返回 */
+
+    function openQr(e) {
+      _qrTrigger = e && e.target && e.target.closest ? e.target.closest("[data-open-qr]") : null;
       qrLayer.classList.add("on");
+      /* 打开后将焦点移到关闭按钮，提高键盘可访问性 */
+      var closeBtn = qrLayer.querySelector(".qr-close");
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeQr() {
+      var trigger = _qrTrigger;
+      _qrTrigger = null;
+      qrLayer.classList.remove("on");
+      /* 关闭后焦点返回到触发按钮；MutationObserver 已同步清除 inert */
+      if (trigger && typeof trigger.focus === "function") {
+        requestAnimationFrame(function () { trigger.focus(); });
+      }
     }
 
     /* 导航栏「AI 大礼包」按钮 */
@@ -261,7 +277,7 @@
     if (navGift) {
       navGift.addEventListener("click", function (e) {
         e.preventDefault();
-        openQr();
+        openQr(e);
       });
     }
 
@@ -270,13 +286,92 @@
       document.querySelectorAll("[data-open-qr]"),
       function (el) {
         el.addEventListener("click", openQr);
+        /* 为 role=button 类元素添加键盘支持（Enter/Space 触发） */
+        if (el.getAttribute("role") === "button") {
+          el.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              var ev = new MouseEvent("click", { bubbles: true, cancelable: true });
+              el.dispatchEvent(ev);
+            }
+          });
+        }
       },
     );
 
-    /* 点击二维码层任意位置 → 关闭 */
-    qrLayer.addEventListener("click", function () {
-      qrLayer.classList.remove("on");
+    /* 关闭按钮 */
+    var qrCloseEl = qrLayer.querySelector(".qr-close");
+    if (qrCloseEl) {
+      qrCloseEl.addEventListener("click", closeQr);
+    }
+
+    /* 面板内部点击不冒泡，防止误关闭 */
+    var qrPanelEl = qrLayer.querySelector(".qr-panel");
+    if (qrPanelEl) {
+      qrPanelEl.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+    }
+
+    /* 点击面板外的遮罩区域 → 关闭 */
+    qrLayer.addEventListener("click", function (e) {
+      /* 仅当点击的是 .qr-layer 本身（遮罩）时关闭 */
+      if (e.target === qrLayer) {
+        closeQr();
+      }
     });
+
+    /* Escape 关闭 */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && qrLayer.classList.contains("on")) {
+        e.preventDefault();
+        closeQr();
+      }
+    });
+    /* ---------- 焦点陷阱：弹窗打开时 Tab/Shift+Tab 在弹窗内循环 ---------- */
+    qrLayer.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab" || !qrLayer.classList.contains("on")) return;
+      var focusable = qrLayer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusable.length === 0) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+    /* 打开弹窗时对所有背景兄弟节点（nav、.wrap）加 inert，弹窗自身及其祖先不被禁用 */
+    var _inertTargets = [];
+    var _inertOrigState = [];
+    function _forEachNode(node, fn) { NodeList.prototype.forEach.call(node, fn); }
+    var qrLayerObserver = new MutationObserver(function () {
+      var on = qrLayer.classList.contains("on");
+      if (on) {
+        _inertTargets = [];
+        _inertOrigState = [];
+        _forEachNode(document.body.children, function (child) {
+          if (child.id === "qrLayer" || child.classList.contains("qr-layer")) return;
+          if (child.tagName === "SCRIPT" || child.tagName === "STYLE") return;
+          _inertTargets.push(child);
+          _inertOrigState.push({ el: child, wasInert: child.hasAttribute("inert") });
+          child.inert = true;
+        });
+      } else {
+        _inertOrigState.forEach(function (s) {
+          if (s.wasInert) { s.el.inert = true; } else { s.el.removeAttribute("inert"); }
+        });
+        _inertTargets = [];
+        _inertOrigState = [];
+      }
+    });
+    qrLayerObserver.observe(qrLayer, { attributes: true, attributeFilter: ["class"] });
   }
 
   /* ---------- 4. 统计与转化埋点（全站唯一入口） ----------

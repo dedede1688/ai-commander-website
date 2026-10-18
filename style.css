@@ -2419,6 +2419,688 @@ ul.plain {
 }
 
 /* ========================================
+   V3.1 书籍介绍升级（BK2 系列）
+   作用域以 bk2- 前缀隔离，不影响全站其他组件
+   ======================================== */
+
+/* ===== 0. 概览封面行 ===== */
+.bk2-head {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 30px;
+  align-items: start;
+  margin-bottom: 4px;
+}
+.bk2-cover img {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  border-radius: 6px;
+  filter: drop-shadow(0 14px 26px rgba(20, 31, 96, 0.3));
+}
+.bk2-facts {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.bk2-facts span {
+  font-size: 12.5px;
+  background: #eef4f8;
+  color: #4a5b7c;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+.bk2-tag {
+  font-size: 15px;
+  color: #8a93a6;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.bk2-tag b {
+  color: var(--teal);
+  font-style: italic;
+  font-weight: 700;
+}
+.bk2-h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 12px;
+  letter-spacing: 1px;
+}
+.bk2-intro {
+  font-size: 15px;
+  line-height: 1.9;
+  color: #2b3852;
+  text-align: justify;
+}
+.bk2-intro b {
+  color: #007a5f;
+  font-weight: 600;
+}
+.bk2-source-note {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #8a93a6;
+  font-style: italic;
+}
+
+/* ===== 通用模块节奏 ===== */
+.bk2-block {
+  margin-top: 30px;
+  padding-top: 28px;
+  border-top: 1px solid #eaeef4;
+}
+.bk2-block:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+.bk2-block-kicker {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--teal);
+  font-family: Consolas, monospace;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.bk2-block-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 10px;
+  letter-spacing: 0.5px;
+}
+.bk2-block-lead {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: #3d4a60;
+  margin-bottom: 14px;
+}
+.bk2-block-lead b {
+  color: var(--navy);
+}
+
+/* ===== 模块1：三类困境 ===== */
+.bk2-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.bk2-pain-card {
+  background: #fcfdfe;
+  border: 1px solid #e2e6ed;
+  border-radius: 10px;
+  padding: 18px 16px 16px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.bk2-pain-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.1);
+}
+.bk2-pain-icon {
+  font-size: 22px;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+.bk2-pain-card:first-child .bk2-pain-icon {
+  color: #c0392b;
+}
+.bk2-pain-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.bk2-pain-card p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #55617a;
+}
+.bk2-pain-cta {
+  background: linear-gradient(120deg, #0c1738 0%, #1e2d6b 100%);
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 14.5px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.bk2-pain-cta b {
+  color: var(--teal);
+}
+
+/* ===== 模块2：路径图 ===== */
+.bk2-ladder {
+  position: relative;
+  background: linear-gradient(120deg, #f8f9fc 0%, #eef1f6 100%);
+  border-radius: 12px;
+  padding: 24px 18px 18px;
+  margin-bottom: 22px;
+  overflow: hidden;
+}
+.bk2-ladder-track {
+  position: absolute;
+  top: 46px;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  background: linear-gradient(90deg, #c3cfe8 0%, #5aa7e0 100%);
+  opacity: 0.4;
+}
+.bk2-ladder-inner {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+.bk2-step {
+  text-align: center;
+}
+.bk2-step-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy) 0%, #2a3f8f 100%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: Consolas, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 6px;
+  box-shadow: 0 2px 6px rgba(20, 31, 96, 0.2);
+}
+.bk2-step:last-child .bk2-step-dot {
+  background: linear-gradient(135deg, #007a5f 0%, var(--teal) 100%);
+  box-shadow: 0 2px 10px rgba(0, 237, 189, 0.3);
+}
+.bk2-step-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+.bk2-step-tag {
+  font-size: 11px;
+  color: #6b7688;
+  background: #fff;
+  border: 1px solid #e2e6ed;
+  border-radius: 10px;
+  padding: 1px 6px;
+  display: inline-block;
+}
+
+/* ===== 模块2：手风琴 ===== */
+.bk2-chap {
+  border: 1px solid #e2e6ed;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+.bk2-chap[open] {
+  border-color: #bcc8dd;
+  box-shadow: 0 2px 8px rgba(20, 31, 96, 0.06);
+}
+.bk2-chap > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+.bk2-chap > summary::-webkit-details-marker {
+  display: none;
+}
+.bk2-chap > summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--navy);
+  transition: transform 0.2s;
+  font-family: Consolas, monospace;
+}
+.bk2-chap[open] > summary::after {
+  content: "−";
+  color: var(--teal);
+}
+.bk2-chap > summary:hover {
+  background: #f8f9fc;
+}
+.bk2-chap-no {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #eef4f8;
+  color: var(--navy);
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: Consolas, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bk2-chap:first-of-type .bk2-chap-no,
+.bk2-chap:nth-of-type(3) .bk2-chap-no,
+.bk2-chap:nth-of-type(8) .bk2-chap-no {
+  background: linear-gradient(135deg, var(--navy), #2a3f8f);
+  color: #fff;
+}
+.bk2-chap-title {
+  font-weight: 600;
+  color: var(--navy);
+  flex: 0 0 auto;
+}
+.bk2-chap-result {
+  font-size: 12px;
+  color: #6b7688;
+  flex: 1 1 auto;
+  text-align: right;
+}
+.bk2-chap-body {
+  padding: 4px 18px 16px 56px;
+  border-top: 1px dashed #eaeef4;
+}
+.bk2-chap-body p {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: #3d4a60;
+  margin-bottom: 6px;
+}
+.bk2-chap-focus {
+  color: #55617a !important;
+}
+.bk2-chap-focus b {
+  color: var(--navy);
+}
+.bk2-chap-outcome {
+  background: #f6fbf9;
+  border-left: 3px solid var(--teal);
+  padding: 6px 12px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 8px !important;
+}
+.bk2-chap-outcome b {
+  color: #007a5f;
+}
+
+/* ===== 模块3：三差别 ===== */
+.bk2-diff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.bk2-diff-card {
+  background: #fcfdfe;
+  border: 1px solid #e2e6ed;
+  border-radius: 10px;
+  padding: 18px 16px 16px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.bk2-diff-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.1);
+}
+.bk2-diff-ico {
+  font-size: 26px;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+.bk2-diff-card:first-child .bk2-diff-ico {
+  color: var(--navy);
+}
+.bk2-diff-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.bk2-diff-card p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #55617a;
+}
+.bk2-diff-tools {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #eaeef4;
+  font-size: 12.5px !important;
+  color: #6b7688 !important;
+}
+
+/* ===== 模块4：作者 ===== */
+.bk2-author-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.bk2-author-lead {
+  font-size: 14px;
+  color: #3d4a60;
+  margin-bottom: 10px;
+  padding: 8px 14px;
+  background: #f6f8fb;
+  border-left: 3px solid var(--teal);
+  border-radius: 0 6px 6px 0;
+}
+.bk2-author-lead b {
+  color: #007a5f;
+}
+.bk2-author-list {
+  list-style: none;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #3d4a60;
+  margin: 0;
+}
+.bk2-author-list li {
+  padding: 6px 0 6px 18px;
+  position: relative;
+  border-bottom: 1px dashed #eaeef4;
+}
+.bk2-author-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-weight: 700;
+}
+.bk2-author-note {
+  background: #0c1738;
+  color: #dfe8ff;
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+.bk2-author-note p {
+  margin-bottom: 8px;
+}
+.bk2-author-note b {
+  color: var(--teal);
+}
+.bk2-author-quote {
+  background: rgba(0, 237, 189, 0.08);
+  border-left: 2px solid var(--teal);
+  padding: 8px 12px;
+  font-style: italic;
+  color: #fff !important;
+  margin-top: 10px !important;
+  border-radius: 0 6px 6px 0;
+}
+
+/* ===== 模块5：附录军火库 ===== */
+.bk2-app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.bk2-app {
+  background: #fcfdfe;
+  border: 1px solid #e2e6ed;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.bk2-app:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(20, 31, 96, 0.08);
+}
+.bk2-app-tag {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy), #2a3f8f);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: Consolas, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.bk2-app b {
+  font-size: 13.5px;
+  color: var(--navy);
+  font-weight: 600;
+}
+.bk2-app span {
+  font-size: 12px;
+  color: #6b7688;
+  line-height: 1.5;
+}
+.bk2-app-extras {
+  background: #f6f8fb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #55617a;
+  line-height: 1.7;
+}
+.bk2-app-extras b {
+  color: var(--navy);
+}
+
+/* ===== 模块6：六类人群 ===== */
+.bk2-aud-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.bk2-aud-card {
+  background: #fff;
+  border: 1px solid #e2e6ed;
+  border-radius: 8px;
+  padding: 14px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.bk2-aud-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.1);
+}
+.bk2-aud-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.bk2-aud-tag {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: var(--navy);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: Consolas, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bk2-aud-head b {
+  font-size: 14.5px;
+  color: var(--navy);
+  font-weight: 600;
+}
+.bk2-aud-card > p {
+  font-size: 13px;
+  color: #55617a;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.bk2-aud-route {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+}
+.bk2-aud-route span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 4px;
+  background: #eef4f8;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: Consolas, monospace;
+}
+
+/* ===== 模块7：收尾行动区 ===== */
+.bk2-final-box {
+  background: linear-gradient(120deg, #0c1738 0%, #1e2d6b 60%, #223a80 100%);
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+.bk2-final-lead {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 12px rgba(0, 237, 189, 0.2);
+}
+.bk2-final-sub {
+  font-size: 14px;
+  color: #a9b6d8;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+.bk2-final-action {
+  text-align: center;
+}
+.bk2-final-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, var(--teal) 0%, #00b89c 100%);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 14px 32px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  border: none;
+  letter-spacing: 0.5px;
+}
+.bk2-final-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 237, 189, 0.3);
+}
+.bk2-final-btn-text {
+  font-size: 15px;
+}
+.bk2-final-btn-go {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.bk2-final-hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #8a93a6;
+}
+
+/* ===== BK2 响应式 ===== */
+@media (max-width: 768px) {
+  .bk2-head {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bk2-cover img {
+    max-width: 180px;
+  }
+  .bk2-h2 {
+    font-size: 18px;
+  }
+  .bk2-pain-grid,
+  .bk2-diff-grid,
+  .bk2-aud-grid,
+  .bk2-app-grid {
+    grid-template-columns: 1fr;
+  }
+  .bk2-author-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .bk2-ladder-inner {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 10px;
+  }
+  .bk2-ladder-track {
+    display: none;
+  }
+  .bk2-chap-result {
+    display: none;
+  }
+  .bk2-chap-body {
+    padding-left: 18px;
+  }
+  .bk2-final-lead {
+    font-size: 17px;
+  }
+}
+@media (max-width: 480px) {
+  .bk2-ladder-inner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .bk2-block-title {
+    font-size: 17px;
+  }
+  .bk2-final-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bk2-pain-card,
+  .bk2-diff-card,
+  .bk2-aud-card,
+  .bk2-app,
+  .bk2-final-btn {
+    transition: none;
+  }
+  .bk2-pain-card:hover,
+  .bk2-diff-card:hover,
+  .bk2-aud-card:hover,
+  .bk2-app:hover,
+  .bk2-final-btn:hover {
+    transform: none;
+  }
+}
+
+/* ========================================
    V3.1 AI 课程模块 — 隔离样式
    桌面 3 列 / 平板 2 列 / 手机 1 列
    沿用品牌色：--navy #141F60 / --teal #00EDBD / 白底 #fff
@@ -3034,4 +3716,42 @@ ul.plain {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ---------- 二维码弹窗关闭按钮 ---------- */
+.qr-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, outline-offset 0.15s;
+  z-index: 1;
+}
+.qr-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.qr-close:focus-visible {
+  outline: 2px solid #00edbd;
+  outline-offset: 3px;
+}
+.qr-panel {
+  position: relative;
+}
+
+/* CTA 按钮键盘焦点样式 */
+.bk2-final-btn:focus-visible {
+  outline: 3px solid #00edbd;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgba(0, 237, 189, 0.3);
 }

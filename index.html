@@ -15,7 +15,7 @@
     <title>《AI指挥官》｜胡子老师著·本地AI实战手册：从新兵到将军的30堂课</title>
     <meta
       name="description"
-      content="《AI指挥官》是胡子老师写给普通人的本地 AI 实战手册：8篇31章+9附录，九级军衔进阶，从第5章下达第一道命令，用自己的电脑跑通大模型。22 位产业一线联合出版人共同署名，指挥AI，而不是追随。"
+      content="《AI指挥官》是胡子老师写给普通人的本地 AI 实战手册：8篇31章+9附录，九级军衔进阶，从第5章下达第一道命令，用自己的电脑跑通大模型。23 位产业一线联合出版人共同署名，指挥AI，而不是追随。"
     />
     <meta
       name="keywords"
@@ -29,7 +29,7 @@
     <meta property="og:title" content="《AI指挥官》｜胡子老师著·本地AI实战手册：从新兵到将军的30堂课" />
     <meta
       property="og:description"
-      content="8篇31章+9附录，九级军衔进阶，从第5章下达第一道命令，在自己的电脑上跑通大模型。22 位产业一线联合出版人共同署名。"
+      content="8篇31章+9附录，九级军衔进阶，从第5章下达第一道命令，在自己的电脑上跑通大模型。23 位产业一线联合出版人共同署名。"
     />
     <meta property="og:url" content="https://www.ai-mmc.cn/" />
     <meta property="og:image" content="https://www.ai-mmc.cn/素材/og/ai-commander-og-1200x630.webp" />
@@ -44,7 +44,7 @@
     <meta name="twitter:image" content="https://www.ai-mmc.cn/素材/og/ai-commander-og-1200x630.webp" />
     <link rel="preload" as="image" href="素材/书籍/AI指挥官-立体书.webp" fetchpriority="high" />
     <link rel="stylesheet" href="base.css?v=7" />
-    <link rel="stylesheet" href="style.css?v=22" />
+    <link rel="stylesheet" href="style.css?v=23" />
 
     <!-- ===== 结构化数据：让搜索结果能显示书名、作者、篇幅，而不只是蓝色链接 =====
          Book 描述书本体；Person 描述作者胡子老师；WebSite + SearchAction 描述站点。
@@ -127,12 +127,12 @@
           </h1>
           <div class="rpt-sub">
             从新兵到将军的 30 堂本地 AI 实战课<br />
-            22 席联合出版人共同署名 · 结构分析与 AI 关联度评估
+            23 席联合出版人共同署名 · 结构分析与 AI 关联度评估
           </div>
           <div class="rpt-tagline">AI 是参谋，<span class="rpt-tagline-emph">你是司令。</span></div>
           <div class="rpt-cta">
             <a class="rpt-cta-primary" href="#sec-book">了解《AI指挥官》图书 →</a>
-            <a class="rpt-cta-secondary" href="#sec-roster">查看 22 位出版人</a>
+            <a class="rpt-cta-secondary" href="#sec-roster">查看 23 位出版人</a>
           </div>
           <div class="rpt-seats">
             <span class="seats-item"
@@ -141,8 +141,8 @@
             >
             <span class="seats-item"
               ><span class="lb">联合出版人</span
-              ><span class="vl">22<small>/ 30 席</small></span
-              ><span class="seats-hint">剩余 8 席</span></span
+              ><span class="vl">23<small>/ 30 席</small></span
+              ><span class="seats-hint">剩余 7 席</span></span
             >
             <span class="seats-item"
               ><span class="lb">配套课程</span
@@ -163,7 +163,7 @@
 
         <div class="rpt-meta">
           <span>版本：V2</span>
-          <span>核查范围：22 席全量</span>
+          <span>核查范围：23 席全量</span>
           <span class="rpt-date" id="genDate">修订日期：—</span>
         </div>
       </div>
@@ -195,71 +195,312 @@
 
       <!-- ===== 这本书 ===== -->
       <div class="card" id="sec-book">
-        <h2>这本书 · 《AI指挥官》</h2>
-        <p class="sub-note">AI 是参谋，你是司令 —— 从新兵到将军的 30 堂本地 AI 实战课。</p>
 
-        <div class="book-grid">
-          <div class="book-side">
+        <!-- 模块0：概览封面行 -->
+        <div class="bk2-head">
+          <div class="bk2-cover">
             <img
-              class="book-cover-img"
               src="素材/书籍/AI指挥官-立体书.webp"
-              width="426"
-              height="640"
-              loading="lazy"
-              decoding="async"
+              width="426" height="640"
+              loading="lazy" decoding="async"
               alt="《AI指挥官》立体封面"
             />
-            <div class="book-facts">
-              <span>作者 · 胡子老师</span><span>30 堂实战课</span
-              ><span>8 篇 31 章</span><span>9 个附录</span
-              ><span>九级军衔</span>
+            <div class="bk2-facts">
+              <span>胡子老师 著</span
+              ><span>8 篇 31 章</span
+              ><span>9 个附录</span
+              ><span>约 38.7 万字</span>
             </div>
           </div>
-
-          <div class="book-main">
-            <div class="book-story">
-              几年前，作者花三万多块买回一张显卡，全家都觉得他疯了。可当第一个本地大模型在自己电脑上跑通的那一刻，他意识到：<b
-                >AI 不再活在别人的服务器里——它住进了自己的电脑，数据、隐私、节奏，全归自己说了算</b
-              >。这本书，就是把他后来踩过的坑、走过的路，原原本本交到你手上：你不用从零开始，从他摔过跤的地方接着往前走就行。
-            </div>
-
-            <h3>全书结构 · 8 篇 31 章 + 9 附录</h3>
-            <div class="book-chapters">
-              <div class="bk-chip"><b>入伍篇</b><span>第 1-2 章</span></div>
-              <div class="bk-chip"><b>装备篇</b><span>第 3-4 章</span></div>
-              <div class="bk-chip"><b>指挥术篇</b><span>第 5-8 章</span></div>
-              <div class="bk-chip"><b>操练篇</b><span>第 9-11 章</span></div>
-              <div class="bk-chip"><b>战场篇</b><span>第 12-18 章</span></div>
-              <div class="bk-chip"><b>特种兵篇</b><span>第 19-22 章</span></div>
-              <div class="bk-chip"><b>参谋部篇</b><span>第 23-27 章</span></div>
-              <div class="bk-chip"><b>总指挥部篇</b><span>第 28-31 章</span></div>
-              <div class="bk-chip"><b>附录 A-I</b><span>术语 · 命令 · 模板</span></div>
-            </div>
-
-            <h3>军衔进度 · 九级</h3>
-            <div class="book-ranks">
-              <span class="bk-rank">新兵</span><i>→</i><span class="bk-rank">列兵</span><i>→</i><span class="bk-rank">下士</span><i>→</i><span class="bk-rank">中士</span><i>→</i><span class="bk-rank">上士</span><i>→</i><span class="bk-rank">少尉</span><i>→</i><span class="bk-rank">中尉</span><i>→</i><span class="bk-rank">上尉</span><i>→</i><span class="bk-rank fin">少将</span>
-            </div>
-
-            <h3>写给谁 · 六类人群对号入座</h3>
-            <div class="book-aud-grid">
-              <div class="bk-aud"><b>G1 职场中层</b><span>活最多、班最久，急需一个不睡觉的帮手</span></div>
-              <div class="bk-aud"><b>G2 小老板</b><span>一个人当十个人用，恨不得把 AI 榨干</span></div>
-              <div class="bk-aud"><b>G3 技术好奇者</b><span>看了一堆教程，还是没在自己电脑上跑起来</span></div>
-              <div class="bk-aud"><b>G4 中年转型者</b><span>不拼体力拼经验，想给简历加块硬砖</span></div>
-              <div class="bk-aud"><b>G5 副业创作者</b><span>一个人就是一家公司，内容产能就是命</span></div>
-              <div class="bk-aud"><b>G6 教育工作者</b><span>想把 AI 变成讲台上的新教具</span></div>
-            </div>
+          <div class="bk2-lede">
+            <p class="bk2-tag">AI 是参谋，<b>你是司令。</b></p>
+            <h2 class="bk2-h2">《AI指挥官》——从新兵到将军的本地 AI 实战课</h2>
+            <p class="bk2-intro">
+              几年前，作者自掏腰包买回一张显卡，第一个本地大模型在自己电脑上跑通的那一刻，他意识到：
+              <b>AI 不再活在别人的服务器里——它住进了自己的电脑，数据、隐私、节奏，开始由自己说了算。</b>
+              这本书，就是把他后来踩过的坑、走过的路，原原本本交到你手上。你不用从零开始，从他摔过跤的地方接着往前走就行。
+            </p>
           </div>
         </div>
 
-        <div class="honor-cta" data-open-qr data-track="qr|open|首页荣誉位1">
-          <div class="honor-cta-text">
-            <div class="honor-cta-title">翻开第一章，你的入伍通知书已经在里面了</div>
-            <div class="honor-cta-sub">30 堂本地 AI 实战课 · 零基础可上手 · 扫码咨询</div>
+        <!-- 模块1：三类现实困境 -->
+        <section class="bk2-block bk2-pain">
+          <p class="bk2-block-kicker">先看清代价</p>
+          <h3 class="bk2-block-title">面对 AI 浪潮，真正在吞噬你的是什么？</h3>
+          <p class="bk2-block-lead">2026 年，AI 工具供给已经过剩，<b>能力的供给严重不足</b>。个人和企业面对的不再是"有没有 AI 可用"，而是三笔不得不算的账：</p>
+          <div class="bk2-pain-grid">
+            <article class="bk2-pain-card">
+              <div class="bk2-pain-icon c1">&#9201;</div>
+              <h4>效率损耗</h4>
+              <p>反复的 AI 对话耗时不少，时间投入进去了，产出却迟迟不见变化；订阅费用持续产生，人效曲线却没有明显起色。</p>
+            </article>
+            <article class="bk2-pain-card">
+              <div class="bk2-pain-icon c2">&#128274;</div>
+              <h4>数据顾虑</h4>
+              <p>客户名单、财务模型、合同文本交给公共云端处理，可能带来隐私与合规风险。多数以云端为中心的方案，并未充分触及这一层。</p>
+            </article>
+            <article class="bk2-pain-card">
+              <div class="bk2-pain-icon c3">&#10060;</div>
+              <h4>落地断层</h4>
+              <p>培训买了一堆，回到工位照样不会用——因为多数内容讲的是工具的功能介绍，缺的是<b>从认知到实际落地的完整体系</b>。</p>
+            </article>
           </div>
-          <span class="honor-cta-btn">扫码或长按进入</span>
-        </div>
+          <p class="bk2-pain-cta"><b>《AI指挥官》就是为这三笔账写的：</b>它不卖焦虑，它给建制。</p>
+        </section>
+
+        <!-- 模块2：八级成长路径 + 八篇详情（手风琴） -->
+        <section class="bk2-block bk2-roadmap">
+          <p class="bk2-block-kicker">核心方法论</p>
+          <h3 class="bk2-block-title">八级军事晋升，对应八级 AI 能力阶梯</h3>
+          <p class="bk2-block-lead">一句话说清全书逻辑：<b>以军事指挥体系，装进个人 AI 工作流。</b>每一级都有明确的结业标准——读完的人不是"懂 AI"，而是在指挥一支随时听令的 AI 部队。</p>
+
+          <!-- 横向路径图（≥768px 可见） -->
+          <div class="bk2-ladder" aria-label="八级成长路径">
+            <div class="bk2-ladder-track"></div>
+            <div class="bk2-ladder-inner">
+              <div class="bk2-step" style="--i:0">
+                <div class="bk2-step-dot">01</div>
+                <div class="bk2-step-name">入伍</div>
+                <div class="bk2-step-tag">认知</div>
+              </div>
+              <div class="bk2-step" style="--i:1">
+                <div class="bk2-step-dot">02</div>
+                <div class="bk2-step-name">装备</div>
+                <div class="bk2-step-tag">工具</div>
+              </div>
+              <div class="bk2-step" style="--i:2">
+                <div class="bk2-step-dot">03</div>
+                <div class="bk2-step-name">指挥术</div>
+                <div class="bk2-step-tag">方法论</div>
+              </div>
+              <div class="bk2-step" style="--i:3">
+                <div class="bk2-step-dot">04</div>
+                <div class="bk2-step-name">操练</div>
+                <div class="bk2-step-tag">实战</div>
+              </div>
+              <div class="bk2-step" style="--i:4">
+                <div class="bk2-step-dot">05</div>
+                <div class="bk2-step-name">战场</div>
+                <div class="bk2-step-tag">场景</div>
+              </div>
+              <div class="bk2-step" style="--i:5">
+                <div class="bk2-step-dot">06</div>
+                <div class="bk2-step-name">特种兵</div>
+                <div class="bk2-step-tag">专项</div>
+              </div>
+              <div class="bk2-step" style="--i:6">
+                <div class="bk2-step-dot">07</div>
+                <div class="bk2-step-name">参谋部</div>
+                <div class="bk2-step-tag">团队</div>
+              </div>
+              <div class="bk2-step" style="--i:7">
+                <div class="bk2-step-dot">08</div>
+                <div class="bk2-step-name">总指挥部</div>
+                <div class="bk2-step-tag">战略</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 八篇详情折叠 -->
+          <details class="bk2-chap" open>
+            <summary><span class="bk2-chap-no">01</span><span class="bk2-chap-title">入伍篇 · 第 1–3 章</span><span class="bk2-chap-result">一眼判断这活该不该交给 AI、交给哪个 AI</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>AI 能力边界认知 · 可用硬件盘点 · 战场选择策略</p>
+              <p>跳出"什么都能问 AI"的模糊印象，建立一套判断标准：什么任务值得 AI 介入、什么场景必须本地运行、你的硬件条件对应哪一级的模型能力。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>独立评估一个工作目标是否适合引入 AI，并给出局部落地的可行性判断。</p>
+            </div>
+          </details>
+
+          <details class="bk2-chap">
+            <summary><span class="bk2-chap-no">02</span><span class="bk2-chap-title">装备篇 · 第 4–6 章</span><span class="bk2-chap-result">搭建个人 AI 装备库，做出第一个可用小工具</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>六把主力工具横向对比 · 显存与模型大小的量化认知 · 第一条有效命令的构造方法</p>
+              <p>不再被各种工具的宣传页牵着走。通过显存占用、推理速度、生态成熟度等指标，为个人场景组合出最合适的工具栈。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>在个人电脑上搭建起一套可用的本地 AI 环境，并完成第一个产出明确成果的小工具。</p>
+            </div>
+          </details>
+
+          <details class="bk2-chap">
+            <summary><span class="bk2-chap-no">03</span><span class="bk2-chap-title">指挥术篇 · 第 7–8 章</span><span class="bk2-chap-result">同一款模型，产出判若两机</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>RBTFC 发令公式 · 五大魔咒 · 链式思考与少样本实战</p>
+              <p>全书的能力发动机：如何把模糊需求拆解为 AI 能执行的指令。同样的模型、同样的硬件，指令质量决定产出质量。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>针对复杂任务构造清晰的指令链，显著提升 AI 输出的可用率。</p>
+            </div>
+          </details>
+
+          <details class="bk2-chap">
+            <summary><span class="bk2-chap-no">04</span><span class="bk2-chap-title">操练篇 · 第 9–11 章</span><span class="bk2-chap-result">卡壳不求人；一块显卡干两份活</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>12 个高频问题的急救手册 · 显存管理方法 · LM Studio 与 Ollama 的多模型协作</p>
+              <p>按场景排查、按资源调配，让模型在有限硬件上持续运转。出现常见报错能独立定位，不再依赖社群"救援"。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>独立完成双模型切换、分配大小任务，在单块显卡上实现分工协作。</p>
+            </div>
+          </details>
+
+          <details class="bk2-chap">
+            <summary><span class="bk2-chap-no">05</span><span class="bk2-chap-title">战场篇 · 第 12–18 章</span><span class="bk2-chap-result">岗位刚需逐个击破</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>HR、办公演示、商战、宣传、日常战役等 7 个职场场景的操作步骤</p>
+              <p>章章附可跟随操作的流程，把通用方法论落到具体岗位。不是讲工具功能，是按任务目标给出可复刻的执行路径。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>针对本职工作中最消耗时间的环节，建立一套 AI 辅助的固定流程。</p>
+            </div>
+          </details>
+
+          <details class="bk2-chap">
+            <summary><span class="bk2-chap-no">06</span><span class="bk2-chap-title">特种兵篇 · 第 19–22 章</span><span class="bk2-chap-result">图文、视频、配音、转写一条龙</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>图像工作流（ComfyUI）· 视频生成 · 语音合成与转写 · 自动化批量处理</p>
+              <p>围绕内容生产的高频需求，打通多模态工具链。从素材生成到后期加工，形成可复用的生产管线。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>独立完成一条包含图文、配音、转写在内的多媒体内容产出流程。</p>
+            </div>
+          </details>
+
+          <details class="bk2-chap">
+            <summary><span class="bk2-chap-no">07</span><span class="bk2-chap-title">参谋部篇 · 第 23–27 章</span><span class="bk2-chap-result">把私有资料变成随问随答的内线</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>内部 RAG 检索 · 联网搜索路由 · Dify 工作流搭建</p>
+              <p>把散落在文档、表格、邮件中的私有信息，整理成可被模型调用的知识；再通过工作流把重复问题自动化处理。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>为单位或团队搭建一套可查询内部资料的 AI 咨询服务。</p>
+            </div>
+          </details>
+
+          <details class="bk2-chap">
+            <summary><span class="bk2-chap-no">08</span><span class="bk2-chap-title">总指挥部篇 · 第 28–31 章</span><span class="bk2-chap-result">从 AI 听令行事，到 AI 自主干活</span></summary>
+            <div class="bk2-chap-body">
+              <p class="bk2-chap-focus"><b>学习焦点：</b>AI 副官设计 · 任务调度 · Computer Use 与主流 Agent 框架选型</p>
+              <p>压轴进入 Agent 阶段：明确什么该交给 AI 自主执行、什么必须人工把关，选对框架、搭好流程，让 AI 真正承担持续运转的工作。</p>
+              <p class="bk2-chap-outcome"><b>学完你能：</b>针对重复性业务场景，设计一套可长期运行的 AI 自动化方案。</p>
+            </div>
+          </details>
+        </section>
+
+        <!-- 模块3：三个核心差别 -->
+        <section class="bk2-block bk2-diff">
+          <p class="bk2-block-kicker">这本书能提供什么</p>
+          <h3 class="bk2-block-title">三个足以支撑选择的依据</h3>
+          <p class="bk2-block-lead">面对市面上大量的 AI 入门内容，以下是本书明确提供的部分：</p>
+          <div class="bk2-diff-grid">
+            <article class="bk2-diff-card">
+              <div class="bk2-diff-ico">&#128187;</div>
+              <h4>本地部署实战</h4>
+              <p>支持本地运行，纯本地处理时，可将相关数据保留在本机。使用云端模型或联网服务时，以实际配置为准。</p>
+              <p class="bk2-diff-tools"><b>涉及：</b>LM Studio · Ollama · ComfyUI · Dify — 书稿所述工具版本截至 2026 年 8 月。</p>
+            </article>
+            <article class="bk2-diff-card">
+              <div class="bk2-diff-ico">📋</div>
+              <h4>能力交付体系</h4>
+              <p>约 38.7 万字、55 条书签导航、每章附<b>"记住 5 句话"</b>的结业标准——按可考核的能力晋升设计。</p>
+              <p class="bk2-diff-tools"><b>对应收益：</b>翻开任意一章，都能直接开工；学完一章，有明确的自我检验方式。</p>
+            </article>
+            <article class="bk2-diff-card">
+              <div class="bk2-diff-ico">&#9888;</div>
+              <h4>前沿认知与安全原则</h4>
+              <p>第 31 章直面 Agent 时代的擅长与不擅长，明确三个核心安全原则；附录 H《AI 安全与隐私手册》为配套。</p>
+              <p class="bk2-diff-tools"><b>对应收益：</b>在尝试新技术之前，先建立边界意识，减少试错成本。</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- 模块4：作者其人 -->
+        <section class="bk2-block bk2-author">
+          <p class="bk2-block-kicker">作者其人</p>
+          <h3 class="bk2-block-title">胡子老师（胡新平）</h3>
+          <div class="bk2-author-grid">
+            <div class="bk2-author-main">
+              <p class="bk2-author-lead"><b>他不是程序员。</b>这本书正是一个"非技术背景者"亲手指挥 AI 部队打出来的。</p>
+              <ul class="bk2-author-list">
+                <li>资深企业商业策划师 · 企业商学院导师 · 股权架构规划师</li>
+                <li>国家二级人力资源管理师</li>
+                <li>曾任文化产权交易所首席运营官</li>
+                <li>曾任世界 500 强企业高管</li>
+                <li>横跨实业与资本市场，主导过 3 家企业资本化转型（含 1 家港交所 IPO）</li>
+                <li>商学院导师经历中，培养超过 200 位产融方向人才</li>
+              </ul>
+            </div>
+            <aside class="bk2-author-note">
+              <p><b>为什么他的视角值得参考：</b></p>
+              <p>书中 HR 战场的章节，底子是人力资源管理师的本行；商战参谋、竞品分析等章节，来自实业与资本的实操经验；AI 参谋团与专属训练营的设计，出自培养产融人才的教学方法。</p>
+              <p class="bk2-author-quote">他先完成了自己这套体系的"入伍"，才把它写成了 31 堂课。</p>
+            </aside>
+          </div>
+        </section>
+
+        <!-- 模块5：随书军火库 -->
+        <section class="bk2-block bk2-appendices">
+          <p class="bk2-block-kicker">随书附录</p>
+          <h3 class="bk2-block-title">9 项配套，即查即用</h3>
+          <p class="bk2-block-lead">每项围绕一类高频需要展开，具体范围以纸质书实际内容为准：</p>
+          <div class="bk2-app-grid">
+            <div class="bk2-app"><span class="bk2-app-tag">A</span><b>术语索引</b><span>全书关键概念的查找入口</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">B</span><b>装备配置推荐清单</b><span>按预算、按需求给配置方案</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">C</span><b>命令速查表</b><span>拿来即用</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">D</span><b>指挥官发令模板大全</b><span>12 个岗位即用模板 + 6 大技术模板</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">E</span><b>副业工具箱</b><span>把 AI 能力转化为可接单的服务</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">F</span><b>AI 工具网站导航</b><span>快速定位合适的资源站点</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">G</span><b>阅读与社区</b><span>关于配套社群的使用说明</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">H</span><b>AI 安全与隐私手册</b><span>个人守底线，机构过合规</span></div>
+            <div class="bk2-app"><span class="bk2-app-tag">I</span><b>常见问题 FAQ</b><span>购书与学习过程中的高频疑问</span></div>
+          </div>
+          <div class="bk2-app-extras">
+            <p><b>两项独有设计：</b>「指挥官档案页」（8 级军衔勾选表，读一章勾一格，成长可视化）与「群英谱」（与本书同行的实践者影像页）随纸质书附赠。</p>
+          </div>
+        </section>
+
+        <!-- 模块6：六类读者 + 阅读路线 -->
+        <section class="bk2-block bk2-aud">
+          <p class="bk2-block-kicker">这本书适合谁</p>
+          <h3 class="bk2-block-title">六类读者，六条专属路线</h3>
+          <p class="bk2-block-lead">门槛只有一条：一台电脑，外加一点好奇心。数字代表<b>章号</b>；空格较多时可多行显示。</p>
+          <div class="bk2-aud-grid">
+            <article class="bk2-aud-card">
+              <div class="bk2-aud-head"><span class="bk2-aud-tag">G1</span><b>职场中层</b></div>
+              <p>行政 / HR / 运营 / 项目经理——活最多、班最久，急需一个不睡觉的帮手。</p>
+              <p class="bk2-aud-route"><span>1</span><span>2</span><span>4</span><span>5</span><span>7</span><span>12</span><span>13</span><span>14</span><span>17</span><span>18</span></p>
+            </article>
+            <article class="bk2-aud-card">
+              <div class="bk2-aud-head"><span class="bk2-aud-tag">G2</span><b>小老板</b></div>
+              <p>个体户 / 创业者 / 小微企业主——一个人当十个人用，恨不得把 AI 榨干。</p>
+              <p class="bk2-aud-route"><span>1</span><span>3</span><span>5</span><span>10</span><span>15</span><span>17</span><span>22</span></p>
+            </article>
+            <article class="bk2-aud-card">
+              <div class="bk2-aud-head"><span class="bk2-aud-tag">G3</span><b>技术好奇者</b></div>
+              <p>看了一堆教程，还是没在自己电脑上跑起来。</p>
+              <p class="bk2-aud-route"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>8</span><span>10</span><span>11</span></p>
+            </article>
+            <article class="bk2-aud-card">
+              <div class="bk2-aud-head"><span class="bk2-aud-tag">G4</span><b>中年转型者</b></div>
+              <p>想给履历加一条与 AI 应用相关的能力方向。</p>
+              <p class="bk2-aud-route"><span>1</span><span>2</span><span>4</span><span>5</span><span>7</span><span>10</span><span>12</span><span>18</span><span>23</span></p>
+            </article>
+            <article class="bk2-aud-card">
+              <div class="bk2-aud-head"><span class="bk2-aud-tag">G5</span><b>副业创作者</b></div>
+              <p>自媒体 / 短视频——一个人就是一家公司，内容产能就是命。</p>
+              <p class="bk2-aud-route"><span>1</span><span>5</span><span>7</span><span>16</span><span>19</span><span>20</span><span>21</span><span>22</span></p>
+            </article>
+            <article class="bk2-aud-card">
+              <div class="bk2-aud-head"><span class="bk2-aud-tag">G6</span><b>教育工作者</b></div>
+              <p>教师 / 培训师——想把 AI 变成讲台上的新教具。</p>
+              <p class="bk2-aud-route"><span>1</span><span>5</span><span>7</span><span>8</span><span>12</span><span>23</span><span>27</span></p>
+            </article>
+          </div>
+        </section>
+
+        <!-- 模块7：收尾行动区 -->
+        <section class="bk2-block bk2-final">
+          <div class="bk2-final-box">
+            <p class="bk2-final-lead">AI 不会取代人，但完成过全链路进阶的人，会取代还在和 AI 聊天的人。</p>
+            <p class="bk2-final-sub">这不是一本读完放上书架的书。读完它，你的电脑里会多出一支随时待命的部队。</p>
+          </div>
+          <div class="bk2-final-action">
+            <div class="bk2-final-btn" data-open-qr tabindex="0" role="button" aria-label="扫码进入 AI 指挥官小程序" data-track="qr|open|首页-V3-Bottom-CTA">
+              <span class="bk2-final-btn-text">你的部队已经集合完毕，只等你这个司令就走</span>
+              <span class="bk2-final-btn-go">扫码进入 AI 指挥官小程序 →</span>
+            </div>
+            <p class="bk2-final-hint">打开手机摄像头或长按识别，进入「AI 指挥官」小程序</p>
+          </div>
+        </section>
+
       </div>
 
       <!-- ===== 一、共建出版 ===== -->
@@ -271,7 +512,7 @@
 
         <!-- 总览数字 -->
         <div class="pb-kpis">
-          <div class="pb-kpi"><b>22</b><span>联合出版人</span></div>
+          <div class="pb-kpi"><b>23</b><span>联合出版人</span></div>
           <div class="pb-kpi"><b>5</b><span>身份角色标签</span></div>
           <div class="pb-kpi"><b>7</b><span>简介含明确年限</span></div>
           <div class="pb-kpi"><b>9</b><span>高频关键词</span></div>
@@ -392,7 +633,7 @@
           人、恰占半数。这批人正是本书"用 AI
           提效降本"的核心受众，其"联合出版人"身份对同类人群有强示范效应。<br />
           行业集中度同样值得注意：<b>5 人集中在金融资本领域</b
-          >，是全榜最大的单一行业群体；而 22 人分散在 9
+          >，是全榜最大的单一行业群体；而 23 人分散在 9
           个行业，说明榜单既有纵深也有广度。<br />
           关键词层面，"<b>运营（9 人）</b>"仍居首位，"<b>AI（9
           人）</b>"已反超"实体"，印证了本书的基本假设——读者首先是实干经营者，其次才是 AI
@@ -402,9 +643,9 @@
 
       <!-- ===== 二、指挥官军团（照片墙 + 弹窗） ===== -->
       <div class="card" id="sec-roster">
-        <h2>二、指挥官军团（22 席 · 点击头像查看介绍）</h2>
+        <h2>二、指挥官军团（23 席 · 点击头像查看介绍）</h2>
         <p class="sub-note">点击任意头像，查看该联合出版人的完整介绍。</p>
-        <div class="roster-banner">本期新增 2 席 · 虚位 8 席</div>
+        <div class="roster-banner">本期新增 1 席 · 虚位 7 席</div>
       <div class="roster" id="roster"></div>
           <div class="note">
             <div class="note-title">提示</div>
@@ -594,12 +835,12 @@
         <h2>三、共建指数</h2>
         <p class="sub-note">
           每张卡代表一个同业群体，卡内头像对应一位该行业的联合出版人；头像圆环的颜色与线型，标示其与
-          AI 的关联程度。全榜 9 个行业群体、22 位成员。
+          AI 的关联程度。全榜 9 个行业群体、23 位成员。
         </p>
         <div class="net-grid" id="netGrid"></div>
         <div class="legend">
           <span
-            ><i class="dot hi"></i><b>绿环 · 已关联</b>（8 人）：简介中明确提及
+            ><i class="dot hi"></i><b>绿环 · 已关联</b>（9 人）：简介中明确提及
             AI、数智化或智能体</span
           >
           <span
@@ -612,13 +853,13 @@
           >
         </div>
         <div class="note alert" style="margin-top: 20px">
-          <div class="note-title">核心落差：AI 关联度 36.4%（8/22）</div>
+          <div class="note-title">核心落差：AI 关联度 39.1%（9/23）</div>
           《AI指挥官》的联合出版人，若简介中完全不见
           AI，读者读到名录时会问"他与这本书的关系是什么"。建议按上表分档推进，强需求者优先。
         </div>
         <div class="cols" style="margin-top: 18px">
           <div>
-            <h3 style="color: #00a37f">已关联（8 人）</h3>
+            <h3 style="color: #00a37f">已关联（9 人）</h3>
             <ul class="plain">
               <li><b>金朝霞</b> — AI营销生态发起人、AI获客、GEO增长</li>
               <li><b>胡公平</b> — 探索 AI 数智化赋能实体商业</li>
@@ -628,6 +869,7 @@
               <li><b>危杰棉</b> — 梳理 AI 在商业场景中的落地思考</li>
               <li><b>樊秦鸣</b> — 聚焦 AI 数字经济转型</li>
               <li><b>胡子老师</b> — 理念：AI 是参谋，你是司令（作者）</li>
+              <li><b>张定龙</b> — 腾泷招商咨询创始人，AI+招商实战融合</li>
             </ul>
           </div>
           <div>
@@ -783,7 +1025,7 @@
               定义 AI 时代话语权 · 四级荣誉体系 · 席位有限
             </div>
           </div>
-          <span class="honor-cta-btn">扫码或长按进入</span>
+          <span class="honor-cta-btn">扫码进入小程序</span>
         </div>
       </div>
 
@@ -791,7 +1033,7 @@
       <div
         class="footer-note"
         id="footerNote"
-        data-footer="《AI指挥官》· 本地 AI 实战手册 | 胡子老师 著 · 22 席联合出版人共同署名 · 数据截至最新档案版本"
+        data-footer="《AI指挥官》· 本地 AI 实战手册 | 胡子老师 著 · 23 席联合出版人共同署名 · 数据截至最新档案版本"
       ></div>
     </div>
 
@@ -929,7 +1171,8 @@
 
     <!-- ===== 二维码放大层（点击广告「共建 AI 生态」按钮或「AI 大礼包」显示） ===== -->
     <div class="qr-layer" id="qrLayer">
-      <div class="qr-panel">
+      <div class="qr-panel" role="dialog" aria-modal="true" aria-label="AI 指挥官">
+        <button class="qr-close" type="button" aria-label="关闭">×</button>
         <img
           src="素材/二维码/AI指挥官-二维码.webp"
           width="640"
@@ -939,13 +1182,13 @@
           alt="AI指挥官 小程序二维码"
         />
         <div class="qr-hint">
-          进入「AI 指挥官」
-          <small>扫码或长按进入</small>
+          进入「AI 指挥官」小程序
+          <small>微信扫码或长按识别</small>
         </div>
       </div>
     </div>
 
     <script src="shared.js?v=21"></script>
-    <script src="script.js?v=27"></script>
+    <script src="script.js?v=28"></script>
   </body>
 </html>
