@@ -1,0 +1,86 @@
+/* 成果中心：沿用 base.css 的品牌变量与字体。 */
+.preview-banner { display: flex; justify-content: space-between; gap: 12px 24px; align-items: center; padding-top: 18px; padding-bottom: 0; font-size: 12px; color: #53647b; }
+.preview-banner p { font-weight: 700; }
+.preview-banner p span { font-weight: 400; margin-left: 12px; }
+.preview-banner a { color: var(--navy); text-underline-offset: 4px; }
+.outcomes-page { padding-top: 18px; }
+.outcomes-hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: center; background: var(--navy-d); color: #d0d8e9; padding: 44px 40px; border-radius: 6px; }
+.outcomes-hero .section-kicker { color: #8bddcf; }
+.outcomes-hero h1 { color: #fff; font-size: clamp(28px, 3.7vw, 40px); line-height: 1.5; letter-spacing: .01em; margin-bottom: 18px; }
+.hero-intro { font-size: 14px; line-height: 1.95; max-width: 590px; }
+.outcomes-hero .action { background: var(--teal); border-color: var(--teal); color: var(--navy-d); font-weight: 700; }
+.outcomes-hero .action.secondary { background: transparent; border-color: #8997b7; color: #fff; }
+.outcomes-hero :is(a, button):focus-visible { outline-color: #b2eddf; }
+.hero-status { border-left: 1px solid #ffffff36; padding-left: 28px; min-width: 0; }
+.status-caption { color: #91a2c3; font-size: 12px; letter-spacing: 2px; margin-bottom: 12px; }
+.hero-status > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; border-bottom: 1px solid #ffffff1c; padding: 14px 0; font-size: 13px; }
+.hero-status strong { font-size: 12px; font-weight: 500; color: #9ce8d7; }
+.hero-status-note { font-size: 12px; color: #bbc7df; line-height: 1.9; margin-top: 18px; }
+.outcome-jump { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; background: #fff; padding: 18px 24px; border-bottom: 1px solid #d6dfeb; margin: 16px 0 20px; border-radius: 4px; }
+.outcome-jump a { color: #28496a; font-size: 13px; min-height: 32px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+.outcome-jump a:hover { text-decoration: underline; }
+.outcome-jump span { font-size: 11px; color: #6b8098; font-family: Consolas, monospace; }
+.outcome-jump a:last-child { margin-left: auto; }
+.section-heading { padding-bottom: 10px; }
+.system-feature { padding: 32px 0 34px; border-top: 1px solid #d9e2ec; scroll-margin-top: var(--nav-clear); }
+.system-feature:last-child { padding-bottom: 6px; }
+.system-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.system-index { color: #38647b; letter-spacing: 1px; font-size: 12px; font-weight: 700; }
+.publishing-layout { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 42px; align-items: center; }
+.system-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.system-copy { min-width: 0; }
+.system-copy h3 { font-size: clamp(21px, 2.4vw, 26px); color: var(--navy); line-height: 1.55; margin-bottom: 12px; }
+.system-copy .system-tagline { color: #294d67; font-size: 16px; line-height: 1.85; margin-bottom: 14px; }
+.system-copy > p { color: var(--muted); font-size: 14px; line-height: 1.95; }
+.system-facts { margin: 22px 0; }
+.system-facts > div { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; margin-top: 14px; font-size: 13px; line-height: 1.9; }
+.system-facts dt { font-weight: 700; color: #395b73; }
+.system-facts dd { color: var(--muted); }
+.book-evidence { text-align: center; min-width: 0; }
+.book-evidence img { display: block; width: 180px; max-width: 100%; height: auto; margin: 0 auto; }
+.book-evidence figcaption { font-size: 11px; color: #66788b; margin-top: 18px; line-height: 1.9; }
+.direction-panel { padding: 24px; background: #f2f6fa; border-radius: 4px; }
+.direction-panel h4 { font-size: 15px; color: var(--navy); margin-bottom: 16px; }
+.direction-list > div { border-top: 1px solid #d9e3ec; padding: 13px 0; }
+.direction-list dt { font-size: 14px; color: #2c506a; font-weight: 700; margin-bottom: 3px; }
+.direction-list dd { font-size: 13px; color: var(--muted); }
+.direction-panel > p { color: #62758a; font-size: 12px; line-height: 1.9; margin-top: 12px; }
+.needs-list { padding-left: 18px; color: #475f76; font-size: 14px; line-height: 1.9; }
+.needs-list li + li { margin-top: 13px; }
+.available-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.available-grid article { padding: 22px 0 4px; border-top: 1px solid #d9e2ec; }
+.available-grid h3 { color: var(--navy); font-size: 18px; margin: 12px 0 10px; }
+.available-grid p { font-size: 14px; line-height: 1.95; color: var(--muted); margin-bottom: 22px; }
+.next-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 40px; }
+.outcome-faq { border-top: 1px solid #d9e2ec; }
+.outcome-faq details { border-bottom: 1px solid #d9e2ec; padding: 16px 0; }
+.outcome-faq summary { color: #294967; font-size: 14px; font-weight: 700; cursor: pointer; min-height: 32px; }
+.outcome-faq details p { font-size: 13px; color: var(--muted); line-height: 1.95; padding: 10px 0 4px; }
+@media (max-width: 800px) {
+  .outcomes-hero { grid-template-columns: 1fr; gap: 26px; padding: 32px 28px; }
+  .hero-status { border-left: 0; border-top: 1px solid #ffffff36; padding-left: 0; padding-top: 20px; }
+  .hero-status > div { gap: 10px; }
+  .system-layout, .next-layout { grid-template-columns: 1fr; gap: 24px; }
+  .publishing-layout { grid-template-columns: minmax(0, 1fr) 160px; gap: 24px; }
+  .outcome-jump { gap: 8px 20px; }
+  .outcome-jump a:last-child { margin-left: 0; }
+}
+@media (max-width: 520px) {
+  .preview-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .preview-banner p span { display: block; margin: 4px 0 0; }
+  .outcomes-hero { padding: 28px 22px; }
+  .outcomes-hero h1 { font-size: 28px; }
+  .outcome-jump { padding: 12px 18px; gap: 4px 20px; }
+  .outcome-jump a { min-height: 44px; }
+  .outcomes-page .card { padding: 26px 22px; }
+  .publishing-layout, .available-grid { grid-template-columns: 1fr; gap: 24px; }
+  .book-evidence { padding: 10px 0 4px; }
+  .book-evidence img { width: 140px; }
+  .system-feature { padding: 26px 0; }
+  .system-facts > div { grid-template-columns: 1fr; gap: 4px; }
+  .direction-panel { padding: 20px; }
+  .available-grid { gap: 22px; }
+  .outcomes-page .section-actions { gap: 12px; }
+  .outcomes-page .section-actions .action { width: 100%; }
+  .outcome-faq summary { min-height: 44px; display: list-item; }
+}

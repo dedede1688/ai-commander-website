@@ -49,30 +49,15 @@ function sliceArray(src, decl) {
 }
 
 /* ---------- 1. 读取数据源 ---------- */
-const scriptSrc = read("script.js");
 const modelsSrc = read("models.js");
 
 /* P 数组：每位出版人的 n（姓名）/ s（席号）/ f（照片路径） */
-const pRegion = sliceArray(scriptSrc, "var P = [");
-const people = [];
-/* slug 是新增字段且放在 n 之前，所以它可选中：
-   匹配到则写入 p.slug，匹配不到（旧条目）留 null，由下面的校验项报错提示。 */
-const pRe =
-  /(?:slug:\s*"([^"]+)",\s*\n\s*)?n:\s*"([^"]+)",\s*\n\s*s:\s*"([^"]+)",\s*\n\s*r:\s*"([^"]+)",\s*\n\s*f:\s*"([^"]+)"/g;
-let m;
-while ((m = pRe.exec(pRegion))) {
-  people.push({ slug: m[1] || null, n: m[2], s: m[3], r: m[4], f: m[5] });
-}
-if (!people.length) err("无法从 script.js 的 P 数组中解析出任何条目（格式可能已变）");
+const memberData = require("../member-data.js");
+const people = memberData.members.map(p => ({slug:p.slug,n:p.name,s:p.seat,r:p.role,f:p.photo}));
+if (!people.length) err("member-data.js 中没有成员资料");
 
 /* IND 数组：行业名 + 成员名单 */
-const indRegion = sliceArray(scriptSrc, "var IND = [");
-const inds = [];
-const indRe = /name:\s*"([^"]+)"[\s\S]*?m:\s*\[([^\]]*)\]/g;
-while ((m = indRe.exec(indRegion))) {
-  const members = (m[2].match(/"([^"]+)"/g) || []).map((s) => s.replace(/"/g, ""));
-  inds.push({ name: m[1], members });
-}
+const inds = memberData.groups.map(g => ({name:g.name,members:g.members}));
 
 /* MODELS 数组：模型名 */
 const modRegion = sliceArray(modelsSrc, "var MODELS = [");
@@ -326,16 +311,17 @@ people.forEach((p) => {
   }
   /* 页面里引用的必须是本人那一张，防止复制粘贴时张冠李戴 */
   const page = read(`member-${p.slug}.html`);
-  const m = /class="mp-qr"\s+src="([^"]*)"/.exec(page);
+  const qrImages = [...page.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)].map(m => m[1]);
+  const m = qrImages.find(src => src.includes('素材/二维码/成员/'));
   if (!m) {
     err(`个人主页 member-${p.slug}.html 未引用专属二维码`);
-  } else if (!m[1].includes(fn)) {
+  } else if (!m.includes(fn)) {
     err(
-      `个人主页 member-${p.slug}.html 引用的二维码不是本人那张：${m[1]}`,
+      `个人主页 member-${p.slug}.html 引用的二维码不是本人那张：${m}`,
     );
   }
   /* 复制链接必须指向本人主页 */
-  const cp = /data-copy="([^"]*)"/.exec(page);
+  const cp = /data-copy-url="([^"]*)"/.exec(page);
   const expect = `https://www.ai-mmc.cn/member-${p.slug}.html`;
   if (!cp) {
     err(`个人主页 member-${p.slug}.html 缺复制链接按钮`);

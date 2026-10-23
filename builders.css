@@ -1,0 +1,100 @@
+/* 预览沿用现有设计：深蓝 #141f60、青绿 #00edbd、原字体栈、6px 圆角。 */
+.preview-note { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0 18px; color: #53647b; font-size: 12px; }
+.preview-note nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.preview-note a { color: var(--navy); text-underline-offset: 4px; }
+.preview-note a[aria-current] { font-weight: 700; }
+.builders-hero { display: grid; grid-template-columns: minmax(0,1fr) 180px; gap: 36px; align-items: center; padding: 38px; margin-bottom: 20px; border-radius: 6px; background: var(--navy-d); color: #d0daed; }
+.builders-hero h1 { font-size: clamp(28px,3.4vw,38px); color: #fff; line-height: 1.55; margin-bottom: 16px; }
+.builders-hero .section-kicker { color: #8cdece; }
+.builders-hero p { font-size: 14px; line-height: 2; max-width: 740px; }
+.builders-hero img { width: 180px; height: auto; display: block; }
+.builders-hero .action { background: var(--teal); color: var(--navy-d); border-color: var(--teal); font-weight: 700; }
+.builders-hero .action.secondary { background: transparent; color: #fff; border-color: #7a8aa9; }
+.builders-facts { display: flex; gap: 25px; padding-top: 22px; margin-top: 24px; border-top: 1px solid #ffffff29; color: #c4d3e7; font-size: 12px; }
+.builders-facts b { color: #fff; font-size: 21px; margin-right: 4px; }
+.roster-controls { display: grid; grid-template-columns: minmax(0,1fr) 250px; gap: 16px; margin: 22px 0 12px; }
+.roster-controls label { display: flex; flex-direction: column; gap: 7px; font-size: 12px; font-weight: 700; color: #35516d; }
+.roster-controls input, .roster-controls select { width: 100%; min-height: 46px; border: 1px solid #bdcadb; border-radius: 4px; padding: 10px 12px; font: inherit; font-size: 14px; color: #223c5a; background: #fff; }
+.roster-status { color: #5b6c82; font-size: 12px; margin: 14px 0 18px; }
+.builders-roster { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.builder-person { display: grid; grid-template-columns: 68px minmax(0,1fr); gap: 15px; padding: 18px; border: 1px solid #dce4ee; border-radius: 5px; text-decoration: none; color: var(--navy); background: #f8fafd; transition: border-color .15s,background .15s; min-width: 0; }
+.builder-person:hover { border-color: #6c8aa5; background: #f1f6fc; }
+.builder-person[hidden] { display: none; }
+.builder-person img { display: block; width: 68px; height: 96px; object-fit: cover; border-radius: 3px; }
+.builder-person h3 { font-size: 17px; line-height: 1.5; margin: 4px 0 6px; }
+.builder-seat { color: #60768e; font: 11px Consolas,monospace; }
+.builder-person p { color: #526077; font-size: 12px; line-height: 1.8; }
+.builder-person .builder-open { display: block; font-size: 11px; color: #2c6680; margin-top: 10px; }
+.roster-empty { padding: 28px 20px; background: #f4f7fc; color: #526077; font-size: 14px; }
+.roster-empty[hidden] { display: none; }
+.join-roles { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; margin-top: 24px; }
+.join-role { min-width: 0; border-top: 2px solid #2c536e; padding-top: 18px; }
+.join-role h3 { color: var(--navy); font-size: 19px; margin: 0 0 12px; }
+.join-role p { color: #526077; font-size: 13px; line-height: 1.95; margin-top: 12px; }
+.join-role strong { display: block; font-size: 12px; color: #365773; margin-bottom: 3px; }
+.honor-previews { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; margin-top: 24px; }
+.honor-preview { padding: 20px; border: 1px solid #dce4ee; border-radius: 5px; background: #f8fafd; min-width: 0; }
+.honor-preview img { display: block; width: 64px; height: 64px; margin-bottom: 14px; object-fit: contain; }
+.honor-preview h3 { font-size: 17px; line-height: 1.5; margin: 0 0 10px; }
+.honor-preview p { color: #526077; font-size: 12px; line-height: 1.95; }
+.structure-details { border-top: 1px solid #dce4ee; padding-top: 20px; }
+.structure-details summary { color: var(--navy); font-weight: 700; cursor: pointer; padding: 4px 0; }
+.structure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; margin-top: 24px; }
+.structure-row { font-size: 13px; color: #42617d; }
+.structure-label { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 7px; }
+.structure-track { height: 5px; background: #e5ebf3; }
+.structure-fill { height: 5px; background: #3d6986; }
+.join-process { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; list-style: none; margin: 22px 0 28px; }
+.join-process li { border-top: 1px solid #c7d4e2; padding-top: 14px; font-size: 13px; color: #53647b; }
+.join-process span { color: #3f7189; font: 12px Consolas,monospace; display: block; margin-bottom: 8px; }
+.join-process b { color: var(--navy); }
+.member-hero { display: grid; grid-template-columns: minmax(0,1fr) 170px; align-items: center; gap: 32px; padding: 38px; border-radius: 6px; margin-bottom: 20px; background: var(--navy-d); color: #d0daed; }
+.member-hero .section-kicker { color: #8cdece; }
+.member-hero h1 { color: white; font-size: 38px; line-height: 1.4; margin-bottom: 14px; }
+.member-role { color: #8cdece; font-size: 18px; line-height: 1.75; margin-bottom: 18px; }
+.member-identity { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12px; color: #cad7ed; }
+.member-identity span { border: 1px solid #7184a8; border-radius: 3px; padding: 5px 10px; }
+.member-portrait { display: block; width: 170px; height: 240px; border-radius: 5px; object-fit: cover; }
+.member-bio { color: #34485e; font-size: 16px; line-height: 2.05; }
+.expertise-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; margin-top: 24px; }
+.expertise-item { border-top: 1px solid #c7d4e2; padding-top: 17px; }
+.expertise-item h3 { font-size: 17px; margin: 0 0 10px; }
+.expertise-item p { color: #526077; font-size: 13px; line-height: 1.95; }
+.member-book-panel { display: grid; grid-template-columns: 128px minmax(0,1fr); gap: 30px; align-items: center; }
+.member-book-panel img { width: 128px; height: auto; }
+.member-book-panel p { color: #526077; font-size: 14px; line-height: 1.95; }
+.share-panel { display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 30px; align-items: center; }
+.share-panel img { width: 180px; height: 180px; display: block; }
+.share-panel p { font-size: 13px; color: #526077; line-height: 1.95; }
+.share-url { color: #375c78; background: #f4f7fc; border: 1px solid #dce4ee; border-radius: 4px; padding: 12px 14px; overflow-wrap: anywhere; margin-top: 14px; font-size: 12px; }
+.copy-status { min-height: 24px; margin-top: 10px; color: #215c59; font-size: 12px; }
+.member-return { display: flex; gap: 22px; justify-content: space-between; align-items: center; }
+.member-return p { font-size: 14px; color: #526077; }
+@media (max-width: 950px) { .builders-roster { grid-template-columns: repeat(2,minmax(0,1fr)); } .honor-previews { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 768px) {
+ .preview-note { flex-direction: column; align-items: start; gap: 8px; }
+ .builders-hero { grid-template-columns: minmax(0,1fr) 120px; padding: 28px 24px; gap: 18px; }
+ .builders-hero img { width: 120px; }
+ .builders-hero h1 { font-size: 26px; }
+ .roster-controls { grid-template-columns: 1fr; }
+ .join-roles, .expertise-grid { grid-template-columns: 1fr; }
+ .member-hero { padding: 28px 24px; grid-template-columns: minmax(0,1fr) 120px; gap: 20px; }
+ .member-hero h1 { font-size: 30px; }
+ .member-role { font-size: 15px; }
+ .member-portrait { width: 120px; height: 170px; }
+ .member-return { align-items: start; flex-direction: column; }
+ .join-process { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+ .builders-hero { grid-template-columns: 1fr; }
+ .builders-hero img { display: none; }
+ .builders-facts { gap: 18px; flex-wrap: wrap; }
+ .builders-roster, .honor-previews, .structure-grid { grid-template-columns: 1fr; }
+ .builder-person { grid-template-columns: 68px minmax(0,1fr); }
+ .member-hero { grid-template-columns: 1fr; }
+ .member-portrait { grid-row: 1; width: 110px; height: 155px; }
+ .member-bio { font-size: 14px; }
+ .member-book-panel, .share-panel { grid-template-columns: 1fr; gap: 22px; }
+ .member-book-panel img { width: 110px; }
+ .share-panel img { width: 180px; }
+}

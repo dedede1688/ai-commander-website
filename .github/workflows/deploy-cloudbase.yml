@@ -18,9 +18,15 @@ jobs:
         with:
           node-version: '18'
 
-      # 数据与素材引用校验：引用失效会阻断部署，避免线上出现破图
+      # 内容与结构检查：任何一项失败都阻断部署
       - name: Run data check
         run: node tools/check-data.js
+
+      - name: Run page and member audits
+        run: |
+          node tools/audit-home-book.cjs
+          node tools/audit-members.cjs
+          node tools/check-release.cjs
 
       # 只打包真正要上线的文件
       - name: Stage site files
@@ -32,6 +38,15 @@ jobs:
           echo "--- 待部署清单 ---"
           du -sh _site
           find _site -type f | wc -l
+
+      # 包内引用闭环：根目录能取到、打包后漏掉的资源会在这里暴露
+      - name: Check deploy bundle
+        run: python3 tools/check-deploy-bundle.py _site
+
+      # 发布内容锁定：待上传文件必须与审核过的 manifest 逐文件一致，
+      # 防止审核后有人改动页面、替换素材或多带文件上线
+      - name: Verify upload matches approved release manifest
+        run: node tools/check-release-manifest.cjs _site release-manifest.json
 
       - name: Install CloudBase CLI
         run: npm install -g @cloudbase/cli
