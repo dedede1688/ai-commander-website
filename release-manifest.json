@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T07:41:35.045Z",
+  "generatedAt": "2026-10-24T03:10:17.453Z",
   "site": "https://www.ai-mmc.cn",
   "fileCount": 136,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
@@ -342,8 +342,8 @@
     },
     {
       "path": "素材/先锋/xianfeng-qr-2026-10.png",
-      "bytes": 93387,
-      "sha256": "be189d59b9efa5691b51a71428b61ca97d5c46c934993ac331886ebc2d9a1040",
+      "bytes": 87871,
+      "sha256": "434f940ef51beb97569e45606d4e86127b8d1397b31d7ec044f4cd18a5678090",
       "kind": "binary"
     },
     {
