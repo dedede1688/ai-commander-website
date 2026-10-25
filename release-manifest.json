@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-24T03:10:17.453Z",
+  "generatedAt": "2026-10-25T02:05:37.092Z",
   "site": "https://www.ai-mmc.cn",
-  "fileCount": 136,
+  "fileCount": 138,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
   "files": [
     {
@@ -281,6 +281,12 @@
       "kind": "binary"
     },
     {
+      "path": "素材/二维码/智能营销-胡子-微信二维码-仅二维码.png",
+      "bytes": 123470,
+      "sha256": "6f6ef832250f087e17edc902c427c1dac416616ab1f73462f2e6fc3378a8ada8",
+      "kind": "binary"
+    },
+    {
       "path": "素材/二维码/AI指挥官-二维码.webp",
       "bytes": 30550,
       "sha256": "bcfbeeb459ee319061be2fbe52c58f869cad45bc03cbac6accaa5c67d40e6b89",
@@ -533,15 +539,21 @@
       "kind": "text"
     },
     {
+      "path": "contact.css",
+      "bytes": 1482,
+      "sha256": "921bb67d6bb66073c53c6ef2e4e5c5e2d2d046f622b44b8ad3a3f757e7ed10d3",
+      "kind": "text"
+    },
+    {
       "path": "cooperate.css",
-      "bytes": 4771,
-      "sha256": "686058e7500557d11c1c53fdb08767f21ef428e3ff376452ca3f811e999bf82d",
+      "bytes": 4773,
+      "sha256": "152cbcafa19d4619b953360a161c8dbb1bdf7390656ef779fdfd8c72f08e6b4d",
       "kind": "text"
     },
     {
       "path": "cooperate.html",
-      "bytes": 8433,
-      "sha256": "866111ef9325fb1220a9bf3aaac32010c0b4c4b3c3ba4361e1937d8c94d6bb6c",
+      "bytes": 9075,
+      "sha256": "89fc3883e0f9fecd19ba331d064ebe7e2d158afaf800049c4f292ef317076dab",
       "kind": "text"
     },
     {
@@ -552,8 +564,8 @@
     },
     {
       "path": "enterprise.html",
-      "bytes": 12152,
-      "sha256": "d31edec002bfee92bb4df76f90c43cf0995d458fff68d02a42644a7f3ca8f6c8",
+      "bytes": 12730,
+      "sha256": "b2d5c30c14afe955a65608a34443e2b94be5aa62f883e0821f3106f3a57a6063",
       "kind": "text"
     },
     {

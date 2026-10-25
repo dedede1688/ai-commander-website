@@ -1,0 +1,28 @@
+.public-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(190px, 260px);
+  gap: 32px;
+  align-items: center;
+  margin-top: 24px;
+  padding: 26px;
+  background: #f1f5fa;
+  border: 1px solid #d5e1ea;
+  border-radius: 4px;
+}
+.contact-methods h3 { color: var(--navy); font-size: 18px; line-height: 1.7; margin-bottom: 16px; }
+.contact-methods p { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 12px 0; border-top: 1px solid #d5e1ea; }
+.contact-methods p span { color: #526d82; font-size: 12px; font-weight: 700; }
+.contact-methods p a { min-width: 0; color: #1f526f; font-size: 17px; overflow-wrap: anywhere; text-underline-offset: 4px; }
+.contact-methods small { display: block; margin-top: 15px; color: #5b7084; font-size: 12px; line-height: 1.9; }
+.contact-wechat { margin: 0; text-align: center; }
+.contact-wechat img { display: block; width: 100%; max-width: 230px; height: auto; margin: 0 auto; background: white; border: 8px solid white; box-shadow: 0 8px 24px #233a5520; }
+.contact-wechat figcaption { margin-top: 10px; color: #46647a; font-size: 12px; line-height: 1.7; }
+@media (max-width: 700px) {
+  .public-contact { grid-template-columns: 1fr; padding: 22px; }
+  .contact-wechat { max-width: 260px; }
+}
+@media (max-width: 420px) {
+  .public-contact { padding: 18px; gap: 24px; }
+  .contact-methods p { grid-template-columns: 42px minmax(0, 1fr); }
+  .contact-methods p a { font-size: 15px; }
+}
