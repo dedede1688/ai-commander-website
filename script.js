@@ -2,7 +2,7 @@
    整个文件包在 IIFE（立即执行函数 Immediately Invoked Function Expression）里，
    避免把 P / IND / openM 等名字暴露到 window 上，后续新增页面脚本时互不干扰。 */
 (function () {
-/* ===== 出版人名录数据（22 席）=====
+/* ===== 旧资料页：成员数据从 member-data.js 读取 =====
 
    字段说明（新增成员时照此填写）：
      slug  个人主页标识，全站唯一。规则见下方 SLUG_RULE，改了等于作废旧链接
@@ -21,260 +21,17 @@
      · 全小写 + 连字符分隔
      · 冲突时在末尾加数字后缀，如 wang-wei-2
    新增成员时先跑 tools/check-data.js 查重，重名会直接报错。 */
-var P = [
-  {
-    slug: "yan-hai-zhen",
-    n: "鄢海珍",
-    s: "NO.001",
-    r: "运动面料全链路操盘 · 二十余年",
-    f: "素材/照片/NO001_鄢海珍.webp",
-    b: "深耕服装纺织二十余年，专注运动面料研发、生产、销售与进出口贸易，具完整供应链实操经验。熟悉品质管控、外贸报关与跨境订单全链路，拥有稳定上游工厂及海内外客户渠道。以诚为本，品质为先，期待与服装品牌合作。",
-    lv: "low",
-  },
-  {
-    slug: "jin-zhao-xia",
-    n: "金朝霞",
-    s: "NO.002",
-    r: "AI 营销生态发起人",
-    f: "素材/照片/NO002_金朝霞.webp",
-    b: "AI营销生态发起人，企业增长与数字化运营专家，AI智能体应用实践者。多年运营、品牌、招商孵化及数字化实战经验，专注AI获客、GEO增长与商业化落地。理念：AI不是替代企业，而是重新定义增长方式。",
-    lv: "hi",
-  },
-  {
-    slug: "hu-gong-ping",
-    n: "胡公平",
-    s: "NO.003",
-    r: "商业地产招商运营专家",
-    f: "素材/照片/NO003_胡公平.webp",
-    b: '商业地产策划招商运营专家。深耕大湾区二十余年，计算机跨界，操盘数十个商业综合体与产业园，擅长前策、业态与头部品牌招商。倡导"运营赋能为王"，构建线上流量+线下实操体系，探索AI数智化赋能实体商业。',
-    lv: "hi",
-  },
-  {
-    slug: "zhang-cheng",
-    n: "张成",
-    s: "NO.004",
-    r: "企业底层架构师 · 30年实体",
-    f: "素材/照片/NO004_张成.webp",
-    b: "实体产业深耕三十余年，企业底层架构师，AI全域生态规划师。著有《民企生态底层架构》《商协会资源生态》等专著。倡导制度优先、先理性再感性，坚持风险防控。探索AI+实体+全域生态，赋能民营企业与高认知群体。",
-    lv: "hi",
-  },
-  {
-    slug: "guo-rui-yuan",
-    n: "郭瑞元",
-    s: "NO.005",
-    r: "碧水源集团董事长",
-    f: "素材/照片/NO005_郭瑞元.webp",
-    b: "碧水源集团董事长，广州赢联健康产业创始人，广州碧水源生物科技董事长，美国BSY集团控股公司负责人。深耕大健康产业，推动产业整合、国际化与产学研融合，以科技赋能健康，助力行业高质量发展，并坚持长期主义。",
-    lv: "low",
-  },
-  {
-    slug: "zhang-yu-jie",
-    n: "张玉洁",
-    s: "NO.006",
-    r: "玉洁生活社区连锁创始人",
-    f: "素材/照片/NO006_张玉洁.webp",
-    b: "玉洁生活社区连锁创始人，家政行业特别奉献者，优秀家庭服务管理者，高级营养管理师。以社区门店为根基，提供保洁、保姆、月嫂、家电清洗、养生及绿色农特产品服务。爱生活，爱健康，爱分享，美好生活从洁净养生开始。",
-    lv: "low",
-  },
-  {
-    slug: "zhou-yi",
-    n: "周一",
-    s: "NO.007",
-    r: "资深产业投资人",
-    f: "素材/照片/NO007_周一.webp",
-    b: "资深产业投资人，资本跃迁与上市培育实战专家。从工程师到集团董事，深耕实业二十余载。产业资本双视角，价值诊断、资本规划、产融对接、并购整合；优质企业上市费用最高九成垫资，合规为底线，助企业低门槛资本跃迁。",
-    lv: "low",
-  },
-  {
-    slug: "yu-ya-yong",
-    n: "于亚永",
-    s: "NO.008",
-    r: "资深IT工程师 · Web3观察者",
-    f: "素材/照片/NO008_于亚永.webp",
-    b: "资深IT工程师，深耕软件开发与底层架构，具工程研发与落地经验。深耕新媒体内容生态，擅长内容策划、流量运营与商业营销。专注Web3与数字经济，融合技术、传播与产业洞察，输出深度与落地并重的行业思考。",
-    lv: "mid",
-  },
-  {
-    slug: "li-hai-chang",
-    n: "李海畅",
-    s: "NO.009",
-    r: "AI+全域视觉战略官 · 品牌传播",
-    f: "素材/照片/NO009_李海畅.webp",
-    b: "大湾区本地生活联合运营中心联合创始人，广东华南经济发展研究会企业家访谈人，原中国网健康中国广东会客厅副主编、战略顾问，《企业家使命》编委。AI+全域视觉战略官，品牌传播顾问，短视频视觉传播、全域获客。",
-    lv: "mid",
-  },
-  {
-    slug: "wu-qi",
-    n: "吴琦",
-    s: "NO.010",
-    r: "实体产业互联转型专家",
-    f: "素材/照片/NO010_吴琦.webp",
-    b: "原大型国企实操运营人，实体产业互联转型升级落地专家，八年互联网公域流量赋能实体应用者。湖南省驻广州天狼商务处常务副会长，数字经济早期资深投资型顾问，原南京远见生物科技首席战略运营官，并长期推动产业升级。",
-    lv: "mid",
-  },
-  {
-    slug: "xiong-li",
-    n: "熊俪",
-    s: "NO.011",
-    r: "汉派女装 · 实业股东",
-    f: "素材/照片/NO011_熊俪.webp",
-    b: "深耕汉派女装批发，熟悉服装供应链与市场；广州秦火锅股份有限公司股东，参与餐饮投资；任康达（广州）品牌管理有限公司事业部经理，专注品牌管理与渠道。跨界实体与品牌运营，务实稳健，持续探索产业升级发展。",
-    lv: "low",
-  },
-  {
-    slug: "xie-tiao",
-    n: "谢眺",
-    s: "NO.012",
-    r: "传统行业 → 互联网转型者",
-    f: "素材/照片/NO012_谢眺.webp",
-    b: "从教育世家走出，历经传统实体与互联网双重淬炼。承包商场、经营餐饮百货、创办食品工厂，后转战深圳互联网，从失败中成长为团队长、系统领导、运营总监、平台CEO。整合资源，坚韧务实，持续探索新商业生态。",
-    lv: "mid",
-  },
-  {
-    slug: "wei-jian",
-    n: "韦健",
-    s: "NO.013",
-    r: "金融投融资 · 并购重组",
-    f: "素材/照片/NO013_韦健.webp",
-    b: "深耕金融二十余年，聚焦实体项目投融资，全流程实操丰富。参与火车站基建及大型工商投资项目尽调、研判与价值分析，完成现金流测算、收益评估与风险识别。主导多项并购重组，熟悉交易架构、估值谈判与风险把控。",
-    lv: "low",
-    isNew: true,
-  },
-  {
-    slug: "li-ping",
-    n: "李平",
-    s: "NO.014",
-    r: "理财规划师 · 财商教育者",
-    f: "素材/照片/NO014_李平.webp",
-    b: "理财规划师，心理咨询师，青少年财商教育实践者。多年企业规划经验，融合财务、心理与教育视角，专注财富心智、家庭成长与组织发展，助力企业高质量发展，以专业与温度陪伴个人和企业长期稳健前行，并持续创造价值。",
-    lv: "low",
-  },
-  {
-    slug: "menger",
-    n: "Menger",
-    s: "NO.015",
-    r: "品牌上市运营总指导",
-    f: "素材/照片/NO015_Menger.webp",
-    b: "品牌上市运营总指导。深耕实业与资本，涉足五金、农业、电商，深谙平衡之道。专注市值管理十年，参与创建市值研究中心，是市值管理实践的传承者与践行者。以实业为根、资本为翼，务实理性，助力企业价值提升。",
-    lv: "low",
-  },
-  {
-    slug: "zhao-zhuo-yi",
-    n: "赵卓一",
-    s: "NO.016",
-    r: "AI 全域营销专家",
-    f: "素材/照片/NO016_赵卓一.webp",
-    b: "深耕AI全域营销与商业落地，专注AI转化为实体、美业与创业项目的增长工具。擅长AI短剧、AIGC内容、AI获客，搭建商业化运营方案，打造低成本引流、沙龙招商与短视频矩阵，务实落地，赋能实体破局。",
-    lv: "hi",
-  },
-  {
-    slug: "zhang-wu-hong",
-    n: "张武红",
-    s: "NO.017",
-    r: "语文老师 · 互联网投资顾问",
-    f: "素材/照片/NO017_张武红.webp",
-    b: "安徒生语文老师，互联网投资顾问，多个支付公司聚合码平台指导人。深耕企业投资与教育板块，对AI领域高度认同，善于跨界连接资源，以教育者与投资人双重视角，助力更多人拥抱智能时代，携手更多伙伴共创未来！",
-    lv: "hi",
-  },
-  {
-    slug: "wei-jie-mian",
-    n: "危杰棉",
-    s: "NO.018",
-    r: "实体连续创业 · 美业大健康",
-    f: "素材/照片/NO018_危杰棉.webp",
-    b: "实体连续创业者，深耕美业与大健康，擅长供应链整合、私域渠道搭建与商业资源对接。从一线实体经营视角，参与梳理AI在商业场景中的落地思考，聚焦普通人如何借助AI工具，把想法转化为实际商业价值，务实推进落地。",
-    lv: "hi",
-    isNew: true,
-  },
-  {
-    slug: "newton-laoshi",
-    n: "牛顿老师",
-    s: "NO.019",
-    r: "AI 时代人才孵化 · 商学院院长",
-    f: "素材/照片/NO019_牛顿老师.webp",
-    b: "华中农大硕士，深耕企业人才培养与输送，兼任多家商学院院长。现聚焦AI时代核心人才孵化，定向培养讲师、店长及AI部署工程师，打通培育、训练、输送全链路，助企业搭建可落地人才梯队，解决招人难、育人慢、留不住。",
-    lv: "low",
-    isNew: true,
-  },
-  {
-    slug: "wen-ni",
-    n: "温妮",
-    s: "NO.020",
-    r: "女性健康品牌创始人",
-    f: "素材/照片/NO020_温妮.webp",
-    b: "女性健康品牌创始人，大湾区女性健康战略顾问。深耕私密护理与成人健康精品，融合AI仿生交互科技，研发生产硅胶娃娃，拓展国际贸易。以卓越品质、服务至上为理念，推动产业智能化、品牌化，让中国智造走向世界。",
-    lv: "low",
-    isNew: true,
-  },
-  {
-    slug: "fan-qin-ming",
-    n: "樊秦鸣",
-    s: "NO.021",
-    r: "商业顶层设计专家",
-    f: "素材/照片/NO021_樊秦鸣.webp",
-    b: "科技与咨询企业董事长、执行董事，商业顶层设计专家。曾策划世界小姐比赛、一带一路高峰论坛、世界科技拐点高峰论坛、香港慈善拍卖会。服务企业超100家，现聚焦AI数字经济转型，赋能平台、跨境、工厂、连锁等。",
-    lv: "hi",
-    isNew: true,
-  },
-  {
-    slug: "huzi-laoshi",
-    n: "胡子老师",
-    s: "NO.022",
-    r: "《AI指挥官》作者",
-    f: "素材/照片/NO022_胡子老师.webp",
-    b: '资本视角商业策划师，首席战略官，资本运作专家。精通财务模型与资本架构，擅长模式创新与组织激活。独创"商学院+招商+资本"铁三角，打通治理、模式、资产证券化。理念：AI是参谋，你是司令。《AI指挥官》作者。',
-    lv: "hi",
-  },
-];
+/* 旧资料页的历史观察标签只在本页使用，不进入共建者中心。 */
+var LEGACY_STATUS = {"yan-hai-zhen":["low",false],"jin-zhao-xia":["hi",false],"hu-gong-ping":["hi",false],"zhang-cheng":["hi",false],"guo-rui-yuan":["low",false],"zhang-yu-jie":["low",false],"zhou-yi":["low",false],"yu-ya-yong":["mid",false],"li-hai-chang":["mid",false],"wu-qi":["mid",false],"xiong-li":["low",false],"xie-tiao":["mid",false],"wei-jian":["low",true],"li-ping":["low",false],"menger":["low",false],"zhao-zhuo-yi":["hi",false],"zhang-wu-hong":["hi",false],"wei-jie-mian":["hi",true],"newton-laoshi":["low",true],"wen-ni":["low",true],"fan-qin-ming":["hi",true],"zhang-ding-long":["hi",true],"huzi-laoshi":["hi",false]};
+var P = window.AI_COMMANDER_MEMBERS.members.map(function (p) {
+  var status = LEGACY_STATUS[p.slug] || ["low", false];
+  return {slug:p.slug, n:p.name, s:p.seat, r:p.role, f:p.photo, b:p.bio, lv:status[0], isNew:status[1]};
+});
 
 /* ===== 行业分组数据（每组的成员名单驱动下方行业卡渲染）===== */
-var IND = [
-  {
-    name: "金融·资本·投资",
-    icon: '<path d="M3 20h18M6 20V11M11 20V6M16 20v-7M21 20V9"/>',
-    m: ["韦健", "周一", "Menger", "李平", "张武红"],
-  },
-  {
-    name: "传统实业·制造",
-    icon: '<path d="M3 21V10l6-4 6 4v11M9 21v-5h6v5M21 21v-7l-3-2"/>',
-    m: ["鄢海珍", "熊俪"],
-  },
-  {
-    name: "大健康·生活服务",
-    icon: '<path d="M12 21s-7.5-5-7.5-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7.5 3.5C19.5 16 12 21 12 21z"/><path d="M12 11v4M10 13h4"/>',
-    m: ["郭瑞元", "张玉洁", "危杰棉", "温妮"],
-  },
-  {
-    name: "IT·互联网·数字化",
-    icon: '<path d="M8.5 6.5L3 12l5.5 5.5M15.5 6.5L21 12l-5.5 5.5"/>',
-    m: ["于亚永", "吴琦", "谢眺"],
-  },
-  {
-    name: "AI 原生·AI 营销",
-    icon: '<rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M10 2.5v4M14 2.5v4M10 17.5v4M14 17.5v4M2.5 10h4M2.5 14h4M17.5 10h4M17.5 14h4"/>',
-    m: ["金朝霞", "赵卓一"],
-  },
-  {
-    name: "咨询·战略·架构",
-    icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
-    m: ["张成", "李海畅", "樊秦鸣"],
-  },
-  {
-    name: "商业地产·产业园",
-    icon: '<path d="M4 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15M14 21V12h4a2 2 0 0 1 2 2v7M8 8h2M8 12h2M8 16h2"/>',
-    m: ["胡公平"],
-  },
-  {
-    name: "教育·人才",
-    icon: '<path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6.5 11.5V16c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.5"/><path d="M22 9v5"/>',
-    m: ["牛顿老师"],
-  },
-  {
-    name: "本书作者",
-    icon: '<path d="M20 3L9 14l-4 1 1-4L17 0l3 3z"/><path d="M9 14v6H3"/>',
-    m: ["胡子老师"],
-  },
-];
+var IND = window.AI_COMMANDER_MEMBERS.groups.map(function (g) {
+  return { name: g.name, icon: g.icon, m: g.members };
+});
 
 var PHOTO = {};
 var AILV = {};
@@ -295,7 +52,7 @@ P.forEach(function (x) {
     "@type": "ItemList",
     "@id": "https://www.ai-mmc.cn/#publishers",
     name: "《AI指挥官》联合出版人名录",
-    description: "20位产业一线联合出版人，覆盖9个行业群体。",
+    description: "23位产业一线联合出版人，覆盖9个行业群体。",
     inLanguage: "zh-CN",
     numberOfItems: P.length,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
@@ -520,7 +277,7 @@ document.addEventListener("keydown", function (e) {
 /* ===== 顶部导航：点击跳转 + 滚动高亮 ===== */
 (function () {
   var links = Array.prototype.slice.call(
-    document.querySelectorAll(".nav-link"),
+    document.querySelectorAll('.nav-link[href^="#"]:not([data-open-qr])'),
   );
   var targets = links
     .map(function (l) {
@@ -678,7 +435,11 @@ document.addEventListener("keydown", function (e) {
   window.addEventListener("pagehide", save);
   window.addEventListener("beforeunload", save);
 
-  if (y <= 0) return;
+  /* 跨页进入指定栏目时，锚点优先于上次阅读位置。仅刷新/历史返回恢复。 */
+  var navigation = performance.getEntriesByType
+    ? performance.getEntriesByType("navigation")[0]
+    : null;
+  if (y <= 0 || location.hash || !navigation || navigation.type === "navigate") return;
 
   /* 用户自己滚动过之后就不再干预，避免把滚动位置抢回来 */
   var moved = false;

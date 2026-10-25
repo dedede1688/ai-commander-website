@@ -758,6 +758,41 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 237, 189, 0.35);
 }
+/* ---------- 二维码弹窗关闭按钮 ----------
+   与全站 style.css 的口径一致。本页只载入 base.css + 本文件，
+   base.css 没有 .qr-close 与 .qr-panel 的定位，所以在这里补齐。 */
+.qr-panel {
+  position: relative;
+}
+.qr-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.18s,
+    outline-offset 0.15s;
+  z-index: 1;
+}
+.qr-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.qr-close:focus-visible {
+  outline: 2px solid #00edbd;
+  outline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   .book-strip {
     flex-direction: column;

@@ -1,0 +1,59 @@
+/* 合作共建：沿用既有品牌变量、字体与页面节奏。 */
+.preview-banner { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; padding-top: 18px; padding-bottom: 0; font-size: 12px; color: #53647b; }
+.preview-banner p { font-weight: 700; }
+.preview-banner span { font-weight: 400; margin-left: 12px; }
+.preview-banner a { color: var(--navy); text-underline-offset: 4px; }
+.cooperate-page { padding-top: 18px; }
+.cooperate-hero { display: grid; grid-template-columns: minmax(0,1fr) 180px; gap: 40px; align-items: center; padding: 40px; border-radius: 6px; background: var(--navy-d); color: #d0d8e9; }
+.cooperate-hero .section-kicker { color: #8bddcf; }
+.cooperate-hero h1 { color: white; font-size: clamp(28px,3.7vw,40px); line-height: 1.5; margin-bottom: 18px; }
+.hero-intro { font-size: 14px; line-height: 1.95; max-width: 700px; }
+.cooperate-hero .action { color: var(--navy-d); background: var(--teal); border-color: var(--teal); font-weight: 700; }
+.cooperate-hero .action.secondary { color: white; background: transparent; border-color: #8997b7; }
+.cooperate-hero a:focus-visible { outline-color: #b2eddf; }
+.cooperate-hero figure { text-align: center; }
+.cooperate-hero img { display: block; width: 180px; max-width: 100%; height: auto; }
+.cooperate-hero figcaption { font-size: 11px; line-height: 1.9; margin-top: 14px; color: #bbcadf; }
+.cooperate-jump { display: flex; flex-wrap: wrap; gap: 6px 28px; background: white; padding: 12px 24px; margin: 16px 0 20px; border-bottom: 1px solid #d6dfeb; border-radius: 4px; }
+.cooperate-jump a { display: inline-flex; align-items: center; min-height: 44px; color: #28496a; font-size: 13px; text-decoration: none; }
+.cooperate-jump a:hover { text-decoration: underline; }
+.cooperation-paths { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 26px; }
+.cooperation-path { display: flex; flex-direction: column; min-width: 0; border-top: 2px solid #a8c7c4; padding: 22px 0 0; scroll-margin-top: var(--nav-clear); }
+.path-index { color: #38647b; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+.cooperation-path h3 { color: var(--navy); font-size: 20px; line-height: 1.65; margin: 12px 0; }
+.path-intro { color: #35546d; font-size: 14px; line-height: 1.95; margin-bottom: 20px; }
+.cooperation-path dl { flex: 1; margin-bottom: 24px; }
+.cooperation-path dl > div + div { margin-top: 16px; }
+.cooperation-path dt { font-size: 12px; font-weight: 700; color: #3e647d; margin-bottom: 5px; }
+.cooperation-path dd { font-size: 13px; line-height: 1.95; color: var(--muted); }
+.cooperation-path .action { width: 100%; font-size: 12px; padding-left: 12px; padding-right: 12px; }
+.path-note { color: #64758b; font-size: 11px; line-height: 1.9; margin-top: 12px; }
+.preparation-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px 32px; }
+.preparation-grid article { border-top: 1px solid #d9e2ec; padding-top: 18px; }
+.preparation-grid h3 { font-size: 17px; color: var(--navy); margin-bottom: 9px; }
+.preparation-grid p { color: var(--muted); font-size: 14px; line-height: 1.95; }
+.preparation-note { font-size: 12px; color: #5d7388; line-height: 1.95; padding-top: 18px; margin-top: 24px; border-top: 1px solid #d9e2ec; }
+.contact-layout { display: grid; grid-template-columns: minmax(0,2fr) minmax(220px,.8fr); gap: 36px; align-items: start; }
+.contact-guide { background: #f1f5fa; border-radius: 4px; padding: 24px; }
+.contact-guide h3 { color: var(--navy); font-size: 16px; line-height: 1.7; margin-bottom: 14px; }
+.contact-guide a { display: block; padding: 12px 0; color: #315b7e; font-size: 13px; border-top: 1px solid #d5e1ea; }
+@media (max-width:800px) {
+  .cooperate-hero { grid-template-columns: minmax(0,1fr) 130px; gap: 26px; padding: 32px 28px; }
+  .cooperation-paths { grid-template-columns: 1fr; gap: 28px; }
+  .cooperation-path dl { margin-bottom: 20px; }
+  .cooperation-path .action { width: fit-content; min-width: 210px; }
+  .contact-layout { grid-template-columns: 1fr; gap: 26px; }
+}
+@media (max-width:520px) {
+  .preview-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .preview-banner span { display: block; margin: 4px 0 0; }
+  .cooperate-hero { grid-template-columns: 1fr; padding: 28px 22px; }
+  .cooperate-hero h1 { font-size: 28px; }
+  .cooperate-hero figure { display: none; }
+  .cooperate-page .card { padding: 26px 22px; }
+  .cooperate-jump { padding: 10px 20px; gap: 4px 22px; }
+  .cooperate-page .section-actions { gap: 12px; }
+  .cooperate-page .section-actions .action, .cooperation-path .action { width: 100%; min-width: 0; }
+  .preparation-grid { grid-template-columns: 1fr; }
+  .contact-guide { padding: 20px; }
+}
