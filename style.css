@@ -2685,20 +2685,14 @@ ul.plain {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #eef4f8;
-  color: var(--navy);
+  background: var(--navy);
+  color: #fff;
   font-size: 11.5px;
   font-weight: 700;
   font-family: Consolas, monospace;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.bk2-chap:first-of-type .bk2-chap-no,
-.bk2-chap:nth-of-type(3) .bk2-chap-no,
-.bk2-chap:nth-of-type(8) .bk2-chap-no {
-  background: linear-gradient(135deg, var(--navy), #2a3f8f);
-  color: #fff;
 }
 .bk2-chap-title {
   font-weight: 600;

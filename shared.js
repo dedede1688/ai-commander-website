@@ -15,24 +15,16 @@
 */
 (function () {
   /* ---------- 站点配置（改这里，全站生效） ---------- */
-  /* 同页锚点栏目：首页直接用 #hash，其他页面自动补 index.html 前缀。
-     数组顺序 = 导航栏从左到右的顺序，与页面区块顺序一致。 */
-  var ANCHORS = [
-    { hash: "sec-book", text: "关于本书" },
-    { hash: "sec-roster", text: "指挥官军团" },
-    { hash: "courses", text: "AI 课程" },
-    { hash: "club", text: "会员俱乐部" },
-    { hash: "tools", text: "AI 工具" },
-    { hash: "articles", text: "知识中心" },
-    { hash: "community", text: "学习交流" },
-    { hash: "business", text: "商务合作" },
-    { hash: "sec-ai", text: "共建指数" },
-    { hash: "sec-honor", text: "四级荣誉" },
-  ];
-  /* 独立页面：key 与 body[data-page] 对应，用于判断当前页高亮 */
-  var PAGES = [
-    { file: "models.html", key: "models", text: "AI 模型" },
-    { file: "xianfeng.html", key: "xianfeng", text: "先锋营" },
+  /* 仅连接已存在的页面；后续栏目完成后再切换到独立页面。 */
+  var NAV_ITEMS = [
+    { file: "index.html", key: "index", text: "首页" },
+    { file: "book.html", key: "book", text: "《AI指挥官》" },
+    { file: "builders.html", key: "builders", text: "共建者" },
+    { file: "outcomes.html", key: "outcomes", text: "成果" },
+    { file: "enterprise.html", key: "enterprise", text: "企业服务" },
+    { file: "learning.html", key: "learning", text: "学习与工具" },
+    { file: "cooperate.html", key: "cooperate", text: "合作共建" },
+    { file: "xianfeng.html", key: "xianfeng", text: "先锋券活动" },
   ];
   var LOGO = "素材/logo.webp";
   var SITE_URL = "https://www.ai-mmc.cn";
@@ -48,30 +40,22 @@
   /* ---------- 1. 导航注入 ---------- */
   var nav = document.getElementById("topnav");
   if (nav) {
-    function anchorLink(a) {
+    var links = NAV_ITEMS.map(function (p) {
+      var href = p.hash ? prefix + "#" + p.hash : p.file;
       return (
-        '<a class="nav-link" href="' + prefix + "#" + a.hash + '">' + a.text + "</a>"
-      );
-    }
-
-    /* 锚点栏目按 ANCHORS 数组顺序平铺，全部是直接可见的独立导航项 */
-    var links = ANCHORS.map(function (a) {
-      return anchorLink(a);
-    }).join("");
-
-    PAGES.forEach(function (p) {
-      links +=
         '<a class="nav-link' +
-        (pageKey === p.key ? " active" : "") +
+        (pageKey === p.key || (pageKey === "member" && p.key === "builders") ? " active" : "") +
         '" href="' +
-        p.file +
+        href +
+        (pageKey === p.key ? '" aria-current="page' : '') +
         '">' +
         p.text +
-        "</a>";
-    });
+        "</a>"
+      );
+    }).join("");
 
     links +=
-      '<a class="nav-link nav-gift" id="navGift" data-track="qr|open|导航大礼包">AI 大礼包</a>';
+      '<a class="nav-link nav-gift" id="navGift" href="#qrLayer" role="button" data-open-qr data-track="qr|open|导航大礼包">AI 大礼包</a>';
 
     nav.innerHTML =
       '<div class="nav-inner">' +
@@ -94,7 +78,7 @@
       '<div class="nav-drawer" id="navDrawer" role="dialog" ' +
         'aria-modal="true" aria-label="导航菜单" hidden>' +
         '<div class="nav-drawer-inner">' +
-        links +
+        links.replace('id="navGift"', 'id="navGiftDrawer"') +
         "</div>" +
       "</div>";
 
@@ -173,7 +157,7 @@
       // 链接点击 → 关闭抽屉
       navDrawer.addEventListener("click", function (e) {
         if (e.target.closest("a")) closeDrawer();
-      });
+      }, true);
       // 遮罩点击 → 关闭
       if (navBackdrop) {
         navBackdrop.addEventListener("click", closeDrawer);
@@ -255,7 +239,11 @@
     var _qrTrigger = null; /* 记录触发按钮，关闭时焦点返回 */
 
     function openQr(e) {
+      if (e) e.preventDefault();
       _qrTrigger = e && e.target && e.target.closest ? e.target.closest("[data-open-qr]") : null;
+      if (_qrTrigger && _qrTrigger.closest("#navDrawer")) {
+        _qrTrigger = document.getElementById("navToggle");
+      }
       qrLayer.classList.add("on");
       /* 打开后将焦点移到关闭按钮，提高键盘可访问性 */
       var closeBtn = qrLayer.querySelector(".qr-close");
@@ -270,15 +258,6 @@
       if (trigger && typeof trigger.focus === "function") {
         requestAnimationFrame(function () { trigger.focus(); });
       }
-    }
-
-    /* 导航栏「AI 大礼包」按钮 */
-    var navGift = document.getElementById("navGift");
-    if (navGift) {
-      navGift.addEventListener("click", function (e) {
-        e.preventDefault();
-        openQr(e);
-      });
     }
 
     /* 任意带 data-open-qr 的元素（扫码咨询 / CTA 条） */
