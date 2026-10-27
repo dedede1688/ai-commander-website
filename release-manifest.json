@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T14:24:48.273Z",
+  "generatedAt": "2026-10-27T14:51:03.420Z",
   "site": "https://www.ai-mmc.cn",
   "fileCount": 362,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
@@ -612,7 +612,7 @@
     },
     {
       "path": "member-data.js",
-      "bytes": 16024,
+      "bytes": 16340,
       "sha256": "44b95b9845c316c58273b4cbdce7fd536a844d530536d6f920aeb458b31f9789",
       "kind": "text"
     },

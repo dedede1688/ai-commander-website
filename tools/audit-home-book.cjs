@@ -11,14 +11,17 @@ const book = read('book.html');
 /* 旧资料页已精简为历史说明页，八篇正文保全改用固定归档对照。
    归档文件只入仓库、不进发布包；哈希固定后，任何人改动归档都会在这里报错。 */
 const ARCHIVE = 'docs/archive/2026-10-22-explore-legacy.html';
-const ARCHIVE_SHA256 = 'A86EA3DDD5CB67674F250999B4D49AD710CBAE95C914F60A32C95328EFA831F9';
+const ARCHIVE_SHA256 = 'CB851A72512A25B985F28EF6402BD4FD7DEBFD8157E83CBB918804F9CC57791E';
 assert.ok(fs.existsSync(path.join(root, ARCHIVE)), '旧资料页归档必须存在：' + ARCHIVE);
 const archiveBytes = fs.readFileSync(path.join(root, ARCHIVE));
-assert.equal(
-  crypto.createHash('sha256').update(archiveBytes).digest('hex').toUpperCase(),
-  ARCHIVE_SHA256,
-  '归档文件须保持逐字节不变',
-);
+/* 文本哈希按 LF 归一化（与 release-manifest 工具同口径），
+   避免 Windows 工作区 CRLF 与 Linux CI 检出 LF 的行尾差异造成误报。 */
+const archiveHash = crypto
+  .createHash('sha256')
+  .update(Buffer.from(archiveBytes.toString('utf8').replace(/\r\n/g, '\n'), 'utf8'))
+  .digest('hex')
+  .toUpperCase();
+assert.equal(archiveHash, ARCHIVE_SHA256, '归档文件内容须保持不变（按 LF 归一化比对）');
 const original = archiveBytes.toString('utf8');
 assert.equal((home.match(/data-home-section=/g) || []).length, 8, '首页应为八屏');
 assert.equal((book.match(/data-book-section=/g) || []).length, 10, '图书页应为十屏');
