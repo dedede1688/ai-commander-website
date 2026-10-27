@@ -35,6 +35,7 @@ jobs:
           cp *.html *.js *.css _site/
           cp robots.txt sitemap.xml CNAME _site/ 2>/dev/null || true
           cp -r 素材 _site/素材 2>/dev/null || true
+          cp -r supply-chain _site/supply-chain
           echo "--- 待部署清单 ---"
           du -sh _site
           find _site -type f | wc -l

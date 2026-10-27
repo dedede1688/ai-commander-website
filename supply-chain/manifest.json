@@ -1,0 +1,28 @@
+{
+  "products_total": 234,
+  "images_loaded": 228,
+  "no_image_blacklist": [
+    "JM-B-015",
+    "JM-B-016",
+    "JM-D-016",
+    "JM-E-032",
+    "JM-E-033",
+    "JM-E-042"
+  ],
+  "category_counts": {
+    "A": 26,
+    "B": 16,
+    "C": 1,
+    "D": 22,
+    "E": 88,
+    "F": 27,
+    "G": 23,
+    "H": 29,
+    "I": 2
+  },
+  "image_refs": 222,
+  "files_copied": 222,
+  "html_bytes": 134908,
+  "entry": "index.html",
+  "note": "验收标准：浏览器打开 index.html，DATA=234 款、成功加载图片=228、0 裂图、6 款黑名单无图占位"
+}
