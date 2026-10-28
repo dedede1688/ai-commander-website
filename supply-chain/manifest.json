@@ -22,7 +22,7 @@
   },
   "image_refs": 222,
   "files_copied": 222,
-  "html_bytes": 134908,
+  "html_bytes": 136404,
   "entry": "index.html",
   "note": "验收标准：浏览器打开 index.html，DATA=234 款、成功加载图片=228、0 裂图、6 款黑名单无图占位"
 }

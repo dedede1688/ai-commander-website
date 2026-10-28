@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T14:51:03.420Z",
+  "generatedAt": "2026-10-28T00:58:00.164Z",
   "site": "https://www.ai-mmc.cn",
   "fileCount": 362,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
@@ -2148,14 +2148,14 @@
     },
     {
       "path": "supply-chain/index.html",
-      "bytes": 135081,
-      "sha256": "368f08b537d84aa94e07006045dc271b51b89b1c8818406cec8342bad1c7e80c",
+      "bytes": 136590,
+      "sha256": "f9661b7d1daebba7715ec9a7f79e976e2063d0386bc480e67db0b1f217c2f54e",
       "kind": "text"
     },
     {
       "path": "supply-chain/manifest.json",
       "bytes": 574,
-      "sha256": "f9f62187628a1418021210906e4c1af6bcc9ba5180f4857b3781cf5055852e64",
+      "sha256": "a08c388c49ed36bc07634c965658a1b53ce3bfdbaa125112305cfe20fdd547b5",
       "kind": "text"
     },
     {
