@@ -22,7 +22,11 @@ const archiveHash = crypto
   .digest('hex')
   .toUpperCase();
 assert.equal(archiveHash, ARCHIVE_SHA256, '归档文件内容须保持不变（按 LF 归一化比对）');
-const original = archiveBytes.toString('utf8');
+/* 2026-10-30 Q07：仅对提取用于正文比较的归档文本做 CRLF→LF 归一化。
+   原始归档文件（CRLF）与 book.html（LF）换行风格不同，导致 bodies() 严格比较误报。
+   归一化仅作用于比较变量 original，不动归档文件、不动哈希校验（19-24行已独立处理）。
+   正文数量、内容完整性、断言数量与逻辑均保持不变。 */
+const original = archiveBytes.toString('utf8').replace(/\r\n/g, '\n');
 assert.equal((home.match(/data-home-section=/g) || []).length, 8, '首页应为八屏');
 assert.equal((book.match(/data-book-section=/g) || []).length, 10, '图书页应为十屏');
 assert.equal((book.match(/<details class="bk2-chap"/g) || []).length, 8);
@@ -52,13 +56,15 @@ for (const [name, html] of [['index.html', home], ['book.html', book], ['outcome
     }
   }
 }
-assert.ok(home.includes('研发完成') && home.includes('尚未上线'));
+/* 2026-10-30 P03新版首页：口径断言随确认结构更新——系统状态用"开放待定"（效果页认可文案），
+   导航文案为六项新名称；合作入口经共建合作（builders.html），学习中心链接不再带旧锚点。 */
+assert.ok(home.includes('研发完成') && home.includes('开放待定'));
 assert.ok(book.includes('20 余年') && book.includes('首席运营官'));
 assert.equal((book.match(/class="reading-route"/g) || []).length, 6);
 assert.ok(read('sitemap.xml').includes('/book.html</loc>'));
 assert.ok(read('sitemap.xml').includes('/outcomes.html</loc>'));
 assert.ok(home.includes('href="outcomes.html"'));
-assert.ok(read('shared.js').includes('{ file: "outcomes.html", key: "outcomes", text: "成果" }'));
+assert.ok(read('shared.js').includes('{ file: "outcomes.html", key: "outcomes", text: "工具与成果" }'));
 assert.ok(!/previews\/|noindex|本地预览|<base /.test(read('outcomes.html')), '成果页无预览残留');
 assert.ok(read('outcomes.html').includes('官网开放时间待定'));
 assert.ok(read('sitemap.xml').includes('/enterprise.html</loc>'));
@@ -67,14 +73,16 @@ assert.ok(read('shared.js').includes('{ file: "enterprise.html", key: "enterpris
 assert.ok(!/previews\/|noindex|本地预览|<base /.test(read('enterprise.html')), '企业页无预览残留');
 assert.ok(read('enterprise.html').includes('项目规划 · 待样板验证'));
 assert.ok(read('sitemap.xml').includes('/learning.html</loc>'));
-assert.ok(home.includes('href="learning.html#courses"'));
-assert.ok(read('shared.js').includes('{ file: "learning.html", key: "learning", text: "学习与工具" }'));
+assert.ok(home.includes('href="learning.html"'));
+assert.ok(read('shared.js').includes('{ file: "learning.html", key: "learning", text: "学习中心" }'));
 assert.ok(!/previews\/|noindex|本地预览|<base /.test(read('learning.html')), '学习页无预览残留');
-assert.ok(read('learning.html').includes('课程规划 · 尚未上线'));
-assert.ok(read('learning.html').includes('原站已有的三个主题示例'));
+/* 2026-10-30 P06：学习中心改主推独立课程，旧"配套课程三主题示例"与"尚未上线"表述被批准结构替代；
+   真实状态检查不放松——独立课程必须仍标注规划中、未开放报名与1688规划价。 */
+assert.ok(read('learning.html').includes('课程规划中 · 尚未开放正式报名'));
+assert.ok(read('learning.html').includes('课程独立成体系，无需前置阅读') && read('learning.html').includes('1688'));
 assert.ok(read('sitemap.xml').includes('/cooperate.html</loc>'));
-assert.ok(home.includes('href="cooperate.html"'));
-assert.ok(read('shared.js').includes('{ file: "cooperate.html", key: "cooperate", text: "合作共建" }'));
+assert.ok(home.includes('href="builders.html"'));
+assert.ok(read('shared.js').includes('{ file: "builders.html", key: "builders", text: "共建合作" }'));
 assert.ok(!/previews\/|noindex|本地预览|<base /.test(read('cooperate.html')), '合作页无预览残留');
 assert.equal((read('cooperate.html').match(/class="cooperation-path"/g) || []).length, 3);
 /* 先锋券页：内容口径、链接与弹窗可访问性（2026-10-22 修正后纳入检查） */

@@ -1,4 +1,55 @@
 /* 首页与图书页共用：延续原站的书影、深蓝和青绿色。 */
+/* ===== 2026-10-30 全站升级P03：新版首页专属（.home-page 作用域） ===== */
+.home-page .rpt-title .emph { color: var(--teal); font-style: normal; }
+.home-promo { display: grid; grid-template-columns: 180px minmax(0,1fr) auto; align-items: center; gap: 26px; background: #e0efec; border: 1px solid #c6ded7; }
+.home-promo-poster { display: block; }
+.home-promo-poster img { width: 180px; aspect-ratio: 16/9; object-fit: contain; background: #0d1440; border-radius: 3px; display: block; }
+.home-promo h3 { font-size: 18px; color: var(--navy); margin: 5px 0; }
+.home-promo p { font-size: 13px; color: var(--muted); }
+.home-promo-label { font-size: 11px; letter-spacing: 2px; color: #406e62; margin: 0; }
+.home-promo .section-actions { margin-top: 0; }
+.mini-book { display: flex; gap: 24px; align-items: center; }
+.mini-book img { width: 118px; height: auto; flex: 0 0 auto; }
+.mini-book h3 { font-size: 18px; color: var(--navy); margin-bottom: 6px; }
+.mini-book p { font-size: 13px; color: var(--muted); }
+.course-blueprint { border: 1px solid #d9e1ec; background: #f5f8fc; padding: 25px 27px; }
+.blueprint-top { font-size: 13px; letter-spacing: 1px; color: var(--navy); padding-bottom: 15px; border-bottom: 1px solid #d9e1ec; }
+.blueprint-steps { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); margin: 20px 0; gap: 8px; }
+.blueprint-steps span { font-size: 12px; text-align: center; color: #4b6684; }
+.blueprint-result { padding: 15px; text-align: center; color: var(--navy); background: #e6eeef; font-weight: 700; font-size: 14px; }
+.feature-tool { padding: 24px; background: #f2f7fa; display: flex; justify-content: space-between; align-items: center; gap: 24px; border: 1px solid #dbe5ed; margin-bottom: 10px; }
+.feature-tool h3 { font-size: 18px; color: var(--navy); margin: 10px 0 8px; }
+.feature-tool p { font-size: 14px; color: var(--muted); }
+.feature-tool .section-actions { margin-top: 0; }
+.content-grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.choice-grid.five { grid-template-columns: repeat(5, minmax(0,1fr)); }
+@media (max-width: 900px) {
+  .home-promo { grid-template-columns: 150px minmax(0,1fr); }
+  .home-promo .section-actions { grid-column: 2; justify-self: start; }
+  .home-promo-poster img { width: 150px; }
+  .content-grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .choice-grid.five { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 768px) {
+  .home-promo { padding: 18px; gap: 16px; grid-template-columns: 100px minmax(0,1fr); }
+  .home-promo-poster img { width: 100px; }
+  .home-promo h3 { font-size: 16px; }
+  .home-promo p { font-size: 11px; }
+  .home-promo .section-actions { grid-column: 1 / -1; justify-self: start; }
+  .mini-book { gap: 16px; }
+  .mini-book img { width: 96px; }
+  .feature-tool { display: block; padding: 20px; }
+  .feature-tool .section-actions { margin-top: 18px; }
+  .blueprint-steps { gap: 4px; }
+  .blueprint-steps span { font-size: 11px; }
+  .course-blueprint { padding: 20px; }
+  .choice-grid.five { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .content-grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 480px) {
+  .content-grid.four { grid-template-columns: 1fr; }
+  .choice-grid.five { grid-template-columns: 1fr; }
+}
 .skip-link { position: fixed; left: 16px; top: -80px; z-index: 2000; padding: 10px 16px; background: #fff; color: var(--navy); }
 .skip-link:focus { top: 8px; }
 .site-content { --muted: #526077; }
@@ -178,4 +229,11 @@
   .section-actions .action { width: 100%; }
   .site-content .card { padding: 25px 20px; }
   .book-jump { gap: 12px 20px; }
+}
+
+/* ===== 首页先锋券推广到期隐藏 ===== */
+/* 与 landing.js 配合：landing.js 负责动态切换 class；此处的 !important 用于
+   覆盖 display: flex / grid 等已有布局，确保隐藏实际生效。 */
+.xf-promo-expired #promo {
+  display: none !important;
 }

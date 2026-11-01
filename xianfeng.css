@@ -1149,3 +1149,36 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* ===== 活动结束终态样式 ===== */
+.xf-expired-banner {
+  display: none;
+  margin: 24px 0 8px;
+  padding: 18px 24px;
+  border-left: 4px solid #c0392b;
+  background: #fef5f4;
+  border-radius: 6px;
+}
+.xf-expired-banner h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  color: #c0392b;
+}
+.xf-expired-banner p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+.xf-expired .xf-expired-banner {
+  display: block;
+}
+.xf-expired .xf-cd {
+  display: none;
+}
+/* 活动结束后仍能阅读规则，但视觉上弱化海报，避免仍可抢的错觉 */
+.xf-expired .xf-hero--poster {
+  opacity: 0.65;
+}
+.xf-expired .xf-btn-main {
+  display: none !important;
+}

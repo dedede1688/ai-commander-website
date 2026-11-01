@@ -15,17 +15,24 @@
 */
 (function () {
   /* ---------- 站点配置（改这里，全站生效） ---------- */
-  /* 仅连接已存在的页面；后续栏目完成后再切换到独立页面。 */
+  /* 2026-10-30 全站升级P02：六项一级导航（用户已确认顺序与名称）。
+     旧合作页、先锋券活动页不再进导航，改由栏目内链接承接；高亮归属见 NAV_GROUP。 */
   var NAV_ITEMS = [
     { file: "index.html", key: "index", text: "首页" },
+    { file: "builders.html", key: "builders", text: "共建合作" },
     { file: "book.html", key: "book", text: "《AI指挥官》" },
-    { file: "builders.html", key: "builders", text: "共建者" },
-    { file: "outcomes.html", key: "outcomes", text: "成果" },
+    { file: "learning.html", key: "learning", text: "学习中心" },
+    { file: "outcomes.html", key: "outcomes", text: "工具与成果" },
     { file: "enterprise.html", key: "enterprise", text: "企业服务" },
-    { file: "learning.html", key: "learning", text: "学习与工具" },
-    { file: "cooperate.html", key: "cooperate", text: "合作共建" },
-    { file: "xianfeng.html", key: "xianfeng", text: "先锋券活动" },
   ];
+  /* 详情页归属高亮：成员页/旧合作页→共建合作；先锋券活动页→《AI指挥官》；
+     模型速查页→工具与成果；course.html 的 data-page 已是 learning，无需映射。 */
+  var NAV_GROUP = {
+    member: "builders",
+    cooperate: "builders",
+    xianfeng: "book",
+    models: "outcomes",
+  };
   var LOGO = "素材/logo.webp";
   var SITE_URL = "https://www.ai-mmc.cn";
   var SITE_DOMAIN = "www.ai-mmc.cn";
@@ -40,14 +47,16 @@
   /* ---------- 1. 导航注入 ---------- */
   var nav = document.getElementById("topnav");
   if (nav) {
+    /* 归属高亮：详情页（成员/旧合作/先锋券/模型）按栏目归组高亮，explore 等无归属页不高亮 */
+    var activeKey = NAV_GROUP[pageKey] || pageKey;
     var links = NAV_ITEMS.map(function (p) {
       var href = p.hash ? prefix + "#" + p.hash : p.file;
       return (
         '<a class="nav-link' +
-        (pageKey === p.key || (pageKey === "member" && p.key === "builders") ? " active" : "") +
+        (activeKey === p.key ? " active" : "") +
         '" href="' +
         href +
-        (pageKey === p.key ? '" aria-current="page' : '') +
+        (activeKey === p.key ? '" aria-current="page' : '') +
         '">' +
         p.text +
         "</a>"

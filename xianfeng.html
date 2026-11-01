@@ -27,7 +27,7 @@
     <meta property="og:image:width" content="1672" />
     <meta property="og:image:height" content="941" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="stylesheet" href="base.css?v=7" />
+    <link rel="stylesheet" href="base.css?v=8" />
     <link rel="stylesheet" href="xianfeng.css?v=32" />
     <!-- 结构化数据：页面主体是活动说明，不是可直接购买的商品。
          优惠券的“0 元领取 + 凭券 98 元购书”无法用单一 Product/Offer 准确表达，
@@ -59,6 +59,12 @@
            但搜索引擎与读屏软件仍需要一个明确的 h1 来说明本页主题。 -->
       <h1 class="sr-only">《AI指挥官》先锋券活动：免费领取，凭券98元包邮购样板书；限量30张，编号001–030，北京时间2026年11月30日24:00截止</h1>
 
+      <!-- ===== 活动结束后展示的终态横幅 ===== -->
+      <div class="xf-expired-banner" id="xfExpiredBanner">
+        <h2>活动已结束</h2>
+        <p>先锋券领取已经截止，本页仅保留活动规则与历史信息，仅供参考。</p>
+      </div>
+
       <!-- ===== 首屏：先锋券活动海报（整幅第一屏；海报上的扫码按钮为热区，可点击） ===== -->
       <header class="xf-hero xf-hero--poster" id="xfTop">
         <img
@@ -84,82 +90,16 @@
           附14 个复制即用的实战模板。这些是花钱买不到、搜不出来的东西。
         </p>
 
-        <!-- ===== 独家资产一：RBTFC 发令公式 ===== -->
+        <!-- ===== 独家方法资产（精简版）：完整讲法与例子在 book.html 核心方法节，此处只保留购买理由 ===== -->
         <div class="xf-sub">
-          <div class="xf-subhd">独家一 · 指挥官发令公式 RBTFC</div>
-          <p class="xf-lead">
-            全书 31 章的地基。后面所有招数——多轮对话、工作流、自动化——全建立在
-            「你会写好提示词」这一个前提上。
-          </p>
-          <div class="xf-formula">
-            <div class="xf-fitem"><b>R</b><span>Role<em>角色 —— 你是谁</em></span></div>
-            <div class="xf-fitem"><b>B</b><span>Background<em>背景 —— 什么情况</em></span></div>
-            <div class="xf-fitem"><b>T</b><span>Task<em>任务 —— 做什么</em></span></div>
-            <div class="xf-fitem"><b>F</b><span>Format<em>格式 —— 长什么样</em></span></div>
-            <div class="xf-fitem"><b>C</b><span>Constraints<em>限制 —— 不能做什么</em></span></div>
-          </div>
-          <p class="xf-note">
-            同一个 AI、同一个任务，命令下得好不好，结果差一个档次。
-            作者帮客户拆商业模式时，拿到的是「下周把A 校区试课流程从 3 天改成 1 天、
-            预计转化率提升 20%」这种能直接干的活，而不是「建议加强管理」的废话。
-          </p>
-          <p class="xf-note xf-note-dim">日常 50% 的任务用<b>RTC 快速版</b>就够，30% 用完整 RBTFC，
-            剩下 20% 的硬仗——上魔咒。</p>
-        </div>
-
-        <!-- ===== 独家资产二：五大魔咒===== -->
-        <div class="xf-sub">
-          <div class="xf-subhd">独家二 · 指挥官的五大魔咒</div>
-          <p class="xf-lead">
-            作者测试上千条提示词后提炼的五个高阶技巧。基本功让你及格，绝招让你碾压。
-          </p>
-          <div class="xf-spells">
-            <div class="xf-spell">
-              <div class="xf-spell-hd"><span class="xf-spell-no">壹</span><b>傻子哲学</b></div>
-              <p>把自己设定成<b>完全不懂的初学者</b>，AI 反而给得最多。</p>
-              <p class="xf-spell-eg">「你妈去菜市场挑最便宜的白菜」——用买菜的比喻讲透了量化交易</p>
-            </div>
-            <div class="xf-spell">
-              <div class="xf-spell-hd"><span class="xf-spell-no">贰</span><b>魔法互搏</b></div>
-              <p>让两个 AI 互相 PK，你<b>取各家之长</b>。</p>
-              <p class="xf-spell-eg">投资人说「这水平不像创业者自己写的」——因为是两个参谋吵出来的</p>
-            </div>
-            <div class="xf-spell">
-              <div class="xf-spell-hd"><span class="xf-spell-no">叁</span><b>大佬思维</b></div>
-              <p>给 AI 一个<b>顶级身份</b>，输出质量立刻跳档。</p>
-              <p class="xf-spell-eg">同一个品牌定位任务，普通角色给废话，顶级顾问直接给差异化策略和变现路径</p>
-            </div>
-            <div class="xf-spell">
-              <div class="xf-spell-hd"><span class="xf-spell-no">肆</span><b>全域贪婪</b></div>
-              <p>用<b>排除法</b>而不是指定法——说你不要什么，剩下的它全给你。</p>
-              <p class="xf-spell-eg">选笔记本：说清 4 条排除项，AI 30 秒给出排序，自测与调研三天结果一致</p>
-            </div>
-            <div class="xf-spell">
-              <div class="xf-spell-hd"><span class="xf-spell-no">伍</span><b>百炼成金</b></div>
-              <p>让 AI <b>自己打分，不到 95 分不准交作业</b>，自动改到达标。</p>
-              <p class="xf-spell-eg">客户商业计划书：普通模式 70 分，加百炼成金后最终 96 分</p>
-            </div>
-          </div>
-          <p class="xf-note">
-            <b>组合技才是杀手锏</b>：大佬思维 + 百炼成金 = 顶级专家自审自改到满分；
-            魔法互搏 + 百炼成金 = 一个写、一个审、反复打磨——专治商业计划书、投标书、年度汇报。
-          </p>
-        </div>
-
-        <!-- ===== 独家资产三：六项进阶技术 ===== -->
-        <div class="xf-sub">
-          <div class="xf-subhd">独家三 · 六项进阶指挥技术 + 6 个万能模板</div>
+          <div class="xf-subhd">全书最硬的方法资产 · 详见第 7–8 章</div>
           <div class="xf-techs">
-            <div class="xf-tech"><b>链式思考</b><span>让 AI 先想再答，避免「先射箭后画靶」</span></div>
-            <div class="xf-tech"><b>少样本学习</b><span>给两份范例，AI 直接对着你的天花板写</span></div>
-            <div class="xf-tech"><b>结构化输出</b><span>规定字段，交付物可直接用、不用二次排版</span></div>
-            <div class="xf-tech"><b>多轮对话管理</b><span>治AI 长对话「失忆跑偏」</span></div>
-            <div class="xf-tech"><b>提示词链</b><span>大任务拆步执行，5 步链出一份完整营销方案</span></div>
-            <div class="xf-tech"><b>角色深度设定</b><span>给思维框架和「反对什么」，输出才有棱角</span></div>
+            <div class="xf-tech"><b>RBTFC 发令公式</b><span>角色 · 背景 · 任务 · 格式 · 限制，一次把任务说清</span></div>
+            <div class="xf-tech"><b>五大魔咒</b><span>傻子哲学、魔法互搏、大佬思维、全域贪婪、百炼成金</span></div>
+            <div class="xf-tech"><b>六项进阶技术</b><span>链式思考、少样本、结构化输出、对话管理、提示词链、角色设定</span></div>
+            <div class="xf-tech"><b>14 个实战模板</b><span>复制即用，附调试排错法</span></div>
           </div>
-          <p class="xf-note xf-note-dim">
-            另附<b>调试排错法</b>：AI 不听话时怎么定位问题。全书共 <b>14 个实战模板</b>，复制即用。
-          </p>
+          <p class="xf-note">日常 50% 的任务用 RTC 快速版就够，30% 用完整 RBTFC，剩下 20% 的硬仗上魔咒。方法的完整讲法、组合技与例子在书里——<a href="book.html#method">查看核心方法全文 →</a></p>
         </div>
 
         <div class="xf-sub">
@@ -309,7 +249,7 @@
       data-footer="《AI指挥官》· 先锋券活动 | 免费领取，凭券 98 元包邮购样板书 | 限量 30 张，编号 001–030；每人限领 1 张 | 北京时间 2026 年 11 月 30 日 24:00 截止，到期未使用自动作废 | 付款后 48 小时内发货；签收后 7 天无理由退货（退货运费商家承担）；破损凭照片免费补寄（补寄运费商家承担）"
     ></div>
 
-    <script src="shared.js?v=27"></script>
+    <script src="shared.js?v=30"></script>
     <script src="xianfeng.js?v=18"></script>
   </body>
 </html>

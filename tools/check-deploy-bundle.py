@@ -62,7 +62,7 @@ print("  ✓ 检查完毕" if not problems else "  ✗ 见下方问题")
 
 # 2. 现有三页 → 站内资源
 print()
-for f in ("index.html", "book.html", "builders.html", "outcomes.html", "enterprise.html", "learning.html", "cooperate.html", "explore.html", "models.html", "xianfeng.html"):
+for f in ("index.html", "book.html", "builders.html", "outcomes.html", "enterprise.html", "learning.html", "course.html", "cooperate.html", "explore.html", "models.html", "xianfeng.html"):
     p = os.path.join(SITE, f)
     if not os.path.exists(p):
         problems.append("包内缺少 %s" % f)

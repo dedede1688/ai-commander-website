@@ -12,6 +12,7 @@
     /* 北京时间 2026-11-30 24:00 = UTC 2026-11-30 16:00:00。
        用 UTC 时间戳，避免访问者设备时区造成提前或延后关闭。 */
     deadline: Date.UTC(2026, 10, 30, 16, 0, 0),
+    expiredClass: 'xf-expired',
     claimUrl: "", /* 为空的现状：点击打开小程序二维码；填入后新窗口打开 */
   };
 
@@ -47,6 +48,15 @@
     return CONFIG.deadline - new Date() <= 0;
   }
 
+  function toggleExpiredClass() {
+    var html = document.documentElement;
+    if (deadlinePassed()) {
+      html.classList.add(CONFIG.expiredClass);
+    } else {
+      html.classList.remove(CONFIG.expiredClass);
+    }
+  }
+
   function disableClaimButtons() {
     Array.prototype.forEach.call(
       document.querySelectorAll("[data-xf-claim]"),
@@ -59,7 +69,20 @@
     );
   }
 
+  toggleExpiredClass();
   if (deadlinePassed()) disableClaimButtons();
+
+  /* 从后台切回前台或 bfcache 恢复时重新检查 */
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') {
+      toggleExpiredClass();
+      if (deadlinePassed()) disableClaimButtons();
+    }
+  });
+  window.addEventListener('pageshow', function () {
+    toggleExpiredClass();
+    if (deadlinePassed()) disableClaimButtons();
+  });
 
   /* ---------- 倒计时 ---------- */
   var cd = document.getElementById("xfCountdown");
@@ -70,8 +93,9 @@
     function tick() {
       var diff = CONFIG.deadline - new Date();
       if (diff <= 0) {
-        cd.textContent = "本页活动入口已关闭";
+        cd.textContent = "活动已结束";
         disableClaimButtons();
+        toggleExpiredClass();
         return;
       }
       var d = Math.floor(diff / 864e5);

@@ -50,7 +50,8 @@ for (const file of files) {
     if (hash && target.endsWith('.html')) assert.ok(read(target).includes(`id="${hash}"`), `${file}: 无效锚点 ${ref}`);
   }
 }
-assert.ok(read('shared.js').includes('{ file: "builders.html", key: "builders", text: "共建者" }'));
+/* 2026-10-30 P02批准六项导航后，共建栏目文案为"共建合作"（旧断言"共建者"随结构更新，归属检查不放松）。 */
+assert.ok(read('shared.js').includes('{ file: "builders.html", key: "builders", text: "共建合作" }'));
 assert.ok(read('index.html').includes('href="builders.html#members"'));
 assert.ok(read('sitemap.xml').includes('https://www.ai-mmc.cn/builders.html</loc>'));
 /* 历史资料页已不再承载成员名录：按现页面实际功能检查脚本与入口，

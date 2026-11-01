@@ -25,7 +25,8 @@ function baseTemplate(html, page) {
     .replace(/<!-- 设计约定：[\s\S]*?-->/, '<!-- 统一成员模板；资料修改请编辑 member-data.js 后重新生成。 -->')
     .replace('previews/builders.css?v=1', 'builders.css?v=6')
     .replace('previews/builders.js?v=1', 'builders.js?v=1')
-    .replace(/shared\.js\?v=\d+/, 'shared.js?v=27')
+    .replace(/shared\.js\?v=\d+/, 'shared.js?v=30')
+    .replace(/home-book\.css\?v=\d+/, 'home-book.css?v=3')
     .replace(/data-page="(?:builders|member)-preview"/, `data-page="${page}"`)
     .replaceAll('previews/builders.html', 'builders.html');
 }
@@ -47,8 +48,14 @@ center = center.replace(/<div class="builders-roster" id="memberRoster">[\s\S]*?
   return `<a class="builder-person" href="member-${m.slug}.html" data-member-card data-group="${esc(m.group)}" data-search="${esc(search)}">${subsite}<img src="${esc(m.photo)}" width="68" height="96" loading="lazy" decoding="async" alt="${esc(m.name)}" /><div><span class="builder-seat">${esc(m.seat)} · 联合出版人</span><h3>${esc(m.name)}</h3><p>${esc(m.role)}</p><span class="builder-open">查看个人主页 →</span></div></a>`;
 }).join('') + '</div><p class="roster-empty"');
 center = center.replace(/<select id="memberGroup">[\s\S]*?<\/select>/, '<select id="memberGroup"><option value="">全部行业</option>' + groups.map(g => `<option value="${esc(g.name)}">${esc(prettyGroup(g.name))}（${g.members.length}位）</option>`).join('') + '</select>');
+/* 2026-10-30 P09：防止重新生成回退全站升级成果——
+   同步独立课程口径，并在#next前注入P04新增的#prepare合作准备段（模板未含该段时）。 */
+center = center.replace('配套课程尚未上线。', '个人AI指挥系统实战课为独立课程，规划中，尚未开放报名。');
+if (!center.includes('id="prepare"')) {
+  center = center.replace('<section class="card" id="next">', `<section class="card" id="prepare"><p class="section-kicker">合作准备</p><h2 class="section-title">让第一次交流，更清楚一点。</h2><p class="section-lead">用几句话说明以下四项即可，先把方向说清楚，再逐步核对具体范围。出版、渠道、传播与内容共建在这里了解；涉及企业项目交付与岗位培训，进入企业服务。涉及客户资料、未公开材料等内容时，先确认授权与使用范围。</p><div class="content-grid four"><article class="content-panel"><span class="panel-index">01</span><h3>你的背景</h3><p>你或所在机构主要做什么？与哪类专业、业务或资源有关？</p></article><article class="content-panel"><span class="panel-index">02</span><h3>合作目标</h3><p>希望参与哪一类合作？最想推动或解决的事情是什么？</p></article><article class="content-panel"><span class="panel-index">03</span><h3>已有资源</h3><p>有哪些相关经验、内容、团队或渠道，可以支持这次合作？</p></article><article class="content-panel"><span class="panel-index">04</span><h3>希望的方式</h3><p>希望怎样参与？有没有需要先讨论的范围、时间或责任分工？</p></article></div><div class="section-actions"><a class="action" href="cooperate.html#contact">查看合作联系方式 →</a><a class="action secondary" href="enterprise.html">我有企业项目需求</a></div></section><section class="card" id="next">`);
+}
 center = metadata(center, {
-  title: '共建者中心｜《AI指挥官》联合出版人与专业共建',
+  title: '共建合作｜《AI指挥官》联合出版人与专业共建',
   description: `认识《AI指挥官》的${members.length}位联合出版人，浏览${groups.length}个行业分组，了解联合出版人、特约编委和生态伙伴的共建方式。`,
   url: `${site}/builders.html`, image: '素材/og/ai-commander-og-1200x630.webp', type: 'website',
   schema: {'@context':'https://schema.org','@type':'ItemList',name:'《AI指挥官》联合出版人名录',numberOfItems:members.length,itemListElement:members.map((m,i) => ({'@type':'ListItem',position:i+1,item:{'@type':'Person',name:m.name,url:`${site}/member-${m.slug}.html`}}))}

@@ -201,4 +201,45 @@
     var saved = readSaved();
     if (saved && saved.y) window.scrollTo(0, Math.min(saved.y, maxScroll()));
   });
+
+  /* ---------- 首页先锋券推广到期隐藏 ---------- */
+  /* 业务截止：北京时间 2026-11-30 24:00 = UTC 2026-11-30 16:00:00。
+     与 xianfeng.js 严格一致，避免首页与活动页判断不同步。 */
+  (function () {
+    var XF_DEADLINE = Date.UTC(2026, 10, 30, 16, 0, 0);
+    var EXPIRED_CLASS = 'xf-promo-expired';
+
+    function deadlinePassed() {
+      return XF_DEADLINE - new Date() <= 0;
+    }
+
+    function applyPromoState() {
+      var html = document.documentElement;
+      if (deadlinePassed()) {
+        html.classList.add(EXPIRED_CLASS);
+      } else {
+        html.classList.remove(EXPIRED_CLASS);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyPromoState, { once: true });
+    } else {
+      applyPromoState();
+    }
+
+    /* 从后台切回前台时重新检查 */
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') applyPromoState();
+    });
+    window.addEventListener('pageshow', applyPromoState);
+
+    /* 截止前每秒轮询，页面跨越截止时间点时自动更新；跨过后清除 */
+    var iv = setInterval(function () {
+      if (deadlinePassed()) {
+        applyPromoState();
+        clearInterval(iv);
+      }
+    }, 1000);
+  })();
 })();

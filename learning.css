@@ -24,6 +24,7 @@
 .section-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; margin-bottom: 12px; }
 .section-topline .section-kicker { margin-bottom: 0; }
 .course-topics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.price-note { color: var(--navy); font-weight: 700; }
 .course-topics article { border-top: 1px solid #cfdde7; padding: 20px 0 0; }
 .course-topics article > span { font-size: 11px; color: #6b7f91; }
 .course-topics h3 { font-size: 17px; color: var(--navy); line-height: 1.6; margin: 10px 0; }
