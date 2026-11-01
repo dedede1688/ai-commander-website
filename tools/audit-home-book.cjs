@@ -97,7 +97,7 @@ assert.ok(!/localStorage\.(?:get|set|remove)Item/.test(read('xianfeng.js')), '�
 /* 先锋券已确认口径：先领券，再凭券 98 元包邮购买 */
 for (const required of [
   '凭券 98 元包邮',
-  '2026 年 10 月 31 日 24:00',
+  '2026 年 11 月 30 日 24:00',
   '每人限领 1 张',
   '付款后 48 小时内发货',
   '7 天无理由退货',

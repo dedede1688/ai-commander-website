@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-01T15:01:44.537Z",
+  "generatedAt": "2026-11-01T16:22:34.126Z",
   "site": "https://www.ai-mmc.cn",
-  "fileCount": 365,
+  "fileCount": 366,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
   "files": [
     {
@@ -344,6 +344,12 @@
       "path": "素材/先锋/xianfeng-poster-2026-10.webp",
       "bytes": 124288,
       "sha256": "91eb60037f38e602660706304cef1613c58e5a14564f2f378461695fff1e9e39",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/先锋/xianfeng-poster-2026-11.webp",
+      "bytes": 146774,
+      "sha256": "43ad0d29495b0a6bc81da68f85f7f2c8dcdfccb40834e909eda2c05f81a9ce3b",
       "kind": "binary"
     },
     {
@@ -762,7 +768,7 @@
     },
     {
       "path": "models-page.js",
-      "bytes": 66440,
+      "bytes": 67067,
       "sha256": "a8a55fe8e85a7566dcda5ac7d5ed85e55b1d5c79d5100f513baf77e2a6cb5c69",
       "kind": "text"
     },
@@ -774,13 +780,13 @@
     },
     {
       "path": "models.css",
-      "bytes": 48529,
+      "bytes": 49816,
       "sha256": "b1172fe8f0f98167812b92e75ccc47afc1069e1073e235823c98aa0aeddd145f",
       "kind": "text"
     },
     {
       "path": "models.html",
-      "bytes": 13033,
+      "bytes": 13267,
       "sha256": "df3b3057941df2cadb517e0c983d4cac4cc6a5481c33666ffeeb5587771c979a",
       "kind": "text"
     },
@@ -2185,13 +2191,13 @@
     {
       "path": "xianfeng.html",
       "bytes": 18992,
-      "sha256": "ea536c2990cc24d161015c649698849d7769b500ac3584e4adc1ddce025393f2",
+      "sha256": "1c3ac96fa040b8cc7e120fea89bdbb94770cd0261c689e6d6e3f6cfc9364c284",
       "kind": "text"
     },
     {
       "path": "xianfeng.js",
-      "bytes": 3916,
-      "sha256": "252c7ba3ff7d87eb37f5c5e29b1a0a408a5906aa22a9c9b22066f3f7b7eb2b62",
+      "bytes": 3910,
+      "sha256": "ba08dda0514ffe428107f2795b8ec8c611725de822ea2a2cdc8481559843d047",
       "kind": "text"
     }
   ]
