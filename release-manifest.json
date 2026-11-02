@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T17:21:27.968Z",
+  "generatedAt": "2026-11-02T06:55:21.526Z",
   "site": "https://www.ai-mmc.cn",
   "fileCount": 341,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
@@ -342,14 +342,14 @@
     },
     {
       "path": "base.css",
-      "bytes": 11211,
-      "sha256": "5cba0c47977514762556f17e0f1f30d42aed50a19984cbd17b2e546a2ac614f3",
+      "bytes": 15407,
+      "sha256": "1fcda22555e2f85ad6476b430e0ea0750e701acf7541f9a36c7d0706ba3d6d2f",
       "kind": "text"
     },
     {
       "path": "book.html",
       "bytes": 28862,
-      "sha256": "9cf92b3792e9d551f5f4669b71be73526553b1313a7fc95e809d278bf5fbd4d5",
+      "sha256": "16c3c04c7d826a980af2603def281afb8b55cfe9222d2c034c68597109463cfc",
       "kind": "text"
     },
     {
@@ -360,8 +360,8 @@
     },
     {
       "path": "builders.html",
-      "bytes": 35707,
-      "sha256": "97cac18c81022f1e40f6df8f6d2625340c294c581cdfaaf0586428289dd6dffb",
+      "bytes": 35701,
+      "sha256": "49b9917be300d2a4a79f0c756d0dfb9101d8be4c75d41ca528d193c14f6bd563",
       "kind": "text"
     },
     {
@@ -390,8 +390,8 @@
     },
     {
       "path": "cooperate.html",
-      "bytes": 8993,
-      "sha256": "4eef22863d3ee954a3fe4615dd0456b74983bb76e7a15b7092d00a76709fc3ba",
+      "bytes": 8984,
+      "sha256": "c6ea8773b9e4277fffe3df23542fc7394220bec4dcc345292130abeee7082d33",
       "kind": "text"
     },
     {
@@ -402,8 +402,8 @@
     },
     {
       "path": "course.html",
-      "bytes": 19931,
-      "sha256": "041ac89bdfaec74018f387866fc4f218bb12cb5320c8fd5ca80044f5ba79d8ff",
+      "bytes": 19910,
+      "sha256": "57eab2526762d07a6fc25d6ef1dd6640dd83c64a8e21b75228375ba61f6ad3c1",
       "kind": "text"
     },
     {
@@ -420,26 +420,26 @@
     },
     {
       "path": "enterprise.html",
-      "bytes": 12648,
-      "sha256": "af6eca157ffe7e9bf9224666c929f95db0a83ca4e0f9a9c790b6fa2b5e4af6fe",
+      "bytes": 12630,
+      "sha256": "c2a58de84beb04ec6d76ef6282df14d37daf4a804372e528ba829f7074fe191c",
       "kind": "text"
     },
     {
       "path": "explore.html",
       "bytes": 10729,
-      "sha256": "2794468c293c97648c0ffeae1cbbeabecf857e9f31580c7db92364f6b5497024",
+      "sha256": "baa0e75bebebd9c472e53ae01e2819fe6df7c2ac78a544a64203c5a243493d19",
       "kind": "text"
     },
     {
       "path": "home-book.css",
-      "bytes": 17867,
-      "sha256": "78af0da29eecc77f420d073e7546098db641833019f66030c79ea1f80acfc336",
+      "bytes": 18299,
+      "sha256": "e595fa33f9d02cd751862295ea55a52d5dd5c50dfce3d3d15e2d6b5c4aefb732",
       "kind": "text"
     },
     {
       "path": "index.html",
-      "bytes": 15207,
-      "sha256": "5281436e6decd09ec0acc652651fbe26d2bfdc2985f69e2b16c48b72a55cec7e",
+      "bytes": 17359,
+      "sha256": "02d573c9d34b98790b71a0dcdc949e45c2547342746d3efc0923b0de48299703",
       "kind": "text"
     },
     {
@@ -457,7 +457,7 @@
     {
       "path": "learning.html",
       "bytes": 7504,
-      "sha256": "1f37b9293edc2d33ab9602d70fd2627cb0db1645a71aeda4cd76f15d0a145abe",
+      "sha256": "682bc23aa5b9c940a4496a91660773011f5eda3f1fcb98a6460422ade8c86f31",
       "kind": "text"
     },
     {
@@ -475,139 +475,139 @@
     {
       "path": "member-fan-qin-ming.html",
       "bytes": 6893,
-      "sha256": "0a75ab7e881ae519e9c6af7577b762708d7a5718a45097e2f35304ec69ce8c3d",
+      "sha256": "728055c378316d53263e79da443aaf23c168f240113b37fc150a47281703d5db",
       "kind": "text"
     },
     {
       "path": "member-guo-rui-yuan.html",
       "bytes": 6910,
-      "sha256": "a7ed209879083a78e90916c415c62a444c10e929a284ca2d32d5d1edc1214dd0",
+      "sha256": "7637c66745bbd07f7b83598990baa8acd2f9f6eab93a9631286538c829f41d62",
       "kind": "text"
     },
     {
       "path": "member-hu-gong-ping.html",
       "bytes": 6944,
-      "sha256": "6f54c700d773f10d947d34a146b279f6279519f25603c6d7877ba8657eea5cfd",
+      "sha256": "65bc9c075eaa3f6b47ea912530927a69c7a150f77a64cd180f7dfddf0b8a5be1",
       "kind": "text"
     },
     {
       "path": "member-huzi-laoshi.html",
       "bytes": 6938,
-      "sha256": "69dcdb6acf02ccf2b5c6a0af9e0c2a859e2d7f5d06313ad796dab0252d7737af",
+      "sha256": "d4b958881ff31cb545ffd08ca476a36188cc490af7c5c5c6565df405275a0e6c",
       "kind": "text"
     },
     {
       "path": "member-jin-zhao-xia.html",
       "bytes": 6813,
-      "sha256": "83731ae6aa510d422ed2b6c8e5df29555ded4e48cb02e70c235baa7c826149ac",
+      "sha256": "520bf5ad12532564b8c3b72c88ea0ae8b372bc71af0ae33bd9ae9d339426f1be",
       "kind": "text"
     },
     {
       "path": "member-li-hai-chang.html",
       "bytes": 7021,
-      "sha256": "fb47324c496f1a7724ba239308f18cc0b44f2a6c74004e61738e45fa61958d82",
+      "sha256": "77cf3c8a254d9389f3686ed54e23096d7d64d5cf7657f1acb979ea2ab8b1d4e6",
       "kind": "text"
     },
     {
       "path": "member-li-ping.html",
       "bytes": 6919,
-      "sha256": "44a8ae52d13d036c6e0fb34dc157cb3fa58e18a14814b3d4a35a54f5d70790c2",
+      "sha256": "645aac34f93d26c6963b6626b92e86358fee3d03cc944b2a3ee33c7c56883254",
       "kind": "text"
     },
     {
       "path": "member-menger.html",
       "bytes": 6825,
-      "sha256": "ac7178a2f785e84a291fa9c2a360b128f90c559a8c767a6f28b620e03784e9cd",
+      "sha256": "07409cbbb07805e71783793c64ccb94f58a5e1bbb80150b9a029d313a2373b5d",
       "kind": "text"
     },
     {
       "path": "member-newton-laoshi.html",
       "bytes": 7077,
-      "sha256": "7e095d0bda9d5ede98d7ed2091285949b55d8116fedac78f4640a8a97d791ca6",
+      "sha256": "863a4f0d6ee666198b8876b0d94275b14adc0ba27112c7f8e29bef14568eaae6",
       "kind": "text"
     },
     {
       "path": "member-wei-jian.html",
       "bytes": 6883,
-      "sha256": "a2377dd7f411e5f3e2adbf50c0acde4ee475d03ea0533915f2a5006191c0b216",
+      "sha256": "9b0fd2ac537041da732035d1b7a9768d8f9ff9f6e452c06db97c565b75d26cfb",
       "kind": "text"
     },
     {
       "path": "member-wei-jie-mian.html",
       "bytes": 7005,
-      "sha256": "821721f57c290ac0739be5fd52a54e7e69223a6f76a8eb22e9f2610f42edc6ec",
+      "sha256": "6866b0761cc7362a3ff1d7d11d41ffe44acd64ea21480ba8462154f407132aa3",
       "kind": "text"
     },
     {
       "path": "member-wen-ni.html",
       "bytes": 6966,
-      "sha256": "dfc9070e2638e182b8d54598d620a954718e6e186b5fdcd50b55dfdc24c92846",
+      "sha256": "49128fa2731d8e51fe2191280eafdc34f498dbbe81cd4cb1bbf7d761903d7559",
       "kind": "text"
     },
     {
       "path": "member-wu-qi.html",
       "bytes": 6897,
-      "sha256": "5bdfcaf6f49b1bde89acaac49f57a40cebf6954444de50e81705ab87d80df113",
+      "sha256": "6e8a731604da830f75728ff164c1c3af89937181639b98f15799f51814489038",
       "kind": "text"
     },
     {
       "path": "member-xie-tiao.html",
       "bytes": 6899,
-      "sha256": "ed04aa6ef18e1edf6073d66232576e862e159eb933cb0a57fc60602a5921beab",
+      "sha256": "97b4d0ce527a9e0dad146c4b47d005fb8af07d388f6e0b78e0b4b8ad9efea6aa",
       "kind": "text"
     },
     {
       "path": "member-xiong-li.html",
       "bytes": 6860,
-      "sha256": "17f4b64d2b685fce2a21aef31c3e0982193f1512673365c429343694aebc93bc",
+      "sha256": "a07959fd6e0610135e36aaa8b6221f6aa2e0fd4f45e4044bc92dd87d18b2616c",
       "kind": "text"
     },
     {
       "path": "member-yan-hai-zhen.html",
       "bytes": 7783,
-      "sha256": "44d16cd779efd6d6ed7aaf2e47913f7d1badc68400d88c251a75b33a27254e5e",
+      "sha256": "c6def588d6d9a4b324df251880b5c6dc098e867a082bfd5b49cca146faa4813b",
       "kind": "text"
     },
     {
       "path": "member-yu-ya-yong.html",
       "bytes": 6925,
-      "sha256": "32d627768c5f82173c9d15b8bdefa0744c1b849aaf007255da656ec316d1aa98",
+      "sha256": "2016a039156426faf68653ccb6b288b1fe7996cc7c58afed56e434d8554e42ff",
       "kind": "text"
     },
     {
       "path": "member-zhang-cheng.html",
       "bytes": 6933,
-      "sha256": "bce1f7f44654b9864296c0eb431be4686ca4eddd13c791ec5e20d80be6413c2e",
+      "sha256": "fef18cec03edbaeea1efa41c63a7ffad13a0e4d0573d0cccf9255d1b6cc6a68b",
       "kind": "text"
     },
     {
       "path": "member-zhang-ding-long.html",
       "bytes": 7973,
-      "sha256": "89d1bd7249ca9c32bff5703d127a346557e728989497a6283acc75573e44c55a",
+      "sha256": "4bfc32e93272cb21c66af4689807d3c9e0aead6c74f67ed1d22fe3e79e895fe3",
       "kind": "text"
     },
     {
       "path": "member-zhang-wu-hong.html",
       "bytes": 6993,
-      "sha256": "1aa09444d0b0608f34ed7ea71202f7464394f9264d3ada8fa049b499ca69995b",
+      "sha256": "22c362d20201dbcc00c252313151d3a2e0aac9a2088b412a3f15eb68951c78ce",
       "kind": "text"
     },
     {
       "path": "member-zhang-yu-jie.html",
       "bytes": 7009,
-      "sha256": "6966023d0e6e42c4824e000177431beba9ec87e52fb553b88f9332caa1db00b0",
+      "sha256": "4fce1f3c4b148ec2521dfc64acc77a3bd54b49d17e48d05f9aace4b28ede9ade",
       "kind": "text"
     },
     {
       "path": "member-zhao-zhuo-yi.html",
       "bytes": 6784,
-      "sha256": "69858436b49d3d48fc68f314481e400a3ce1d103586a187d86ecb7781c2ec8e9",
+      "sha256": "566b4da4d59ea67425757e5cab03973a63a4a19fad445894f51debba243a5b67",
       "kind": "text"
     },
     {
       "path": "member-zhou-yi.html",
       "bytes": 6840,
-      "sha256": "efa6ae99ed50645813ccf6ced2e83d7833d9ad0624318af10f13739ec54d673b",
+      "sha256": "d6f65795828916d3fbe9652b01cbb1c25e0e196d308c6e00fe822f2de786fec1",
       "kind": "text"
     },
     {
@@ -636,8 +636,8 @@
     },
     {
       "path": "models.html",
-      "bytes": 13033,
-      "sha256": "df3b3057941df2cadb517e0c983d4cac4cc6a5481c33666ffeeb5587771c979a",
+      "bytes": 13037,
+      "sha256": "1bd71f9f00cddb10bf34720fed2890810868f44e88c10f678f7ffa33bd2238b5",
       "kind": "text"
     },
     {
@@ -655,7 +655,7 @@
     {
       "path": "outcomes.html",
       "bytes": 12663,
-      "sha256": "8c4bbdf5fdc2704b030f714a5e7784c080d033aa22ad408679f1775fe9808a69",
+      "sha256": "609d018c40a5c3f848c09a737b459d388d52450754e8ce5bc9140479aec7790f",
       "kind": "text"
     },
     {
@@ -672,8 +672,8 @@
     },
     {
       "path": "shared.js",
-      "bytes": 18956,
-      "sha256": "cd99eac61af144bb9c6689f04836d996a6d1c9dadfd540de2ffb8c1fa9fea6b0",
+      "bytes": 19092,
+      "sha256": "be01bd8f9d9142f8bdcf933e3f3a2b4dca83e04d8812221019d1c0708bdb7531",
       "kind": "text"
     },
     {
@@ -684,8 +684,8 @@
     },
     {
       "path": "style.css",
-      "bytes": 76116,
-      "sha256": "527457dcd26dc096230fc8d45076665dd92dd6da7c2b9b13d261d6e129601bc5",
+      "bytes": 75681,
+      "sha256": "322b008bbbddb378a9a07d69bc756131aaf6dcc1e5b0c49c57d4fe35fe08201c",
       "kind": "text"
     },
     {
@@ -2041,7 +2041,7 @@
     {
       "path": "xianfeng.html",
       "bytes": 14767,
-      "sha256": "8702c379bd01f438545729b50147b3c83f0e6a118329f844ef06aef011c9f60c",
+      "sha256": "a7754eefa0d35fc396ec5f91e90fae222fd95b1839e08b61b3b64258a50ce780",
       "kind": "text"
     },
     {

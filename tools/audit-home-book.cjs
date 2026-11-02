@@ -64,7 +64,9 @@ assert.equal((book.match(/class="reading-route"/g) || []).length, 6);
 assert.ok(read('sitemap.xml').includes('/book.html</loc>'));
 assert.ok(read('sitemap.xml').includes('/outcomes.html</loc>'));
 assert.ok(home.includes('href="outcomes.html"'));
-assert.ok(read('shared.js').includes('{ file: "outcomes.html", key: "outcomes", text: "工具与成果" }'));
+/* 2026-11-02：工具与成果拆为「工具应用」「成果展示」两项导航，断言随导航定义同步。 */
+assert.ok(read('shared.js').includes('{ file: "outcomes.html#available", key: "tools", text: "工具应用" }'));
+assert.ok(read('shared.js').includes('{ file: "outcomes.html#systems", key: "outcomes", text: "成果展示" }'));
 assert.ok(!/previews\/|noindex|本地预览|<base /.test(read('outcomes.html')), '成果页无预览残留');
 assert.ok(read('outcomes.html').includes('官网开放时间待定'));
 assert.ok(read('sitemap.xml').includes('/enterprise.html</loc>'));

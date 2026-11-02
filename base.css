@@ -26,17 +26,104 @@
   border: 0;
 }
 :root {
+  /* ===== 颜色：中性 / 背景 ===== */
+  --ink: #0b1426;
+  --body: #1a2233;
+  --muted: #526077;
+  --grey: #8a93a6;
+  --grey-soft: #5b6675;
+  --sub-note: #667;
+  --bg-page: #eef1f6;
+  --surface: #fff;
+  --shadow-card: rgba(20, 31, 96, 0.1);
+  --shadow-nav: rgba(11, 20, 38, 0.34);
+  --shadow-panel: rgba(0, 0, 0, 0.4);
+  --shadow-drawer: rgba(0, 0, 0, 0.45);
+
+  /* ===== 颜色：品牌 / 强调 ===== */
   --navy: #141f60;
   --navy-d: #0d1440;
   --teal: #00edbd;
-  --blue: #5aa7e0;
-  --purple: #7b5ce0;
-  --ink: #0b1426;
-  --body: #1a2233;
-  --grey: #8a93a6;
-  /* 锚点定位时给导航让出的高度：导航为单行 52px，让位 66px，
-     .card / .preamble / .xf-sec 统一引用本变量 */
+  --teal-accent: #00b89c;
+  --teal-soft: rgba(0, 237, 189, 0.28);
+  --teal-hover: rgba(0, 237, 189, 0.13);
+  --teal-active: rgba(0, 237, 189, 0.17);
+  --teal-drawer: rgba(0, 237, 189, 0.1);
+  --teal-logo: rgba(0, 237, 189, 0.55);
+  --nav-bg: rgba(11, 18, 54, 0.97);
+  --nav-text: #b9c4dc;
+  --white: #fff;
+
+  /* ===== 颜色：警示 / 礼包 / 遮罩 ===== */
+  --note-bg: #f6f9fb;
+  --warn-bg: #fffbf2;
+  --warn-border: #e8a33d;
+  --alert-bg: #fdf5f6;
+  --alert-border: #d0021b;
+  --gold: #ffd479;
+  --gold-bg: rgba(232, 163, 61, 0.12);
+  --gold-border: rgba(232, 163, 61, 0.5);
+  --gold-hover: rgba(232, 163, 61, 0.28);
+  --link-green: #007a5f;
+  --link-green-hover: #00533f;
+  --link-green-soft: rgba(0, 122, 95, 0.35);
+  --teal-toggle-hover: rgba(0, 237, 189, 0.12);
+  --overlay: rgba(11, 20, 38, 0.72);
+  --overlay-heavy: rgba(11, 20, 38, 0.9);
+  --backdrop: rgba(11, 20, 38, 0.55);
+  --black: #000;
+
+  /* ===== 字号体系（桌面默认值，媒体查询内可按需覆盖） ===== */
+  --fs-brand: 14.5px;
+  --fs-link: 15px;
+  --fs-h2: 20.5px;
+  --fs-h3: 16px;
+  --fs-sub: 14.5px;
+  --fs-note: 15px;
+  --fs-footer: 14px;
+  --fs-footer-meta: 13.5px;
+  --fs-footer-copy: 13px;
+  --fs-qr: 15px;
+  --fs-qr-small: 12px;
+  --fs-toggle: 22px;
+  --fs-drawer-link: 15px;
+
+  /* ===== 行高 ===== */
+  --lh-base: 1.75;
+  --lh-heading: 1.3;
+  --lh-footer: 1.9;
+  --lh-meta: 1.7;
+
+  /* ===== 间距 / 圆角 / 尺寸 ===== */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --space-1: 4px;
+  --space-2: 5px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 10px;
+  --space-6: 12px;
+  --space-7: 13px;
+  --space-8: 14px;
+  --space-10: 16px;
+  --space-12: 18px;
+  --space-14: 20px;
+  --space-16: 22px;
+  --space-20: 26px;
+  --space-24: 30px;
+  --space-28: 34px;
+  --touch-target: 44px;
+  --nav-height: 52px;
   --nav-clear: 66px;
+  --container-width: 1100px;
+
+  /* ===== 动画 / 过渡 ===== */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 0.15s;
+  --duration-med: 0.18s;
+  --duration-slow: 0.2s;
 }
 body {
   font-family:
@@ -44,25 +131,25 @@ body {
     "Microsoft YaHei",
     -apple-system,
     sans-serif;
-  background: #eef1f6;
+  background: var(--bg-page);
   color: var(--body);
-  line-height: 1.75;
+  line-height: var(--lh-base);
   padding: 0 0 70px;
 }
 /* 注意：不要在 html 上写 scroll-behavior: smooth。
    它会把「刷新后恢复滚动位置」也变成从页顶平滑滚下来的动画，
    看起来就像页面被弹回页顶。导航点击的平滑滚动由 script.js 显式指定行为。 */
 .wrap {
-  max-width: 1100px;
+  max-width: var(--container-width);
   margin: 0 auto;
-  padding: 26px 16px 0;
+  padding: var(--space-20) var(--space-10) 0;
 }
 .card {
-  background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(20, 31, 96, 0.1);
-  padding: 30px 34px;
-  margin-bottom: 20px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 4px var(--shadow-card);
+  padding: var(--space-24) var(--space-28);
+  margin-bottom: var(--space-14);
 }
 
 /* ---------- 顶部常驻导航栏 ---------- */
@@ -70,33 +157,33 @@ body {
   position: sticky;
   top: 0;
   z-index: 300;
-  background: rgba(11, 18, 54, 0.97);
-  border-bottom: 1px solid rgba(0, 237, 189, 0.28);
-  box-shadow: 0 2px 16px rgba(11, 20, 38, 0.34);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--teal-soft);
+  box-shadow: 0 2px 16px var(--shadow-nav);
   backdrop-filter: saturate(150%) blur(10px);
   -webkit-backdrop-filter: saturate(150%) blur(10px);
 }
 .nav-inner {
-  max-width: 1100px;
+  max-width: var(--container-width);
   margin: 0 auto;
-  padding: 0 16px;
-  height: 52px;
+  padding: 0 var(--space-10);
+  height: var(--nav-height);
   display: flex;
   align-items: center;
   gap: 22px;
 }
 .nav-brand {
   font-family: Consolas, monospace;
-  font-size: 12.5px;
+  font-size: var(--fs-brand);
   font-weight: 700;
   color: var(--teal);
   letter-spacing: 1.5px;
   white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 8px;
-  height: 52px; /* 撑满导航栏高度，扩大点击回顶的命中区域 */
-  padding-right: 6px;
+  gap: var(--space-4);
+  height: var(--nav-height); /* 撑满导航栏高度，扩大点击回顶的命中区域 */
+  padding-right: var(--space-3);
   text-decoration: none;
 }
 /* 左上角圆形 logo */
@@ -106,13 +193,13 @@ body {
   border-radius: 50%;
   object-fit: cover;
   flex: 0 0 auto;
-  box-shadow: 0 0 8px rgba(0, 237, 189, 0.55);
+  box-shadow: 0 0 8px var(--teal-logo);
 }
 .nav-links {
   display: flex;
   align-items: center;
   /* 标签背景块之间留出明显且一致的缝隙（原 2px 会让相邻色块几乎粘连） */
-  gap: 10px;
+  gap: var(--space-5);
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -125,26 +212,26 @@ body {
    被滚出去的标签像滑到「AI 指挥官」品牌区下面，而不是生硬切断。
    类由 shared.js 在 scrollLeft > 4 时挂上，回到最左时摘掉。 */
 .nav-links.scrolled {
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px);
-  mask-image: linear-gradient(90deg, transparent 0, #000 20px);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, var(--black) 20px);
+  mask-image: linear-gradient(90deg, transparent 0, var(--black) 20px);
 }
 .nav-link {
-  font-size: 13px;
-  color: #b9c4dc;
+  font-size: var(--fs-link);
+  color: var(--nav-text);
   text-decoration: none;
-  padding: 7px 12px;
+  padding: 7px var(--space-6);
   /* 统一占位边框：「AI 大礼包」的可见边框不再把它撑得比其他标签高 */
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   white-space: nowrap;
   transition:
-    color 0.16s,
-    background 0.16s;
+    color var(--duration-med) var(--ease-out),
+    background var(--duration-med) var(--ease-out);
   cursor: pointer;
 }
 .nav-link:hover {
-  color: #fff;
-  background: rgba(0, 237, 189, 0.13);
+  color: var(--white);
+  background: var(--teal-hover);
 }
 
 /* ===== Phase 1B-1：移动端汉堡菜单（默认桌面隐藏）===== */
@@ -159,18 +246,18 @@ body {
 }
 .nav-link.active {
   color: var(--teal);
-  background: rgba(0, 237, 189, 0.17);
+  background: var(--teal-active);
   /* 不加粗：激活时文字变宽会让标签尺寸跳动，用颜色与底色区分即可 */
 }
 /* 导航「AI 大礼包」入口（金色高亮，区别于普通章节链接） */
 .nav-gift {
-  color: #ffd479;
-  background: rgba(232, 163, 61, 0.12);
-  border: 1px solid rgba(232, 163, 61, 0.5);
+  color: var(--gold);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
 }
 .nav-gift:hover {
-  color: #fff;
-  background: rgba(232, 163, 61, 0.28);
+  color: var(--white);
+  background: var(--gold-hover);
 }
 /* 锚点定位留出导航高度（高度随换行媒体查询自适应） */
 .card {
@@ -179,43 +266,43 @@ body {
 
 /* ---------- 标题 ---------- */
 h2 {
-  font-size: 18px;
+  font-size: var(--fs-h2);
   color: var(--navy);
   letter-spacing: 1px;
-  padding-left: 13px;
-  border-left: 4px solid #00b89c;
-  margin-bottom: 18px;
-  line-height: 1.3;
+  padding-left: var(--space-7);
+  border-left: 4px solid var(--teal-accent);
+  margin-bottom: var(--space-12);
+  line-height: var(--lh-heading);
 }
 h3 {
-  font-size: 14.5px;
+  font-size: var(--fs-h3);
   color: var(--navy);
-  margin: 22px 0 12px;
+  margin: var(--space-16) 0 var(--space-6);
 }
 h3:first-of-type {
   margin-top: 0;
 }
 .sub-note {
-  font-size: 12.5px;
-  color: #667;
-  margin-bottom: 16px;
+  font-size: var(--fs-sub);
+  color: var(--sub-note);
+  margin-bottom: var(--space-10);
 }
 
 /* ---------- 弹窗（遮罩层公共部分，具体内容由各页自定义） ---------- */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(11, 20, 38, 0.72);
+  background: var(--overlay);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 99;
-  padding: 20px;
+  padding: var(--space-14);
   backdrop-filter: blur(3px);
 }
 .modal.on {
   display: flex;
-  animation: fade 0.2s;
+  animation: fade var(--duration-slow);
 }
 @keyframes fade {
   from {
@@ -228,88 +315,65 @@ h3:first-of-type {
 
 /* ---------- 提示条 ---------- */
 .note {
-  background: #f6f9fb;
-  border-left: 3px solid #00b89c;
-  padding: 14px 18px;
-  border-radius: 0 4px 4px 0;
-  margin: 14px 0;
-  font-size: 13px;
+  background: var(--note-bg);
+  border-left: 3px solid var(--teal-accent);
+  padding: var(--space-8) var(--space-12);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: var(--space-8) 0;
+  font-size: var(--fs-note);
 }
 .note.warn-note {
-  background: #fffbf2;
-  border-left-color: #e8a33d;
+  background: var(--warn-bg);
+  border-left-color: var(--warn-border);
 }
 .note.alert {
-  background: #fdf5f6;
-  border-left-color: #d0021b;
+  background: var(--alert-bg);
+  border-left-color: var(--alert-border);
 }
 .note-title {
   font-weight: 700;
   color: var(--navy);
-  margin-bottom: 5px;
-  font-size: 13px;
-}
-
-/* ===== 字号整体放大（统一在此覆盖，手机端由下方媒体查询再定） ===== */
-.nav-brand {
-  font-size: 14.5px;
-}
-.nav-link {
-  font-size: 15px;
-}
-h2 {
-  font-size: 20.5px;
-}
-h3 {
-  font-size: 16px;
-}
-.sub-note {
-  font-size: 14.5px;
-}
-.note {
-  font-size: 15px;
-}
-.note-title {
-  font-size: 15px;
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-note);
 }
 
 /* ---------- 页脚 ---------- */
 .footer-note {
   text-align: center;
-  font-size: 14px;
-  /* 用站点次级灰 #5b6675：原 #98a2b3 对浅灰底对比度仅 2.27:1，
+  font-size: var(--fs-footer);
+  /* 用站点次级灰 --grey-soft：原 #98a2b3 对浅灰底对比度仅 2.27:1，
      不达 WCAG 要求的 4.5:1，Lighthouse 无障碍审计会扣分 */
-  color: #5b6675;
-  margin-top: 26px;
-  line-height: 1.9;
+  color: var(--grey-soft);
+  margin-top: var(--space-20);
+  line-height: var(--lh-footer);
 }
 /* 页脚信息区：官网地址 / 版权 */
 .ft-meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px 20px;
-  margin-top: 12px;
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: #5b6675;
+  gap: var(--space-3) var(--space-14);
+  margin-top: var(--space-6);
+  font-size: var(--fs-footer-meta);
+  line-height: var(--lh-meta);
+  color: var(--grey-soft);
 }
 .ft-link {
-  color: #007a5f;
+  color: var(--link-green);
   text-decoration: none;
-  border-bottom: 1px solid rgba(0, 122, 95, 0.35);
+  border-bottom: 1px solid var(--link-green-soft);
   transition:
-    color 0.18s,
-    border-bottom-color 0.18s;
+    color var(--duration-med) var(--ease-out),
+    border-bottom-color var(--duration-med) var(--ease-out);
 }
 .ft-link:hover {
-  color: #00533f;
-  border-bottom-color: #00533f;
+  color: var(--link-green-hover);
+  border-bottom-color: var(--link-green-hover);
 }
 .ft-copy {
-  margin-top: 8px;
-  font-size: 13px;
-  color: #5b6675;
+  margin-top: var(--space-4);
+  font-size: var(--fs-footer-copy);
+  color: var(--grey-soft);
 }
 
 /* ---------- 二维码放大层 ---------- */
@@ -317,25 +381,27 @@ h3 {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(11, 20, 38, 0.9);
+  background: var(--overlay-heavy);
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: var(--space-14);
   cursor: pointer;
 }
 .qr-layer.on {
   display: flex;
-  animation: fade 0.2s;
+  animation: fade var(--duration-slow);
 }
 .qr-panel {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-14);
   max-width: 340px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 60px var(--shadow-panel);
+  /* 关闭按钮是 position:absolute，需要面板本身作为定位参照。 */
+  position: relative;
 }
 /* height: auto 是必需的：图片标签带 width/height 属性（用于预留空间、防止布局抖动），
    若这里只写 width: 100% 而不重置 height，浏览器会把属性里的像素高度当成实际高度，
@@ -344,19 +410,50 @@ h3 {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
+}
+/* ---------- 二维码弹窗关闭按钮 ----------
+   2026-11-02：从 style.css 下沉到 base.css。
+   原先只有加载 style.css 的页面（首页、图书页、共建页）有这套样式，
+   学习中心 / 成果展示 / 企业服务 / 共建合作四页未加载 style.css，
+   关闭键因而显示为浏览器默认灰色凸起按钮。 */
+.qr-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, outline-offset 0.15s;
+  z-index: 1;
+}
+.qr-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.qr-close:focus-visible {
+  outline: 2px solid #00edbd;
+  outline-offset: 3px;
 }
 .qr-hint {
-  margin-top: 12px;
-  font-size: 15px;
+  margin-top: var(--space-6);
+  font-size: var(--fs-qr);
   font-weight: 700;
   color: var(--navy);
   letter-spacing: 1px;
 }
 .qr-hint small {
   display: block;
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: var(--space-1);
+  font-size: var(--fs-qr-small);
   font-weight: 400;
   color: var(--grey);
 }
@@ -368,19 +465,22 @@ html {
 
 /* --- 平板竖屏 / 大屏手机 --- */
 @media (max-width: 768px) {
+  :root {
+    --fs-brand: 14px;
+    --fs-h2: 19px;
+  }
   .wrap {
-    padding: 20px 14px 0;
+    padding: var(--space-14) var(--space-8) 0;
   }
   .card {
-    padding: 22px 18px;
+    padding: var(--space-16) var(--space-12);
   }
   .nav-inner {
-    height: 52px;
-    gap: 12px;
-    padding: 0 12px;
+    height: var(--nav-height);
+    gap: var(--space-6);
+    padding: 0 var(--space-6);
   }
   .nav-brand {
-    font-size: 14px;
     letter-spacing: 1px;
   }
   /* Phase 1B-1：移动端隐藏横向 nav-links，显示汉堡按钮 + 抽屉 */
@@ -391,29 +491,29 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: var(--touch-target);
+    height: var(--touch-target);
     margin-left: auto;
     background: transparent;
     border: 1.5px solid var(--teal);
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     color: var(--teal);
-    font-size: 22px;
+    font-size: var(--fs-toggle);
     line-height: 1;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all var(--duration-slow) var(--ease-out);
   }
   .menu-toggle:hover,
   .menu-toggle:focus-visible {
-    background: rgba(0, 237, 189, 0.12);
+    background: var(--teal-toggle-hover);
     outline: none;
   }
   /* 抽屉遮罩 */
-.nav-backdrop:not([hidden]) {
-  display: block;
-  position: fixed;
+  .nav-backdrop:not([hidden]) {
+    display: block;
+    position: fixed;
     inset: 0;
-    background: rgba(11, 20, 38, 0.55);
+    background: var(--backdrop);
     backdrop-filter: blur(2px);
     z-index: 90;
   }
@@ -421,14 +521,14 @@ html {
   .nav-drawer {
     display: block;
     position: fixed;
-    top: 52px;
+    top: var(--nav-height);
     left: 0;
     right: 0;
     background: var(--navy);
-    border-top: 1px solid rgba(0, 237, 189, 0.25);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    border-top: 1px solid var(--teal-drawer);
+    box-shadow: 0 12px 36px var(--shadow-drawer);
     z-index: 100;
-    max-height: calc(100vh - 52px);
+    max-height: calc(100vh - var(--nav-height));
     overflow-y: auto;
   }
   .nav-drawer[hidden] {
@@ -437,21 +537,21 @@ html {
   .nav-drawer-inner {
     display: flex;
     flex-direction: column;
-    padding: 8px 0;
+    padding: var(--space-4) 0;
   }
   .nav-drawer-inner a {
     display: block;
-    padding: 14px 22px;
-    color: #fff;
+    padding: var(--space-8) var(--space-16);
+    color: var(--white);
     text-decoration: none;
-    font-size: 15px;
+    font-size: var(--fs-drawer-link);
     border-left: 3px solid transparent;
-    transition: all 0.15s;
-    min-height: 44px; /* 移动端可点击区域 ≥ 44px（v2.1 4.1 规范）*/
+    transition: all var(--duration-fast) var(--ease-out);
+    min-height: var(--touch-target); /* 移动端可点击区域 ≥ 44px（v2.1 4.1 规范）*/
   }
   .nav-drawer-inner a:hover,
   .nav-drawer-inner a:focus-visible {
-    background: rgba(0, 237, 189, 0.1);
+    background: var(--teal-drawer);
     border-left-color: var(--teal);
     outline: none;
   }
@@ -459,47 +559,44 @@ html {
     color: var(--teal);
     font-weight: 700;
   }
-  h2 {
-    font-size: 19px;
-  }
 }
 
 /* --- 手机 --- */
 @media (max-width: 480px) {
+  :root {
+    --fs-brand: 13px;
+    --fs-h2: 18.5px;
+    --fs-h3: 15px;
+    --fs-note: 14px;
+    --fs-footer: 13px;
+  }
   .wrap {
-    padding: 14px 12px 0;
+    padding: var(--space-8) var(--space-6) 0;
   }
   .card {
-    padding: 18px 14px;
+    padding: var(--space-12) var(--space-8);
   }
   .nav-inner {
-    padding: 0 10px;
-    gap: 10px;
-  }
-  .nav-brand {
-    font-size: 13px;
+    padding: 0 var(--space-5);
+    gap: var(--space-5);
   }
   /* Phase 1B-1：480px 块不再依赖缩小字号（已在 768 块用抽屉替代） */
   h2 {
-    font-size: 18.5px;
-    padding-left: 10px;
+    padding-left: var(--space-6);
     border-left-width: 3px;
-    margin-bottom: 14px;
+    margin-bottom: var(--space-8);
   }
   h3 {
-    font-size: 15px;
-    margin: 18px 0 10px;
+    margin: var(--space-12) 0 var(--space-5);
   }
   .modal {
-    padding: 10px;
+    padding: var(--space-6);
   }
   .note {
-    padding: 12px 14px;
-    font-size: 14px;
+    padding: var(--space-6) var(--space-8);
   }
   .footer-note {
-    font-size: 13px;
-    margin-top: 20px;
+    margin-top: var(--space-14);
   }
   .qr-panel {
     max-width: 280px;
