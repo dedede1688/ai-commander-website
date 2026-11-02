@@ -233,7 +233,7 @@
     foot.innerHTML =
       lines.join("<br />") +
       '<div class="ft-meta">' +
-      '<span>官网地址：<a class="ft-link" href="' +
+      '<span>官网地址：<a class="ft-link tier-weak" href="' +
       SITE_URL +
       '" target="_blank" rel="noopener">' +
       SITE_DOMAIN +
