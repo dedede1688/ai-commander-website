@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T15:31:49.794Z",
+  "generatedAt": "2026-11-05T17:15:25.936Z",
   "site": "https://www.ai-mmc.cn",
   "fileCount": 342,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
@@ -30,14 +30,14 @@
     },
     {
       "path": "builders.css",
-      "bytes": 11244,
-      "sha256": "78c173d277dcb6468010ece02c027174aa33a755029dfeefcfd474cf324d4ac7",
+      "bytes": 13867,
+      "sha256": "bf44c48d3d1beddd48a5756ffc7aa73cb604262e59a917d0c79fb2ffdeb171a0",
       "kind": "text"
     },
     {
       "path": "builders.html",
-      "bytes": 35933,
-      "sha256": "edec7212b32349cca91ca4829c75d1632284a8225e68fdadee1937d5e2c6ad03",
+      "bytes": 38380,
+      "sha256": "fd5e7a7c684df31c3528a0517974d93fa594545ccdd3e8166237e325c52eb1ce",
       "kind": "text"
     },
     {
@@ -84,14 +84,14 @@
     },
     {
       "path": "enterprise.css",
-      "bytes": 8352,
-      "sha256": "0e5ca03bda3b3a3413ca2ab07c69129416ede90105a92e2cf21f280a9ebad9fc",
+      "bytes": 11634,
+      "sha256": "f81972a9c2e0af378bb5a1e2d90951013b4e55f1977f59634c46d3f10ee48e43",
       "kind": "text"
     },
     {
       "path": "enterprise.html",
-      "bytes": 12716,
-      "sha256": "6f6809c4eb0697b36403e50173180659c07395d9320c568a00dadc3faa5b559f",
+      "bytes": 15452,
+      "sha256": "f18bdc74b8dca0c98862a463a98c182ca8ffac2ffc6a97ecfa2a6d7be4ac3258",
       "kind": "text"
     },
     {

@@ -10,7 +10,7 @@
 .builders-hero img { width: 180px; height: auto; display: block; }
 .builders-hero .action { background: var(--teal); color: var(--navy-d); border-color: var(--teal); font-weight: 700; }
 .builders-hero .action.secondary { background: transparent; color: var(--white); border-color: var(--border-strong); }
-.builders-facts { display: flex; gap: var(--gap-5); padding-top: var(--space-7); margin-top: var(--space-8); border-top: 1px solid #ffffff29; color: var(--on-dark-1); font-size: var(--fs-tiny-2); }
+.builders-facts { display: flex; flex-wrap: wrap; gap: var(--gap-3) var(--gap-5); padding-top: var(--space-7); margin-top: var(--space-8); border-top: 1px solid var(--nav-line); color: var(--on-dark-1); font-size: var(--fs-tiny-2); }
 .builders-facts b { color: var(--white); font-size: var(--fs-subtitle); margin-right: var(--space-1); }
 .roster-controls { display: grid; grid-template-columns: minmax(0,1fr) 250px; gap: var(--gap-4); margin: var(--space-7) 0 var(--space-5); }
 .roster-controls label { display: flex; flex-direction: column; gap: var(--gap-2); font-size: var(--fs-tiny-2); font-weight: 700; color: var(--grey-1); }
@@ -30,11 +30,6 @@
 .builder-person .builder-open { display: block; font-size: var(--fs-tiny-4); color: #2c6680; margin-top: var(--space-4); }
 .roster-empty { padding: var(--space-9) var(--space-7); background: var(--bg-page); color: var(--grey-2); font-size: var(--fs-sm); }
 .roster-empty[hidden] { display: none; }
-.join-roles { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--gap-5); margin-top: var(--space-8); }
-.join-role { min-width: 0; border-top: 2px solid #2c536e; padding-top: var(--space-6); }
-.join-role h3 { color: var(--navy); font-size: var(--fs-subtitle); margin: 0 0 var(--space-5); }
-.join-role p { color: var(--grey-2); font-size: var(--fs-xs); line-height: 1.95; margin-top: var(--space-5); }
-.join-role strong { display: block; font-size: var(--fs-tiny-2); color: var(--grey-1); margin-bottom: var(--space-0); }
 .honor-previews { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: var(--gap-3); margin-top: var(--space-8); }
 .honor-preview { padding: var(--space-7); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--bg-tint); min-width: 0; }
 .honor-preview img { display: block; width: 64px; height: 64px; margin-bottom: var(--space-5); object-fit: contain; }
@@ -47,10 +42,6 @@
 .structure-label { display: flex; justify-content: space-between; gap: var(--gap-2); margin-bottom: var(--space-2); }
 .structure-track { height: 5px; background: var(--bg-page); }
 .structure-fill { height: 5px; background: #3d6986; }
-.join-process { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: var(--gap-4); list-style: none; margin: var(--space-7) 0 var(--space-9); }
-.join-process li { border-top: 1px solid var(--border-strong); padding-top: var(--space-5); font-size: var(--fs-xs); color: var(--grey-2); }
-.join-process span { color: var(--grey-2); font: var(--fs-tiny-2) Consolas,monospace; display: block; margin-bottom: var(--space-3); }
-.join-process b { color: var(--navy); }
 .member-hero { display: grid; grid-template-columns: minmax(0,1fr) 170px; align-items: center; gap: var(--gap-6); padding: var(--space-11); border-radius: var(--radius-md); margin-bottom: var(--space-7); background: var(--navy-d); color: var(--on-dark-1); }
 .member-hero .section-kicker { color: #8cdece; }
 .member-hero h1 { color: white; font-size: var(--fs-display); line-height: 1.4; margin-bottom: var(--space-5); }
@@ -83,13 +74,12 @@
  .builders-hero img { width: 120px; }
  .builders-hero h1 { font-size: var(--fs-display); }
  .roster-controls { grid-template-columns: 1fr; }
- .join-roles, .expertise-grid { grid-template-columns: 1fr; }
+ .expertise-grid { grid-template-columns: 1fr; }
  .member-hero { padding: var(--space-9) var(--space-8); grid-template-columns: minmax(0,1fr) 120px; gap: var(--gap-4); }
  .member-hero h1 { font-size: var(--fs-display); }
  .member-role { font-size: var(--fs-ui-lg); }
  .member-portrait { width: 120px; height: 170px; }
  .member-return { align-items: start; flex-direction: column; }
- .join-process { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 520px) {
  .builders-hero { grid-template-columns: 1fr; }
@@ -103,4 +93,52 @@
  .member-book-panel, .share-panel { grid-template-columns: 1fr; gap: var(--gap-5); }
  .member-book-panel img { width: 110px; }
  .share-panel img { width: 180px; }
+}
+
+/* ============================================================
+   批次 3 · 共建合作页重排（共建什么 → 谁适合 → 得到什么 → 如何加入）
+   颜色一律取 base.css 既有令牌，不新增硬编码色值；
+   交互一律挂三级 hover 体系（tier-strong / tier-medium / tier-weak，
+   白底区块用 tier-medium-on-light / tier-strong-on-light）。
+   ============================================================ */
+
+/* ---------- 一、首屏：讲清共建什么 ---------- */
+/* 注意：不要在这里重复声明 .builders-hero 的 grid-template-columns。
+   本块位于文件末尾（所有媒体查询之后），同特异性下会覆盖 768px / 520px
+   断点里的单列规则，导致移动端正文被压成窄条。网格沿用原有声明即可。 */
+.builders-hero-main { min-width: 0; }
+.builders-hero .hero-intro { max-width: 720px; }
+/* 适合对象：与首页 .hero-audience 同一语言（左侧青色竖线 + 深底次级字） */
+.builders-audience { font-size: var(--fs-xs); color: var(--on-dark-2); margin: 0 0 var(--space-7); padding-left: var(--space-4); border-left: 2px solid var(--teal-soft); line-height: 1.9; }
+
+/* ---------- 二、谁适合：三类共建者 ---------- */
+.fit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-5); margin-top: var(--space-8); }
+.fit-card { min-width: 0; padding: var(--space-7); background: var(--surface); border: 1px solid var(--navy-line); border-radius: var(--radius-sm); }
+.fit-card h3 { font-size: var(--fs-subtitle); color: var(--navy); margin-bottom: var(--space-4); line-height: 1.6; }
+.fit-who { font-size: var(--fs-xs); color: var(--muted); line-height: 1.95; margin-bottom: var(--space-5); }
+.fit-what { font-size: var(--fs-tiny-2); color: var(--grey-2); line-height: 1.9; }
+.fit-what b { display: block; margin-bottom: var(--space-1); color: var(--grey-1); font-size: var(--fs-tiny-2); }
+
+/* ---------- 三、得到什么：三件具体的事 ---------- */
+.gain-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-5); margin-top: var(--space-8); }
+.gain-card { min-width: 0; padding: var(--space-7); background: var(--surface); border: 1px solid var(--navy-line); border-radius: var(--radius-sm); }
+.gain-card h3 { font-size: var(--fs-subtitle); color: var(--navy); margin-bottom: var(--space-4); line-height: 1.6; }
+.gain-card p { font-size: var(--fs-xs); color: var(--muted); line-height: 1.95; }
+
+/* ---------- 四、如何加入：先聊一次 ---------- */
+.join-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-5); list-style: none; margin: var(--space-8) 0 0; }
+.join-steps li { min-width: 0; border-top: 2px solid var(--border-strong); padding-top: var(--space-6); }
+.join-steps span { display: block; margin-bottom: var(--space-3); color: var(--grey-3); font: var(--fs-tiny-2) Consolas, monospace; }
+.join-steps h3 { font-size: var(--fs-subtitle); color: var(--navy); margin-bottom: var(--space-4); }
+.join-steps p { font-size: var(--fs-xs); color: var(--muted); line-height: 1.95; margin-bottom: var(--space-5); }
+.join-steps small { display: block; font-size: var(--fs-tiny-4); color: var(--grey-3); line-height: 1.9; }
+
+/* ---------- 五、窄屏：先让位给三类共建者与所得 ---------- */
+@media (max-width: 800px) {
+  .fit-grid, .gain-grid { grid-template-columns: 1fr; gap: var(--gap-4); }
+  .join-steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .join-steps { grid-template-columns: 1fr; }
+  .fit-card, .gain-card { padding: var(--space-6); }
 }

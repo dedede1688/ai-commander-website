@@ -1,29 +1,38 @@
 /* 企业服务：沿用既有设计变量、字体、字号、圆角与间距。 */
+/* ===== 批次 3 · 企业服务页重排（客户是谁 → 解决什么 → 凭什么信 → 怎么开始）=====
+   颜色一律取 base.css 既有令牌，不新增硬编码色值；
+   交互一律挂三级 hover 体系（tier-strong / tier-medium / tier-weak，
+   白底区块用 tier-medium-on-light / tier-strong-on-light）。 */
 .preview-banner { display: flex; justify-content: space-between; align-items: center; gap: var(--gap-3) var(--gap-5); padding-top: var(--space-6); padding-bottom: 0; font-size: var(--fs-tiny-2); color: var(--grey-2); }
 .preview-banner p { font-weight: 700; }
 .preview-banner span { font-weight: 400; margin-left: var(--space-5); }
 .preview-banner a { color: var(--navy); text-underline-offset: 4px; }
 .enterprise-page { padding-top: var(--space-6); }
-.enterprise-hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: var(--gap-7); background: var(--navy-d); color: var(--on-dark-1); border-radius: var(--radius-md); padding: var(--space-11) var(--space-11); }
-.enterprise-hero .section-kicker { color: #8bddcf; }
+
+/* ---------- 一、首屏：给什么企业、解决什么问题 ---------- */
+.enterprise-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: center; gap: var(--gap-7); background: var(--navy-d); color: var(--on-dark-1); border-radius: var(--radius-md); padding: var(--space-11) var(--space-11); }
+.enterprise-hero .section-kicker,
+.enterprise-trust .section-kicker { color: #8bddcf; }
 .enterprise-hero h1 { font-size: var(--fs-display); line-height: 1.5; color: white; margin-bottom: var(--space-6); }
 .hero-intro { font-size: var(--fs-sm); line-height: 1.95; }
 .enterprise-hero .action { background: var(--teal); border-color: var(--teal); color: var(--navy-d); font-weight: 700; }
 .enterprise-hero .action.secondary { color: white; background: transparent; border-color: var(--border-strong); }
 .enterprise-hero a:focus-visible { outline-color: #b2eddf; }
 .hero-footnote { font-size: var(--fs-tiny-2); color: var(--on-dark-2); margin-top: var(--space-7); line-height: 1.9; }
-.starting-point { border-left: 1px solid #ffffff36; padding-left: var(--space-9); min-width: 0; }
-.aside-kicker { font-size: var(--fs-tiny-2); color: var(--on-dark-2); letter-spacing: 1px; margin-bottom: var(--space-5); }
-.starting-point ol { list-style: none; }
-.starting-point li { display: grid; grid-template-columns: 24px 1fr; gap: var(--gap-3); padding: var(--space-5) 0; border-bottom: 1px solid #ffffff1c; }
-.starting-point li:last-child { border-bottom: 0; }
-.starting-point li > span { color: #8bddcf; font: var(--fs-tiny-2)/2 Consolas, monospace; }
-.starting-point h2 { font-size: var(--fs-body); color: white; margin-bottom: var(--space-1); }
-.starting-point li p { color: var(--on-dark-2); font-size: var(--fs-tiny-2); line-height: 1.9; }
+/* 适合对象：与首页 .hero-audience 同一语言（左侧青色竖线 + 深底次级字） */
+.enterprise-hero-audience { font-size: var(--fs-xs); color: var(--on-dark-2); margin: 0 0 var(--space-7); padding-left: var(--space-4); border-left: 2px solid var(--teal-soft); line-height: 1.9; }
+/* 四张方向卡：白底卡片，与首页企业区 .content-panel 同一语言 */
+.hero-directions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-3); align-content: start; }
+.hero-direction { display: block; min-width: 0; padding: var(--space-5); background: var(--surface); border: 1px solid var(--navy-line); border-radius: var(--radius-sm); text-decoration: none; }
+.hero-direction span { display: block; margin-bottom: var(--space-3); font-family: Consolas, monospace; font-size: var(--fs-tiny-2); color: var(--gold-deep); }
+.hero-direction h3 { font-size: var(--fs-body); line-height: 1.6; color: var(--navy); margin-bottom: var(--space-2); }
+.hero-direction p { font-size: var(--fs-tiny-2); color: var(--muted); line-height: 1.75; }
 .enterprise-jump { display: flex; flex-wrap: wrap; gap: var(--gap-2) var(--gap-5); padding: var(--space-5) var(--space-8); margin: var(--space-6) 0 var(--space-7); background: white; border-bottom: 1px solid var(--border-base); border-radius: var(--radius-sm); }
 .enterprise-jump a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: #28496a; font-size: var(--fs-xs); }
 .enterprise-jump a:hover { text-decoration: underline; }
 .enterprise-jump a:last-child { margin-left: auto; }
+
+/* ---------- 二、解决什么：四个方向的详细说明 ---------- */
 .flagship { padding: var(--space-9) 0; border-top: 1px solid var(--border-subtle); }
 .service-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gap-2); margin-bottom: var(--space-7); }
 .service-index { display: block; color: var(--grey-2); font-size: var(--fs-tiny-2); font-weight: 700; letter-spacing: 1px; }
@@ -49,12 +58,35 @@
 .service-row p { font-size: var(--fs-sm); line-height: 1.95; color: var(--muted); margin-bottom: var(--space-5); }
 .service-row .service-facts { margin-top: 0; }
 .direction-note { font-size: var(--fs-tiny-2); color: var(--grey-3); line-height: 1.95; margin-top: var(--space-7); }
-.service-process { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); list-style: none; gap: var(--gap-5); margin-top: var(--space-8); }
+
+/* ---------- 三、凭什么信：深底背书带（与图书页 .hero-cred 同款样式） ---------- */
+.enterprise-trust { background: var(--navy-d); color: var(--on-dark-1); border-radius: var(--radius-md); padding: var(--space-10) var(--space-11); margin-bottom: var(--space-7); }
+.enterprise-trust .section-title { color: var(--white); }
+/* 一行低调署名：左侧青色竖线 + 深底次级字，不与方向说明抢视觉 */
+.trust-line { max-width: 850px; margin: 0 0 var(--space-8); padding-left: var(--space-4); border-left: 2px solid var(--teal-soft); color: var(--on-dark-2); font-size: var(--fs-tiny-2); line-height: 1.9; }
+.trust-line b { margin-right: var(--space-2); color: var(--teal); font-weight: 700; }
+.trust-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-6); }
+.trust-point { min-width: 0; border-top: 1px solid var(--nav-line); padding-top: var(--space-6); }
+.trust-point h3 { font-size: var(--fs-subtitle); color: var(--white); line-height: 1.6; margin-bottom: var(--space-4); }
+.trust-point p { font-size: var(--fs-xs); color: var(--on-dark-2); line-height: 1.95; margin-bottom: var(--space-5); }
+.enterprise-trust .text-link { color: var(--teal); }
+
+/* ---------- 四、怎么开始：三步路径 + 先聊三样 ---------- */
+.service-process { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; gap: var(--gap-5); margin-top: var(--space-8); }
 .service-process li { border-top: 2px solid var(--border-strong); padding-top: var(--space-6); }
 .service-process span { color: var(--grey-3); font: var(--fs-tiny-2) Consolas, monospace; }
 .service-process h3 { font-size: var(--fs-subtitle); color: var(--navy); margin: var(--space-4) 0; }
 .service-process p { font-size: var(--fs-xs); line-height: 1.95; color: var(--muted); margin-bottom: var(--space-5); }
 .service-process small { display: block; color: var(--grey-3); font-size: var(--fs-tiny-4); line-height: 1.9; }
+.first-talk { margin-top: var(--space-8); padding: var(--space-8); background: var(--bg-page); border: 1px solid var(--border-base); border-radius: var(--radius-sm); }
+.first-talk h3 { font-size: var(--fs-subtitle); color: var(--navy); margin-bottom: var(--space-6); }
+.first-talk ol { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-5); }
+.first-talk li { min-width: 0; }
+.first-talk li span { display: block; margin-bottom: var(--space-2); font-family: Consolas, monospace; font-size: var(--fs-tiny-2); color: var(--grey-2); }
+.first-talk li b { display: block; margin-bottom: var(--space-2); font-size: var(--fs-sm); color: var(--navy); }
+.first-talk li p { font-size: var(--fs-tiny-2); color: var(--muted); line-height: 1.8; }
+
+/* ---------- 五、范围与责任 + 联系入口 ---------- */
 .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-6); margin: var(--space-7) 0; }
 .scope-grid h3 { color: var(--navy); font-size: var(--fs-subtitle); margin-bottom: var(--space-5); }
 .scope-grid p { color: var(--muted); font-size: var(--fs-sm); line-height: 1.95; }
@@ -65,15 +97,17 @@
 .contact-hint { font-size: var(--fs-tiny-2); color: var(--grey-3); line-height: 1.95; }
 @media (max-width: 800px) {
   .enterprise-hero { grid-template-columns: 1fr; gap: var(--gap-5); padding: var(--space-10) var(--space-9); }
-  .starting-point { border-left: 0; border-top: 1px solid #ffffff36; padding-left: 0; padding-top: var(--space-7); }
   .flagship-layout, .service-row { grid-template-columns: 1fr; gap: var(--gap-5); }
-  .service-process { grid-template-columns: 1fr 1fr; }
+  .trust-points { grid-template-columns: 1fr; gap: var(--gap-5); }
+  .first-talk ol { grid-template-columns: 1fr; gap: var(--gap-4); }
+  .enterprise-trust { padding: var(--space-9) var(--space-8); }
 }
 @media (max-width: 520px) {
   .preview-banner { flex-direction: column; align-items: flex-start; gap: var(--gap-2); }
   .preview-banner span { display: block; margin: var(--space-1) 0 0; }
   .enterprise-hero { padding: var(--space-9) var(--space-7); }
   .enterprise-hero h1 { font-size: var(--fs-display); }
+  .hero-directions { grid-template-columns: 1fr; gap: var(--gap-2); }
   .enterprise-jump { gap: var(--gap-1) var(--gap-5); padding: var(--space-4) var(--space-7); }
   .enterprise-jump a:last-child { margin-left: 0; }
   .enterprise-page .card { padding: var(--pad-card-lg) var(--pad-card-lg); }
@@ -82,4 +116,7 @@
   .enterprise-page .section-actions .action { width: 100%; }
   .pilot-panel { padding: var(--pad-card-md); }
   .module-details summary, .enterprise-faq summary { min-height: 44px; }
+  .enterprise-trust { padding: var(--space-8) var(--space-7); }
+  .trust-line { margin-bottom: var(--space-6); }
+  .first-talk { padding: var(--space-6); }
 }
