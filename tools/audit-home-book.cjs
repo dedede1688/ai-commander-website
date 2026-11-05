@@ -3,7 +3,12 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
-const read = name => fs.readFileSync(path.join(root, name), 'utf8');
+/* 2026-11-05 P1：统一行尾口径。
+   Windows 工作区因 core.autocrlf=true 检出为 CRLF，Linux CI 检出为 LF；
+   工作区侧读取与归档侧字节都在进入比对前归一化为 LF，
+   跨文件正文比较不再因行尾差异误报。 */
+const toLF = text => text.replace(/\r\n/g, '\n');
+const read = name => toLF(fs.readFileSync(path.join(root, name), 'utf8'));
 const home = read('index.html');
 assert.ok(fs.existsSync(path.join(root, 'book.html')), '图书详情页必须存在');
 const book = read('book.html');
@@ -18,15 +23,16 @@ const archiveBytes = fs.readFileSync(path.join(root, ARCHIVE));
    避免 Windows 工作区 CRLF 与 Linux CI 检出 LF 的行尾差异造成误报。 */
 const archiveHash = crypto
   .createHash('sha256')
-  .update(Buffer.from(archiveBytes.toString('utf8').replace(/\r\n/g, '\n'), 'utf8'))
+  .update(Buffer.from(toLF(archiveBytes.toString('utf8')), 'utf8'))
   .digest('hex')
   .toUpperCase();
 assert.equal(archiveHash, ARCHIVE_SHA256, '归档文件内容须保持不变（按 LF 归一化比对）');
-/* 2026-10-30 Q07：仅对提取用于正文比较的归档文本做 CRLF→LF 归一化。
-   原始归档文件（CRLF）与 book.html（LF）换行风格不同，导致 bodies() 严格比较误报。
-   归一化仅作用于比较变量 original，不动归档文件、不动哈希校验（19-24行已独立处理）。
+/* 2026-10-30 Q07 + 2026-11-05 P1：正文比较双方统一 LF 口径。
+   原始归档文件与 book.html 在不同检出环境下行尾风格不同（CRLF / LF），
+   导致 bodies() 严格比较误报。现工作区侧 read() 与归档侧 original 均已归一化为 LF，
+   行尾差异不再干扰比较；归档文件本身不改动，哈希校验口径不变。
    正文数量、内容完整性、断言数量与逻辑均保持不变。 */
-const original = archiveBytes.toString('utf8').replace(/\r\n/g, '\n');
+const original = toLF(archiveBytes.toString('utf8'));
 assert.equal((home.match(/data-home-section=/g) || []).length, 8, '首页应为八屏');
 assert.equal((book.match(/data-book-section=/g) || []).length, 10, '图书页应为十屏');
 assert.equal((book.match(/<details class="bk2-chap"/g) || []).length, 8);

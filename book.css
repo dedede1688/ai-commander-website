@@ -1,0 +1,172 @@
+/* ===== 图书页专属样式（book.css）=====
+   仅 book.html 引用，加载顺序在 home-book.css 之后（同层级 0-2-0 时以本文件为准）。
+   本轮目标：首屏节奏按「痛点 → 方案 → 背书 → 行动」重排。
+   规则：颜色一律取 base.css 既有令牌，不新增硬编码色值；
+        交互一律挂三级 hover 体系（tier-strong / tier-medium / tier-weak，
+        白底区块用 tier-medium-on-light / tier-strong-on-light）。 */
+
+/* ============================================================
+   一、首屏：痛点（三个卡点前置，3 秒讲清这本书解决什么）
+   ============================================================ */
+.book-page .hero-pain {
+  margin: var(--space-5) 0 var(--space-4);
+}
+.book-page .hero-pain-lead {
+  font-size: var(--fs-tiny-2);
+  color: var(--on-dark-2);
+  letter-spacing: 1px;
+  margin-bottom: var(--space-3);
+}
+.book-page .hero-pain-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-3);
+}
+.book-page .hero-pain-item {
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--nav-line);
+  border-radius: var(--radius-sm);
+  background: var(--fill-on-dark);
+}
+.book-page .hero-pain-item b {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--teal);
+  font-size: var(--fs-tiny-2);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.book-page .hero-pain-item span {
+  display: block;
+  color: var(--on-dark-2);
+  font-size: var(--fs-tiny-2);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   二、首屏：方案（口号降一档，展开句承担说服）
+   ============================================================ */
+.book-page .rpt-tagline {
+  margin: var(--space-5) 0 var(--space-4);
+}
+.book-page .hero-copy {
+  margin: 0 0 var(--space-5);
+  max-width: 700px;
+}
+
+/* ============================================================
+   三、首屏：背书（一行低调署名，不与书名抢视觉）
+   ============================================================ */
+.book-page .hero-cred {
+  margin: 0 0 var(--space-5);
+  max-width: 700px;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--teal-soft);
+  color: var(--on-dark-2);
+  font-size: var(--fs-tiny-2);
+  line-height: 1.9;
+}
+.book-page .hero-cred b {
+  margin-right: var(--space-2);
+  color: var(--teal);
+  font-weight: 700;
+}
+
+/* ============================================================
+   四、首屏：行动（主次分明，三档 hover 各司其职）
+   ============================================================ */
+.book-page .hero-cta {
+  margin-top: 0;
+}
+.book-page .hero-cta .action {
+  min-height: 48px;
+  padding: var(--space-4) var(--space-7);
+}
+.book-page .hero-cta .action.secondary {
+  min-height: 42px;
+  padding: var(--space-3) var(--space-6);
+}
+/* 弱档：弱化文字链接（扫码咨询），按钮外观先抹平再套 .text-link */
+.book-page .hero-cta .text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--on-dark-1);
+  font-family: inherit;
+  font-size: var(--fs-xs);
+  text-align: left;
+  cursor: pointer;
+}
+/* 强档按钮的箭头也跟随微动（与首页 .cta-arrow 同一语言） */
+.book-page .hero-cta .action:hover .tier-arrow {
+  transform: translateX(var(--hover-arrow-shift));
+}
+
+/* ============================================================
+   五、收尾深底区：内联硬编码色改走令牌
+   ============================================================ */
+.book-page .closing-section .section-lead {
+  color: var(--on-dark-1);
+}
+.book-page .closing-section .fine-print {
+  color: var(--on-dark-2);
+}
+.book-page .closing-section .action.secondary {
+  color: var(--white);
+  border-color: var(--border-strong);
+}
+.book-page .closing-section .text-link {
+  color: var(--on-dark-1);
+}
+
+/* ============================================================
+   六、窄屏：先让位给「痛点 + 行动」，封面收小
+   ============================================================ */
+@media (max-width: 768px) {
+  .book-page .site-content .rpt-head {
+    gap: var(--gap-3);
+  }
+  .book-page .site-content .rpt-book img {
+    width: 96px;
+  }
+  .book-page .rpt-tagline {
+    margin: var(--space-4) 0 var(--space-3);
+  }
+  .book-page .hero-pain-item {
+    padding: var(--space-3);
+  }
+  .book-page .hero-cta {
+    gap: var(--gap-3);
+  }
+  .book-page .hero-cta .action {
+    width: 100%;
+    min-height: 44px;
+    padding: var(--space-3) var(--space-5);
+  }
+  /* 次按钮与扫码咨询同行，把行上空间让给主 CTA */
+  .book-page .hero-cta .action.secondary {
+    width: auto;
+    flex: 1 1 auto;
+    min-height: 40px;
+  }
+  .book-page .hero-cta .text-link {
+    min-height: 40px;
+    font-size: var(--fs-tiny-2);
+  }
+}
+@media (max-width: 480px) {
+  .book-page .hero-pain-list {
+    gap: var(--gap-2);
+  }
+  .book-page .hero-pain-item {
+    padding: var(--space-2) var(--space-3);
+  }
+  .book-page .hero-pain-item span {
+    font-size: var(--fs-tiny-3);
+  }
+}
