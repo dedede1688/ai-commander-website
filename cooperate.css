@@ -57,3 +57,21 @@
   .preparation-grid { grid-template-columns: 1fr; }
   .contact-guide { padding: var(--space-7); }
 }
+
+/* ===== 批次 5 · cooperate 首屏信息密度 =====
+   版式沿用 builders 事实条样式与既有令牌，不新增色值、不自造 hover 档位。 */
+.cooperate-hero-main { min-width: 0; }
+.cooperate-audience { font-size: var(--fs-xs); color: var(--on-dark-2); margin: 0 0 var(--space-6); padding-left: var(--space-4); border-left: 2px solid var(--teal-soft); line-height: 1.9; }
+.cooperate-gains { margin-top: var(--space-7); }
+.cooperate-gains-title { font-size: var(--fs-tiny-2); color: var(--on-dark-2); letter-spacing: 1px; margin-bottom: var(--space-4); }
+.cooperate-gains ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--gap-5); }
+.cooperate-gains li { min-width: 0; border-top: 1px solid var(--nav-line); padding-top: var(--space-4); }
+.cooperate-gains b { display: block; color: var(--white); font-size: var(--fs-tiny-2); letter-spacing: 1px; margin-bottom: var(--space-2); }
+.cooperate-gains span { display: block; color: var(--on-dark-1); font-size: var(--fs-tiny-4); line-height: 1.9; }
+.cooperate-gains-note { margin-top: var(--space-4); color: var(--on-dark-2); font-size: var(--fs-tiny-4); line-height: 1.9; }
+.cooperate-facts { display: flex; flex-wrap: wrap; gap: var(--gap-3) var(--gap-5); padding-top: var(--space-6); margin-top: var(--space-7); border-top: 1px solid var(--nav-line); color: var(--on-dark-1); font-size: var(--fs-tiny-2); }
+.cooperate-facts b { color: var(--white); font-size: var(--fs-subtitle); margin-right: var(--space-1); }
+@media (max-width:800px) {
+  .cooperate-gains ul { grid-template-columns: 1fr; gap: var(--space-4); }
+  .cooperate-facts { gap: var(--gap-3) var(--gap-4); }
+}

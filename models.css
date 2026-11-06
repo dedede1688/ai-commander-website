@@ -1286,3 +1286,23 @@
 @media (prefers-reduced-motion: reduce) {
   .models-page * { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
 }
+
+/* ===== 批次 5 · 九维评分对照表移动端方案 B =====
+   横向滚动 + 首列吸附 + 字号下限 13px + 分级/复核小字 11px 单行截断（点击展开）。
+   桌面端（>768px）规则完全不动。 */
+.models-page .score-swipe-hint { display: none; }
+@media (max-width: 768px) {
+  .models-page .score-swipe-hint { display: block; position: sticky; top: var(--nav-clear); z-index: 5; font-size: var(--fs-tiny-4); color: var(--grey-2); background: var(--bg-page); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); margin: 0 0 var(--space-2) 72px; }
+  .models-page .score-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .models-page .score-scroll .score-table { font-size: 13px; }
+  .models-page .score-scroll .score-table th,
+  .models-page .score-scroll .score-table td { font-size: 13px; }
+  .models-page .score-scroll .score-table .cellbtn,
+  .models-page .score-scroll .score-table .cellbtn .cellu,
+  .models-page .score-scroll .score-table .cellbtn .cellv { font-size: 13px; }
+  .models-page .score-scroll .score-table .cellk { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; font-size: 11px; line-height: 1.6; }
+  .models-page .score-scroll .score-table .cellbtn.open .cellk { display: block; -webkit-line-clamp: unset; }
+  .models-page .score-scroll .score-table thead th:first-child,
+  .models-page .score-scroll .score-table tbody td:first-child { position: sticky; left: 0; z-index: 3; background: var(--surface); box-shadow: 1px 0 0 var(--border-base); }
+  .models-page .score-scroll .score-table thead th:first-child { z-index: 4; }
+}

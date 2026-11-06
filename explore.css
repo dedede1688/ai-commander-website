@@ -1,0 +1,41 @@
+/* 归档说明页：深蓝 hero + 上下出口引导；白底区块按钮走 on-light 规范。 */
+
+/* ===== 原有：表格在窄屏可横向滚动，表头允许换行 ===== */
+.arch-wrap {
+  overflow-x: auto;
+  margin: 6px 0 14px;
+  -webkit-overflow-scrolling: touch;
+}
+.arch-table th {
+  white-space: normal;
+}
+/* 链接不拆行，窄屏时由外层横向滚动承接 */
+.arch-table a,
+.archive-jump a {
+  white-space: nowrap;
+}
+
+/* ===== 批次 5 · 深蓝 hero 与出口引导 ===== */
+.explore-page { padding-top: var(--space-6); }
+.archive-hero { background: var(--navy-d); color: var(--on-dark-1); border-radius: var(--radius-md); padding: var(--space-11); }
+.archive-hero .section-kicker { color: var(--teal); }
+.archive-hero h1 { font-size: var(--fs-display); line-height: 1.5; color: var(--white); margin: 0 0 var(--space-5); }
+.archive-hero-lead { font-size: var(--fs-sm); line-height: 1.95; max-width: 760px; }
+.archive-hero .section-actions { margin-top: var(--space-7); }
+.archive-hero .action { background: var(--teal); border-color: var(--teal); color: var(--navy-d); font-weight: 700; }
+.archive-hero .action.secondary { color: var(--white); background: transparent; border-color: var(--border-strong); }
+.archive-jump { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-1) var(--gap-5); background: var(--surface); border: 1px solid var(--navy-line); border-radius: var(--radius-sm); padding: var(--space-4) var(--space-7); margin: var(--space-6) 0 var(--space-7); font-size: var(--fs-tiny-2); color: var(--grey-2); }
+.archive-jump > span { color: var(--grey-1); }
+.archive-jump a { display: inline-flex; align-items: center; min-height: 44px; color: var(--navy); font-size: var(--fs-xs); text-decoration: none; }
+.exit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-5); }
+.exit-card { display: block; padding: var(--space-6); background: var(--surface); border: 1px solid var(--navy-line); border-radius: var(--radius-sm); text-decoration: none; }
+.exit-card b { display: block; color: var(--navy); font-size: var(--fs-subtitle); margin-bottom: var(--space-2); }
+.exit-card span { display: block; color: var(--grey-1); font-size: var(--fs-tiny-2); line-height: 1.9; }
+@media (max-width: 800px) {
+  .archive-hero { padding: var(--space-10) var(--space-9); }
+  .exit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .archive-hero { padding: var(--space-9) var(--space-7); }
+  .exit-grid { grid-template-columns: 1fr; }
+}

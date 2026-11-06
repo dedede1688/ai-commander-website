@@ -142,3 +142,8 @@
   .join-steps { grid-template-columns: 1fr; }
   .fit-card, .gain-card { padding: var(--space-6); }
 }
+
+/* ===== 批次 5 · 成员页代表观点 ===== */
+.member-viewpoint { margin: 0; padding: var(--space-6) var(--space-7); border-left: 3px solid var(--teal); background: var(--bg-page); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.member-viewpoint p { margin: 0 0 var(--space-4); color: var(--navy); font-size: var(--fs-subtitle); line-height: 1.8; }
+.member-viewpoint cite { font-style: normal; color: var(--grey-2); font-size: var(--fs-tiny-2); }

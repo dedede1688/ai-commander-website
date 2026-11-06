@@ -368,7 +368,7 @@ function scoreTableHTML(ids,g){
    return '<td><button type="button" class="cellbtn" data-cell-model="'+esc(id)+'" data-cell-dim="'+esc(d.k)+'" aria-label="'+esc(getModel(id).name+' '+d.label+'：'+valTxt(c.v)+' 分，点击查看完整依据')+'"><span class="cellv" style="color:'+colorFor(id)+'">'+valTxt(c.v)+'</span><span class="cellk">'+esc2(c.cell.benchmark)+(c.cell.proxy?'（'+esc(DIMRULE[d.k].labelFull||'代理指标')+'）':'')+'</span></button></td>';
   }).join('')+'</tr>'}).join('');
  var cap=mode()==="demo"?"九维评分对照（演示模式 · 模拟分数，非真实测评）":"九维评分对照（待复核评测数据 · 评分组 "+esc(g.short)+" · "+SC.reviewStatus+"）";
- return '<p class="score-scroll-hint">分值与依据逐格列出；留空格标注类别（'+GAPKINDS+'）、核验分级与复核日期，已核实但不绘分的格保留原始成绩与来源。<b>点击任一格（含留空格）即可在图下信息条查看完整依据</b>，键盘 Tab＋回车同样可用</p><div class="score-scroll" tabindex="0" role="region" aria-label="九维评分对照表'+(g?'，评分组 '+esc(g.short):'')+'"><table class="score-table" style="--table-width:'+Math.max(340,95+ids.length*125)+'px"><caption>'+cap+'　共 '+ids.length+' 款</caption><thead><tr><th>能力</th>'+ids.map(function(id){return '<th>'+esc(getModel(id).name)+'</th>'}).join('')+'</tr></thead><tbody>'+body+'</tbody></table></div><p class="score-foot">'+(mode()==="demo"?"演示分值为页内模拟常量，仅用于验证图形与交互。":esc(g.rule||""))+'　来源性质：'+esc(natureOf(ids[0]))+'　核对日期：'+esc(mode()==="demo"?DEMO_META.date:SC.generatedAt)+'</p>';
+ return '<p class="score-swipe-hint">← 左右滑动查看全部维度</p><p class="score-scroll-hint">分值与依据逐格列出；留空格标注类别（'+GAPKINDS+'）、核验分级与复核日期，已核实但不绘分的格保留原始成绩与来源。<b>点击任一格（含留空格）即可在图下信息条查看完整依据</b>，键盘 Tab＋回车同样可用</p><div class="score-scroll" tabindex="0" role="region" aria-label="九维评分对照表'+(g?'，评分组 '+esc(g.short):'')+'"><table class="score-table" style="--table-width:'+Math.max(340,95+ids.length*125)+'px"><caption>'+cap+'　共 '+ids.length+' 款</caption><thead><tr><th>能力</th>'+ids.map(function(id){return '<th>'+esc(getModel(id).name)+'</th>'}).join('')+'</tr></thead><tbody>'+body+'</tbody></table></div><p class="score-foot">'+(mode()==="demo"?"演示分值为页内模拟常量，仅用于验证图形与交互。":esc(g.rule||""))+'　来源性质：'+esc(natureOf(ids[0]))+'　核对日期：'+esc(mode()==="demo"?DEMO_META.date:SC.generatedAt)+'</p>';
 }
 /* 待复核数据：每个评分组各出一张对照表，跨组不合并；演示模式单表自由叠加 */
 function scoreTablesHTML(){
@@ -575,7 +575,7 @@ function revealInfo(){
  /* 信息条能整条放下时优先露出顶部；过高时退化为底部对齐，避免标题被固定导航遮住 */
  if(r.height<=window.innerHeight-topPad-8){if(r.top<topPad||r.bottom>lim)window.scrollBy(0,r.top-topPad)}
  else if(r.bottom>lim||r.bottom<8)window.scrollBy(0,r.bottom-lim)}
-document.getElementById('score-values').addEventListener('click',function(e){var b=e.target.closest('[data-cell-model]');if(!b)return;
+document.getElementById('score-values').addEventListener('click',function(e){var b=e.target.closest('[data-cell-model]');if(!b)return;b.classList.toggle('open');
  showInfo(b.dataset.cellModel,b.dataset.cellDim);revealInfo()});
 document.getElementById('legend').addEventListener('click',function(e){var btn=e.target.closest('[data-toggle]');if(!btn)return;var id=btn.dataset.toggle;
  if(hidden[id]){delete hidden[id];soloId=null;labelId=id}

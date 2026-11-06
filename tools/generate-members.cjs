@@ -72,6 +72,19 @@ for (const m of members) {
   if (linkPills) html = html.replace('<span>23 位联合出版人之一</span></div>', `<span>23 位联合出版人之一</span>${linkPills}</div>`);
   const expertise = m.expertise && m.expertise.length ? `<section class="card" id="expertise"><p class="section-kicker">产业经验</p><h2 class="section-title">专业方向</h2><p class="section-lead">以下方向根据现有个人简介整理。</p><div class="expertise-grid">${m.expertise.map(e => `<article class="expertise-item"><h3>${esc(e.title)}</h3><p>${esc(e.description)}</p></article>`).join('')}</div></section>` : '';
   html = html.replace(/<section class="card" id="expertise">[\s\S]*?<\/section>/, expertise);
+  /* 2026-11-06 批次 5：代表观点区块。只渲染 member-data.js 里已存在的 viewpoint，
+     且 viewpoint 必须是本人 bio 的原文片段；没有观点材料的成员页保持原样。 */
+  const viewpoint = m.viewpoint
+    ? '<section class="card" id="viewpoint"><p class="section-kicker">代表观点</p><h2 class="section-title">来自本人简介的表述</h2>'
+      + '<blockquote class="member-viewpoint"><p>' + esc(m.viewpoint) + '</p><cite>' + esc(m.name) + ' · ' + esc(m.role) + '</cite></blockquote>'
+      + '<p class="fine-print">该句摘自本人公开简介，未做改写。</p></section>'
+    : '';
+  html = html.replace('<section class="card" id="book">', viewpoint + '<section class="card" id="book">');
+  html = html.replace('<a class="action" href="book.html">', '<a class="action tier-strong-on-light" href="book.html">')
+    .replace('<a class="action secondary" href="builders.html#members">', '<a class="action secondary tier-medium-on-light" href="builders.html#members">')
+    .replace('<button class="action" type="button" data-copy-url=', '<button class="action tier-strong-on-light" type="button" data-copy-url=')
+    .replace('<a class="action secondary" href="素材/二维码/成员/qr-', '<a class="action secondary tier-medium-on-light" href="素材/二维码/成员/qr-')
+    .replace('builders.css?v=7', 'builders.css?v=10');
   html = html.replace(esc(first.bio), esc(m.bio))
     .replaceAll(esc(first.role), esc(m.role))
     .replaceAll(first.photo, m.photo)
