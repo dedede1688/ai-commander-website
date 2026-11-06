@@ -1,5 +1,6 @@
-/* ===== AI指挥官·个人AI指挥系统实战课（course.css v8，2026-11-06 整页视觉重做）=====
-   归位主站层次体系：深蓝 hero 门面 → hero 以下白底正文（区块底 --surface-tint、卡片纯白）。
+/* ===== AI指挥官·个人AI指挥系统实战课（course.css v9，2026-11-06 首屏卡片化）=====
+   归位主站层次体系：首屏为嵌入式深蓝卡片 hero（.wrap 同宽、圆角 --radius-md、底色 --navy-d，
+   参照 learning.css .learning-hero），hero 以下白底正文（区块底 --surface-tint、卡片纯白）。
    颜色/阴影/描边全部取自 base.css 批次 1/2 既有令牌（--surface-tint / --navy-line /
    --shadow-light / --indigo-deep / --teal-accent / --bg-teal-soft / --link-green 等），
    深底仅复用 --teal-logo / --teal-drawer / --teal-hover / --nav-line / --fill-on-dark，
@@ -14,11 +15,12 @@ body{background: var(--surface-tint)}
 a{color: inherit}
 .money{white-space: nowrap}
 
-/* ---------- HERO（深蓝门面保留，可点元素挂 tier-strong） ---------- */
-.hero{position: relative;overflow: hidden;color: var(--white);background: var(--navy-d)}
+/* ---------- HERO（嵌入式深蓝卡片：对齐 learning/outcomes/enterprise/builders 的卡片式 hero 体系） ----------
+   通栏铺满改为 .wrap 同宽容器内卡片：圆角 --radius-md、底色 --navy-d、两侧留白、上方留白。 */
+.hero{position: relative;overflow: hidden;width: min(1100px,calc(100% - 32px));margin: var(--space-6) auto 0;border-radius: var(--radius-md);color: var(--white);background: var(--navy-d)}
 .hero::before{content: "";position: absolute;inset: 0;background: linear-gradient(90deg,transparent 0 73%,var(--teal-drawer) 73% 73.06%,transparent 73.06%)}
 .hero::after{content: "图";position: absolute;right: -6px;top: -96px;color: transparent;-webkit-text-stroke: 1px var(--teal-drawer);font: 900 460px/1 var(--sans)}
-.hero-in{position: relative;z-index: 1;width: min(1100px,calc(100% - 32px));min-height: 648px;margin: auto;padding: 74px 0 62px;display: grid;grid-template-columns: minmax(0,1fr) 300px;gap: var(--gap-8);align-items: center}
+.hero-in{position: relative;z-index: 1;width: 100%;padding: var(--space-12) var(--space-11);display: grid;grid-template-columns: minmax(0,1fr) 300px;gap: var(--gap-8);align-items: center}
 
 .program{margin-bottom: var(--space-8);display: flex;align-items: center;gap: var(--gap-3);color: var(--white);flex-wrap: wrap}
 .program-mark{padding: var(--space-2) var(--space-4);color: var(--teal);border: 1px solid var(--teal-logo);font-size: var(--fs-tiny-2);font-weight: 800;letter-spacing: .14em}
@@ -273,7 +275,7 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
   summary{grid-template-columns: 56px minmax(0,1fr) 150px 40px;gap: var(--gap-3)}
 }
 @media(max-width:680px){
-  .hero-in{width: calc(100% - 32px);min-height: 0;padding: var(--space-11) 0;grid-template-columns: 1fr;gap: 0}
+  .hero-in{padding: var(--space-9) var(--space-7);grid-template-columns: 1fr;gap: 0}
   .program{margin-bottom: var(--space-7)}
   .slogan{margin-top: var(--space-6);font-size: clamp(17px,5vw,23px)}
   .slogan em{white-space: normal}

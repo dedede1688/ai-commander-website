@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T05:48:38.112Z",
+  "generatedAt": "2026-11-06T06:21:18.080Z",
   "site": "https://www.ai-mmc.cn",
   "fileCount": 337,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
@@ -402,14 +402,14 @@
     },
     {
       "path": "course.css",
-      "bytes": 28518,
-      "sha256": "8597a21bbb327a8bab08fb076c848e30f4860172e4d934e5d25b0628a026d759",
+      "bytes": 28833,
+      "sha256": "fed4a4423551b2a52af82b28e63088b8d229802359245a491bd34042e783b7a5",
       "kind": "text"
     },
     {
       "path": "course.html",
-      "bytes": 21039,
-      "sha256": "aecdf303d50dc2b6fc37605ced9561e38f04389a3c1f4534944e2975551883a0",
+      "bytes": 21280,
+      "sha256": "279be6bc06de757f2a2cad77d26ea44c836c8a9a3331bd36c90c4c5cfe5a8436",
       "kind": "text"
     },
     {
