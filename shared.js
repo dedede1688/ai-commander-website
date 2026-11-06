@@ -23,7 +23,7 @@
     { file: "builders.html", key: "builders", text: "共建合作" },
     { file: "book.html", key: "book", text: "书籍介绍" },
     { file: "learning.html", key: "learning", text: "学习中心" },
-    { file: "outcomes.html#systems", key: "outcomes", text: "成果展示" },
+    { file: "outcomes.html", key: "outcomes", text: "成果展示" },
     { file: "enterprise.html", key: "enterprise", text: "企业服务" },
   ];
   /* 详情页归属高亮：成员页/旧合作页→共建合作；先锋券活动页→书籍介绍；

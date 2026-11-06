@@ -70,9 +70,11 @@ assert.equal((book.match(/class="reading-route"/g) || []).length, 6);
 assert.ok(read('sitemap.xml').includes('/book.html</loc>'));
 assert.ok(read('sitemap.xml').includes('/outcomes.html</loc>'));
 assert.ok(home.includes('href="outcomes.html"'));
-/* 2026-11-06：17款模型速查下线，「工具应用」入口移除，导航为 7 项（用户确认）。 */
-assert.ok(read('shared.js').includes('{ file: "outcomes.html#systems", key: "outcomes", text: "成果展示" }'));
+/* 2026-11-06：17款模型速查下线，「工具应用」入口移除，导航为 7 项（用户确认）。
+   成果展示导航指页面顶部（用户确认：不跳 #systems，hero 需完整呈现）。 */
+assert.ok(read('shared.js').includes('{ file: "outcomes.html", key: "outcomes", text: "成果展示" }'));
 assert.ok(!read('shared.js').includes('"工具应用"'), '工具应用入口应已移除');
+assert.ok(!read('shared.js').includes('outcomes.html#systems'), '导航不应带 #systems 锚点');
 assert.ok(!/previews\/|noindex|本地预览|<base /.test(read('outcomes.html')), '成果页无预览残留');
 assert.ok(read('outcomes.html').includes('官网开放时间待定'));
 assert.ok(read('sitemap.xml').includes('/enterprise.html</loc>'));
