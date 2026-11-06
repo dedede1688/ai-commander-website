@@ -1,11 +1,19 @@
-/* ===== AI指挥官·个人AI指挥系统实战课（course.css v9，2026-11-06 首屏卡片化）=====
+/* ===== AI指挥官·个人AI指挥系统实战课（course.css v12，2026-11-06 再删 VALUE 与 PRICE & STATUS 两模块样式）=====
    归位主站层次体系：首屏为嵌入式深蓝卡片 hero（.wrap 同宽、圆角 --radius-md、底色 --navy-d，
    参照 learning.css .learning-hero），hero 以下白底正文（区块底 --surface-tint、卡片纯白）。
    颜色/阴影/描边全部取自 base.css 批次 1/2 既有令牌（--surface-tint / --navy-line /
    --shadow-light / --indigo-deep / --teal-accent / --bg-teal-soft / --link-green 等），
    深底仅复用 --teal-logo / --teal-drawer / --teal-hover / --nav-line / --fill-on-dark，
    零新增硬编码色值。可点元素档位由 HTML/JS 挂 base.css 的 tier-* 类，本文件不重复定义动效。
-   顶部导航与页脚由 base.css + shared.js 提供；样式版本随文件内容递增 ?v=。 */
+   顶部导航与页脚由 base.css + shared.js 提供；样式版本随文件内容递增 ?v=。
+   v10 精简改版：删除 WHY/FIT/OUTCOME/METHOD/DELIVERY/HANDBOOK/RESERVE/Toolbar 与 hero 价值句、
+   交付一览侧栏卡的全部样式；新增十课平铺（#journey/.mini-stage）、
+   VALUE 吸收句（.value-note）、TEACHER 边界句（.boundary）、价格区扫码列（.slim-price/.price-qr）。
+   v11 Hero 方案 A（参照 docs/course-redesign/hero-layout-demo.html）：hero 左右两栏（左主轴 + 右课程档案卡
+   .hero-card 7 行对仗），删师资行 .spec 系列；三标签下移、CTA+价格入分隔线横排区 .hero-bottom；
+   正文 .block/.intro/.value 左侧 kicker 标签列取消改堆叠式（kicker 在标题正上方，标题通栏）。
+   v12 删除 VALUE 与 PRICE & STATUS 两模块的全部样式（.value 系列/.status 系列/.price 系列/.slim-price/
+   .price-qr/.qr-fine）；新增 LESSONS 开头成果标准导语（.lessons-lead）。 */
 :root{
   /* 仅排版别名（非颜色）：等宽 kicker 与无衬线栈沿用 base.css 同款字体 */
   --sans: "Noto Sans SC","Microsoft YaHei",-apple-system,sans-serif;
@@ -15,14 +23,22 @@ body{background: var(--surface-tint)}
 a{color: inherit}
 .money{white-space: nowrap}
 
-/* ---------- HERO（嵌入式深蓝卡片：对齐 learning/outcomes/enterprise/builders 的卡片式 hero 体系） ----------
-   通栏铺满改为 .wrap 同宽容器内卡片：圆角 --radius-md、底色 --navy-d、两侧留白、上方留白。 */
+/* ---------- HERO（嵌入式深蓝卡片，v11 方案 A：左主轴 + 右课程档案卡） ----------
+   .wrap 同宽容器内卡片：圆角 --radius-md、底色 --navy-d、两侧留白、上方留白。 */
 .hero{position: relative;overflow: hidden;width: min(1100px,calc(100% - 32px));margin: var(--space-6) auto 0;border-radius: var(--radius-md);color: var(--white);background: var(--navy-d)}
 .hero::before{content: "";position: absolute;inset: 0;background: linear-gradient(90deg,transparent 0 73%,var(--teal-drawer) 73% 73.06%,transparent 73.06%)}
 .hero::after{content: "图";position: absolute;right: -6px;top: -96px;color: transparent;-webkit-text-stroke: 1px var(--teal-drawer);font: 900 460px/1 var(--sans)}
-.hero-in{position: relative;z-index: 1;width: 100%;padding: var(--space-12) var(--space-11);display: grid;grid-template-columns: minmax(0,1fr) 300px;gap: var(--gap-8);align-items: center}
+.hero-in{position: relative;z-index: 1;width: 100%;padding: var(--space-12) var(--space-11);display: grid;grid-template-columns: minmax(0,1.5fr) minmax(0,1fr);gap: var(--gap-6);align-items: start}
+.hero-main{min-width: 0}
+/* 课程档案卡（方案 A 右栏）：深底半透卡片，7 行“项目｜数值”对仗 */
+.hero-card{align-self: center;min-width: 0;padding: var(--space-7);background: var(--fill-on-dark);border: 1px solid var(--nav-line);border-radius: var(--radius-md)}
+.hero-card h4{margin: 0 0 var(--space-6);color: var(--teal);font-size: var(--fs-tiny-2);font-weight: 800;letter-spacing: .14em}
+.hero-card .row{display: flex;justify-content: space-between;align-items: baseline;gap: var(--gap-3);padding: var(--space-4) 0;border-bottom: 1px dashed var(--nav-line);font-size: var(--fs-xs);line-height: 1.6}
+.hero-card .row:last-child{border-bottom: 0}
+.hero-card .row span{flex: 0 0 auto;color: var(--on-dark-2)}
+.hero-card .row b{color: var(--white);font-weight: 600;text-align: right}
 
-.program{margin-bottom: var(--space-8);display: flex;align-items: center;gap: var(--gap-3);color: var(--white);flex-wrap: wrap}
+.program{margin-bottom: var(--space-6);display: flex;align-items: center;gap: var(--gap-3);color: var(--white);flex-wrap: wrap}
 .program-mark{padding: var(--space-2) var(--space-4);color: var(--teal);border: 1px solid var(--teal-logo);font-size: var(--fs-tiny-2);font-weight: 800;letter-spacing: .14em}
 .program-tag{color: var(--on-dark-2);font-size: var(--fs-xs);letter-spacing: .03em}
 
@@ -30,108 +46,49 @@ h1{max-width: 920px;margin: 0;font-family: var(--sans);font-weight: 900;font-siz
 .course-title{display: block}
 .course-title .accent{color: var(--teal)}
 
-.slogan{margin: var(--space-7) 0 0;color: var(--on-dark-1);font-size: clamp(19px,2.5vw,29px);font-weight: 700;line-height: 1.42;letter-spacing: .01em}
+.slogan{margin: var(--space-5) 0 0;color: var(--on-dark-1);font-size: clamp(19px,2.5vw,29px);font-weight: 700;line-height: 1.42;letter-spacing: .01em}
 .slogan em{color: var(--teal);font-style: normal;font-weight: 800;white-space: nowrap}
 
-.lead{max-width: 740px;margin: var(--space-8) 0 0;color: var(--on-dark-1);font-size: clamp(15px,1.5vw,18px);line-height: 1.9;font-weight: 400}
-
-.spec{margin-top: var(--space-9);display: flex;flex-wrap: wrap;align-items: center;gap: var(--gap-3) 0;color: var(--on-dark-1);font-size: var(--fs-ui-sm)}
-.spec-item{position: relative;display: inline-flex;align-items: center;padding: 0 var(--space-6)}
-.spec-item:first-child{padding-left: 0}
-.spec-item+.spec-item::before{content: "";position: absolute;left: 0;top: 50%;transform: translateY(-50%);width: 1px;height: 16px;background: var(--nav-line)}
-.spec-item b{color: var(--white);font-weight: 700}
-.spec-teacher img{width: 34px;height: 34px;border-radius: 50%;object-fit: cover;margin-right: var(--space-4);border: 1px solid var(--teal-logo)}
-.spec-teacher{gap: 0}
-
-.proof{margin-top: var(--space-8);display: flex;flex-wrap: wrap;gap: var(--gap-2)}
-.proof span{padding: var(--space-3) var(--space-5);color: var(--on-dark-1);border: 1px solid var(--nav-line);font-size: var(--fs-xs)}
+/* 三标签（方案 A pill：深底半透填充 + 细描边，位于价值句之下、CTA 之上） */
+.proof{margin-top: var(--space-6);display: flex;flex-wrap: wrap;gap: var(--gap-2)}
+.proof span{padding: var(--space-4) var(--space-5);color: var(--on-dark-1);background: var(--fill-on-dark);border: 1px solid var(--nav-line);border-radius: var(--radius-md);font-size: var(--fs-xs)}
 .proof b{color: var(--teal);font-weight: 700}
 
-.hero-price{margin: var(--space-7) 0 0;display: flex;align-items: baseline;flex-wrap: wrap;gap: var(--gap-2) var(--gap-3);color: var(--on-dark-1);font-size: var(--fs-sm)}
+/* CTA＋价格横排底部区（方案 A .bottom：加分隔线与上方隔开；窄间距保证同栏宽内 CTA+价格同行） */
+.hero-bottom{margin-top: var(--space-8);padding-top: var(--space-7);display: flex;align-items: center;flex-wrap: wrap;gap: var(--space-4) var(--gap-3);border-top: 1px solid var(--nav-line)}
+.hero-bottom .btn-primary{padding: var(--space-6) var(--space-7)}
+
+.hero-price{display: flex;align-items: baseline;flex-wrap: wrap;gap: var(--gap-2) var(--gap-3);color: var(--on-dark-1);font-size: var(--fs-sm)}
 .hero-price b{color: var(--teal);font-size: var(--fs-title);font-weight: 900;letter-spacing: .01em}
 .hero-price span{color: var(--on-dark-2);font-size: var(--fs-tiny-1)}
-
-/* 交付一览卡（hero 内，深底微亮填充） */
-.deliver{margin: 0;padding: var(--space-8);background: var(--fill-on-dark);border: 1px solid var(--teal-soft);border-radius: var(--radius-md)}
-.deliver h2{margin: 0 0 var(--space-6);color: var(--white);font-size: var(--fs-body);font-weight: 800;letter-spacing: .06em}
-.deliver ul{margin: 0;padding: 0;list-style: none;display: grid;gap: var(--gap-3)}
-.deliver li{padding-left: var(--space-6);position: relative;color: var(--on-dark-1);font-size: var(--fs-ui-md);line-height: 1.6}
-.deliver li::before{content: "";position: absolute;left: 0;top: .65em;width: 8px;height: 8px;background: var(--teal);border-radius: var(--radius-sm)}
-.deliver li b{color: var(--teal);font-weight: 900;font-family: var(--mono);font-size: var(--fs-body);margin-right: var(--space-1)}
-.deliver-status{margin: var(--space-6) 0 0;padding-top: var(--space-5);border-top: 1px dashed var(--nav-line);color: var(--on-dark-2);font-size: var(--fs-tiny-1);letter-spacing: .04em}
-
-/* ---------- TOOLBAR（白底吸顶条） ---------- */
-.toolbar{position: sticky;top: 52px;z-index: 20;background: var(--surface);border-bottom: 1px solid var(--border-base)}
-.toolbar-in{width: min(1100px,calc(100% - 32px));min-height: 68px;margin: auto;display: flex;justify-content: space-between;align-items: center;gap: var(--gap-4)}
-.toolbar strong{color: var(--navy);font-weight: 800;font-size: var(--fs-body)}
-.toolbar span{color: var(--grey-3);font-size: var(--fs-xs)}
 
 main{width: min(1100px,calc(100% - 32px));margin: auto;padding: 72px 0 100px}
 main>section{scroll-margin-top: 130px}
 
-/* ---------- 通用区块（kicker 180px + 正文；白卡统一浅阴影） ---------- */
-.block{margin-bottom: 76px;display: grid;grid-template-columns: 180px 1fr;gap: var(--gap-7)}
-.kicker{padding-top: var(--space-3);color: var(--navy);font: 700 var(--fs-xs)/1.5 var(--mono);letter-spacing: .12em}
-.block h2,.intro h2,.value h2{margin: 0;color: var(--navy);font-size: clamp(26px,3.2vw,40px);font-weight: 800;line-height: 1.4;letter-spacing: .005em;border-left: 0;padding-left: 0}
-.block-lead{max-width: 800px;margin: var(--space-6) 0 0;color: var(--grey-2);font-size: var(--fs-body);line-height: 1.9}
-.block-sub{margin: var(--space-8) 0 0;color: var(--navy);font-size: var(--fs-ui-lg);font-weight: 700}
-.block-close{max-width: 800px;margin: var(--space-7) 0 0;padding: var(--space-6) var(--space-7);color: var(--grey-1);background: var(--bg-teal-soft);border-left: 3px solid var(--teal-accent);border-radius: 0 var(--radius-md) var(--radius-md) 0;font-size: var(--fs-ui-lg);line-height: 1.8}
-.honest-note{margin: var(--space-7) 0 0;color: var(--grey-3);font-size: var(--fs-xs);line-height: 1.8}
+/* ---------- 通用区块（v11 堆叠式：kicker 在标题正上方，标题通栏；白卡统一浅阴影） ---------- */
+.block{margin-bottom: 76px;display: grid;grid-template-columns: minmax(0,1fr)}
+.kicker{margin-bottom: var(--space-5);color: var(--navy);font: 700 var(--fs-xs)/1.5 var(--mono);letter-spacing: .12em}
+.block h2,.intro h2{margin: 0;color: var(--navy);font-size: clamp(26px,3.2vw,40px);font-weight: 800;line-height: 1.4;letter-spacing: .005em;border-left: 0;padding-left: 0}
 
-/* 状态标签两级：已确认=青色系，规划/待定=中性灰（沿用 outcomes 先例的分级思路） */
-.status-row{margin: var(--space-5) 0 0;display: flex;flex-wrap: wrap;gap: var(--gap-2)}
-.status{display: inline-block;font-size: var(--fs-tiny-4);line-height: 1.8;color: var(--link-green);background: var(--bg-teal-soft);padding: var(--space-0) var(--space-3);border-radius: var(--radius-sm);font-weight: 700}
-.status.planning{color: var(--grey-1);background: var(--bg-page);border: 1px solid var(--border-subtle)}
+/* ---------- 白底卡片公共底：纯白 + 常规描边 + 主站卡片阴影 ---------- */
+.teacher-card,.teach-grid div,.faq-list details,.lesson{background: var(--surface);border: 1px solid var(--border-base);border-radius: var(--radius-md);box-shadow: 0 1px 4px var(--shadow-card)}
 
-/* 白底卡片公共底：纯白 + 常规描边 + 主站卡片阴影 */
-.pain,.oc,.mf,.nine li,.fit-card,.layer,.dia,.teacher-card,.teach-grid div,.price-main,.faq-list details,.value,.reserve,.lesson{background: var(--surface);border: 1px solid var(--border-base);border-radius: var(--radius-md);box-shadow: 0 1px 4px var(--shadow-card)}
-
-/* 问题区 */
-.pain-grid{margin-top: var(--space-8);display: grid;grid-template-columns: repeat(3,1fr);gap: var(--gap-3)}
-.pain{padding: var(--space-7)}
-.pain b{display: block;color: var(--navy);font-size: var(--fs-ui-lg);font-weight: 800;line-height: 1.6}
-.pain span{display: block;margin-top: var(--space-3);color: var(--grey-3);font-size: var(--fs-ui-sm);line-height: 1.75}
-
-/* 适合谁（原深底 fit 区并入白底正文） */
-.fit-grid{margin-top: var(--space-8);display: grid;grid-template-columns: 1fr 1fr;gap: var(--gap-3)}
-.fit-card{padding: var(--space-8)}
-.fit-card h3{margin: 0 0 var(--space-4);color: var(--navy);font-size: var(--fs-subtitle);font-weight: 800}
-.fit-card.caution h3{color: var(--grey-1)}
-.fit-card p{margin: 0;color: var(--grey-2);font-size: var(--fs-sm);line-height: 1.85}
-
-/* 最终成果区 */
-.outcome-grid{margin-top: var(--space-8);display: grid;grid-template-columns: repeat(2,1fr);gap: var(--gap-3)}
-.oc{padding: var(--space-7)}
-.oc span{display: block;color: var(--teal-accent);font: 800 var(--fs-xs) var(--mono);letter-spacing: .1em}
-.oc b{display: block;margin-top: var(--space-3);color: var(--navy);font-size: var(--fs-body);font-weight: 800;line-height: 1.5}
-.oc p{margin: var(--space-3) 0 0;color: var(--grey-3);font-size: var(--fs-ui-sm);line-height: 1.75}
-.oc.wide{grid-column: 1/-1;background: var(--bg-teal-soft);border-color: var(--teal-soft)}
-
-/* 学习方式区 */
-.method-flow{margin-top: var(--space-8);display: grid;grid-template-columns: 1fr auto 1fr auto 1fr;gap: var(--gap-3);align-items: stretch}
-.mf{padding: var(--space-7)}
-.mf b{display: block;color: var(--navy);font-size: var(--fs-ui-lg);font-weight: 800}
-.mf span{display: block;margin-top: var(--space-3);color: var(--grey-3);font-size: var(--fs-xs);line-height: 1.75}
-.mf-arrow{display: grid;place-items: center;color: var(--teal-accent);font-size: var(--fs-icon-md);font-weight: 900}
-.nine{margin: var(--space-5) 0 0;padding: 0;list-style: none;display: grid;grid-template-columns: repeat(3,1fr);gap: var(--gap-2);counter-reset: n}
-.nine li{counter-increment: n;padding: var(--space-5) var(--space-5) var(--space-5) var(--space-11);position: relative;color: var(--grey-1);font-size: var(--fs-ui-sm);line-height: 1.6}
-.nine li::before{content: counter(n,decimal-leading-zero);position: absolute;left: 14px;top: 12px;color: var(--teal-accent);font: 800 var(--fs-xs) var(--mono)}
-
-/* ---------- 五阶段地图（INTRO，白底化） ---------- */
-.intro{margin-bottom: 64px;display: grid;grid-template-columns: 180px 1fr;gap: var(--gap-7)}
+/* ---------- 五阶段地图（INTRO，白底化，堆叠式） ---------- */
+.intro{margin-bottom: 64px;display: grid;grid-template-columns: minmax(0,1fr)}
+.intro > div:last-child{min-width: 0}
 .intro p{max-width: 800px;margin: var(--space-6) 0 0;color: var(--grey-2);font-size: var(--fs-body);line-height: 1.9}
 .route{margin-top: var(--space-9);display: grid;grid-template-columns: repeat(5,1fr);background: var(--surface);border: 1px solid var(--border-base);border-radius: var(--radius-md);box-shadow: 0 1px 4px var(--shadow-card);overflow: hidden}
 .route div{padding: var(--space-6) var(--space-5);border-right: 1px solid var(--border-base);color: var(--grey-3);font-size: var(--fs-tiny-2)}
 .route div:last-child{border-right: 0}
 .route b{display: block;margin-bottom: var(--space-1);color: var(--navy);font-size: var(--fs-sm);font-weight: 800}
 
-/* ---------- STAGE（JS 渲染的五阶段容器） ---------- */
-.stage{display: grid;grid-template-columns: 180px 1fr;gap: var(--gap-7);padding-bottom: 64px}
-.rail{position: relative;padding-top: var(--space-4)}
-.stage-index{position: relative;z-index: 2;width: 34px;height: 34px;display: grid;place-items: center;color: var(--navy);background: var(--surface);border: 1px solid var(--navy);font: 700 var(--fs-tiny-2) var(--mono)}
-.stage-name{margin-top: var(--space-7);padding-left: var(--space-5);color: var(--navy);font-size: var(--fs-subtitle);font-weight: 800;letter-spacing: .02em;border-left: 3px solid var(--teal-accent)}
-.stage-brief{margin-top: var(--space-3);color: var(--grey-4);font-size: var(--fs-tiny-1);line-height: 1.65}
-.stage-outcome{margin-top: var(--space-5);padding-left: var(--space-4);color: var(--grey-1);border-left: 2px solid var(--border-strong);font-size: var(--fs-tiny-1);line-height: 1.65}
+/* ---------- LESSONS 十课平铺（v10：不折叠，五阶段分组；卡内仍可逐课展开） ---------- */
+#journey{display: grid;gap: var(--space-12)}
+.mini-stage{display: grid;gap: var(--gap-4);min-width: 0}
+.mini-stage-head{display: flex;flex-wrap: wrap;align-items: baseline;gap: var(--gap-2) var(--gap-4);padding-left: var(--space-4);border-left: 3px solid var(--teal-accent)}
+.mini-stage-head b{color: var(--navy);font-size: var(--fs-body);font-weight: 800}
+.mini-stage-head span{color: var(--grey-4);font-size: var(--fs-tiny-1)}
+.mini-stage-head em{color: var(--grey-1);font-size: var(--fs-tiny-1);font-style: normal;padding-left: var(--space-3);border-left: 2px solid var(--border-strong)}
 
 /* ---------- LESSON（01—10 统一深蓝头部 + 白底内容；卡片挂 tier-medium-on-light） ---------- */
 .pair{display: grid;gap: var(--gap-4)}
@@ -173,39 +130,8 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 .blueprint{margin-top: var(--space-8);padding: var(--space-6) var(--space-7);color: var(--grey-1);background: var(--bg-teal-soft);border-top: 2px solid var(--teal-accent);line-height: 1.75;border-radius: 0 0 var(--radius-sm) var(--radius-sm)}
 .blueprint strong{color: var(--navy)}
 
-/* ---------- 三层交付 ---------- */
-.layer-grid{margin-top: var(--space-8);display: grid;grid-template-columns: repeat(3,1fr);gap: var(--gap-3)}
-.layer{padding: var(--space-7)}
-.layer small{display: block;color: var(--teal-accent);font: 800 var(--fs-tiny-3) var(--mono);letter-spacing: .12em;margin-bottom: var(--space-3)}
-.layer b{display: block;color: var(--navy);font-size: var(--fs-subtitle);font-weight: 800;line-height: 1.5}
-.layer p{margin: var(--space-4) 0 0;color: var(--grey-3);font-size: var(--fs-ui-sm);line-height: 1.8}
-.tools{margin: var(--space-5) 0 0;padding: 0;list-style: none;color: var(--grey-1);font-size: var(--fs-xs);line-height: 1.75}
-.tools li{padding: var(--space-0) 0}
-.tools li::before{content: "□ ";color: var(--teal-accent);font-weight: 700}
-
-/* ---------- 手册与蓝图示意 ---------- */
-.dia{margin-top: var(--space-8);padding: var(--space-9) var(--space-8);display: grid;gap: var(--gap-3);justify-items: center;text-align: center}
-.dia-pages{display: grid;grid-template-columns: repeat(5,1fr);gap: var(--gap-2);width: 100%;max-width: 760px}
-.dia-pages span{padding: var(--space-4) var(--space-2);background: var(--bg-tint);border: 1px solid var(--border-base);border-radius: var(--radius-sm);color: var(--grey-1);font: 600 var(--fs-tiny-2)/1.4 var(--sans)}
-.dia-pages .dia-final{background: var(--navy);border-color: var(--navy);color: var(--teal);font-weight: 800}
-.dia-arrow{color: var(--teal-accent);font-size: var(--fs-tiny-1);font-weight: 700;letter-spacing: .04em}
-.dia-book,.dia-blueprint{width: 100%;max-width: 520px;padding: var(--space-6);border-radius: var(--radius-md)}
-.dia-book{background: var(--bg-tint);border: 1px solid var(--border-base)}
-.dia-book b{display: block;color: var(--navy);font-size: var(--fs-body);font-weight: 800}
-.dia-book span{display: block;margin-top: var(--space-2);color: var(--grey-3);font-size: var(--fs-tiny-1)}
-.dia-blueprint{background: var(--navy-d);border: 1px solid var(--navy)}
-.dia-blueprint b{display: block;color: var(--teal);font-size: var(--fs-subtitle);font-weight: 900;letter-spacing: .02em}
-.dia-blueprint span{display: block;margin-top: var(--space-2);color: var(--on-dark-1);font-size: var(--fs-tiny-1);letter-spacing: .04em}
-
-/* ---------- VALUE ---------- */
-.value{margin: 0 0 76px;padding: var(--space-12);display: grid;grid-template-columns: 180px minmax(0,1fr);gap: var(--gap-7)}
-.value .kicker{grid-column: 1}
-.value-in{display: contents}
-.value h2{grid-column: 2}
-.value p{grid-column: 2;max-width: 800px;margin: var(--space-6) 0 0;color: var(--grey-2);font-size: var(--fs-body);line-height: 1.9}
-.value-list{grid-column: 2;margin: var(--space-7) 0 0;padding: 0;list-style: none;display: grid;grid-template-columns: 1fr 1fr;gap: var(--gap-3)}
-.value-list li{padding: var(--space-5) var(--space-6);background: var(--bg-tint);border: 1px solid var(--border-subtle);border-radius: var(--radius-md);color: var(--grey-1);font-size: var(--fs-sm);line-height: 1.7}
-.value-list li b{color: var(--teal-accent);font: 900 var(--fs-subtitle) var(--mono);margin-right: var(--space-2)}
+/* ---------- LESSONS 开头导语（v12：吸收原 VALUE 唯一独有句“可判断、可保存、可继续使用的成果标准”） ---------- */
+.lessons-lead{margin: 0 0 var(--space-8);max-width: 800px;color: var(--grey-2);font-size: var(--fs-body);line-height: 1.9}
 
 /* ---------- 讲师 ---------- */
 .teacher-card{margin-top: var(--space-8);padding: var(--pad-card-lg);display: flex;gap: var(--gap-4);align-items: flex-start}
@@ -216,18 +142,7 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 .teach-grid div{padding: var(--space-6) var(--space-7)}
 .teach-grid b{display: block;color: var(--navy);font-size: var(--fs-ui-lg);font-weight: 800}
 .teach-grid span{display: block;margin-top: var(--space-2);color: var(--grey-3);font-size: var(--fs-xs);line-height: 1.75}
-
-/* ---------- 价格与状态 ---------- */
-.price-main{margin-top: var(--space-8);padding: var(--space-9);display: grid;grid-template-columns: 230px 1fr;gap: var(--gap-6);align-items: center;position: relative}
-.price-main::before{content: "";position: absolute;left: 0;top: 0;width: 100%;height: 3px;background: linear-gradient(90deg,var(--teal),var(--teal-accent))}
-.price-figure{padding-right: var(--space-9);border-right: 1px solid var(--border-base)}
-.price-figure span{display: block;color: var(--grey-3);font-size: var(--fs-tiny-2);font-weight: 800;letter-spacing: .1em}
-.price-figure strong{display: block;margin-top: var(--space-5);color: var(--navy);font-size: clamp(40px,4.4vw,54px);font-weight: 900;line-height: 1;letter-spacing: .01em}
-.price-figure strong i{font-style: normal;font-weight: 800;font-size: .5em;vertical-align: .42em;margin-right: var(--space-0);letter-spacing: 0}
-.price-notes{margin: 0;padding: 0;list-style: none;display: grid;gap: var(--gap-2)}
-.price-notes li{position: relative;padding-left: var(--space-6);color: var(--grey-1);font-size: var(--fs-sm);line-height: 1.7}
-.price-notes li::before{content: "";position: absolute;left: 0;top: .6em;width: 8px;height: 8px;background: var(--teal-accent);border-radius: var(--radius-sm)}
-.price-notes b{color: var(--navy);font-weight: 800}
+.boundary{margin-top: var(--space-5);padding: var(--space-6) var(--space-7);color: var(--grey-1);background: var(--bg-tint);border-left: 3px solid var(--border-strong);border-radius: 0 var(--radius-md) var(--radius-md) 0;font-size: var(--fs-ui-sm);line-height: 1.8}
 
 /* ---------- FAQ（默认折叠，前 3 条 open；details 挂 tier-medium-on-light） ---------- */
 .faq-list{margin-top: var(--space-8);display: grid;gap: var(--gap-3)}
@@ -241,23 +156,12 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 .faq-list details p{margin: 0;padding: 0 var(--space-7) var(--space-6);color: var(--grey-1);font-size: var(--fs-sm);line-height: 1.9;border-top: 0}
 .faq-list details[open] p{padding-top: var(--space-5)}
 
-/* ---------- RESERVE（白底行动入口；按钮挂 tier-strong-on-light） ---------- */
-#reserve{scroll-margin-top: 130px}
-.reserve{margin-top: var(--space-5);padding: var(--space-11) var(--space-10);color: var(--navy)}
-.reserve-grid{display: grid;grid-template-columns: 1.1fr .9fr;gap: var(--gap-7);align-items: center}
-.reserve small{color: var(--teal-accent);font: 700 var(--fs-tiny-2) var(--mono);letter-spacing: .14em}
-.reserve h2{margin: var(--space-5) 0 0;color: var(--navy);font-size: clamp(26px,3.4vw,40px);font-weight: 800;line-height: 1.35;border-left: 0;padding-left: 0}
-.reserve-copy p{margin: var(--space-5) 0 0;color: var(--grey-2);font-size: var(--fs-body);line-height: 1.85}
-.reserve-cta{display: flex;flex-direction: column;align-items: flex-start;gap: var(--gap-3)}
-.reserve-fine{color: var(--grey-4);font-size: var(--fs-tiny-2);line-height: 1.6}
-
-/* ---------- HERO CTA ---------- */
-.cta-row{display: flex;align-items: center;flex-wrap: wrap;gap: var(--gap-4);margin-top: var(--space-9)}
+/* ---------- HERO CTA（v11：CTA+价格在 .hero-bottom 横排内，备注独立一行） ---------- */
+.cta-note{display: block;margin: var(--space-4) 0 0;color: var(--on-dark-2);font-size: var(--fs-xs);line-height: 1.6}
 .btn-primary{display: inline-flex;align-items: center;gap: var(--gap-2);min-height: 46px;padding: var(--space-6) var(--space-8);color: var(--white);font-size: var(--fs-body);font-weight: 800;line-height: 1;text-decoration: none;background: linear-gradient(100deg,var(--navy),var(--teal-accent));border: 0;border-radius: var(--radius-md);box-shadow: var(--shadow-navy-soft);cursor: pointer;transition: transform .18s,box-shadow .18s,filter .18s}
 .btn-primary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: 3px}
 .btn-arrow{font-weight: 800;transition: transform .18s}
 .btn-primary:hover .btn-arrow{transform: translateX(var(--hover-arrow-shift))}
-.cta-note{color: var(--on-dark-2);font-size: var(--fs-xs);line-height: 1.6}
 
 /* ---------- 二维码弹窗关闭按钮（base.css 公共层已提供，本页仅补定位参照） ---------- */
 .qr-panel{position: relative}
@@ -265,41 +169,25 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 
 /* ---------- 响应式 ---------- */
 @media(max-width:940px){
-  .hero-in{grid-template-columns: minmax(0,1fr) 250px;gap: var(--gap-6)}
-  .block,.intro,.stage,.value{grid-template-columns: 145px minmax(0,1fr);gap: var(--gap-5)}
+  .hero-in{grid-template-columns: minmax(0,1fr) 240px;gap: var(--gap-5)}
   .expand{padding-left: var(--space-11)}
-  .pain-grid,.layer-grid,.teach-grid,.fit-grid{grid-template-columns: 1fr}
-  .method-flow{grid-template-columns: 1fr}
-  .mf-arrow{transform: rotate(90deg)}
-  .nine{grid-template-columns: 1fr 1fr}
+  .teach-grid{grid-template-columns: 1fr}
   summary{grid-template-columns: 56px minmax(0,1fr) 150px 40px;gap: var(--gap-3)}
 }
 @media(max-width:680px){
-  .hero-in{padding: var(--space-9) var(--space-7);grid-template-columns: 1fr;gap: 0}
-  .program{margin-bottom: var(--space-7)}
+  .hero-in{padding: var(--space-9) var(--space-7);grid-template-columns: minmax(0,1fr);gap: var(--space-9)}
+  .hero-card{width: 100%;max-width: 420px}
   .slogan{margin-top: var(--space-6);font-size: clamp(17px,5vw,23px)}
   .slogan em{white-space: normal}
-  .lead{margin-top: var(--space-7);line-height: 1.85}
-  .spec{margin-top: var(--space-8);gap: var(--gap-2) 0}
-  .spec-item{padding: 0 var(--space-5)}
-  .deliver{margin-top: var(--space-9);max-width: 420px}
-  .block,.intro,.stage,.value{grid-template-columns: 1fr;gap: var(--gap-3)}
-  .value h2,.value p,.value-list{grid-column: 1}
-  .value{margin: 0 0 56px;padding: var(--space-9) var(--space-7)}
   .intro{margin-bottom: var(--space-12)}
   .block{margin-bottom: 56px}
+  #journey{gap: var(--space-11)}
   .route{grid-template-columns: 1fr}
   .route div{border-right: 0;border-bottom: 1px solid var(--border-base);display: grid;grid-template-columns: 96px 1fr;gap: var(--gap-2)}
   .route div:last-child{border-bottom: 0}
-  .outcome-grid,.criteria,.expand-cols{grid-template-columns: 1fr}
-  .nine{grid-template-columns: 1fr}
-  .toolbar-in{width: calc(100% - 24px)}
-  .toolbar span{display: none}
+  .criteria,.expand-cols{grid-template-columns: 1fr}
   main{width: calc(100% - 28px);padding-top: var(--space-12)}
-  .stage{padding-bottom: var(--space-12)}
-  .rail{padding: 0;display: grid;grid-template-columns: 34px 1fr;gap: var(--gap-3);align-items: center}
-  .stage-name{margin-top: 0}
-  .stage-brief,.stage-outcome{margin-top: 0;grid-column: 2}
+  .mini-stage-head{padding-left: var(--space-3)}
   summary{grid-template-columns: 46px 1fr 36px;gap: var(--gap-3);padding: var(--space-7) var(--space-6);min-height: 0}
   .lesson[open] summary{box-shadow: inset 4px 0 0 var(--teal)}
   .no{font-size: 23px}
@@ -309,16 +197,8 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
   .toggle{grid-column: 3;grid-row: 1;width: 38px;height: 38px;font-size: 20px}
   .expand{padding: var(--space-8) var(--space-6) var(--space-9)}
   .agenda{grid-template-columns: 1fr}
-  .dia-pages{grid-template-columns: repeat(2,1fr)}
   .teacher-card{flex-direction: column}
-  .price-main{grid-template-columns: 1fr;gap: var(--gap-4)}
-  .price-figure{padding: 0 0 var(--space-6);border-right: 0;border-bottom: 1px solid var(--border-base)}
-  .value-list{grid-template-columns: 1fr}
-  .cta-row{gap: var(--gap-3)}
   .btn-primary{width: 100%;justify-content: center;padding: var(--space-5) var(--space-7)}
-  .reserve{padding: var(--space-9) var(--space-7)}
-  .reserve-grid{grid-template-columns: 1fr;gap: var(--gap-5)}
-  .reserve-cta{align-items: stretch}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior: auto!important;transition: none!important}}
 
