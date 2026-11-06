@@ -2,6 +2,7 @@
    数据驱动渲染五阶段十课卡片：每课含 问题/为什么学/准备/课堂30分钟四段/课堂最小成果/
    课后20—40分钟任务/配套工具表/最终可用成果/完成标准/蓝图位置。
    纵向折叠、一次仅展开一节；空格/回车可展开收起；刷新后恢复展开状态。
+   2026-11-06：卡片挂 tier-medium-on-light（白底中档），与全站浅底卡片悬停语言一致。
    存储键 ai-course-official-open-lesson 为正式课程页独立键名，不与 V4—V9 历史小样共用。 */
 (function () {
   const stages = [
@@ -121,7 +122,7 @@
     const pair = section.querySelector(".pair");
     stage.lessons.forEach((lesson) => {
       const details = document.createElement("details");
-      details.className = "lesson";
+      details.className = "lesson tier-medium-on-light";
       details.dataset.lesson = lesson.no;
       details.innerHTML = `<summary><span class="no">${lesson.no}</span><div class="lesson-main"><span class="stage-tag">${stage.name}</span><h3>${lesson.title}</h3><p>本课解决的问题：${lesson.problem}</p><span class="final"><b>本课成果：</b>${lesson.final}</span></div><div class="meta"><b>课堂 30 分钟</b>课后 20—40 分钟</div><span class="toggle" aria-hidden="true">＋</span></summary><div class="expand"><p class="why-label">为什么要学这一课</p><p class="why">${lesson.why}</p><div class="expand-cols"><div><p class="label">课堂 30 分钟 · 四段安排</p><ol class="agenda">${lesson.agenda.map((x) => `<li>${x}</li>`).join("")}</ol><div class="mini"><b>课堂最小成果</b>${lesson.mini}</div></div><div><p class="label">课后 20—40 分钟 · 完善任务</p><div class="homework">${lesson.homework}</div><div class="criteria" style="margin-top:14px"><div class="criterion"><b>开始前准备</b>${lesson.prep}</div><div class="criterion tool"><b>配套工具表</b>${lesson.tool}</div><div class="criterion done"><b>最终可用成果</b>${lesson.final}</div><div class="criterion done"><b>完成标准</b>${lesson.done}</div></div></div></div><div class="blueprint"><strong>进入蓝图：</strong>${lesson.pos}</div></div>`;
       details.addEventListener("toggle", () => {

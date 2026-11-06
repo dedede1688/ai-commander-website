@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://www.ai-mmc.cn/素材/og/ai-commander-og-1200x630.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="base.css?v=21" />
-  <link rel="stylesheet" href="course.css?v=7" />
+  <link rel="stylesheet" href="course.css?v=8" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"AI指挥官·个人AI指挥系统实战课","description":"通过10节核心课程完成个人AI指挥系统蓝图：10项跟练任务、10份配套工具表与1本个人AI指挥官工作手册。课程规划中，尚未开放正式报名。","inLanguage":"zh-CN","provider":{"@type":"Organization","name":"AI指挥官","url":"https://www.ai-mmc.cn"}}</script>
   <!-- 本页为正式课程页 1688 升级版（产品重定位）：
        ① 课程完全独立化：不依赖任何图书，无图书关联表述；
@@ -27,10 +27,14 @@
        ⑤ 三层交付：10项跟练任务 → 10份配套工具表 → 1本《个人AI指挥官工作手册》→ 蓝图；
        ⑥ 未确认的服务（直播/社群/答疑/点评/证书/陪跑）一律不写入页面，不虚构原价、优惠、名额、评价；
        ⑦ 顶部导航与页脚由 shared.js 注入；扫码 CTA 复用全站 data-open-qr 小程序码，不采集表单。
-       升级前版本快照已随 2026-11-02 清理移除，历史版本可在 git 提交记录中追溯。 -->
+       升级前版本快照已随 2026-11-02 清理移除，历史版本可在 git 提交记录中追溯。
+       2026-11-06 整页视觉重做：hero 保留深蓝门面，hero 以下正文切换白底体系（区块底 --surface-tint、
+       卡片纯白、批次 1 令牌）；可点元素逐个挂三级档位（hero 主 CTA tier-strong，白底区按钮
+       tier-strong-on-light，卡片/FAQ tier-medium-on-light，文字链 tier-weak）；FAQ 默认折叠仅展开前 3 条；
+       章节按「课程是什么→学到什么→交付什么→怎么开始」重排，内容零删减。 -->
 </head>
 <body data-page="learning">
-  <a class="skip-link" href="#main">跳到正文</a>
+  <a class="skip-link tier-weak" href="#main">跳到正文</a>
   <nav class="topnav" id="topnav" aria-label="主导航"></nav>
 
   <header class="hero"><div class="hero-in"><div>
@@ -48,11 +52,9 @@
       <span class="spec-item"><b>1</b>&nbsp;本工作手册</span>
     </div>
     <div class="proof"><span><b>不要求</b> 编程基础</span><span><b>不承诺</b> 速成神话</span><span><b>不替代</b> 人的判断</span></div>
-    <div class="cta-row"><button class="btn-primary" type="button" data-open-qr>扫码关注课程公告<span class="btn-arrow">→</span></button><span class="cta-note">课程正在打磨中，尚未开放正式报名。</span></div>
+    <div class="cta-row"><button class="btn-primary tier-strong" type="button" data-open-qr>扫码关注课程公告<span class="btn-arrow">→</span></button><span class="cta-note">课程正在打磨中，尚未开放正式报名。</span></div>
     <p class="hero-price">课程规划价 <b class="money">¥1688</b><span>正式售价与上线时间以课程公告为准</span></p>
   </div><aside class="deliver" aria-label="课程交付一览"><h2>课程交付一览</h2><ul><li><b>10</b> 节核心课程</li><li><b>10</b> 项跟练任务</li><li><b>10</b> 份配套工具表</li><li><b>1</b> 本《个人AI指挥官工作手册》</li><li><b>1</b> 套《个人AI指挥系统蓝图》</li></ul><p class="deliver-status">课程规划中 · 尚未正式开放</p></aside></div></header>
-
-  <section class="fit"><div class="fit-in"><div class="fit-block"><h2><strong>适合你</strong></h2><p>想让 AI 参与日常工作、经营或内容生产；不满足于"试过很多工具"，想建立自己的方法和系统；每周能投入约 1 小时，愿意动手完成真实任务。</p></div><div class="fit-block caution"><h2>暂不适合</h2><p>需要编程开发、模型训练或企业级系统实施的场景；期待"几天精通 AI"或短期变现项目。本课程帮助建立判断与方法，不承诺具体收入或经营结果，也不替代专项技术训练与实施服务。</p></div></div></section>
 
   <nav class="toolbar"><div class="toolbar-in"><strong>AI指挥官·个人AI指挥系统实战课</strong><span>点击一课原位展开；打开新课时自动收起上一课</span></div></nav>
 
@@ -62,6 +64,11 @@
       <p class="block-lead">工具越换越多，动作却越来越乱：每次都要重新摸索，结果时好时坏，慢慢就不敢把真实工作交给它。缺的不是再学一个工具，而是把工具组织起来的系统。</p>
       <div class="pain-grid"><div class="pain"><b>01 工具在变，能力没沉淀</b><span>追完了教程，过一阵工具更新，经验又归零。</span></div><div class="pain"><b>02 每次从零开始</b><span>同一类任务，每次重新组织说法、重新碰运气。</span></div><div class="pain"><b>03 结果时好时坏</b><span>没有核查标准，分不清哪些能直接用、哪些必须人来定。</span></div></div>
       <p class="block-close">这门课给你的，是一套从场景、方法、实战到流程的完整建设路径——十课后你手里有一份能继续执行的蓝图，而不是一堆收藏的教程。</p>
+    </div></section>
+
+    <section class="block" id="fit"><div class="kicker">FIT（适合谁）</div><div class="block-body">
+      <h2>适合你 / 暂不适合</h2>
+      <div class="fit-grid"><div class="fit-card tier-medium-on-light"><h3>适合你</h3><p>想让 AI 参与日常工作、经营或内容生产；不满足于"试过很多工具"，想建立自己的方法和系统；每周能投入约 1 小时，愿意动手完成真实任务。</p></div><div class="fit-card caution tier-medium-on-light"><h3>暂不适合</h3><p>需要编程开发、模型训练或企业级系统实施的场景；期待"几天精通 AI"或短期变现项目。本课程帮助建立判断与方法，不承诺具体收入或经营结果，也不替代专项技术训练与实施服务。</p></div></div>
     </div></section>
 
     <section class="block" id="outcome"><div class="kicker">OUTCOME（最终成果）</div><div class="block-body">
@@ -86,6 +93,7 @@
 
     <section class="block" id="delivery"><div class="kicker">DELIVERY（三层交付）</div><div class="block-body">
       <h2>一课一任务、一课一表，十表成一册</h2>
+      <p class="status-row"><span class="status">以下交付内容已确认</span></p>
       <div class="layer-grid"><div class="layer"><small>第一层</small><b>10 项跟练任务</b><p>每节课完成一项真实行动，不是只听理论。任务全部来自工作与经营的常见场景，可以按你的实际情况替换。</p></div><div class="layer"><small>第二层</small><b>10 份配套工具表</b><p>一课对应一份表，用途写清、彼此连接：从场景判断开始，到行动路线收尾。</p><ol class="tools"><li>《AI应用场景与目标判断表》</li><li>《个人AI工具选择表》</li><li>《个人AI发令卡》</li><li>《AI结果核查表》</li><li>《AI工作任务协同表》</li><li>《AI经营分析与行动表》</li><li>《AI内容生产方案表》</li><li>《AI工作流程拆解表》</li><li>《AI团队分工与人工确认表》</li><li>《个人AI指挥系统行动路线表》</li></ol></div><div class="layer"><small>第三层</small><b>1 本《个人AI指挥官工作手册》</b><p>每完成一课，就完成手册的一部分；第 10 课把前九课成果汇总成《个人AI指挥系统蓝图》。手册不是额外赠品，而是贯穿整门课程的核心学习载体。</p></div></div>
     </div></section>
 
@@ -116,30 +124,31 @@
 
     <section class="block price-status" id="price"><div class="kicker">PRICE & STATUS（价格与课程状态）</div><div class="block-body">
       <h2>课程价格与开放安排</h2>
+      <p class="status-row"><span class="status planning">课程规划中 · 尚未开放正式报名</span></p>
       <div class="price-main"><div class="price-figure"><span>课程规划价</span><strong class="money"><i>¥</i>1688</strong></div><ul class="price-notes"><li>课程正在打磨中，<b>尚未开放正式报名</b>。</li><li>正式售价、上线时间及服务规则<b>以课程公告为准</b>。</li><li>已确认交付：10 节课 · 10 项跟练任务 · 10 份工具表 · 1 本工作手册 · 1 套蓝图。</li><li>答疑、社群、作业点评等服务安排尚未确定，确定前本页不作承诺。</li></ul></div>
       </div></section>
 
     <section class="block" id="faq"><div class="kicker">FAQ（常见问题）</div><div class="block-body">
       <h2>报名之前，你可能想问</h2>
       <div class="faq-list">
-        <details><summary>不会编程，能学吗？</summary><p>能。课程不要求编程与数学基础，所有任务都通过对话、整理与判断完成。这门课训练的是"指挥 AI"的方法，不是写代码。</p></details>
-        <details><summary>需要先购买或先读完某本书吗？</summary><p>不需要。本课程按独立完成的产品设计：课程任务、工具表和工作手册自成体系，不依赖任何前置阅读就能学完并完成蓝图。</p></details>
-        <details><summary>每周需要多少时间？</summary><p>每课约50—70分钟，包含课堂与课后练习。每周1课，约10周完成；每周2课，约5周完成。</p></details>
-        <details><summary>课程最终能完成什么？</summary><p>一套《个人AI指挥系统蓝图》：场景定位、发令方法、核查标准、三大场景流程、分工与确认机制、7 天行动路线；以及承载这十个成果的《个人AI指挥官工作手册》。</p></details>
-        <details><summary>会教搭建复杂的软件系统吗？</summary><p>不会。课程承诺的是完成一套可执行、可验证、可迭代的蓝图，不承诺在短时间内搭好复杂软件系统。若你需要软件开发或企业级实施，那属于专项技术服务，本课不包含。</p></details>
-        <details><summary>课程里用的 AI 工具要另外付费吗？</summary><p>课程教你判断和选择工具。部分第三方 AI 工具可能各有收费策略，以其官方说明为准；《个人AI工具选择表》正是帮你把"要不要花钱、花多少、有没有替代"判断清楚的一页。</p></details>
-        <details><summary>包含答疑、社群和作业点评吗？</summary><p>具体安排以上线公告为准。本页只承诺已确认的交付：10 节课、10 项任务、10 份工具表、1 本工作手册和 1 套蓝图；未确认的服务不在这里先行承诺。</p></details>
+        <details class="tier-medium-on-light" open><summary>不会编程，能学吗？</summary><p>能。课程不要求编程与数学基础，所有任务都通过对话、整理与判断完成。这门课训练的是"指挥 AI"的方法，不是写代码。</p></details>
+        <details class="tier-medium-on-light" open><summary>需要先购买或先读完某本书吗？</summary><p>不需要。本课程按独立完成的产品设计：课程任务、工具表和工作手册自成体系，不依赖任何前置阅读就能学完并完成蓝图。</p></details>
+        <details class="tier-medium-on-light" open><summary>每周需要多少时间？</summary><p>每课约50—70分钟，包含课堂与课后练习。每周1课，约10周完成；每周2课，约5周完成。</p></details>
+        <details class="tier-medium-on-light"><summary>课程最终能完成什么？</summary><p>一套《个人AI指挥系统蓝图》：场景定位、发令方法、核查标准、三大场景流程、分工与确认机制、7 天行动路线；以及承载这十个成果的《个人AI指挥官工作手册》。</p></details>
+        <details class="tier-medium-on-light"><summary>会教搭建复杂的软件系统吗？</summary><p>不会。课程承诺的是完成一套可执行、可验证、可迭代的蓝图，不承诺在短时间内搭好复杂软件系统。若你需要软件开发或企业级实施，那属于专项技术服务，本课不包含。</p></details>
+        <details class="tier-medium-on-light"><summary>课程里用的 AI 工具要另外付费吗？</summary><p>课程教你判断和选择工具。部分第三方 AI 工具可能各有收费策略，以其官方说明为准；《个人AI工具选择表》正是帮你把"要不要花钱、花多少、有没有替代"判断清楚的一页。</p></details>
+        <details class="tier-medium-on-light"><summary>包含答疑、社群和作业点评吗？</summary><p>具体安排以上线公告为准。本页只承诺已确认的交付：10 节课、10 项任务、10 份工具表、1 本工作手册和 1 套蓝图；未确认的服务不在这里先行承诺。</p></details>
       </div>
     </div></section>
 
-    <section class="reserve" id="reserve"><div class="reserve-grid"><div class="reserve-copy"><small>NOTICE（行动入口）</small><h2>关注实战课，了解开放进展</h2><p>课程正在规划与打磨中。扫码进入「AI 指挥官」小程序，关注课程后续公告。</p></div><div class="reserve-cta"><button class="btn-primary" type="button" data-open-qr>扫码进入小程序，关注课程后续公告<span class="btn-arrow">→</span></button><span class="reserve-fine">扫码不代表报名成功，也不会自动收到通知；课程正式开放以公告为准。</span></div></div></section>
+    <section class="reserve" id="reserve"><div class="reserve-grid"><div class="reserve-copy"><small>NOTICE（行动入口）</small><h2>关注实战课，了解开放进展</h2><p>课程正在规划与打磨中。扫码进入「AI 指挥官」小程序，关注课程后续公告。</p></div><div class="reserve-cta"><button class="btn-primary tier-strong-on-light" type="button" data-open-qr>扫码进入小程序，关注课程后续公告<span class="btn-arrow">→</span></button><span class="reserve-fine">扫码不代表报名成功，也不会自动收到通知；课程正式开放以公告为准。</span></div></div></section>
   </main>
 
   <div class="wrap"><footer class="footer-note" id="footerNote" data-footer="AI指挥官 · 个人AI指挥系统实战课|课程规划中，正式开放以公告为准"></footer></div>
 
-  <div class="qr-layer" id="qrLayer"><div class="qr-panel" role="dialog" aria-modal="true" aria-label="AI 指挥官小程序"><button class="qr-close" type="button" aria-label="关闭">×</button><img src="素材/先锋/xianfeng-qr-2026-10.png" width="400" height="520" loading="lazy" decoding="async" alt="AI指挥官小程序码" /><div class="qr-hint">长按识别上方小程序码<small>进入「AI 指挥官」小程序</small></div></div></div>
+  <div class="qr-layer" id="qrLayer"><div class="qr-panel" role="dialog" aria-modal="true" aria-label="AI 指挥官小程序"><button class="qr-close tier-medium" type="button" aria-label="关闭">×</button><img src="素材/先锋/xianfeng-qr-2026-10.png" width="400" height="520" loading="lazy" decoding="async" alt="AI指挥官小程序码" /><div class="qr-hint">长按识别上方小程序码<small>进入「AI 指挥官」小程序</small></div></div></div>
 
   <script src="shared.js?v=34"></script>
-  <script src="course.js?v=3"></script>
+  <script src="course.js?v=4"></script>
 </body>
 </html>
