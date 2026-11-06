@@ -87,3 +87,14 @@ jobs:
           echo "部署目标环境：$TCB_ENV_ID"
           tcb login --apiKeyId ${{ secrets.TCB_SECRET_ID }} --apiKey ${{ secrets.TCB_SECRET_KEY }}
           tcb hosting deploy _site --env-id "$TCB_ENV_ID"
+
+      # 增量部署不会删除线上多余文件，这里清理已下线的历史残留（幂等）。
+      # 新增下线页面时往列表追加路径；确认清完后可整块删除本步骤。
+      - name: Remove retired files from hosting
+        env:
+          TCB_ENV_ID: ${{ vars.CLOUDBASE_ENV_ID || secrets.CLOUDBASE_ENV_ID }}
+        run: |
+          for f in models.html models.css models.js models-page.js models-scores-data.js models-candidates-data.js; do
+            echo "删除线上残留：$f"
+            tcb hosting delete "$f" --env-id "$TCB_ENV_ID" || echo "  $f 不存在或删除失败（下轮重试）"
+          done
