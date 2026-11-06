@@ -55,7 +55,7 @@
   --grey-1: #465568; /* 深：脚注、结构性说明 */
   --grey-2: #526077; /* 标准次级正文 */
   --grey-3: #5b6675; /* 弱化说明 */
-  --grey-4: #8a93a6; /* 最弱 / 占位 */
+  --grey-4: #6a7180; /* 最弱 / 占位（B 档 #6a7180，白底 4.90:1 过 AA） */
 
   /* ---------- 深底文字灰阶（3 档，深色底专用） ---------- */
   --on-dark-1: #d0d8e9; /* 深底主文 */
@@ -143,6 +143,9 @@
   /* 批次 2：深蓝实底按钮的悬停底色（由 home-book.css 散落的 #233478 收编） */
   --navy-hover: #233478;
   --teal: #00edbd;
+  /* 准则 Focus States：焦点环双令牌——深底用 dark、浅底用 light（收编 home-book 的硬编码 #27699b） */
+  --focus-ring-dark: #00edbd;
+  --focus-ring-light: #27699b;
   --teal-accent: #00b89c;
   --teal-soft: rgba(0, 237, 189, 0.28);
   --teal-hover: rgba(0, 237, 189, 0.13);
@@ -864,7 +867,7 @@ html {
   }
   /* 异-3 修复：键盘焦点用全站统一口径（见 .qr-close:focus-visible）补真焦点环 */
   .menu-toggle:focus-visible {
-    outline: 2px solid var(--teal);
+    outline: 2px solid var(--focus-ring-dark);
     outline-offset: 3px;
   }
   /* 抽屉遮罩 */
@@ -920,7 +923,11 @@ html {
     color: var(--white);
     /* 批次 2：抽屉沿用顶栏同一套发光语言 */
     box-shadow: inset 0 0 12px rgba(0, 237, 189, 0.14);
-    outline: none;
+  }
+  /* 焦点环统一：抽屉链接补真环（深底令牌），发光与背景仅作装饰 */
+  .nav-drawer-inner a:focus-visible {
+    outline: 2px solid var(--focus-ring-dark);
+    outline-offset: 3px;
   }
   .nav-drawer-inner a.nav-gift {
     color: var(--teal);
@@ -968,4 +975,14 @@ html {
   .qr-panel {
     max-width: 280px;
   }
+}
+
+/* 准则 Hover & Interactive States：按下即反馈（防“点了没反应”的感知延迟）
+   仅覆盖动作类控件；纯展示卡片按批次 2 裁决 #6 维持零反馈，不进入选择器 */
+.action:active,
+.topnav .nav-links a:active,
+.menu-toggle:active,
+.nav-drawer-inner a:active {
+  transform: translateY(1px);
+  filter: brightness(0.96);
 }

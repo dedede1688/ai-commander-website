@@ -77,7 +77,7 @@
 }
 .site-content { --muted: #526077; }
 .site-content a { text-underline-offset: 4px; }
-.site-content :is(a, button, summary):focus-visible { outline: 3px solid #27699b; outline-offset: 5px; }
+.site-content :is(a, button, summary):focus-visible { outline: 3px solid var(--focus-ring-light); outline-offset: 3px; }
 .site-content section { scroll-margin-top: var(--nav-clear); }
 .site-content .rpt-head { padding: var(--space-11) var(--space-11) var(--space-9); align-items: center; }
 .site-content .rpt-main { top: 0; }

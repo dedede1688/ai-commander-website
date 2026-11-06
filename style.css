@@ -3705,7 +3705,7 @@ ul.plain {
 
 /* CTA 按钮键盘焦点样式 */
 .bk2-final-btn:focus-visible {
-  outline: 3px solid var(--teal);
-  outline-offset: 4px;
+  outline: 3px solid var(--focus-ring-dark);
+  outline-offset: 3px;
   box-shadow: 0 0 0 6px rgba(0, 237, 189, 0.3);
 }
