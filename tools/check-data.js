@@ -49,7 +49,6 @@ function sliceArray(src, decl) {
 }
 
 /* ---------- 1. 读取数据源 ---------- */
-const modelsSrc = read("models.js");
 
 /* P 数组：每位出版人的 n（姓名）/ s（席号）/ f（照片路径） */
 const memberData = require("../member-data.js");
@@ -58,12 +57,6 @@ if (!people.length) err("member-data.js 中没有成员资料");
 
 /* IND 数组：行业名 + 成员名单 */
 const inds = memberData.groups.map(g => ({name:g.name,members:g.members}));
-
-/* MODELS 数组：模型名 */
-const modRegion = sliceArray(modelsSrc, "var MODELS = [");
-const modelNames = (modRegion.match(/name:\s*"([^"]+)"/g) || []).map((s) =>
-  s.replace(/^name:\s*"/, "").replace(/"$/, ""),
-);
 
 /* ---------- 2. 检查 1：席号唯一性 ---------- */
 const seatSeen = new Map();
@@ -154,15 +147,12 @@ people.forEach((p) => {
 /* ---------- 6. 检查 5：全站「素材/」引用存在性 ---------- */
 const scanFiles = [
   "index.html",
-  "models.html",
   "xianfeng.html",
   "shared.js",
   "script.js",
-  "models.js",
   "xianfeng.js",
   "base.css",
   "style.css",
-  "models.css",
   "xianfeng.css",
 ];
 
@@ -203,14 +193,7 @@ scanFiles.forEach((f) => {
   }
 });
 
-/* ---------- 7. 检查 6：模型同名 ---------- */
-const nameSeen = new Map();
-modelNames.forEach((n) => {
-  nameSeen.set(n, (nameSeen.get(n) || 0) + 1);
-});
-nameSeen.forEach((count, n) => {
-  if (count > 1) warn(`模型同名：MODELS 中「${n}」出现 ${count} 次 —— 请人工确认是否应为两条记录`);
-});
+/* ---------- 7. 检查 6：（已移除）模型同名检查 —— 模型速查 2026-11-06 下线 ---------- */
 
 /* ---------- 8. 检查 7：行业分组成员必须存在于 P ---------- */
 const peopleNames = new Set(people.map((p) => p.n));
@@ -334,7 +317,7 @@ people.forEach((p) => {
 
 /* ---------- 输出 ---------- */
 console.log("《AI指挥官》官网 · 数据与素材引用校验");
-console.log(`出版人 ${people.length} 位 ｜ 行业分组 ${inds.length} 组 ｜ 模型 ${modelNames.length} 个`);
+console.log(`出版人 ${people.length} 位 ｜ 行业分组 ${inds.length} 组`);
 console.log("");
 
 if (errors.length) {

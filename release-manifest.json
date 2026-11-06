@@ -1,19 +1,349 @@
 {
-  "generatedAt": "2026-11-06T01:53:48.018Z",
+  "generatedAt": "2026-11-06T03:52:52.109Z",
   "site": "https://www.ai-mmc.cn",
-  "fileCount": 343,
+  "fileCount": 337,
   "note": "文本文件哈希按 LF 归一化；本文件是人工审核过的发布清单，内容变化必须重新生成并复审。",
   "files": [
     {
-      "path": "CNAME",
-      "bytes": 13,
-      "sha256": "855e2d49c02e6509676f35b89307a35c1ac7c9bceb4f30b904506dd29e2575a8",
-      "kind": "text"
+      "path": "素材/二维码/成员/qr-fan-qin-ming.png",
+      "bytes": 3524,
+      "sha256": "36c979355458e7e7fbdd944600b917c2748dbc415e548387bd0c7799bcc890df",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-guo-rui-yuan.png",
+      "bytes": 3438,
+      "sha256": "7ead007ebf69dc7d2615e959dbf67e0d9f4098bfdff3a608f871e9157692c872",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-hu-gong-ping.png",
+      "bytes": 3513,
+      "sha256": "a6fc3e33ce78a3c28350f376a959103b3eb5da2b6c756ee1d12b43813e215aac",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-huzi-laoshi.png",
+      "bytes": 3998,
+      "sha256": "0fda05086659a6e8e2e3582396febda1d41fc9226fe08cbf54841bb8104c98bc",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-jin-zhao-xia.png",
+      "bytes": 3386,
+      "sha256": "a15364c9161000a731fde84342acca8bfccb6c3a46fd3fe5dcfe08fde25d3992",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-li-hai-chang.png",
+      "bytes": 3528,
+      "sha256": "96c57c4b9e32228dbd7b5cf2d58b4d13d3d3fb47a836ec029a1d860e5ede2f48",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-li-ping.png",
+      "bytes": 3375,
+      "sha256": "09dbc79e2d8f628902c00aabb08e3e75d4491cdbf58f8a2b2b0a1fcd841e80f7",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-menger.png",
+      "bytes": 3574,
+      "sha256": "9902bed45c848aefea992cd8445ab1082e774f6d4d31f2fdded8b7c0be719ec1",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-newton-laoshi.png",
+      "bytes": 4244,
+      "sha256": "03c4b9933b7cac0e8e231131f41bfe3d707a8839c0624bccd1bf5b2ff5b47cbf",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-wei-jian.png",
+      "bytes": 3682,
+      "sha256": "e8ad318e37efd2607af4cda00513cdae7f3bd32e1c34921450ebdabede14d286",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-wei-jie-mian.png",
+      "bytes": 3720,
+      "sha256": "faf3e30258c03977aebd1b121b1cff45afd4e2a1812f9d62ed4229cf02037e91",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-wen-ni.png",
+      "bytes": 3451,
+      "sha256": "15d51bd19ae129edf1dee6e94b6db42492b688f2e7f32f1fc6487f51bc5a0984",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-wu-qi.png",
+      "bytes": 3078,
+      "sha256": "e12922fe830adee8c1dda70a7011c8115cd93e07158adedfb18b332f5622cfa6",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-xie-tiao.png",
+      "bytes": 3591,
+      "sha256": "82241add315c37be9dc7192fc373d0e0c8becce7ad189035503af66f9938328f",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-xiong-li.png",
+      "bytes": 3133,
+      "sha256": "e2c51d644520eecc10a2e80ce8bc8eb55929d7f5978f61c2edbbbf397b83ac77",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-yan-hai-zhen.png",
+      "bytes": 3046,
+      "sha256": "291b91486a87bc9d470cc6e9355d4667c8a1f1315353ef322fb2c21470d93b79",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-yu-ya-yong.png",
+      "bytes": 3657,
+      "sha256": "ae37308dcc859dbc09f4ec04b1d188b2a4ef0910f2bae314bc480980785951f7",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-zhang-cheng.png",
+      "bytes": 3216,
+      "sha256": "1328c99d7af070dacabe84382fc3d547ce5f85e70503d08a7c519c78ca17d440",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-zhang-ding-long.png",
+      "bytes": 3961,
+      "sha256": "4f130158f24761c0e6f90cdb2217e0fcc7c019bba7b425722ba49fbe060dd440",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-zhang-wu-hong.png",
+      "bytes": 3820,
+      "sha256": "3d8f12665ac3dd777890a4919fcee0ce677eac2667cdbf7e1a6bca6a45ef52d3",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-zhang-yu-jie.png",
+      "bytes": 3515,
+      "sha256": "c4e0b0986eb3cab389b69f05d8d949f464ae543c61a4ab0293743b08f3b65442",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-zhao-zhuo-yi.png",
+      "bytes": 3696,
+      "sha256": "0097f3fcdfc87354566327683fe536a0e96d3ee8a03563dcd18b32c7d10a91aa",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/成员/qr-zhou-yi.png",
+      "bytes": 3280,
+      "sha256": "45615972c2ccbd5d696f00f319424690b972805cefae5aa506b772a8bad4f329",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/二维码/智能营销-胡子-微信二维码-仅二维码.png",
+      "bytes": 123470,
+      "sha256": "6f6ef832250f087e17edc902c427c1dac416616ab1f73462f2e6fc3378a8ada8",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/荣誉/honor-icon-1.webp",
+      "bytes": 6922,
+      "sha256": "66bc834e1158b1eca1c172e5590726515f08566589b672281102cb9a09eeccab",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/荣誉/honor-icon-2.webp",
+      "bytes": 6756,
+      "sha256": "4922b39d59a2f715b0513d026f6d5ad7995a61d0fb4b4fb5216d999b3278f7ad",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/荣誉/honor-icon-3.webp",
+      "bytes": 7246,
+      "sha256": "2384b0c514eae3cfee0f5d4779e120b6f0dd47d63cce7fc31a62e4bc09ecc6e6",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/荣誉/honor-icon-4.webp",
+      "bytes": 7846,
+      "sha256": "3562cf460a2a8e98cbf509e97abc861ab74d8720c7a7b1e3892d18917a524da2",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/书籍/AI指挥官-立体书.webp",
+      "bytes": 38740,
+      "sha256": "f0bdc49cd2ec7e778513ffb048cf781532d586a2c2c937ea3b5f4feb44073fbe",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/先锋/xianfeng-poster-2026-11.webp",
+      "bytes": 146774,
+      "sha256": "43ad0d29495b0a6bc81da68f85f7f2c8dcdfccb40834e909eda2c05f81a9ce3b",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/先锋/xianfeng-qr-2026-10.png",
+      "bytes": 87871,
+      "sha256": "434f940ef51beb97569e45606d4e86127b8d1397b31d7ec044f4cd18a5678090",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO001_鄢海珍.webp",
+      "bytes": 7548,
+      "sha256": "2035971b02b399a97f188651758d46894df2a213d171701929b7801ee38bb47d",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO002_金朝霞.webp",
+      "bytes": 3078,
+      "sha256": "a12696d454b418deae73d5b0106ac972f63f5bca5650be7c3615a542ac0513a9",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO003_胡公平.webp",
+      "bytes": 2682,
+      "sha256": "bc751b013730e010fa4333ffc8811f8566ce7658e6a8bdb797b384193dd72599",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO004_张成.webp",
+      "bytes": 4494,
+      "sha256": "43e673549810a7da227523ed10a49a0ae2f7031d161ab97e1dd9dacb097ecf73",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO005_郭瑞元.webp",
+      "bytes": 4206,
+      "sha256": "6fb572cbb1f7525096c49851c612a572a749b61f5ea62ef415ff12b1b29ea3c0",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO006_张玉洁.webp",
+      "bytes": 4578,
+      "sha256": "f7e7a3048522a8c4e87d2594e70fef2b1d03000de5a2360065085104e0e90245",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO007_周一.webp",
+      "bytes": 6046,
+      "sha256": "f7b11bd31332f800668703327f560aabc4b4ec7fa7cfbfab14389a5dd27cdfdb",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO008_于亚永.webp",
+      "bytes": 6930,
+      "sha256": "c6a2be673796ee74295318051ac5af8caf496ca2a8deeeb135098fcb259fadc8",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO009_李海畅.webp",
+      "bytes": 5012,
+      "sha256": "266dc2092ea5a2accae1b60ea5d6bdc1a55bf07ab5f092080a5825b4d67ae637",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO010_吴琦.webp",
+      "bytes": 3374,
+      "sha256": "e2d0b28a5ffa4415eeef2ab8b26a57e8df5275cbfd720bd8dee12aebfb410def",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO011_熊俪.webp",
+      "bytes": 2330,
+      "sha256": "cbe963b9a404e1f4c6d44a59da0807ffb84a0feddc430c81868b2891d0ad5d34",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO012_谢眺.webp",
+      "bytes": 3248,
+      "sha256": "0d16eb36c2283aa5a53aae5501f6108eb780b5152932e11da2cb7171cbaa1e82",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO013_韦健.webp",
+      "bytes": 3902,
+      "sha256": "e6fca06f87786b585d6fe41b9432ed8a9229bf58f243c6689b546e2b4b55cdd5",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO014_李平.webp",
+      "bytes": 5768,
+      "sha256": "8fd316d79af7099e571ce8322c1582b3d947dfab491408f98340bc4adea63fb4",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO015_Menger.webp",
+      "bytes": 4232,
+      "sha256": "e7cce66ad403fbed5e831a3ce0d8efd8010aa79b7a2cfcb328331b324ac7184b",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO016_赵卓一.webp",
+      "bytes": 5434,
+      "sha256": "542d9ba18fdc9b1a45c4b7a227ae59bb7b81174da2da6a0d71c9dda33aad4f31",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO017_张武红.webp",
+      "bytes": 9174,
+      "sha256": "6272310a495b59292e45e8efc1a95ad6607bd3c195f9cd2ebf7001272911a6f0",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO018_危杰棉.webp",
+      "bytes": 4484,
+      "sha256": "88341855d58fa69b82eed3167d09edd6966f1a12cec3dd72b62884d682873622",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO019_牛顿老师.webp",
+      "bytes": 12078,
+      "sha256": "43fd093e970495314651c06d9e592ebb4c9571930ef2e3995cc7660175b95cd2",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO020_温妮.webp",
+      "bytes": 4814,
+      "sha256": "6480bc15dcbfbb85f097f539d6f53e56498574e8441c2b286ff97c2d6a882f10",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO021_樊秦鸣.webp",
+      "bytes": 2466,
+      "sha256": "013cba0f30e3318dd8b5076f3a4c922507c2d0a48aec516fc3f93e3af690001c",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO022_张定龙.webp",
+      "bytes": 438278,
+      "sha256": "2cabe77754a24c6f7931173732bec4e2407ac10e1f33ae0712a33bd642b73038",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/照片/NO023_胡子老师.webp",
+      "bytes": 3912,
+      "sha256": "38cc2b779316296a28bfa3da73d9882e6c2ca6a55d54902c868d3bfb9ccbeafa",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/logo.webp",
+      "bytes": 2654,
+      "sha256": "d12cca4febf671c040d72eecd0ec369b22bfb9fe9a3703ace467610e7c9d890b",
+      "kind": "binary"
+    },
+    {
+      "path": "素材/og/ai-commander-og-1200x630.webp",
+      "bytes": 59714,
+      "sha256": "aed726323ee90501db3b325dd6eeb4c0aac5bd3d4b56d45e06a6b84590cb8733",
+      "kind": "binary"
     },
     {
       "path": "base.css",
-      "bytes": 30198,
-      "sha256": "48c9cd733ceac19dd743bfd90202e218e93e64a360b05d08ae971ea275238ed9",
+      "bytes": 30163,
+      "sha256": "2e9429eecc16b22f159d58a688fccab70bc2e1d51c0a6dcc908430a04dc3be88",
       "kind": "text"
     },
     {
@@ -24,8 +354,8 @@
     },
     {
       "path": "book.html",
-      "bytes": 30418,
-      "sha256": "669b9186b8e142b8ef7e73d9cee8f4b7eac9ebf5ea983ae5b9efeb29eb28ab3a",
+      "bytes": 30164,
+      "sha256": "828ddbb7b3d369b0dfa0636794e12edfa0db81e27d5ab059ecdf232d9fb0a96b",
       "kind": "text"
     },
     {
@@ -36,14 +366,20 @@
     },
     {
       "path": "builders.html",
-      "bytes": 38381,
-      "sha256": "0db20ff9bbc07753f39470414922a472d88b1a9535d5fa83091e3349e584be37",
+      "bytes": 38151,
+      "sha256": "bd3f707f3100e32090d61afce67ac01bb23c2191dd2b5cf7b0d533b1296d12a1",
       "kind": "text"
     },
     {
       "path": "builders.js",
       "bytes": 2687,
       "sha256": "6d001764588f2821b77c3fc3c846ac26c08e11cc8a5ebd3a7058378a95f2239d",
+      "kind": "text"
+    },
+    {
+      "path": "CNAME",
+      "bytes": 13,
+      "sha256": "855e2d49c02e6509676f35b89307a35c1ac7c9bceb4f30b904506dd29e2575a8",
       "kind": "text"
     },
     {
@@ -60,8 +396,8 @@
     },
     {
       "path": "cooperate.html",
-      "bytes": 10229,
-      "sha256": "ae95145ea6fa7a08f082d456a7d648355c2e0a99955f71a2dfe1aba0765f2c39",
+      "bytes": 10171,
+      "sha256": "75e2838dcc15c5895d249bbc5d6a1518563ad2b40aad0189f305a83ac3b95850",
       "kind": "text"
     },
     {
@@ -72,8 +408,8 @@
     },
     {
       "path": "course.html",
-      "bytes": 20056,
-      "sha256": "91e29860a22b903fc15cd4a01068e07e5c1d34912f833b0c150fb44d17531a19",
+      "bytes": 19911,
+      "sha256": "b3cb9ccd94d397803d0541fc3f24ee246faef99ee2a64f23f4f24bbfef14599a",
       "kind": "text"
     },
     {
@@ -90,8 +426,8 @@
     },
     {
       "path": "enterprise.html",
-      "bytes": 15452,
-      "sha256": "f18bdc74b8dca0c98862a463a98c182ca8ffac2ffc6a97ecfa2a6d7be4ac3258",
+      "bytes": 15354,
+      "sha256": "20a7ddd60ccb3b138d36962240c3f401e624bf4c03cde11ccaf4137f245fc54e",
       "kind": "text"
     },
     {
@@ -102,8 +438,8 @@
     },
     {
       "path": "explore.html",
-      "bytes": 12773,
-      "sha256": "01bd29f6d8f97a89c2eb463ac5b39db148305d4e274b6e9d2497f1eec04ce676",
+      "bytes": 12549,
+      "sha256": "9e23b18a9890c7b4910d205e45408ef3a3683b7b1c86477f478998c98b089b68",
       "kind": "text"
     },
     {
@@ -114,8 +450,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 18489,
-      "sha256": "0106ba029a479d60eaa134f925891b1057c262f80ee052a1d2b9bb5eb1999cb5",
+      "bytes": 17916,
+      "sha256": "182ff3e0ed2e3ba2512ca4c9a8e667092a57d6db7ffa45564537f1ab34bbbc47",
       "kind": "text"
     },
     {
@@ -132,8 +468,8 @@
     },
     {
       "path": "learning.html",
-      "bytes": 10604,
-      "sha256": "9f973b904bff5cb88772ee09272d5f89f6e57850fc569e90be4e0c0b46950019",
+      "bytes": 10417,
+      "sha256": "7c15744c219506b699e330616d258b003bb3d9d44daceb73262e99e21c79833a",
       "kind": "text"
     },
     {
@@ -150,176 +486,140 @@
     },
     {
       "path": "member-fan-qin-ming.html",
-      "bytes": 7005,
-      "sha256": "d9b4b4c8064488a603bd2051953516b8356e6d7d168bb070f7a181b93b16c922",
+      "bytes": 6980,
+      "sha256": "b9d29c6bbc1fb889635909901998c2e0224d55323ac841b75cd4065905063d8a",
       "kind": "text"
     },
     {
       "path": "member-guo-rui-yuan.html",
-      "bytes": 7425,
-      "sha256": "ba0d62274a25f9e5cc3d0b4caa9e07203e8c4f18c3fa4e967dddec0540380b36",
+      "bytes": 7400,
+      "sha256": "fbc6e1f6a6ad6e6a07728190ce7d22dbd3c4ede949f11888ece6fb654564cac7",
       "kind": "text"
     },
     {
       "path": "member-hu-gong-ping.html",
-      "bytes": 7408,
-      "sha256": "53c6c12c0371012f236f046aecccb490153d165b3d5f49d594d9ff3d9933082d",
+      "bytes": 7383,
+      "sha256": "f486e197e963f29d99b7def6478d277e33ba7744beaa7f9461eb29a573b96145",
       "kind": "text"
     },
     {
       "path": "member-huzi-laoshi.html",
-      "bytes": 7406,
-      "sha256": "0b9d4b65086aa20d1dec0f30c514d7819f965a5aa7ee0d721d6b1052d3c760f4",
+      "bytes": 7381,
+      "sha256": "a31c74aa72251718aee0042558a799cef68bbe83c1eec39eeb3b49c6d2af1fa2",
       "kind": "text"
     },
     {
       "path": "member-jin-zhao-xia.html",
-      "bytes": 7306,
-      "sha256": "95c7b63e7414267589a5988971a7ae944b838c8486bec1a2a4afd2c989bfd8bf",
+      "bytes": 7281,
+      "sha256": "825228bebe3a26626aad67976b312d0df7465409c4279773ab0ad0ef6aed8a8a",
       "kind": "text"
     },
     {
       "path": "member-li-hai-chang.html",
-      "bytes": 7133,
-      "sha256": "64f865046eae18f370bf69bc15b943c269c17d8d67ae2695464a7398a2baa687",
+      "bytes": 7108,
+      "sha256": "9254624ff2c7a4da3f7757ca052e13580f556b3b11d9a050541cb8d343502210",
       "kind": "text"
     },
     {
       "path": "member-li-ping.html",
-      "bytes": 7423,
-      "sha256": "b3263cc9b3cdefea5f099735cf31c813deec5b0987b9ba46654064dcc349bded",
+      "bytes": 7398,
+      "sha256": "b7e71653870f0324fb425a7c19c30200071b77ddd18468204597f8d55254fa23",
       "kind": "text"
     },
     {
       "path": "member-menger.html",
-      "bytes": 7337,
-      "sha256": "9f5dbdb8fd9ac0d77605a5036c9942bee95614da0774f9e47b9134f272cfdd74",
+      "bytes": 7312,
+      "sha256": "5e5436b803393bb766e30d4cf5470a53964eecac1c5cb538235e2502743b7ea2",
       "kind": "text"
     },
     {
       "path": "member-newton-laoshi.html",
-      "bytes": 7575,
-      "sha256": "0fe5f5fa6e8b44d3fa99976f16f9c98b31bf2ca57fd186e8ad74c8521004822b",
+      "bytes": 7550,
+      "sha256": "51e5994c65f465b5f025893db70d57772da3ec2e71342ff7c33aa812a31ee1c6",
       "kind": "text"
     },
     {
       "path": "member-wei-jian.html",
-      "bytes": 6995,
-      "sha256": "a051da1d04f8f79f9dadcb56a057e4c1f8e0d99cc8be19f8c6cbe41885e0d2cb",
+      "bytes": 6970,
+      "sha256": "4b50179c90ecc6f0d5bbc034652008313271e879d6e24cb7ab2f4d80cf65a747",
       "kind": "text"
     },
     {
       "path": "member-wei-jie-mian.html",
-      "bytes": 7532,
-      "sha256": "70194ae1af97a214c42f8920ffa862d2dae8ce4956fe6c867f3fc3d977ac9fe2",
+      "bytes": 7507,
+      "sha256": "0b66bcd7c7e97570e0566e4816bc80cbc1f07ee5a325bd875a3d2061b13f2414",
       "kind": "text"
     },
     {
       "path": "member-wen-ni.html",
-      "bytes": 7522,
-      "sha256": "d64d2d1833fad3fdb5056a0127233d82c1124a0f89d13629bfab41523961b164",
+      "bytes": 7497,
+      "sha256": "9976b6231a9cd8275655bbcf0a710f39b8a0ea7c82549df5c234710edd4bff62",
       "kind": "text"
     },
     {
       "path": "member-wu-qi.html",
-      "bytes": 7009,
-      "sha256": "815a41db3f41a158277da6c475e9139f64532a88805ed04dfa3d1ff9f07c4122",
+      "bytes": 6984,
+      "sha256": "b8fd87633cdae18afae1b65f390d5be666f300086b7acd8430a977d2b4d339f4",
       "kind": "text"
     },
     {
       "path": "member-xie-tiao.html",
-      "bytes": 7011,
-      "sha256": "d06ab2565e32aad30b4333ce5407bd08019234b6d19f4efc508d7887fff55d52",
+      "bytes": 6986,
+      "sha256": "918da374bb5719da427902a20893a392f2546f05bdaabacccf5fb849ff8a181f",
       "kind": "text"
     },
     {
       "path": "member-xiong-li.html",
-      "bytes": 6972,
-      "sha256": "e99254c0189287aad52d7eaba54f3ab484f92690d5f247b3b738914afd2a7c2a",
+      "bytes": 6947,
+      "sha256": "ee731d387aa8748d7928ee08038babb53c9719c261e9320829354fef97e3f5a4",
       "kind": "text"
     },
     {
       "path": "member-yan-hai-zhen.html",
-      "bytes": 8269,
-      "sha256": "3059c038992c1fdb053a6be12cf9940d4a3cf0aa06719084672d1b684ce792f6",
+      "bytes": 8244,
+      "sha256": "71063c2c4696b383971185102bf517155592cc307cc65fc13bbbf1f195b8fb63",
       "kind": "text"
     },
     {
       "path": "member-yu-ya-yong.html",
-      "bytes": 7037,
-      "sha256": "1cb9f6f7b93b3220677573fa922e01a959ea8b83d5b9cf8e27c193837dd088e1",
+      "bytes": 7012,
+      "sha256": "b8e1a552656107fe6793d302ff6841935520b3cb1d9a8d59151953b9cf55314b",
       "kind": "text"
     },
     {
       "path": "member-zhang-cheng.html",
-      "bytes": 7436,
-      "sha256": "39512099026c0c17c3207e55706fc1c8cc3f3d171812fd21197e175256048750",
+      "bytes": 7411,
+      "sha256": "2b38a4bc49f07be36607f6585fae5fc9858d508a8b253109e3e04328d7cd17ee",
       "kind": "text"
     },
     {
       "path": "member-zhang-ding-long.html",
-      "bytes": 8454,
-      "sha256": "0646277683a83a2daab5c7f2928d5b9dd9c8cdd424247a98a0678fb4747b7283",
+      "bytes": 8429,
+      "sha256": "4f49f25b2b457ef4f24ea3753e7d7b39c8d8761285878d41824e3b90b2f7b4cc",
       "kind": "text"
     },
     {
       "path": "member-zhang-wu-hong.html",
-      "bytes": 7512,
-      "sha256": "0381cc34b5ecd990deeee424b7ff4b81973df34f10b7fbe6eac55f7e7f37baf8",
+      "bytes": 7487,
+      "sha256": "a75f3b93cdfd5d19fbdc333951f736f397fa6ec919f9d40f821ba604bb4d3b83",
       "kind": "text"
     },
     {
       "path": "member-zhang-yu-jie.html",
-      "bytes": 7527,
-      "sha256": "f76bc2a357f8cd183e5aac91000fc46390ea3638db7c310f2f56b7946527b68c",
+      "bytes": 7502,
+      "sha256": "13410f18da07466fe205ea3ba028e80bb6c680ceab9a4f5557be2fc29efde2ca",
       "kind": "text"
     },
     {
       "path": "member-zhao-zhuo-yi.html",
-      "bytes": 7254,
-      "sha256": "2bbd6981c8365443054eea072f4e078616080224b06c308920de2c8bdb71e9bf",
+      "bytes": 7229,
+      "sha256": "334252cd7b9786b71cec480bc59d1e42d74ca3da37ff72e3d08efec6ec1f5a25",
       "kind": "text"
     },
     {
       "path": "member-zhou-yi.html",
-      "bytes": 7322,
-      "sha256": "2a381c8a168fd4576901c34b2878b55fba0ae2ad213a3a47f54306278f3b997f",
-      "kind": "text"
-    },
-    {
-      "path": "models-candidates-data.js",
-      "bytes": 353454,
-      "sha256": "621a6255efda38184a5fc3ca866eb814d5d2dbcd79f6778c7555a64bf0e5572c",
-      "kind": "text"
-    },
-    {
-      "path": "models-page.js",
-      "bytes": 66533,
-      "sha256": "c339cfb0cabfa79f518dc0f682be5d092d7175cf47a1f8bd5e332353147afa63",
-      "kind": "text"
-    },
-    {
-      "path": "models-scores-data.js",
-      "bytes": 48103,
-      "sha256": "e1575b296c9c8013bd38e50fc524dfd1ce320134ed064714e0535905157a0b1e",
-      "kind": "text"
-    },
-    {
-      "path": "models.css",
-      "bytes": 58495,
-      "sha256": "e4e4d124ae65ef9c55ffb6bf671b87110da03872b1575454266899a3f540c6e0",
-      "kind": "text"
-    },
-    {
-      "path": "models.html",
-      "bytes": 13272,
-      "sha256": "944181df8eca943ba2ca44d908970210064a530ff41817db92afe9109fb7c48c",
-      "kind": "text"
-    },
-    {
-      "path": "models.js",
-      "bytes": 32834,
-      "sha256": "4afc0e6031ad1b4e0c61c1415fb098cb8272369aab058043a4b15fdce5765ba0",
+      "bytes": 7297,
+      "sha256": "e05d466f5e061f70fbcdd4928e6c7f6667ee7ae7715dfa8c7ee96d154f132ee5",
       "kind": "text"
     },
     {
@@ -330,8 +630,8 @@
     },
     {
       "path": "outcomes.html",
-      "bytes": 12831,
-      "sha256": "e9dbda31cc17a4434e6a92a2c818ee58eca7490234227408faf8f4393ce5818e",
+      "bytes": 13400,
+      "sha256": "951a8311724a569c1de35f9c251ddda3576701908950d66129b0bb06a68884e7",
       "kind": "text"
     },
     {
@@ -348,14 +648,14 @@
     },
     {
       "path": "shared.js",
-      "bytes": 19102,
-      "sha256": "bdae3356f7efbf19156888c7fb17ff2186a6746ef06a309401a17c9aa9a6bdfd",
+      "bytes": 19008,
+      "sha256": "fe7cf964dc43fbcb206135c0652cb51b4188e419bb6e83bbe05abf0921f174e0",
       "kind": "text"
     },
     {
       "path": "sitemap.xml",
-      "bytes": 5955,
-      "sha256": "20abc5e1ee180ad9b70a827ab2f156dfadd1d2f6c524487179dee6e2674bfd3a",
+      "bytes": 5784,
+      "sha256": "33834a4d3fed343de82793d8fb8d1834c16e249fc04c286c1e13e08124d09909",
       "kind": "text"
     },
     {
@@ -1710,14 +2010,14 @@
     },
     {
       "path": "xianfeng.css",
-      "bytes": 29302,
-      "sha256": "aed6b3c1ad5c3dbbfa618cd998ed0e859853b00f55140da3320776835f00f56c",
+      "bytes": 28137,
+      "sha256": "5eb498b2c9c1dbce82ab9ed7702db1d58208355ba4a35654f6310e32083a3d18",
       "kind": "text"
     },
     {
       "path": "xianfeng.html",
-      "bytes": 15023,
-      "sha256": "14c31840956f9830de435b55d187c39a15000b99f206f76b209e13ea92011490",
+      "bytes": 14768,
+      "sha256": "463dfa1caca36fa9808f4c2c4d9077d374d9c3648cca1250237d151a638ff2f8",
       "kind": "text"
     },
     {
@@ -1725,342 +2025,6 @@
       "bytes": 4503,
       "sha256": "21c2c64cd2725f0c61fb175001d3fbc6d77ec1ffc95da7286dc092d0be78839e",
       "kind": "text"
-    },
-    {
-      "path": "素材/logo.webp",
-      "bytes": 2654,
-      "sha256": "d12cca4febf671c040d72eecd0ec369b22bfb9fe9a3703ace467610e7c9d890b",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/og/ai-commander-og-1200x630.webp",
-      "bytes": 59714,
-      "sha256": "aed726323ee90501db3b325dd6eeb4c0aac5bd3d4b56d45e06a6b84590cb8733",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/书籍/AI指挥官-立体书.webp",
-      "bytes": 38740,
-      "sha256": "f0bdc49cd2ec7e778513ffb048cf781532d586a2c2c937ea3b5f4feb44073fbe",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-fan-qin-ming.png",
-      "bytes": 3524,
-      "sha256": "36c979355458e7e7fbdd944600b917c2748dbc415e548387bd0c7799bcc890df",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-guo-rui-yuan.png",
-      "bytes": 3438,
-      "sha256": "7ead007ebf69dc7d2615e959dbf67e0d9f4098bfdff3a608f871e9157692c872",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-hu-gong-ping.png",
-      "bytes": 3513,
-      "sha256": "a6fc3e33ce78a3c28350f376a959103b3eb5da2b6c756ee1d12b43813e215aac",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-huzi-laoshi.png",
-      "bytes": 3998,
-      "sha256": "0fda05086659a6e8e2e3582396febda1d41fc9226fe08cbf54841bb8104c98bc",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-jin-zhao-xia.png",
-      "bytes": 3386,
-      "sha256": "a15364c9161000a731fde84342acca8bfccb6c3a46fd3fe5dcfe08fde25d3992",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-li-hai-chang.png",
-      "bytes": 3528,
-      "sha256": "96c57c4b9e32228dbd7b5cf2d58b4d13d3d3fb47a836ec029a1d860e5ede2f48",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-li-ping.png",
-      "bytes": 3375,
-      "sha256": "09dbc79e2d8f628902c00aabb08e3e75d4491cdbf58f8a2b2b0a1fcd841e80f7",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-menger.png",
-      "bytes": 3574,
-      "sha256": "9902bed45c848aefea992cd8445ab1082e774f6d4d31f2fdded8b7c0be719ec1",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-newton-laoshi.png",
-      "bytes": 4244,
-      "sha256": "03c4b9933b7cac0e8e231131f41bfe3d707a8839c0624bccd1bf5b2ff5b47cbf",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-wei-jian.png",
-      "bytes": 3682,
-      "sha256": "e8ad318e37efd2607af4cda00513cdae7f3bd32e1c34921450ebdabede14d286",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-wei-jie-mian.png",
-      "bytes": 3720,
-      "sha256": "faf3e30258c03977aebd1b121b1cff45afd4e2a1812f9d62ed4229cf02037e91",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-wen-ni.png",
-      "bytes": 3451,
-      "sha256": "15d51bd19ae129edf1dee6e94b6db42492b688f2e7f32f1fc6487f51bc5a0984",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-wu-qi.png",
-      "bytes": 3078,
-      "sha256": "e12922fe830adee8c1dda70a7011c8115cd93e07158adedfb18b332f5622cfa6",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-xie-tiao.png",
-      "bytes": 3591,
-      "sha256": "82241add315c37be9dc7192fc373d0e0c8becce7ad189035503af66f9938328f",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-xiong-li.png",
-      "bytes": 3133,
-      "sha256": "e2c51d644520eecc10a2e80ce8bc8eb55929d7f5978f61c2edbbbf397b83ac77",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-yan-hai-zhen.png",
-      "bytes": 3046,
-      "sha256": "291b91486a87bc9d470cc6e9355d4667c8a1f1315353ef322fb2c21470d93b79",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-yu-ya-yong.png",
-      "bytes": 3657,
-      "sha256": "ae37308dcc859dbc09f4ec04b1d188b2a4ef0910f2bae314bc480980785951f7",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-zhang-cheng.png",
-      "bytes": 3216,
-      "sha256": "1328c99d7af070dacabe84382fc3d547ce5f85e70503d08a7c519c78ca17d440",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-zhang-ding-long.png",
-      "bytes": 3961,
-      "sha256": "4f130158f24761c0e6f90cdb2217e0fcc7c019bba7b425722ba49fbe060dd440",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-zhang-wu-hong.png",
-      "bytes": 3820,
-      "sha256": "3d8f12665ac3dd777890a4919fcee0ce677eac2667cdbf7e1a6bca6a45ef52d3",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-zhang-yu-jie.png",
-      "bytes": 3515,
-      "sha256": "c4e0b0986eb3cab389b69f05d8d949f464ae543c61a4ab0293743b08f3b65442",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-zhao-zhuo-yi.png",
-      "bytes": 3696,
-      "sha256": "0097f3fcdfc87354566327683fe536a0e96d3ee8a03563dcd18b32c7d10a91aa",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/成员/qr-zhou-yi.png",
-      "bytes": 3280,
-      "sha256": "45615972c2ccbd5d696f00f319424690b972805cefae5aa506b772a8bad4f329",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/二维码/智能营销-胡子-微信二维码-仅二维码.png",
-      "bytes": 123470,
-      "sha256": "6f6ef832250f087e17edc902c427c1dac416616ab1f73462f2e6fc3378a8ada8",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/先锋/xianfeng-poster-2026-11.webp",
-      "bytes": 146774,
-      "sha256": "43ad0d29495b0a6bc81da68f85f7f2c8dcdfccb40834e909eda2c05f81a9ce3b",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/先锋/xianfeng-qr-2026-10.png",
-      "bytes": 87871,
-      "sha256": "434f940ef51beb97569e45606d4e86127b8d1397b31d7ec044f4cd18a5678090",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO001_鄢海珍.webp",
-      "bytes": 7548,
-      "sha256": "2035971b02b399a97f188651758d46894df2a213d171701929b7801ee38bb47d",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO002_金朝霞.webp",
-      "bytes": 3078,
-      "sha256": "a12696d454b418deae73d5b0106ac972f63f5bca5650be7c3615a542ac0513a9",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO003_胡公平.webp",
-      "bytes": 2682,
-      "sha256": "bc751b013730e010fa4333ffc8811f8566ce7658e6a8bdb797b384193dd72599",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO004_张成.webp",
-      "bytes": 4494,
-      "sha256": "43e673549810a7da227523ed10a49a0ae2f7031d161ab97e1dd9dacb097ecf73",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO005_郭瑞元.webp",
-      "bytes": 4206,
-      "sha256": "6fb572cbb1f7525096c49851c612a572a749b61f5ea62ef415ff12b1b29ea3c0",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO006_张玉洁.webp",
-      "bytes": 4578,
-      "sha256": "f7e7a3048522a8c4e87d2594e70fef2b1d03000de5a2360065085104e0e90245",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO007_周一.webp",
-      "bytes": 6046,
-      "sha256": "f7b11bd31332f800668703327f560aabc4b4ec7fa7cfbfab14389a5dd27cdfdb",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO008_于亚永.webp",
-      "bytes": 6930,
-      "sha256": "c6a2be673796ee74295318051ac5af8caf496ca2a8deeeb135098fcb259fadc8",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO009_李海畅.webp",
-      "bytes": 5012,
-      "sha256": "266dc2092ea5a2accae1b60ea5d6bdc1a55bf07ab5f092080a5825b4d67ae637",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO010_吴琦.webp",
-      "bytes": 3374,
-      "sha256": "e2d0b28a5ffa4415eeef2ab8b26a57e8df5275cbfd720bd8dee12aebfb410def",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO011_熊俪.webp",
-      "bytes": 2330,
-      "sha256": "cbe963b9a404e1f4c6d44a59da0807ffb84a0feddc430c81868b2891d0ad5d34",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO012_谢眺.webp",
-      "bytes": 3248,
-      "sha256": "0d16eb36c2283aa5a53aae5501f6108eb780b5152932e11da2cb7171cbaa1e82",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO013_韦健.webp",
-      "bytes": 3902,
-      "sha256": "e6fca06f87786b585d6fe41b9432ed8a9229bf58f243c6689b546e2b4b55cdd5",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO014_李平.webp",
-      "bytes": 5768,
-      "sha256": "8fd316d79af7099e571ce8322c1582b3d947dfab491408f98340bc4adea63fb4",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO015_Menger.webp",
-      "bytes": 4232,
-      "sha256": "e7cce66ad403fbed5e831a3ce0d8efd8010aa79b7a2cfcb328331b324ac7184b",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO016_赵卓一.webp",
-      "bytes": 5434,
-      "sha256": "542d9ba18fdc9b1a45c4b7a227ae59bb7b81174da2da6a0d71c9dda33aad4f31",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO017_张武红.webp",
-      "bytes": 9174,
-      "sha256": "6272310a495b59292e45e8efc1a95ad6607bd3c195f9cd2ebf7001272911a6f0",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO018_危杰棉.webp",
-      "bytes": 4484,
-      "sha256": "88341855d58fa69b82eed3167d09edd6966f1a12cec3dd72b62884d682873622",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO019_牛顿老师.webp",
-      "bytes": 12078,
-      "sha256": "43fd093e970495314651c06d9e592ebb4c9571930ef2e3995cc7660175b95cd2",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO020_温妮.webp",
-      "bytes": 4814,
-      "sha256": "6480bc15dcbfbb85f097f539d6f53e56498574e8441c2b286ff97c2d6a882f10",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO021_樊秦鸣.webp",
-      "bytes": 2466,
-      "sha256": "013cba0f30e3318dd8b5076f3a4c922507c2d0a48aec516fc3f93e3af690001c",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO022_张定龙.webp",
-      "bytes": 438278,
-      "sha256": "2cabe77754a24c6f7931173732bec4e2407ac10e1f33ae0712a33bd642b73038",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/照片/NO023_胡子老师.webp",
-      "bytes": 3912,
-      "sha256": "38cc2b779316296a28bfa3da73d9882e6c2ca6a55d54902c868d3bfb9ccbeafa",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/荣誉/honor-icon-1.webp",
-      "bytes": 6922,
-      "sha256": "66bc834e1158b1eca1c172e5590726515f08566589b672281102cb9a09eeccab",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/荣誉/honor-icon-2.webp",
-      "bytes": 6756,
-      "sha256": "4922b39d59a2f715b0513d026f6d5ad7995a61d0fb4b4fb5216d999b3278f7ad",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/荣誉/honor-icon-3.webp",
-      "bytes": 7246,
-      "sha256": "2384b0c514eae3cfee0f5d4779e120b6f0dd47d63cce7fc31a62e4bc09ecc6e6",
-      "kind": "binary"
-    },
-    {
-      "path": "素材/荣誉/honor-icon-4.webp",
-      "bytes": 7846,
-      "sha256": "3562cf460a2a8e98cbf509e97abc861ab74d8720c7a7b1e3892d18917a524da2",
-      "kind": "binary"
     }
   ]
 }

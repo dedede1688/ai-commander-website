@@ -28,7 +28,6 @@ people, _ = gen.load_people()
 STATIC = [
     ("/", "weekly", "1.0"),
     ("xianfeng.html", "daily", "0.9"),
-    ("models.html", "weekly", "0.8"),
     ("book.html", "weekly", "0.9"),
     ("builders.html", "weekly", "0.9"),
     ("outcomes.html", "weekly", "0.8"),

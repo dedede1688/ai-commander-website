@@ -2,7 +2,7 @@
    依赖 base.css 的设计变量与共享组件（.topnav / .footer-note / .qr-layer）。
    页面级类一律 xf- 前缀，避免与全站样式冲突。
 
-   【视觉规范】以模型页（models.html / models.css）为唯一参照：
+   【视觉规范】以 base.css 令牌与全站三级 hover 体系为唯一参照：
    - 骨架：深色首屏面板 + 浅灰底（#eef1f6）白卡正文，与模型页 .models-hero + .card 同构
    - 首屏：模型页同款深蓝渐变 + 双层径向光晕 + 内嵌青色辉光 + 两个描边圆环；
      等宽青色 eyebrow → 主标题 → 副文 → 顶部细线分隔的数据条（.xf-stats）

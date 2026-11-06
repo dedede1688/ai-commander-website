@@ -1,5 +1,5 @@
 /* ===== 全站共享交互层 =====
-   被 index.html 与 models.html 共同引用，后续新增页面直接引入即可复用。
+   被 index.html 等全部页面引用，后续新增页面直接引入即可复用。
 
    设计原则：
    1. 页面若缺少对应元素，所有绑定自动跳过，不报错。
@@ -17,23 +17,21 @@
   /* ---------- 站点配置（改这里，全站生效） ---------- */
   /* 2026-11-02 导航调整（用户确认）：品牌名省略AI（LOGO已表达）；
      首页→网站；《AI指挥官》→书籍介绍；工具与成果拆为工具应用/成果展示两项。
-     内容暂未拆分，两项先指向成果页内对应区块。 */
+     2026-11-06 调整（用户确认）：17款模型速查下线，工具应用入口移除，导航为 7 项。 */
   var NAV_ITEMS = [
     { file: "index.html", key: "index", text: "网站首页" },
     { file: "builders.html", key: "builders", text: "共建合作" },
     { file: "book.html", key: "book", text: "书籍介绍" },
     { file: "learning.html", key: "learning", text: "学习中心" },
-    { file: "outcomes.html#available", key: "tools", text: "工具应用" },
     { file: "outcomes.html#systems", key: "outcomes", text: "成果展示" },
     { file: "enterprise.html", key: "enterprise", text: "企业服务" },
   ];
   /* 详情页归属高亮：成员页/旧合作页→共建合作；先锋券活动页→书籍介绍；
-     模型速查页→工具应用；course.html 的 data-page 已是 learning，无需映射。 */
+     course.html 的 data-page 已是 learning，无需映射。 */
   var NAV_GROUP = {
     member: "builders",
     cooperate: "builders",
     xianfeng: "book",
-    models: "tools",
   };
   var LOGO = "素材/logo.webp";
   var SITE_URL = "https://www.ai-mmc.cn";

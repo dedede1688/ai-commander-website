@@ -1,3 +1,4 @@
+/* 已存档（2026-11-06）：成员页现为手工维护，此生成器不再使用；previews/ 模板已不存在，硬编码版本号不再跟进。 */
 /* 由已确认模板与单一公开资料生成共建者中心、23 个个人页。 */
 const fs = require('node:fs');
 const path = require('node:path');

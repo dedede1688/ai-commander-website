@@ -22,14 +22,14 @@ if (!/User-agent:\s*\*/i.test(robots)) fail('robots.txt 缺少 User-agent');
 const sitemap = read('sitemap.xml');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
 if (new Set(locs).size !== locs.length) fail('站点地图存在重复地址');
-if (locs.length !== 33) fail('站点地图条数应为 33，实际 ' + locs.length);
+if (locs.length !== 32) fail('站点地图条数应为 32，实际 ' + locs.length);
 for (const loc of locs) {
   if (!loc.startsWith(SITE + '/')) fail('站点地图地址不是正式域名：' + loc);
   const rel = loc.slice(SITE.length + 1) || 'index.html';
   if (!exists(rel)) fail('站点地图地址无对应文件：' + loc);
 }
 if (locs.some((l) => l.endsWith('/explore.html'))) fail('历史资料页不应进入站点地图');
-for (const page of ['index.html', 'book.html', 'builders.html', 'outcomes.html', 'enterprise.html', 'learning.html', 'course.html', 'cooperate.html', 'models.html', 'xianfeng.html']) {
+for (const page of ['index.html', 'book.html', 'builders.html', 'outcomes.html', 'enterprise.html', 'learning.html', 'course.html', 'cooperate.html', 'xianfeng.html']) {
   const expected = page === 'index.html' ? SITE + '/' : SITE + '/' + page;
   if (!locs.includes(expected)) fail('站点地图缺少正式页面：' + expected);
 }

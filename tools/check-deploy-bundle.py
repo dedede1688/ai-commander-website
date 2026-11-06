@@ -12,6 +12,12 @@ import re
 import sys
 SITE = sys.argv[1] if len(sys.argv) > 1 else "/tmp/_site_test"
 
+# Windows GBK 控制台兜底：stdout 统一按 UTF-8 输出，避免 ✓/✗ 字符触发 UnicodeEncodeError 假失败
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, ValueError, io.UnsupportedOperation):
+    pass
+
 problems = []
 
 # 站内资源扩展名白名单：只校验这些是真的文件引用
@@ -62,7 +68,7 @@ print("  ✓ 检查完毕" if not problems else "  ✗ 见下方问题")
 
 # 2. 现有三页 → 站内资源
 print()
-for f in ("index.html", "book.html", "builders.html", "outcomes.html", "enterprise.html", "learning.html", "course.html", "cooperate.html", "explore.html", "models.html", "xianfeng.html"):
+for f in ("index.html", "book.html", "builders.html", "outcomes.html", "enterprise.html", "learning.html", "course.html", "cooperate.html", "explore.html", "xianfeng.html"):
     p = os.path.join(SITE, f)
     if not os.path.exists(p):
         problems.append("包内缺少 %s" % f)

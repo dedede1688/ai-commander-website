@@ -70,9 +70,9 @@ assert.equal((book.match(/class="reading-route"/g) || []).length, 6);
 assert.ok(read('sitemap.xml').includes('/book.html</loc>'));
 assert.ok(read('sitemap.xml').includes('/outcomes.html</loc>'));
 assert.ok(home.includes('href="outcomes.html"'));
-/* 2026-11-02：工具与成果拆为「工具应用」「成果展示」两项导航，断言随导航定义同步。 */
-assert.ok(read('shared.js').includes('{ file: "outcomes.html#available", key: "tools", text: "工具应用" }'));
+/* 2026-11-06：17款模型速查下线，「工具应用」入口移除，导航为 7 项（用户确认）。 */
 assert.ok(read('shared.js').includes('{ file: "outcomes.html#systems", key: "outcomes", text: "成果展示" }'));
+assert.ok(!read('shared.js').includes('"工具应用"'), '工具应用入口应已移除');
 assert.ok(!/previews\/|noindex|本地预览|<base /.test(read('outcomes.html')), '成果页无预览残留');
 assert.ok(read('outcomes.html').includes('官网开放时间待定'));
 assert.ok(read('sitemap.xml').includes('/enterprise.html</loc>'));
