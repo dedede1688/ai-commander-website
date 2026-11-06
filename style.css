@@ -1661,7 +1661,7 @@ ul.plain {
   .shift-table th {
     white-space: normal;
   }
-  .shift-table th: nth-child(1),
+  .shift-table th:nth-child(1),
   .shift-table th:nth-child(2) {
     width: auto;
   }

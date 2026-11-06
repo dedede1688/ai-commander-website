@@ -276,6 +276,17 @@ body {
   color: var(--body);
   line-height: var(--lh-base);
   padding: 0 0 70px;
+  /* 准则 Touch & Interaction：禁掉移动端双击缩放的 300ms 疑似点击延迟，保留平移/捏合 */
+  touch-action: manipulation;
+}
+/* touch-action 不可继承：body 一条罩不住子元素命中区，交互元素显式覆盖 */
+a,
+button,
+summary,
+input,
+select,
+textarea {
+  touch-action: manipulation;
 }
 /* 注意：不要在 html 上写 scroll-behavior: smooth。
    它会把「刷新后恢复滚动位置」也变成从页顶平滑滚下来的动画，
@@ -687,6 +698,8 @@ h3:first-of-type {
   justify-content: center;
   padding: var(--space-7);
   cursor: pointer;
+  /* 弹层打开时阻断滚动链，防止背景页面跟着滚 */
+  overscroll-behavior: contain;
 }
 .qr-layer.on {
   display: flex;
@@ -721,8 +734,8 @@ h3:first-of-type {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 36px;
-  height: 36px;
+  width: var(--touch-target);
+  height: var(--touch-target);
   /* 批次 2：留出 1px 占位描边，hover 时转主色（透明边框不改变视觉） */
   border: 1px solid transparent;
   border-radius: 50%;
@@ -840,15 +853,22 @@ html {
     font-size: var(--fs-toggle);
     line-height: 1;
     cursor: pointer;
-    transition: all var(--duration-slow) var(--ease-out);
+    transition: background var(--duration-slow) var(--ease-out),
+      border-color var(--duration-slow) var(--ease-out),
+      color var(--duration-slow) var(--ease-out),
+      box-shadow var(--duration-slow) var(--ease-out);
   }
-  .menu-toggle: hover,
+  .menu-toggle:hover,
   .menu-toggle:focus-visible {
     background: var(--teal-toggle-hover);
-    outline: none;
+  }
+  /* 异-3 修复：键盘焦点用全站统一口径（见 .qr-close:focus-visible）补真焦点环 */
+  .menu-toggle:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
   }
   /* 抽屉遮罩 */
-  .nav-backdrop: not([hidden]) {
+  .nav-backdrop:not([hidden]) {
     display: block;
     position: fixed;
     inset: 0;
@@ -869,6 +889,8 @@ html {
     z-index: 100;
     max-height: calc(100vh - var(--nav-height));
     overflow-y: auto;
+    /* 抽屉滚动到底/顶时不把滚动链传给背景页面 */
+    overscroll-behavior: contain;
   }
   .nav-drawer[hidden] {
     display: none;
@@ -885,7 +907,10 @@ html {
     text-decoration: none;
     font-size: var(--fs-drawer-link);
     border-left: 3px solid transparent;
-    transition: all var(--duration-fast) var(--ease-out);
+    transition: background var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
     min-height: var(--touch-target); /* 移动端可点击区域 ≥ 44px（v2.1 4.1 规范）*/
   }
   .nav-drawer-inner a:hover,

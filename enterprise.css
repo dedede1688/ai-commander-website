@@ -50,7 +50,7 @@
 .pilot-panel ul { padding-left: var(--pad-card-md); font-size: var(--fs-xs); color: var(--grey-2); line-height: 1.95; }
 .pilot-panel li + li { margin-top: var(--space-3); }
 .module-details { border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); margin-top: var(--space-8); padding: var(--space-5) 0; }
-.module-details summary { color: var(--grey-1); cursor: pointer; font-size: var(--fs-sm); min-height: 30px; }
+.module-details summary { color: var(--grey-1); cursor: pointer; font-size: var(--fs-sm); min-height: 44px; }
 .module-list { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-2) var(--gap-6); list-style-position: inside; padding-top: var(--space-6); font-size: var(--fs-xs); color: var(--grey-2); }
 .module-details > p { font-size: var(--fs-tiny-2); color: var(--grey-3); margin-top: var(--space-6); }
 .service-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--gap-7); padding: var(--space-9) 0; border-bottom: 1px solid var(--border-subtle); scroll-margin-top: var(--nav-clear); }
@@ -91,7 +91,7 @@
 .scope-grid h3 { color: var(--navy); font-size: var(--fs-subtitle); margin-bottom: var(--space-5); }
 .scope-grid p { color: var(--muted); font-size: var(--fs-sm); line-height: 1.95; }
 .enterprise-faq details { border-top: 1px solid var(--border-subtle); padding: var(--space-6) 0; }
-.enterprise-faq summary { color: var(--grey-1); font-size: var(--fs-sm); font-weight: 700; min-height: 30px; cursor: pointer; }
+.enterprise-faq summary { color: var(--grey-1); font-size: var(--fs-sm); font-weight: 700; min-height: 44px; cursor: pointer; }
 .enterprise-faq details p { color: var(--muted); font-size: var(--fs-xs); line-height: 1.95; padding-top: var(--space-4); }
 .contact-section { background: var(--bg-tint); }
 .contact-hint { font-size: var(--fs-tiny-2); color: var(--grey-3); line-height: 1.95; }

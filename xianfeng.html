@@ -27,8 +27,8 @@
     <meta property="og:image:width" content="1672" />
     <meta property="og:image:height" content="941" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="stylesheet" href="base.css?v=21" />
-    <link rel="stylesheet" href="xianfeng.css?v=33" />
+    <link rel="stylesheet" href="base.css?v=22" />
+    <link rel="stylesheet" href="xianfeng.css?v=34" />
     <!-- 结构化数据：页面主体是活动说明，不是可直接购买的商品。
          优惠券的“0 元领取 + 凭券 98 元购书”无法用单一 Product/Offer 准确表达，
          按既定原则不硬套 CouponCode 或嵌套 Offer，只描述页面本身。 -->
@@ -50,10 +50,11 @@
     </script>
   </head>
   <body data-page="xianfeng">
+    <a class="skip-link" href="#main">跳到正文</a>
     <!-- 导航内容由 shared.js 统一注入（全站共享层），页面只保留空容器 -->
     <nav class="topnav" id="topnav"></nav>
 
-    <main class="xf-wrap">
+    <main class="xf-wrap" id="main">
       <!--首屏是整幅海报，页面标题以视觉隐藏的 h1 承载：
            海报本身已有「先锋，就位！」大字，再放一个可见标题会视觉打架，
            但搜索引擎与读屏软件仍需要一个明确的 h1 来说明本页主题。 -->
@@ -188,6 +189,8 @@
           <div class="xf-deadline">
             ⏰ 北京时间 2026 年 11 月 30 日 24:00 截止；到期后已领取未使用的券自动作废。
             <div class="xf-cd" id="xfCountdown">-- 天 -- 时 -- 分 -- 秒</div>
+            <!-- 终态一次性播报区：每秒 tick 不进 live region，只有倒计时结束才写入 -->
+            <span class="sr-only" id="xfCdLive" aria-live="polite"></span>
           </div>
 
           <button class="xf-btn xf-btn-main xf-btn-wide" data-xf-claim data-track="claim|click|领券按钮2">扫码进入小程序</button>
@@ -250,6 +253,6 @@
     ></div>
 
     <script src="shared.js?v=34"></script>
-    <script src="xianfeng.js?v=18"></script>
+    <script src="xianfeng.js?v=19"></script>
   </body>
 </html>

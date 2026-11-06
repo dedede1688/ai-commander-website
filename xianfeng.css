@@ -1065,7 +1065,7 @@
 }
 
 /* ---------- 二维码弹窗关闭按钮 ----------
-   与全站 style.css 的口径一致。本页只载入 base.css + 本文件，
+   尺寸沿用 base.css 令牌（44px 触达标准）；本页只载入 base.css + 本文件，
    base.css 没有 .qr-close 与 .qr-panel 的定位，所以在这里补齐。 */
 .qr-panel {
   position: relative;
@@ -1074,8 +1074,8 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 36px;
-  height: 36px;
+  width: var(--touch-target);
+  height: var(--touch-target);
   border: none;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.55);
@@ -1167,4 +1167,12 @@
 }
 .xf-expired .xf-btn-main {
   display: none !important;
+}
+
+/* 准则 Motion：prefers-reduced-motion 下停掉无限呼吸动画
+   （base.css 全局守卫只作用于 transition，覆盖不到此处的 keyframes 动画） */
+@media (prefers-reduced-motion: reduce) {
+  .xf-cd i {
+    animation: none;
+  }
 }

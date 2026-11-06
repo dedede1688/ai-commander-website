@@ -94,6 +94,9 @@
       var diff = CONFIG.deadline - new Date();
       if (diff <= 0) {
         cd.textContent = "活动已结束";
+        /* 终态一次性读屏播报（aria-live），每秒 tick 不触发 */
+        var live = document.getElementById("xfCdLive");
+        if (live) live.textContent = "先锋券活动已结束";
         disableClaimButtons();
         toggleExpiredClass();
         return;
