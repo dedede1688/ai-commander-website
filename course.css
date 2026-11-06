@@ -1,4 +1,4 @@
-/* ===== AI指挥官·个人AI指挥系统实战课（course.css v12，2026-11-06 再删 VALUE 与 PRICE & STATUS 两模块样式）=====
+/* ===== AI指挥官·个人AI指挥系统实战课（course.css v14，2026-11-06 修复十课卡悬停标题隐形）=====
    归位主站层次体系：首屏为嵌入式深蓝卡片 hero（.wrap 同宽、圆角 --radius-md、底色 --navy-d，
    参照 learning.css .learning-hero），hero 以下白底正文（区块底 --surface-tint、卡片纯白）。
    颜色/阴影/描边全部取自 base.css 批次 1/2 既有令牌（--surface-tint / --navy-line /
@@ -13,7 +13,13 @@
    .hero-card 7 行对仗），删师资行 .spec 系列；三标签下移、CTA+价格入分隔线横排区 .hero-bottom；
    正文 .block/.intro/.value 左侧 kicker 标签列取消改堆叠式（kicker 在标题正上方，标题通栏）。
    v12 删除 VALUE 与 PRICE & STATUS 两模块的全部样式（.value 系列/.status 系列/.price 系列/.slim-price/
-   .price-qr/.qr-fine）；新增 LESSONS 开头成果标准导语（.lessons-lead）。 */
+   .price-qr/.qr-fine）；新增 LESSONS 开头成果标准导语（.lessons-lead）。
+   v13 线上实测三修：① 头像与卡片顶缘增呼吸空间（img margin-top --space-7）；
+   ② 十课卡展开态标题用 --teal 标记当前卡（收起态仍白）；
+   ③ FAQ +/− 改为圆形描边控件（参照 .qr-close 语言），两态同青色、加大加粗。
+   v14 bug 修复：十课卡深蓝底却挂白底档位 tier-medium-on-light，base.css 两段
+   :hover h3 把悬停标题染成 --indigo-deep 叠深蓝底≈隐形；本页用三段选择器
+   强制悬停/展开任意态标题恒青，不改 base.css 公共层，FAQ 等白底卡蓝紫悬停不受影响。 */
 :root{
   /* 仅排版别名（非颜色）：等宽 kicker 与无衬线栈沿用 base.css 同款字体 */
   --sans: "Noto Sans SC","Microsoft YaHei",-apple-system,sans-serif;
@@ -110,6 +116,11 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 .meta i{font-style: normal;color: var(--teal)}
 .toggle{width: 38px;height: 38px;display: grid;place-items: center;color: var(--teal);border: 1px solid var(--teal-logo);border-radius: 50%;font-size: var(--fs-icon-md);font-weight: 400;transition: transform .25s,background .2s}
 .lesson[open] summary{background: var(--navy);box-shadow: inset 5px 0 0 var(--teal)}
+/* v13：展开态标题换青色，用颜色标记“当前展开的是这张卡”；收起态仍白 */
+.lesson[open] h3{color: var(--teal)}
+/* v14：深蓝底课程卡悬停时压过 base.css 白底档位的 :hover h3 蓝紫规则，悬停/展开任意态标题恒青 */
+.lesson.tier-medium-on-light:hover h3,
+.lesson[open].tier-medium-on-light:hover h3{color: var(--teal)}
 .lesson[open] .toggle{transform: rotate(45deg);background: var(--teal-toggle-hover)}
 
 .expand{padding: var(--space-10) var(--space-11) var(--space-11) 122px;border-top: 1px solid var(--border-base);background: var(--surface);cursor: default}
@@ -135,7 +146,7 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 
 /* ---------- 讲师 ---------- */
 .teacher-card{margin-top: var(--space-8);padding: var(--pad-card-lg);display: flex;gap: var(--gap-4);align-items: flex-start}
-.teacher-card img{width: 96px;height: 96px;object-fit: cover;border-radius: 50%;flex: 0 0 auto;border: 2px solid var(--teal-logo)}
+.teacher-card img{width: 96px;height: 96px;object-fit: cover;border-radius: 50%;flex: 0 0 auto;border: 2px solid var(--teal-logo);margin-top: var(--space-7)} /* v13：头像与卡片顶缘留呼吸空间 */
 .teacher-name{margin: 0;color: var(--navy);font-size: var(--fs-subtitle);font-weight: 800}
 .teacher-bio{margin: var(--space-3) 0 0;color: var(--grey-1);font-size: var(--fs-ui-md);line-height: 1.9}
 .teach-grid{margin-top: var(--space-5);display: grid;grid-template-columns: repeat(3,1fr);gap: var(--gap-3)}
@@ -149,8 +160,8 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 /* 通用 summary 的 68px 五列栅格仅属于课程卡；FAQ 标题需回到块级，否则文字被压进首列折行 */
 .faq-list summary{display:block;min-height: 0;padding: var(--space-6) var(--space-12) var(--space-6) var(--space-7);position: relative;color: var(--navy);font-size: var(--fs-ui-lg);font-weight: 800;line-height: 1.6;cursor: pointer;list-style: none;background: none}
 .faq-list summary::-webkit-details-marker{display: none}
-.faq-list summary::after{content: "＋";position: absolute;right: 18px;top: 50%;transform: translateY(-50%);color: var(--teal-accent);font-size: var(--fs-subtitle);transition: transform .2s}
-.faq-list details[open] summary::after{content: "－"}
+.faq-list summary::after{content: "+";position: absolute;right: 18px;top: 50%;transform: translateY(-50%);width: 28px;height: 28px;display: grid;place-items: center;border: 1px solid var(--border-strong);border-radius: 50%;color: var(--teal-accent);font-size: var(--fs-body);font-weight: 800;line-height: 1;transition: transform .2s}
+.faq-list details[open] summary::after{content: "−";color: var(--teal-accent)} /* v13：两态同色不转灰 */
 .faq-list summary:hover{background: var(--bg-tint)}
 .faq-list summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
 .faq-list details p{margin: 0;padding: 0 var(--space-7) var(--space-6);color: var(--grey-1);font-size: var(--fs-sm);line-height: 1.9;border-top: 0}
