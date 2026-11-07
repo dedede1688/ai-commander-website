@@ -1,5 +1,7 @@
 /* 公开成员资料的唯一维护入口。修改后运行 node tools/generate-members.cjs。
-   只存已公开资料，不加入私人联系方式或成员能力评价。 */
+   只存已公开资料，不加入私人联系方式或成员能力评价。
+   2026-11-06 供应链中心入口加 ?v= 防缓存（单页应用旧缓存 hash 导航永不重拉），现随子站更新至 ?v=4；
+   纪律：今后每次 supply-chain 子站数据更新，递增此处 ?v= 参数并同步手工维护的 member-wen-ni.html 胶囊链接。 */
 (function (root, factory) {
   if (typeof module === "object" && module.exports) module.exports = factory();
   else root.AI_COMMANDER_MEMBERS = factory();
@@ -216,7 +218,7 @@
       "viewpoint": "以卓越品质、服务至上为理念，推动产业智能化、品牌化，让中国智造走向世界",
       "group": "大健康·生活服务",
       "links": [
-        { "label": "供应链中心", "href": "supply-chain/" }
+        { "label": "供应链中心", "href": "supply-chain/?v=4" }
       ]
     },
     {
