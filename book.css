@@ -28,7 +28,9 @@
   padding: var(--space-3) var(--space-4);
   border: 1px solid var(--nav-line);
   border-radius: var(--radius-sm);
-  background: var(--fill-on-dark);
+  /* 压在首屏底图上的半透明芯片：浅底填充（--fill-on-dark）遇底图亮区时，12px/700 的 b 与
+     11.5px 的 span 被压到 4.39:1 / 3.91:1，不达 AA 4.5:1。改用既有暗遮罩令牌，实测 10.1–12.3:1。 */
+  background: var(--backdrop);
 }
 .book-page .hero-pain-item b {
   display: block;

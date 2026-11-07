@@ -31,8 +31,8 @@ const warn = (m) => warns.push(m);
    补齐照片后再从这里移除，校验会自动重新变严，
    防止「照片补了但忘了提交」这种问题溜上线。
 
-   页面侧始终有降级：照片取不到时渲染「姓氏首字 + 深蓝底」占位卡
-   （script.js 的 initialsOf + .rc-photo-fallback），不会出现浏览器破图标。*/
+   旧名录页另有照片降级：照片取不到时渲染「姓氏首字 + 深蓝底」占位卡
+   （由 script.js 的 initialsOf + .rc-photo-fallback 提供，两者已归档 docs/archive/）。*/
 const OPTIONAL_ASSETS = new Set();
 
 /** 文件不在仓库里时，是否属于「已知可缺失素材」 */
@@ -93,7 +93,7 @@ if (seatNums.length) {
      缺失    新增席位时忘了填，或字段位置被改坏
      重复    两人同名会撞 URL，其中一人的分享链接会指向错误的人
      格式    必须是小写字母/数字/连字符，且不含中文、空格、下划线、大写
-   格式约定见 script.js 里P 数组上方的 SLUG_RULE。 */
+   格式约定见 docs/archive/2026-11-07-script-legacy.js 里 P 数组上方的 SLUG_RULE。 */
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const slugSeen = new Map();
 people.forEach((p) => {
@@ -149,7 +149,6 @@ const scanFiles = [
   "index.html",
   "xianfeng.html",
   "shared.js",
-  "script.js",
   "xianfeng.js",
   "base.css",
   "style.css",

@@ -41,12 +41,16 @@
   width: 100%;
   height: auto;
 }
-/* 按钮热区：平时透明，悬停泛青光提示可点 */
+/* 按钮热区：平时透明，悬停泛青光提示可点
+   尺寸用 %-height 压在海报上，窄屏会缩到 21px 高；这里兜到 24px 触达下限（WCAG 2.2 AA），
+   只放大不可见热区，海报视觉与定位百分比不动。 */
 .xf-hot {
   position: absolute;
   border: none;
   background: transparent;
   padding: 0;
+  min-width: 24px;
+  min-height: 24px;
   border-radius: var(--radius-pill);
   cursor: pointer;
   transition: background 0.16s,

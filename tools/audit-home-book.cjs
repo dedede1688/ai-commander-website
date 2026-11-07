@@ -151,7 +151,19 @@ assert.ok(!home.includes('src="script.js'), '精简首页不加载旧名录的�
 for (const file of fs.readdirSync(root).filter(f => /^member-.*\.html$/.test(f))) {
   assert.ok(/class="action mp-back" href="builders.html#members"/.test(read(file)), `${file}: 返回入口应直达完整名录`);
 }
-const source = read('script.js');
+/* script.js 已于刀6归档（发布面不再加载它）。这里保留它的「记住滚动位置」代码段作为回归夹具，
+   归档件按 SHA 锁死，任何人改动归档都会在这里报错——与上面 explore 归档同一口径。 */
+const SCRIPT_ARCHIVE = 'docs/archive/2026-11-07-script-legacy.js';
+const SCRIPT_ARCHIVE_SHA256 = 'FEEBBA3E30163082B9A896F4AE711A53DC76A9C5A9DCE66C44C37338F7142C02';
+assert.ok(fs.existsSync(path.join(root, SCRIPT_ARCHIVE)), '滚动恢复回归夹具归档必须存在：' + SCRIPT_ARCHIVE);
+const scriptBytes = fs.readFileSync(path.join(root, SCRIPT_ARCHIVE));
+const scriptHash = crypto
+  .createHash('sha256')
+  .update(Buffer.from(toLF(scriptBytes.toString('utf8')), 'utf8'))
+  .digest('hex')
+  .toUpperCase();
+assert.equal(scriptHash, SCRIPT_ARCHIVE_SHA256, '归档文件内容须保持不变（按 LF 归一化比对）');
+const source = toLF(scriptBytes.toString('utf8'));
 const restoration = source.slice(source.indexOf('/* ===== 记住滚动位置'), source.indexOf('/* ===== 全站弹窗频控'));
 const scrollCalls = [];
 require('node:vm').runInNewContext(restoration, {

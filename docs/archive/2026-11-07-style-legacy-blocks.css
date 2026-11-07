@@ -1,0 +1,880 @@
+/* 刀6 死代码归档副本（2026-11-07）
+   来源：style.css 中「归档遗留区块」——.rc / .mclose / .ad-box / .ad-profile / .m-link /
+   .poster-* / .rpt-cta-* / .tool-link / .community-tag(s) / .business-card / .shift-table
+   及相关 @keyframes（adPop / posterRise / posterHalfL / posterHalfR）。
+   判定依据：33 个线上页面 + 现存 CSS/JS + supply-chain 子站全链 0 引用（script.js 同批归档）。
+   本副本仅供回溯，不参与发布，不加载。 */
+
+/* ==== 原 style.css:117-124 ==== */
+.rpt-cta {
+  display: flex;
+  gap: var(--gap-3);
+  margin-top: var(--space-7);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==== 原 style.css:125-140 ==== */
+.rpt-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  padding: var(--space-5) var(--space-8);
+  font-size: var(--fs-ui-md);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--navy-d);
+  background: var(--teal);
+  border: 1px solid var(--teal);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 237, 189, 0.32);
+}
+
+/* ==== 原 style.css:141-146 ==== */
+.rpt-cta-primary:hover {
+  background: #00cba3;
+  color: var(--navy-d);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 237, 189, 0.5);
+}
+
+/* ==== 原 style.css:147-161 ==== */
+.rpt-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-1);
+  padding: var(--space-5) var(--space-8);
+  font-size: var(--fs-ui-md);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--teal);
+  background: transparent;
+  border: 1.5px solid rgba(0, 237, 189, 0.55);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+/* ==== 原 style.css:162-167 ==== */
+.rpt-cta-secondary:hover {
+  background: rgba(0, 237, 189, 0.14);
+  border-color: var(--teal);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* ==== 原 style.css:760-769 ==== */
+.rc {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-4) var(--space-5);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.18s;
+  background: var(--surface);
+  position: relative;
+}
+
+/* ==== 原 style.css:770-774 ==== */
+.rc:hover {
+  border-color: var(--teal-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 163, 127, 0.16);
+}
+
+/* ==== 原 style.css:775-777 ==== */
+.rc:hover .rc-photo {
+  box-shadow: 0 0 0 3px rgba(0, 237, 189, 0.35);
+}
+
+/* ==== 原 style.css:778-790 ==== */
+.rc-photo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  margin: 0 auto var(--space-4);
+  display: block;
+  background: var(--bg-page);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px #dde3ec;
+  transition: box-shadow 0.18s;
+}
+
+/* ==== 原 style.css:791-806 ==== */
+/* 照片缺失时的占位首字卡：与 .rc-photo 同尺寸同形状，视觉上不留空缺 */
+.rc-photo-fallback {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  margin: 0 auto var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  color: var(--white);
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-d) 100%);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px #dde3ec;
+}
+
+/* ==== 原 style.css:807-812 ==== */
+.rc-seat {
+  font-family: Consolas, monospace;
+  font-size: var(--fs-tiny-7);
+  color: var(--teal-accent);
+  letter-spacing: 1px;
+}
+
+/* ==== 原 style.css:813-819 ==== */
+.rc-name {
+  font-size: var(--fs-ui-sm);
+  font-weight: 700;
+  color: var(--navy);
+  margin: var(--space-0) 0 var(--space-1);
+  letter-spacing: 0.3px;
+}
+
+/* ==== 原 style.css:820-825 ==== */
+.rc-tag {
+  font-size: var(--fs-tiny-5);
+  color: var(--grey-4);
+  line-height: 1.4;
+  min-height: 28px;
+}
+
+/* ==== 原 style.css:826-831 ==== */
+.rc-hint {
+  font-size: var(--fs-tiny-6);
+  color: var(--on-dark-2);
+  margin-top: var(--space-2);
+  letter-spacing: 0.5px;
+}
+
+/* ==== 原 style.css:832-844 ==== */
+.rc.new::after {
+  content: "新";
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 19px;
+  height: 19px;
+  background: var(--teal-accent);
+  color: var(--white);
+  border-radius: 50%;
+  font-size: var(--fs-tiny-6);
+  line-height: 19px;
+}
+
+/* ==== 原 style.css:873-881 ==== */
+.mclose {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: var(--fs-icon-md);
+  color: var(--on-dark-2);
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ==== 原 style.css:882-884 ==== */
+.mclose:hover {
+  color: var(--alert-border);
+}
+
+/* ==== 原 style.css:957-978 ==== */
+/* ---- 手动详情弹窗（浅底）----
+   与 .rc 名录卡片视觉统一：默认浅灰边 + 白底，hover 卡片青绿边 + 阴影抬起 */
+.m-link {
+  display: flex;            /* block-level，让 margin-left: auto 生效推右 */
+  align-items: center;
+  gap: var(--gap-2);
+  margin-top: var(--space-7);
+  margin-left: auto;        /* 推到弹窗右端，与正文右边缘对齐 */
+  width: fit-content;       /* 不强制拉伸，配合 margin-left: auto */
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--navy);
+  background: var(--surface);
+  /* 卡片默认浅灰细边框 + 白底 */
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  /* 复用 .rc 卡片 transition all 0.18s */
+  transition: all 0.18s;
+}
+
+/* ==== 原 style.css:979-986 ==== */
+.m-link:hover {
+  /* 复用 .rc 卡片 hover：青绿边框 + 抬起 + 青绿阴影 */
+  border-color: var(--teal-accent);
+  color: var(--navy);
+  background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 163, 127, 0.16);
+}
+
+/* ==== 原 style.css:987-992 ==== */
+.m-link-arrow {
+  font-style: normal;
+  font-size: var(--fs-ui-lg);
+  line-height: 1;
+  transition: transform 0.16s;
+}
+
+/* ==== 原 style.css:993-995 ==== */
+.m-link:hover .m-link-arrow {
+  transform: translateX(3px);
+}
+
+/* ==== 原 style.css:996-1000 ==== */
+/* 探测确认个人页尚未生成时不渲染按钮（script.js 会设 hidden） */
+.m-link[hidden],
+.ad-profile[hidden] {
+  display: none;
+}
+
+/* ==== 原 style.css:1002-1023 ==== */
+/* ---- 自动宣传弹窗（深底）----
+   与 .rc 名录卡片视觉统一：默认浅灰边 + 白底，hover 卡片青绿边 + 阴影抬起 */
+.ad-profile {
+  display: flex;            /* block-level，让 margin-left: auto 生效 */
+  align-items: center;
+  gap: var(--gap-2);
+  margin-top: var(--space-5);
+  margin-left: auto;        /* 推到弹窗右端 */
+  width: fit-content;
+  padding: var(--space-3) var(--space-8);
+  font-size: var(--fs-ui-sm);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--navy);
+  background: var(--surface);
+  /* 卡片默认浅灰细边框 + 白底（与 .m-link 完全统一） */
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  /* 复用 .rc 卡片 transition all 0.18s */
+  transition: all 0.18s;
+}
+
+/* ==== 原 style.css:1024-1031 ==== */
+.ad-profile:hover {
+  /* 复用 .rc 卡片 hover：青绿边框 + 抬起 + 青绿阴影 */
+  border-color: var(--teal-accent);
+  color: var(--navy);
+  background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 163, 127, 0.16);
+}
+
+/* ==== 原 style.css:1032-1037 ==== */
+.ad-profile-arrow {
+  font-style: normal;
+  font-size: var(--fs-sm);
+  line-height: 1;
+  transition: transform 0.16s;
+}
+
+/* ==== 原 style.css:1038-1040 ==== */
+.ad-profile:hover .ad-profile-arrow {
+  transform: translateX(3px);
+}
+
+/* ==== 原 style.css:1242-1244 ==== */
+.rc-seat {
+  font-size: var(--fs-tiny-2);
+}
+
+/* ==== 原 style.css:1245-1247 ==== */
+.rc-name {
+  font-size: 15.5px;
+}
+
+/* ==== 原 style.css:1248-1250 ==== */
+.rc-tag {
+  font-size: var(--fs-tiny-1);
+}
+
+/* ==== 原 style.css:1251-1253 ==== */
+.rc-hint {
+  font-size: var(--fs-tiny-2);
+}
+
+/* ==== 原 style.css:1254-1256 ==== */
+.rc.new::after {
+  font-size: var(--fs-tiny-2);
+}
+
+/* ==== 原 style.css:1257-1259 ==== */
+.mclose {
+  font-size: var(--fs-icon-lg);
+}
+
+/* ==== 原 style.css:1282-1285 ==== */
+/* ===== 移动端适配 ===== */
+.shift-table th:nth-child(1) {
+  width: 120px;
+}
+
+/* ==== 原 style.css:1286-1288 ==== */
+.shift-table th:nth-child(2) {
+  width: 200px;
+}
+
+/* ==== 原 style.css:1860-1877 ==== */
+/* ===== 广告弹窗 ===== */
+.ad-box {
+  position: relative;
+  background: linear-gradient(140deg, #3544a8 0%, #1a2470 46%, #0a1236 100%);
+  border-radius: var(--radius-lg);
+  max-width: 420px;
+  width: 100%;
+  padding: var(--space-9) var(--space-9) var(--space-8);
+  text-align: center;
+  cursor: pointer; /* 点击任意位置进入二维码 */
+  box-shadow: inset 0 0 0 1.2px rgba(0, 237, 189, 0.38),
+    inset 0 0 34px rgba(0, 237, 189, 0.07),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  will-change: transform, opacity;
+  transition: transform 0.5s cubic-bezier(0.55, 0, 0.85, 0.36),
+    opacity 0.45s ease-in 0.08s;
+}
+
+/* ==== 原 style.css:1878-1882 ==== */
+/* 退场：整体缩飞进导航栏「AI 大礼包」按钮 */
+.ad-box.ad-away {
+  transform: translate(var(--fly-x, 0), var(--fly-y, 0)) scale(0.06);
+  opacity: 0;
+}
+
+/* ==== 原 style.css:1883-1892 ==== */
+.ad-box::before {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 160px;
+  height: 160px;
+  border: 1px solid rgba(0, 237, 189, 0.25);
+  border-radius: 50%;
+}
+
+/* ==== 原 style.css:1893-1906 ==== */
+/* 左侧书脊，让弹窗本身像一本书 */
+.ad-box::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(255, 255, 255, 0.06)
+  );
+}
+
+/* ==== 原 style.css:1907-1910 ==== */
+/* 出场动画 */
+#adModal.on .ad-box {
+  animation: adPop 0.22s ease-out;
+}
+
+/* ==== 原 style.css:1911-1920 ==== */
+@keyframes adPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== 原 style.css:2013-2017 ==== */
+/* 广告弹窗内的关闭按钮（mclose 默认浅灰，深色底上提亮） */
+#adModal .mclose {
+  color: rgba(255, 255, 255, 0.72);
+  z-index: 2;
+}
+
+/* ==== 原 style.css:2018-2020 ==== */
+#adModal .mclose:hover {
+  color: var(--white);
+}
+
+/* ==== 原 style.css:2050-2061 ==== */
+/* ===== 国庆海报弹窗 ===== */
+.poster-box {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #0a1236;
+  box-shadow: inset 0 0 0 1.2px rgba(0, 237, 189, 0.38),
+    0 24px 70px rgba(0, 0, 0, 0.5);
+  will-change: transform, opacity;
+}
+
+/* ==== 原 style.css:2062-2065 ==== */
+/* 入场动画「明月升起」：从下方上浮 + 放大，带轻微回弹过冲 */
+#posterModal.on .poster-box {
+  animation: posterRise 0.64s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ==== 原 style.css:2066-2075 ==== */
+@keyframes posterRise {
+  from {
+    opacity: 0;
+    transform: translateY(56px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==== 原 style.css:2076-2081 ==== */
+/* 分屏合拢轮播：每张海报拆为左右两半，入场时从屏幕两侧同时向中间滑动合拢 */
+.poster-track {
+  position: relative;
+  aspect-ratio: 1672 / 941;
+  overflow: hidden;
+}
+
+/* ==== 原 style.css:2082-2087 ==== */
+.poster-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==== 原 style.css:2088-2091 ==== */
+.poster-slide.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==== 原 style.css:2092-2095 ==== */
+.poster-slide.out {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* ==== 原 style.css:2123-2131 ==== */
+/* 入场动画：左半从屏幕左缘、右半从屏幕右缘向中间缓慢合拢 */
+@keyframes posterHalfL {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ==== 原 style.css:2132-2139 ==== */
+@keyframes posterHalfR {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ==== 原 style.css:2140-2142 ==== */
+.poster-slide.on .hl {
+  animation: posterHalfL 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+/* ==== 原 style.css:2143-2145 ==== */
+.poster-slide.on .hr {
+  animation: posterHalfR 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+/* ==== 原 style.css:2146-2158 ==== */
+.poster-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  z-index: 2;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--fs-icon-lg);
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+/* ==== 原 style.css:2159-2161 ==== */
+.poster-close:hover {
+  color: var(--white);
+}
+
+/* ==== 原 style.css:2162-2177 ==== */
+.poster-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(10, 18, 54, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--fs-icon-lg);
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+/* ==== 原 style.css:2178-2180 ==== */
+.poster-nav:hover {
+  background: rgba(10, 18, 54, 0.85);
+}
+
+/* ==== 原 style.css:2181-2183 ==== */
+.poster-prev {
+  left: 12px;
+}
+
+/* ==== 原 style.css:2184-2186 ==== */
+.poster-next {
+  right: 12px;
+}
+
+/* ==== 原 style.css:2187-2196 ==== */
+.poster-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-2);
+  z-index: 2;
+}
+
+/* ==== 原 style.css:2197-2203 ==== */
+.poster-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.15s;
+}
+
+/* ==== 原 style.css:2204-2206 ==== */
+.poster-dot.on {
+  background: var(--teal);
+}
+
+/* ==== 原 style.css:3353-3365 ==== */
+.tool-link {
+  display: inline-block;
+  margin-top: var(--space-5);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: #008a6d;
+  text-decoration: none;
+  padding: var(--space-2) var(--space-6);
+  border: 1.5px solid #00a37f;
+  border-radius: var(--radius-lg);
+  transition: all 0.18s ease;
+  align-self: flex-start;
+}
+
+/* ==== 原 style.css:3366-3369 ==== */
+.tool-link:hover {
+  background: #00a37f;
+  color: var(--white);
+}
+
+/* ==== 原 style.css:3536-3542 ==== */
+.community-tags {
+  display: flex;
+  justify-content: center;
+  gap: var(--gap-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+/* ==== 原 style.css:3543-3553 ==== */
+.community-tag {
+  display: inline-block;
+  padding: var(--space-3) var(--space-7);
+  font-size: var(--fs-ui-sm);
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  transition: all 0.18s;
+}
+
+/* ==== 原 style.css:3554-3559 ==== */
+.community-tag:hover {
+  border-color: var(--teal-accent);
+  color: var(--navy);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 163, 127, 0.12);
+}
+
+/* ==== 原 style.css:3615-3622 ==== */
+.business-card {
+  text-align: left;
+  padding: var(--pad-card-sm) var(--space-5);
+  background: var(--bg-tint);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: all 0.18s;
+}
+
+/* ==== 原 style.css:3623-3627 ==== */
+.business-card:hover {
+  border-color: var(--teal-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 163, 127, 0.1);
+}
+
+/* ==== 原 style.css:3634-3640 ==== */
+.business-card h3 {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 var(--space-1);
+  line-height: 1.3;
+}
+
+/* ==== 原 style.css:3641-3646 ==== */
+.business-card p {
+  font-size: var(--fs-tiny-1);
+  color: var(--grey-3);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==== 第二轮：@media 内嵌套区块（原行号见各条标记） ==== */
+
+/* ==== 原 style.css(第二轮前):330-334 @media 内 ==== */
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    padding: var(--space-4) var(--space-7);
+    font-size: var(--fs-sm);
+  }
+
+/* ==== 原 style.css(第二轮前):813-816 @media 内 ==== */
+  .m-link {
+    width: fit-content;
+    justify-content: center;
+  }
+
+/* ==== 原 style.css(第二轮前):817-820 @media 内 ==== */
+  .ad-profile {
+    width: fit-content;
+    justify-content: center;
+  }
+
+/* ==== 原 style.css(第二轮前):1074-1076 @media 内 ==== */
+  .rpt-cta {
+    margin-top: var(--space-6);
+  }
+
+/* ==== 原 style.css(第二轮前):1077-1083 @media 内 ==== */
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    padding: var(--space-5) var(--space-8);
+    font-size: var(--fs-sm);
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+/* ==== 原 style.css(第二轮前):1216-1220 @media 内 ==== */
+  .rpt-cta {
+    flex-direction: column;
+    margin-top: var(--space-5);
+    gap: var(--gap-2);
+  }
+
+/* ==== 原 style.css(第二轮前):1221-1226 @media 内 ==== */
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    width: 100%;
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--fs-ui-sm);
+  }
+
+/* ==== 原 style.css(第二轮前):1256-1259 @media 内 ==== */
+  .rpt-cta {
+    margin-top: var(--space-5);
+    gap: var(--gap-2);
+  }
+
+/* ==== 原 style.css(第二轮前):1260-1264 @media 内 ==== */
+  .rpt-cta-primary,
+  .rpt-cta-secondary {
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--fs-tiny-1);
+  }
+
+/* ==== 原 style.css(第二轮前):1345-1347 @media 内 ==== */
+  .rc {
+    padding: var(--space-5) var(--space-3) var(--space-4);
+  }
+
+/* ==== 原 style.css(第二轮前):1348-1352 @media 内 ==== */
+  .rc-photo {
+    width: 64px;
+    height: 64px;
+    margin-bottom: var(--space-3);
+  }
+
+/* ==== 原 style.css(第二轮前):1353-1355 @media 内 ==== */
+  .rc-name {
+    font-size: var(--fs-ui-lg);
+  }
+
+/* ==== 原 style.css(第二轮前):1356-1359 @media 内 ==== */
+  .rc-tag {
+    font-size: var(--fs-tiny-2);
+    min-height: 26px;
+  }
+
+/* ==== 原 style.css(第二轮前):1398-1400 @media 内 ==== */
+  .shift-table {
+    font-size: var(--fs-ui-sm);
+  }
+
+/* ==== 原 style.css(第二轮前):1401-1404 @media 内 ==== */
+  .shift-table th,
+  .shift-table td {
+    padding: var(--space-3) var(--space-2);
+  }
+
+/* ==== 原 style.css(第二轮前):1405-1407 @media 内 ==== */
+  .shift-table th {
+    white-space: normal;
+  }
+
+/* ==== 原 style.css(第二轮前):1408-1411 @media 内 ==== */
+  .shift-table th:nth-child(1),
+  .shift-table th:nth-child(2) {
+    width: auto;
+  }
+
+/* ==== 原 style.css(第二轮前):1699-1701 @media 内 ==== */
+  .ad-box {
+    padding: var(--space-8) var(--space-7) var(--space-7);
+  }
+
+/* ==== 原 style.css(第二轮前):1754-1758 @media 内 ==== */
+  .poster-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 22px;
+  }
+
+/* ==== 原 style.css(第二轮前):1759-1761 @media 内 ==== */
+  .poster-prev {
+    left: 6px;
+  }
+
+/* ==== 原 style.css(第二轮前):1762-1764 @media 内 ==== */
+  .poster-next {
+    right: 6px;
+  }
+
+/* ==== 原 style.css(第二轮前):1765-1769 @media 内 ==== */
+  .poster-close {
+    top: 6px;
+    right: 8px;
+    font-size: var(--fs-title);
+  }
+
+/* ==== 原 style.css(第二轮前):3073-3075 @media 内 ==== */
+  .community-tags {
+    gap: var(--gap-2);
+  }
+
+/* ==== 原 style.css(第二轮前):3076-3079 @media 内 ==== */
+  .community-tag {
+    padding: var(--space-2) var(--space-6);
+    font-size: var(--fs-xs);
+  }
+
+/* ==== 原 style.css(第二轮前):3084-3088 @media 内 ==== */
+  .community-tags {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-2);
+  }
+
+/* ==== 原 style.css(第二轮前):3089-3093 @media 内 ==== */
+  .community-tag {
+    width: 100%;
+    max-width: 240px;
+    text-align: center;
+  }
+
+/* ==== 原 style.css(第二轮前):3146-3148 @media 内 ==== */
+  .business-card {
+    padding: var(--space-5) var(--space-5);
+  }
+
+/* ==== 原 style.css(第二轮前):812-821 内容清空后一并移除的 @media ==== */
+@media (max-width: 480px) {
+  .m-link {
+    width: fit-content;
+    justify-content: center;
+  }
+  .ad-profile {
+    width: fit-content;
+    justify-content: center;
+  }
+}
+
+/* ==== 原 style.css(第二轮前):1753-1770 内容清空后一并移除的 @media ==== */
+@media (max-width: 480px) {
+  .poster-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 22px;
+  }
+  .poster-prev {
+    left: 6px;
+  }
+  .poster-next {
+    right: 6px;
+  }
+  .poster-close {
+    top: 6px;
+    right: 8px;
+    font-size: var(--fs-title);
+  }
+}
+
+/* ==== 原 style.css(第二轮前):3072-3080 内容清空后一并移除的 @media ==== */
+@media (max-width: 768px) {
+  .community-tags {
+    gap: var(--gap-2);
+  }
+  .community-tag {
+    padding: var(--space-2) var(--space-6);
+    font-size: var(--fs-xs);
+  }
+}
