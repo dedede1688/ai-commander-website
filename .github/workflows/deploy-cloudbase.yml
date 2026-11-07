@@ -29,6 +29,9 @@ jobs:
           node tools/check-release.cjs
 
       # 只打包真正要上线的文件
+      # supply-chain 子站纪律：单页应用旧缓存会使 hash 导航永不重拉数据，
+      # 入口链接统一为 supply-chain/?v=N（见 member-data.js / member-wen-ni.html）。
+      # 每次子站数据更新必须递增 N，参数变更即强制浏览器全新加载。
       - name: Stage site files
         run: |
           mkdir -p _site
@@ -86,7 +89,20 @@ jobs:
           fi
           echo "部署目标环境：$TCB_ENV_ID"
           tcb login --apiKeyId ${{ secrets.TCB_SECRET_ID }} --apiKey ${{ secrets.TCB_SECRET_KEY }}
-          tcb hosting deploy _site --env-id "$TCB_ENV_ID"
+          # 跨境上传偶发 socket hang up / 重试耗尽（历史 3 次：#90/#42374585134×2）。
+          # tcb hosting deploy 为增量幂等，失败重跑只补传缺失文件，故最多尝试 3 次；
+          # 单次 GNU timeout 1500 秒（25 分钟）防挂死。
+          for i in 1 2 3; do
+            echo "===== CloudBase 上传尝试 $i/3 ====="
+            if timeout 1500 tcb hosting deploy _site --env-id "$TCB_ENV_ID"; then
+              echo "===== 上传成功（第 $i 次尝试）====="
+              exit 0
+            fi
+            echo "===== 第 $i 次尝试失败 ====="
+            [ $i -lt 3 ] && sleep 120
+          done
+          echo "::error::CloudBase 上传连续 3 次失败（含跨轮重试均耗尽）"
+          exit 1
 
       # 增量部署不会删除线上多余文件，这里清理已下线的历史残留（幂等）。
       # 新增下线页面时往列表追加路径；确认清完后可整块删除本步骤。
