@@ -36,6 +36,9 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js *.css _site/
+          # member-data.js 是 dev-only 数据源（audit-members / audit-home-book 断言它不得被任何页面加载，
+          # 33 页 0 引用），发布面无需下发——刀8 裁决：排除出发布包。
+          rm -f _site/member-data.js
           cp robots.txt sitemap.xml CNAME _site/ 2>/dev/null || true
           cp -r 素材 _site/素材 2>/dev/null || true
           cp -r supply-chain _site/supply-chain

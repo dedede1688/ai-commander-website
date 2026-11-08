@@ -38,7 +38,8 @@ a{color: inherit}
 .hero-main{min-width: 0}
 /* 课程档案卡（方案 A 右栏）：深底半透卡片，7 行“项目｜数值”对仗 */
 .hero-card{align-self: center;min-width: 0;padding: var(--space-7);background: var(--fill-on-dark);border: 1px solid var(--nav-line);border-radius: var(--radius-md)}
-.hero-card h4{margin: 0 0 var(--space-6);color: var(--teal);font-size: var(--fs-tiny-2);font-weight: 800;letter-spacing: .14em}
+/* 刀8：档案卡标题由 h4 升为 h2（消 h1→h4 跳级），显式抵消 base.css 裸 h2 的左边框/缩进行高，保持观感不变 */
+.hero-card h2{margin: 0 0 var(--space-6);color: var(--teal);font-size: var(--fs-tiny-2);font-weight: 800;letter-spacing: .14em;padding-left: 0;border-left: 0;line-height: var(--lh-base)}
 .hero-card .row{display: flex;justify-content: space-between;align-items: baseline;gap: var(--gap-3);padding: var(--space-4) 0;border-bottom: 1px dashed var(--nav-line);font-size: var(--fs-xs);line-height: 1.6}
 .hero-card .row:last-child{border-bottom: 0}
 .hero-card .row span{flex: 0 0 auto;color: var(--on-dark-2)}

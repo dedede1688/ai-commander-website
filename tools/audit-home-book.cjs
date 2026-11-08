@@ -41,7 +41,11 @@ assert.equal((book.match(/data-army-unit="model"/g) || []).length, 2, '按书稿
 assert.equal((book.match(/data-army-unit="specialist"/g) || []).length, 4, '展示图像、视频、语音和自动化四类特种兵');
 for (const id of ['part-04', 'part-06']) assert.ok(book.includes(`id="${id}"`), '卡片能跳至实际所属篇章');
 const bodies = text => [...text.matchAll(/<div class="bk2-chap-body">([\s\S]*?)<\/div>/g)].map(m => m[1].trim());
-assert.deepEqual(bodies(book), bodies(original), '八篇完整正文不得在迁移时丢失');
+/* 刀8 §六-5 文案小刀：正文守卫比对前先把成对英文直引号归一为「」。
+   该断言防的是「迁移时正文丢失」，不是「标点不得改进」；归一后任何真实增删仍会失败。
+   归档件 docs/archive/2026-10-22-explore-legacy.html 是锁定哈希的证据，不得改写。 */
+const normQuote = s => s.replace(/(^|[^=\w]*)"([^<>\n"]{1,80})"(?![\w=])/g, '$1「$2」');
+assert.deepEqual(bodies(book).map(normQuote), bodies(original).map(normQuote), '八篇完整正文不得在迁移时丢失');
 for (const [name, html] of [['index.html', home], ['book.html', book], ['outcomes.html', read('outcomes.html')], ['enterprise.html', read('enterprise.html')], ['learning.html', read('learning.html')], ['cooperate.html', read('cooperate.html')], ['xianfeng.html', read('xianfeng.html')]]) {
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${name} 仅一个主标题`);
   assert.ok(html.includes('<main'), `${name} 有主体语义`);

@@ -44,6 +44,8 @@
 
 
 :root {
+  /* 刀8 准则 Visual：全站浅底，显式声明配色，避免强制深色插件把表单控件/滚动条反色 */
+  color-scheme: light;
   /* ============================================================
      排版令牌体系（批次 1 收敛）
      基准页：index.html
@@ -278,7 +280,12 @@ body {
   background: var(--bg-page);
   color: var(--body);
   line-height: var(--lh-base);
-  padding: 0 0 70px;
+  /* 刀8 准则 Viewport：viewport-fit=cover 已全站就位，底部与两侧按安全区兜底，普通机型 env() 取 0px 即布局不变。
+     顶部不在此补——sticky 导航的 top:0 只跟视口，要补得改导航本体，另刀处理。 */
+  padding: 0 env(safe-area-inset-right, 0px) calc(70px + env(safe-area-inset-bottom, 0px)) env(safe-area-inset-left, 0px);
+  /* 刀8 准则 Touch：浅底站点无需系统灰闪块（默认 rgba(0,0,0,.18)），点按反馈由三级 hover/:active 体系承担。
+     该属性可继承，body 一条罩全站。 */
+  -webkit-tap-highlight-color: transparent;
   /* 准则 Touch & Interaction：禁掉移动端双击缩放的 300ms 疑似点击延迟，保留平移/捏合 */
   touch-action: manipulation;
 }
@@ -531,7 +538,8 @@ button.tier-medium-on-light:hover {
   border-color: var(--indigo-deep) !important;
   box-shadow: var(--shadow-light) !important;
 }
-/* 标题与文字悬停变品牌蓝紫 */
+/* 标题与文字悬停变品牌蓝紫（刀8：企业页四方向卡标题升为 h2，此处同批覆盖） */
+.tier-medium-on-light:hover h2,
 .tier-medium-on-light:hover h3,
 .tier-medium-on-light:hover .blueprint-top {
   color: var(--indigo-deep);

@@ -841,6 +841,8 @@
   margin-top: var(--space-3);
   color: #8a5d00;
   font-family: Consolas, monospace;
+  /* 刀8 准则 Text：等宽数字，秒位跳变时块宽不再抖；Consolas 兜底之外的字体也稳 */
+  font-variant-numeric: tabular-nums;
 }
 /* 数字底块：加描边 + 呼吸辉光，让倒计时在浅色金块里更跳 */
 .xf-cd i {

@@ -25,7 +25,8 @@
 .hero-directions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-3); align-content: start; }
 .hero-direction { display: block; min-width: 0; padding: var(--space-5); background: var(--surface); border: 1px solid var(--navy-line); border-radius: var(--radius-sm); text-decoration: none; }
 .hero-direction span { display: block; margin-bottom: var(--space-3); font-family: Consolas, monospace; font-size: var(--fs-tiny-2); color: var(--gold-deep); }
-.hero-direction h3 { font-size: var(--fs-body); line-height: 1.6; color: var(--navy); margin-bottom: var(--space-2); }
+/* 刀8：四方向卡标题由 h3 升为 h2（消 h1→h3 跳级），显式抵消 base.css 裸 h2 的左边框/缩进/字距 */
+.hero-direction h2 { font-size: var(--fs-body); line-height: 1.6; color: var(--navy); margin-bottom: var(--space-2); padding-left: 0; border-left: 0; letter-spacing: normal; }
 .hero-direction p { font-size: var(--fs-tiny-2); color: var(--muted); line-height: 1.75; }
 .enterprise-jump { display: flex; flex-wrap: wrap; gap: var(--gap-2) var(--gap-5); padding: var(--space-5) var(--space-8); margin: var(--space-6) 0 var(--space-7); background: white; border-bottom: 1px solid var(--border-base); border-radius: var(--radius-sm); }
 .enterprise-jump a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; color: #28496a; font-size: var(--fs-xs); }

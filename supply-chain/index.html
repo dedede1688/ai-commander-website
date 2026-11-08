@@ -7,7 +7,9 @@
 <style>
 :root{--bg:#f6f7f9;--ink:#1a1d21;--sub:#6b7280;--line:#e6e8eb;--brand:#0f6b5c;--brand2:#14b8a6;--card:#fff;}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Segoe UI","Microsoft YaHei",-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+body{font-family:"Segoe UI","Microsoft YaHei",-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;touch-action:manipulation}
+/* 刀8 准则 Touch：对齐主站 base.css 口径——touch-action 不可继承，body 一条罩不住子元素命中区，交互元素显式覆盖 */
+a,button{touch-action:manipulation}
 a{color:inherit;text-decoration:none}
 .skip-link{position:fixed;left:16px;top:-80px;z-index:2000;padding:10px 16px;background:#fff;color:#141f60;border-radius:0 0 8px 8px;text-decoration:none}
 .skip-link:focus,.skip-link:focus-visible{top:8px}
@@ -42,7 +44,7 @@ a{color:inherit;text-decoration:none}
 .catcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;transition:.15s;cursor:pointer}
 .catcard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.07)}
 .catcard .k{width:34px;height:34px;border-radius:9px;background:#e7f5f1;color:var(--brand);font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.catcard h3{font-size:16px}
+.catcard h2{font-size:16px}
 .catcard .en{font-size:12px;color:var(--sub);margin:2px 0 10px}
 .catcard .n{font-size:13px;color:var(--brand);font-weight:600}
 .catcard.locked{opacity:.62}
@@ -55,7 +57,7 @@ a{color:inherit;text-decoration:none}
 .pimg .ph{color:#c2c8ce;font-size:13px}
 .pbody{padding:14px 15px 16px;border-top:1px solid var(--line)}
 .sku{font-size:11px;color:var(--brand2);font-weight:700;letter-spacing:.5px}
-.pbody h3{font-size:15px;margin:3px 0 1px}
+.pbody h2{font-size:15px;margin:3px 0 1px}
 .pbody .alt{font-size:12px;color:#9aa1a9;margin-top:2px}
 .tag{display:inline-block;margin-top:9px;font-size:11px;background:#eef7f5;color:var(--brand);padding:2px 9px;border-radius:20px}
 .tag.pend{background:#fff4e5;color:#b9701a}
@@ -126,7 +128,7 @@ function home(){
   let h=`<div class="hero"><h1>${t('hero_title')}</h1><p>${t('hero_sub').replace('{n}',total()).replace('{brand}',LANG==='cn'?'家美电子科技':DATA.brand)}</p></div><div class="cats">`;
   DATA.categories.forEach(c=>{
     h+=`<a class="catcard ${c.ready?'':'locked'}" href="#/cat/${c.key}">
-      <div class="k">${c.key}</div><h3>${c.name[LANG]}</h3><div class="en">${LANG==='cn'?c.name.en:c.name.cn}</div>
+      <div class="k">${c.key}</div><h2>${c.name[LANG]}</h2><div class="en">${LANG==='cn'?c.name.en:c.name.cn}</div>
       <div class="n">${t('n_units').replace('{n}',c.count)} · ${c.ready?t('ready'):t('pending')}</div></a>`;
   });
   h+='</div>';
@@ -146,7 +148,7 @@ function catGrid(k){
       const pend=p.status!=='complete'?`<span class="tag pend">${t('param_pend')}</span>`:'';
       const alt=LANG==='cn'?p.name.en:p.name.cn;
       h+=`<a class="pcard" href="#/p/${p.sku}"><div class="pimg">${img}</div>
-        <div class="pbody"><div class="sku">${p.sku}</div><h3>${p.name[LANG]}</h3>
+        <div class="pbody"><div class="sku">${p.sku}</div><h2>${p.name[LANG]}</h2>
         <div class="alt">${alt}</div><span class="tag">${p.sub_label[LANG]}</span>${pend}</div></a>`;
     });
     h+='</div>';
