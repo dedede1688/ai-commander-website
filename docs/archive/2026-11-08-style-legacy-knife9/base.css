@@ -1,0 +1,996 @@
+/* ===== 全站公共样式（base.css）=====
+   被全站页面引用。新增页面只需引入本文件 + 本页专属 CSS。
+
+   内含：样式重置、设计变量、顶部导航栏、页脚、卡片与标题、提示条、
+        弹窗与二维码层的公共部分。
+
+   加载顺序要求：base.css 必须排在各页专属 CSS（style.css / …）之前，
+   这样「公共默认值 → 页面覆盖值」的级联关系与拆分前完全一致。 */
+
+/* ---------- 样式重置（preflight） ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* 视觉隐藏但保留给读屏软件与搜索引擎的文本。
+   用 clip 而非 display:none —— 后者会连语义一起抹掉。 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* ---------- 跳转正文（skip-link）：视觉隐藏，键盘聚焦时显现 ---------- */
+.skip-link {
+  position: fixed;
+  left: var(--space-6);
+  top: -80px;
+  z-index: 2000;
+  padding: var(--space-4) var(--space-6);
+  background: var(--surface);
+  color: var(--navy);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  text-decoration: none;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 8px;
+}
+
+
+:root {
+  /* 刀8 准则 Visual：全站浅底，显式声明配色，避免强制深色插件把表单控件/滚动条反色 */
+  color-scheme: light;
+  /* ============================================================
+     排版令牌体系（批次 1 收敛）
+     基准页：index.html
+     收敛口径：浅底灰阶 ≤4 档（+ 深底 3 档）｜描边 ≤3 档｜背景 ≤3 档
+               主字号 6 档｜圆角 ≤3 档｜卡片内距 ≤3 档｜网格 gap 单阶梯
+     ============================================================ */
+
+  /* ---------- 浅底文字灰阶（4 档） ---------- */
+  --grey-1: #465568; /* 深：脚注、结构性说明 */
+  --grey-2: #526077; /* 标准次级正文 */
+  --grey-3: #5b6675; /* 弱化说明 */
+  --grey-4: #6a7180; /* 最弱 / 占位（B 档 #6a7180，白底 4.90:1 过 AA） */
+
+  /* ---------- 深底文字灰阶（3 档，深色底专用） ---------- */
+  --on-dark-1: #d0d8e9; /* 深底主文 */
+  --on-dark-2: #b9c4dc; /* 深底次级 */
+  --on-dark-3: #8794a8; /* 深底最弱 */
+
+  /* ---------- 描边（3 档） ---------- */
+  --border-strong: #c9d2e4; /* 最强：次按钮、强调卡 */
+  --border-base: #d6deea; /* 常规分隔线 */
+  --border-subtle: #dfe5ee; /* 最浅：卡片边 */
+
+  /* ---------- 背景（3 档） ---------- */
+  --surface: #fff; /* 卡片面 */
+  --bg-tint: #f8fafd; /* 浅底面板 */
+  --bg-page: #f3f6f9; /* 页面底 */
+
+  /* ---------- 墨色（正文主色，不计入灰阶） ---------- */
+  --ink: #0b1426;
+  --body: #1a2233;
+
+  /* ---------- 旧语义名保留为别名，避免历史引用悬空 ---------- */
+  --muted: var(--grey-2);
+  --grey: var(--grey-4);
+  --grey-soft: var(--grey-3);
+  --sub-note: var(--grey-2);
+  --fs-brand: var(--fs-ui-md);
+  --fs-link: var(--fs-ui-lg);
+  --fs-sub: var(--fs-ui-md);
+  --fs-note: var(--fs-ui-lg);
+  --fs-footer: var(--fs-sm);
+  --fs-footer-meta: var(--fs-ui-sm);
+  --fs-footer-copy: var(--fs-xs);
+  --fs-qr: var(--fs-ui-lg);
+  --fs-qr-small: var(--fs-tiny-2);
+  --fs-toggle: var(--fs-control);
+  --fs-drawer-link: var(--fs-ui-lg);
+  /* base.css 私有标题层：各页基本覆盖，保留原语义与移动端回落 */
+  --fs-h2: var(--fs-subtitle);
+  --fs-h3: var(--fs-body);
+
+  /* ---------- 阴影 ---------- */
+  --shadow-card: rgba(20, 31, 96, 0.1);
+  --shadow-nav: rgba(11, 20, 38, 0.34);
+  --shadow-panel: rgba(0, 0, 0, 0.4);
+  --shadow-drawer: rgba(0, 0, 0, 0.45);
+
+  /* ---------- 批次 2：三级 hover 体系（全站规范）----------
+     强档：主 CTA、AI 大礼包 —— 光晕 + 上浮 2px + 亮度 +1 档
+     中档：导航链接、卡片、次按钮、弹窗按钮 —— 描边转主色 + 淡光晕 + 上浮 1px
+     弱档：文字链接、页脚链接 —— 颜色提亮 + 箭头/下划线微动
+     颜色一律取自既有令牌，不新增硬编码色值。 */
+  --shadow-cta: 0 4px 14px rgba(0, 237, 189, 0.18);       /* 主按钮常态淡阴影 */
+  --shadow-cta-hover: 0 6px 24px rgba(0, 237, 189, 0.35); /* 强档：青色光晕 */
+  --glow-nav: 0 0 18px rgba(0, 237, 189, 0.4), inset 0 0 10px rgba(0, 237, 189, 0.1); /* 中档：主色淡光晕 */
+  --glow-medium: 0 0 14px var(--teal-soft), inset 0 0 8px var(--teal-drawer); /* 中档：卡片淡光晕 */
+  --glow-gold: 0 0 18px rgba(232, 163, 61, 0.4);          /* 强档：金色光晕 */
+  /* 三档位移与亮度 */
+  --hover-lift-strong: -2px;
+  --hover-lift-medium: -1px;
+  --hover-bright-strong: brightness(1.06);
+  --hover-bright-weak: brightness(1.18);
+  /* 弱档：箭头与下划线微动 */
+  --hover-arrow-shift: 3px;
+  --hover-underline-offset: 3px;
+  /* ---------- 批次 2：顶栏常态描边与底色 ---------- */
+  --nav-line: rgba(255, 255, 255, 0.12);
+  --nav-fill: rgba(255, 255, 255, 0.02);
+
+  /* ---------- 批次 2：白底配色规范（B 方案）----------
+     原则：白底上一切「发光」改为「阴影」表达立体。 */
+  --indigo-deep: #3d4090;                              /* 品牌蓝紫：白底悬停主色 */
+  --gold-deep: #976e09;                                /* 深金：白底数字/徽标点缀（#976e09，白底 4.62:1 过 AA；原 #b8860b 仅 3.25:1） */
+  --shadow-light: 0 6px 18px rgba(34, 60, 90, 0.12);    /* 白底悬停阴影 */
+  --surface-tint: #f6f8fd;                              /* 浅色区块底色 */
+  /* 派生令牌：浅底描边与藏青阴影，均取自 --navy 同色系 */
+  --navy-line: rgba(20, 31, 96, 0.25);                  /* 浅底描边按钮常态描边 */
+  --shadow-navy-soft: 0 2px 6px rgba(20, 31, 96, 0.12); /* 实底按钮常态微阴影 */
+  --shadow-navy-deep: 0 8px 22px rgba(20, 31, 96, 0.28);/* 实底按钮悬停：藏青阴影加深 */
+  /* 深色底上的微亮填充：次按钮 hover 用 */
+  --fill-on-dark: rgba(255, 255, 255, 0.05);
+
+  /* ---------- 品牌 / 强调 ---------- */
+  --navy: #141f60;
+  --navy-d: #0d1440;
+  /* 批次 2：深蓝实底按钮的悬停底色（由 home-book.css 散落的 #233478 收编） */
+  --navy-hover: #233478;
+  --teal: #00edbd;
+  /* 准则 Focus States：焦点环双令牌——深底用 dark、浅底用 light（收编 home-book 的硬编码 #27699b） */
+  --focus-ring-dark: #00edbd;
+  --focus-ring-light: #27699b;
+  --teal-accent: #00b89c;
+  --teal-soft: rgba(0, 237, 189, 0.28);
+  --teal-hover: rgba(0, 237, 189, 0.13);
+  --teal-active: rgba(0, 237, 189, 0.17);
+  --teal-drawer: rgba(0, 237, 189, 0.1);
+  --teal-logo: rgba(0, 237, 189, 0.55);
+  --teal-toggle-hover: rgba(0, 237, 189, 0.12);
+  --nav-bg: rgba(11, 18, 54, 0.97);
+  --nav-text: #b9c4dc;
+  --white: #fff;
+  --black: #000;
+  /* P2-02：style.css 的 .mbox::before 渐变依赖这两个变量，此前全站从未定义 */
+  --blue: #2c6fb5;
+  --purple: #7b5ce0;
+
+  /* ---------- 状态语义 ---------- */
+  --note-bg: #f6f9fb;
+  --warn-bg: #fffbf2;
+  --warn-border: #e8a33d;
+  --alert-bg: #fdf5f6;
+  --alert-border: #d0021b;
+  --bg-teal-soft: #e8f4f1;
+  --bg-gold-soft: #f7f0e1;
+  --gold: #ffd479;
+  --gold-bg: rgba(232, 163, 61, 0.12);
+  --gold-border: rgba(232, 163, 61, 0.5);
+  --gold-hover: rgba(232, 163, 61, 0.28);
+  --link-green: #007a5f;
+  --link-green-hover: #00533f;
+  --link-green-soft: rgba(0, 122, 95, 0.35);
+  --overlay: rgba(11, 20, 38, 0.72);
+  --overlay-heavy: rgba(11, 20, 38, 0.9);
+  --backdrop: rgba(11, 20, 38, 0.55);
+
+  /* ---------- 主字号阶梯（6 档） ----------
+     --fs-display 为流体档：桌面 43px，窄屏回落到 28px，
+     与 index.html 首屏 h1 的原 clamp(28px,3.7vw,43px) 完全一致。 */
+  --fs-display: clamp(28px, 3.7vw, 43px); /* h1 主标题 */
+  --fs-title: 28px; /* h2 / 区块标题 */
+  --fs-subtitle: 18px; /* h3 / 小标题 */
+  --fs-body: 16px; /* 正文 */
+  --fs-sm: 14px; /* 小正文 / 按钮 */
+  --fs-xs: 13px; /* 标签 / 辅助文字 */
+
+  /* ---------- UI 层（保留现状，仅令牌化） ---------- */
+  --fs-control: 22px; /* 关闭 / 箭头 / 翻页等控件字形 */
+  --fs-ui-lg: 15px; /* 导航、页脚、抽屉 */
+  --fs-ui-md: 14.5px; /* 品牌字、栏目副题 */
+  --fs-ui-sm: 13.5px; /* 页脚次级 */
+
+  /* ---------- 图标字形层（4 档，保留现状） ---------- */
+  --fs-icon-sm: 18px;
+  --fs-icon-md: 22px;
+  --fs-icon-lg: 26px;
+  --fs-icon-xl: 36px;
+
+  /* ---------- 微字阶梯（表格 / 脚注 / 标签，保留现状） ----------
+     t1 12.5 / t2 12 / t3 11.5 / t4 11 / t5 10.5
+     t6 10 / t7 9.5 / t8 9 / t9 8.5 / t10 7.5 */
+  --fs-tiny-1: 12.5px;
+  --fs-tiny-2: 12px;
+  --fs-tiny-3: 11.5px;
+  --fs-tiny-4: 11px;
+  --fs-tiny-5: 10.5px;
+  --fs-tiny-6: 10px;
+  --fs-tiny-7: 9.5px;
+  --fs-tiny-8: 9px;
+  --fs-tiny-9: 8.5px;
+  --fs-tiny-10: 7.5px;
+
+  /* ---------- 行高 ---------- */
+  --lh-base: 1.75;
+  --lh-heading: 1.3;
+  --lh-footer: 1.9;
+  --lh-meta: 1.7;
+
+  /* ---------- 圆角（3 档） ---------- */
+  --radius-sm: 4px; /* 输入框、标签、小卡 */
+  --radius-md: 8px; /* 卡片、按钮 */
+  --radius-lg: 12px; /* 面板、弹窗 */
+  --radius-pill: 999px;
+
+  /* ---------- 间距阶梯（12 档，取代旧的非等差阶梯） ---------- */
+  --space-0: 2px;
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 10px;
+  --space-5: 12px;
+  --space-6: 16px;
+  --space-7: 20px;
+  --space-8: 24px;
+  --space-9: 28px;
+  --space-10: 32px;
+  --space-11: 40px;
+  --space-12: 48px;
+
+  /* ---------- 卡片内距（3 档） ---------- */
+  --pad-card-sm: var(--space-6); /* 16px */
+  --pad-card-md: var(--space-7); /* 20px */
+  --pad-card-lg: var(--space-8); /* 24px */
+
+  /* ---------- 网格 gap（8 档） ---------- */
+  --gap-1: var(--space-1);
+  --gap-2: var(--space-3);
+  --gap-3: var(--space-5);
+  --gap-4: var(--space-6);
+  --gap-5: var(--space-8);
+  --gap-6: var(--space-10);
+  --gap-7: var(--space-11);
+  --gap-8: var(--space-12);
+
+  /* ---------- 尺寸 ---------- */
+  --touch-target: 44px;
+  --nav-height: 52px;
+  --nav-clear: 66px;
+  --container-width: 1100px;
+
+  /* ---------- 动画 / 过渡 ---------- */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 0.15s;
+  --duration-med: 0.18s;
+  --duration-slow: 0.2s;
+}
+body {
+  font-family: "Noto Sans SC",
+    "Microsoft YaHei",
+    -apple-system,
+    sans-serif;
+  background: var(--bg-page);
+  color: var(--body);
+  line-height: var(--lh-base);
+  /* 刀8 准则 Viewport：viewport-fit=cover 已全站就位，底部与两侧按安全区兜底，普通机型 env() 取 0px 即布局不变。
+     顶部不在此补——sticky 导航的 top:0 只跟视口，要补得改导航本体，另刀处理。 */
+  padding: 0 env(safe-area-inset-right, 0px) calc(70px + env(safe-area-inset-bottom, 0px)) env(safe-area-inset-left, 0px);
+  /* 刀8 准则 Touch：浅底站点无需系统灰闪块（默认 rgba(0,0,0,.18)），点按反馈由三级 hover/:active 体系承担。
+     该属性可继承，body 一条罩全站。 */
+  -webkit-tap-highlight-color: transparent;
+  /* 准则 Touch & Interaction：禁掉移动端双击缩放的 300ms 疑似点击延迟，保留平移/捏合 */
+  touch-action: manipulation;
+}
+/* touch-action 不可继承：body 一条罩不住子元素命中区，交互元素显式覆盖 */
+a,
+button,
+summary,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+/* 注意：不要在 html 上写 scroll-behavior: smooth。
+   它会把「刷新后恢复滚动位置」也变成从页顶平滑滚下来的动画，
+   看起来就像页面被弹回页顶。 */
+.wrap {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6) 0;
+}
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 4px var(--shadow-card);
+  padding: var(--space-9) var(--space-10);
+  margin-bottom: var(--space-7);
+}
+
+/* ---------- 顶部常驻导航栏 ---------- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--teal-soft);
+  box-shadow: 0 2px 16px var(--shadow-nav);
+  backdrop-filter: saturate(150%) blur(10px);
+  -webkit-backdrop-filter: saturate(150%) blur(10px);
+}
+.nav-inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  gap: var(--gap-5);
+}
+.nav-brand {
+  /* 品牌链接按弱档处理：悬停只做亮度提亮，不与导航项争夺光晕 */
+  transition: filter var(--duration-slow) var(--ease-out);
+  font-family: Consolas, monospace;
+  font-size: var(--fs-brand);
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: var(--nav-height); /* 撑满导航栏高度，扩大点击回顶的命中区域 */
+  padding-right: var(--space-2);
+  text-decoration: none;
+}
+/* 左上角圆形 logo */
+.nav-brand:hover {
+  filter: var(--hover-bright-weak);
+}
+.nav-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+  box-shadow: 0 0 8px var(--teal-logo);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  /* 标签背景块之间留出明显且一致的缝隙（原 2px 会让相邻色块几乎粘连） */
+  gap: var(--space-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex: 1;
+}
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+/* 导航条横向滚过之后：左缘 20px 渐隐，
+   被滚出去的标签像滑到「AI 指挥官」品牌区下面，而不是生硬切断。
+   类由 shared.js 在 scrollLeft > 4 时挂上，回到最左时摘掉。 */
+.nav-links.scrolled {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, var(--black) 20px);
+  mask-image: linear-gradient(90deg, transparent 0, var(--black) 20px);
+}
+.nav-link {
+  font-size: var(--fs-link);
+  color: var(--nav-text);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-5);
+  /* 统一占位边框：「AI 大礼包」的可见边框不再把它撑得比其他标签高 */
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  transition: color var(--duration-slow) var(--ease-out),
+    background var(--duration-slow) var(--ease-out),
+    border-color var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+  cursor: pointer;
+}
+.nav-link:hover {
+  color: var(--white);
+  background: var(--teal-hover);
+}
+/* ===== 批次 2 · 导航变体 2（常驻细描边 + 悬停强光）=====
+   用 .nav-links 限定作用域：桌面顶栏生效，移动端抽屉不受影响。 */
+.nav-links .nav-link {
+  border-color: var(--nav-line);
+  background: var(--nav-fill);
+  /* 批次 2 返工：胶囊圆角过大，改为 8px，与全站按钮、卡片统一 */
+  border-radius: var(--radius-md);
+}
+.nav-links .nav-link:hover {
+  color: var(--white);
+  background: var(--teal-hover);
+  border-color: var(--teal);
+  box-shadow: var(--glow-nav);
+  transform: translateY(var(--hover-lift-medium));
+}
+
+/* ===== Phase 1B-1：移动端汉堡菜单（默认桌面隐藏）===== */
+.menu-toggle {
+  display: none;
+}
+.nav-backdrop {
+  display: none;
+}
+.nav-drawer {
+  display: none;
+}
+.nav-link.active {
+  color: var(--teal);
+  background: var(--teal-active);
+  /* 不加粗：激活时文字变宽会让标签尺寸跳动，用颜色与底色区分即可 */
+}
+/* 当前页：保持青色胶囊，补一道同色描边收口 */
+.nav-links .nav-link.active {
+  border-color: rgba(0, 237, 189, 0.45);
+}
+/* 导航「AI 大礼包」入口（金色高亮，区别于普通章节链接） */
+.nav-gift {
+  color: var(--gold);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+}
+.nav-gift:hover {
+  color: var(--white);
+  background: var(--gold-hover);
+  border-color: var(--gold);
+}
+/* 顶栏「大礼包」保留金色身份：描边与光晕走金色，不被普通链接的青色规则覆盖 */
+.nav-links .nav-gift {
+  background: var(--gold-bg);
+  border-color: var(--gold-border);
+  border-radius: var(--radius-md);
+}
+/* 强档：金色光晕 + 上浮 2px + 亮度 +1 档 */
+.nav-links .nav-gift:hover {
+  color: var(--white);
+  background: var(--gold-hover);
+  border-color: var(--gold);
+  box-shadow: var(--glow-gold);
+  transform: translateY(var(--hover-lift-strong));
+  filter: var(--hover-bright-strong);
+}
+/* 锚点定位留出导航高度（高度随换行媒体查询自适应） */
+.card {
+  scroll-margin-top: var(--nav-clear);
+}
+
+/* ===== 批次 2 · 三级 hover 体系（全站规范）=====
+   强档 .tier-strong：光晕 + 上浮 2px + 亮度 +1 档
+        —— 主 CTA、AI 大礼包
+   中档 .tier-medium：描边转主色 + 淡光晕 + 上浮 1px
+        —— 导航链接、卡片、次按钮、弹窗按钮
+   弱档 .tier-weak：颜色提亮 + 箭头/下划线微动
+        —— 文字链接、页脚链接
+   页面只需挂 class，具体描边色与底色由各页 CSS 补齐。 */
+.tier-strong {
+  transition: transform var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out),
+    filter var(--duration-slow) var(--ease-out),
+    border-color var(--duration-slow) var(--ease-out),
+    background var(--duration-slow) var(--ease-out);
+}
+/* 交互规范层：用 !important 压过各页组件规则，保证全站悬停语言一致。
+   只作用于 :hover 的位移/光晕/亮度/描边，不影响组件常态样式。 */
+.tier-strong:hover,
+a.tier-strong:hover,
+button.tier-strong:hover {
+  transform: translateY(var(--hover-lift-strong)) !important;
+  box-shadow: var(--shadow-cta-hover) !important;
+  filter: var(--hover-bright-strong) !important;
+}
+.tier-medium {
+  transition: transform var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out),
+    border-color var(--duration-slow) var(--ease-out),
+    background var(--duration-slow) var(--ease-out),
+    filter var(--duration-slow) var(--ease-out);
+}
+.tier-medium:hover,
+a.tier-medium:hover,
+button.tier-medium:hover {
+  transform: translateY(var(--hover-lift-medium)) !important;
+  border-color: var(--teal) !important;
+  box-shadow: var(--glow-medium) !important;
+}
+/* 弱档是颜色级微动，用中档时长即可，不必等强档的 0.2s */
+.tier-weak {
+  transition: filter var(--duration-med) var(--ease-out),
+    text-underline-offset var(--duration-med) var(--ease-out),
+    color var(--duration-med) var(--ease-out),
+    border-bottom-color var(--duration-med) var(--ease-out);
+}
+.tier-weak:hover,
+a.tier-weak:hover {
+  filter: var(--hover-bright-weak) !important;
+  text-underline-offset: var(--hover-underline-offset) !important;
+}
+/* ===== 白底子类（与三级体系并列，B 方案）=====
+   中档 .tier-medium-on-light：白底卡片 / 浅底描边按钮
+        悬停 = 蓝紫描边(--indigo-deep) + 白底阴影(--shadow-light) + 上浮 1px
+        标题与文字悬停变 --indigo-deep
+   强档 .tier-strong-on-light：浅底区块里的深色实底按钮
+        悬停 = 上浮 1px + 藏青阴影加深 + 亮度微升，不用彩色光晕（白底上无效） */
+.tier-medium-on-light {
+  transition: transform var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out),
+    border-color var(--duration-slow) var(--ease-out),
+    background var(--duration-slow) var(--ease-out),
+    color var(--duration-slow) var(--ease-out);
+}
+.tier-medium-on-light:hover,
+a.tier-medium-on-light:hover,
+button.tier-medium-on-light:hover {
+  transform: translateY(var(--hover-lift-medium)) !important;
+  border-color: var(--indigo-deep) !important;
+  box-shadow: var(--shadow-light) !important;
+}
+/* 标题与文字悬停变品牌蓝紫（刀8：企业页四方向卡标题升为 h2，此处同批覆盖） */
+.tier-medium-on-light:hover h2,
+.tier-medium-on-light:hover h3,
+.tier-medium-on-light:hover .blueprint-top {
+  color: var(--indigo-deep);
+}
+.tier-strong-on-light {
+  box-shadow: var(--shadow-navy-soft);
+  transition: transform var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out),
+    filter var(--duration-slow) var(--ease-out),
+    background var(--duration-slow) var(--ease-out);
+}
+.tier-strong-on-light:hover,
+a.tier-strong-on-light:hover,
+button.tier-strong-on-light:hover {
+  transform: translateY(var(--hover-lift-medium)) !important;
+  box-shadow: var(--shadow-navy-deep) !important;
+  filter: var(--hover-bright-strong) !important;
+}
+
+/* ---------- 组件底色层（与档位配合：档位管动效，底色管配色）---------- */
+/* 深蓝实底按钮 */
+.action:hover { background: var(--navy-hover); }
+/* 描边次按钮 */
+.action.secondary:hover { background: var(--bg-page); }
+/* 挂中档的次按钮：深底上用主色淡填充，与描边、光晕同一语言 */
+.action.secondary.tier-medium:hover { background: var(--teal-hover); }
+/* 白底区块的描边按钮：常态描边改藏青 25%，悬停用白底中档 */
+.action.secondary.tier-medium-on-light { border-color: var(--navy-line); }
+.action.secondary.tier-medium-on-light:hover { background: var(--surface); }
+
+/* 弱档与中档共用的箭头微动：箭头需带 .tier-arrow 或 .choice span 这类独立元素 */
+.tier-arrow {
+  display: inline-block;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+.tier-weak:hover .tier-arrow,
+.tier-medium:hover .tier-arrow {
+  transform: translateX(var(--hover-arrow-shift));
+}
+
+/* ---------- 标题 ---------- */
+h2 {
+  font-size: var(--fs-h2);
+  color: var(--navy);
+  letter-spacing: 1px;
+  padding-left: var(--space-5);
+  border-left: 4px solid var(--teal-accent);
+  margin-bottom: var(--space-7);
+  line-height: var(--lh-heading);
+}
+h3 {
+  font-size: var(--fs-h3);
+  color: var(--navy);
+  margin: var(--space-8) 0 var(--space-5);
+}
+h3:first-of-type {
+  margin-top: 0;
+}
+.sub-note {
+  font-size: var(--fs-sub);
+  color: var(--sub-note);
+  margin-bottom: var(--space-6);
+}
+
+/* ---------- 弹窗（遮罩层公共部分，具体内容由各页自定义） ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  padding: var(--space-7);
+  backdrop-filter: blur(3px);
+}
+.modal.on {
+  display: flex;
+  animation: fade var(--duration-slow);
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- 提示条 ---------- */
+.note {
+  background: var(--note-bg);
+  border-left: 3px solid var(--teal-accent);
+  padding: var(--space-6) var(--space-7);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: var(--space-6) 0;
+  font-size: var(--fs-note);
+}
+.note.warn-note {
+  background: var(--warn-bg);
+  border-left-color: var(--warn-border);
+}
+.note.alert {
+  background: var(--alert-bg);
+  border-left-color: var(--alert-border);
+}
+.note-title {
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-note);
+}
+
+/* ---------- 页脚 ---------- */
+.footer-note {
+  text-align: center;
+  font-size: var(--fs-footer);
+  /* 用站点次级灰 --grey-soft：原 #98a2b3 对浅灰底对比度仅 2.27:1，
+     不达 WCAG 要求的 4.5:1，Lighthouse 无障碍审计会扣分 */
+  color: var(--grey-soft);
+  margin-top: var(--space-8);
+  line-height: var(--lh-footer);
+}
+/* 页脚信息区：官网地址 / 版权 */
+.ft-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-7);
+  margin-top: var(--space-5);
+  font-size: var(--fs-footer-meta);
+  line-height: var(--lh-meta);
+  color: var(--grey-soft);
+}
+.ft-link {
+  color: var(--link-green);
+  /* 弱档用 text-decoration 承载下划线：text-underline-offset 的微动只有它才生效 */
+  text-decoration: underline;
+  text-decoration-color: var(--link-green-soft);
+  text-underline-offset: 2px;
+  transition: color var(--duration-med) var(--ease-out),
+    text-decoration-color var(--duration-med) var(--ease-out),
+    text-underline-offset var(--duration-med) var(--ease-out),
+    filter var(--duration-med) var(--ease-out);
+}
+/* 弱档：颜色提亮 + 下划线微动 */
+.ft-link:hover {
+  color: var(--link-green-hover);
+  text-decoration-color: var(--link-green-hover);
+  text-underline-offset: var(--hover-underline-offset);
+  filter: var(--hover-bright-weak);
+}
+.ft-copy {
+  margin-top: var(--space-3);
+  font-size: var(--fs-footer-copy);
+  color: var(--grey-soft);
+}
+
+/* ---------- 二维码放大层 ---------- */
+.qr-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--overlay-heavy);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-7);
+  cursor: pointer;
+  /* 弹层打开时阻断滚动链，防止背景页面跟着滚 */
+  overscroll-behavior: contain;
+}
+.qr-layer.on {
+  display: flex;
+  animation: fade var(--duration-slow);
+}
+.qr-panel {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px var(--shadow-panel);
+  /* 关闭按钮是 position: absolute，需要面板本身作为定位参照。 */
+  position: relative;
+}
+/* height: auto 是必需的：图片标签带 width/height 属性（用于预留空间、防止布局抖动），
+   若这里只写 width: 100% 而不重置 height，浏览器会把属性里的像素高度当成实际高度，
+   导致二维码被纵向拉伸变形。 */
+.qr-panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+/* ---------- 二维码弹窗关闭按钮 ----------
+   2026-11-02：从 style.css 下沉到 base.css。
+   原先只有加载 style.css 的页面（首页、图书页、共建页）有这套样式，
+   学习中心 / 成果展示 / 企业服务 / 共建合作四页未加载 style.css，
+   关闭键因而显示为浏览器默认灰色凸起按钮。 */
+.qr-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  /* 批次 2：留出 1px 占位描边，hover 时转主色（透明边框不改变视觉） */
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--white);
+  font-size: var(--fs-icon-md);
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration-slow) var(--ease-out),
+    border-color var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out),
+    outline-offset 0.15s;
+  z-index: 1;
+}
+/* 中档：描边转主色 + 淡光晕 + 上浮 1px */
+.qr-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: var(--teal);
+  box-shadow: var(--glow-medium);
+  transform: translateY(var(--hover-lift-medium));
+}
+.qr-close:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+.qr-hint {
+  margin-top: var(--space-5);
+  font-size: var(--fs-qr);
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 1px;
+}
+.qr-hint small {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-qr-small);
+  font-weight: 400;
+  color: var(--grey);
+}
+
+/* ---------- 尊重系统「减弱动效」设置 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .nav-gift,
+  .tier-strong,
+  .tier-medium,
+  .tier-medium-on-light,
+  .tier-strong-on-light,
+  .tier-weak {
+    transition: none;
+  }
+  /* 需与 tier 规则的 !important 同级，否则压不住上浮 */
+  .nav-links .nav-link:hover,
+  .nav-gift:hover,
+  .tier-strong:hover,
+  a.tier-strong:hover,
+  button.tier-strong:hover,
+  .tier-medium:hover,
+  a.tier-medium:hover,
+  button.tier-medium:hover,
+  .tier-medium-on-light:hover,
+  a.tier-medium-on-light:hover,
+  button.tier-medium-on-light:hover,
+  .tier-strong-on-light:hover,
+  a.tier-strong-on-light:hover,
+  button.tier-strong-on-light:hover {
+    transform: none !important;
+  }
+}
+
+/* ===== 移动端适配 ===== */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* --- 平板竖屏 / 大屏手机 --- */
+@media (max-width: 768px) {
+  :root {
+    --fs-brand: 14px;
+    --fs-h2: 19px;
+  }
+  .wrap {
+    padding: var(--space-7) var(--space-6) 0;
+  }
+  .card {
+    padding: var(--space-8) var(--space-7);
+  }
+  .nav-inner {
+    height: var(--nav-height);
+    gap: var(--space-5);
+    padding: 0 var(--space-5);
+  }
+  .nav-brand {
+    letter-spacing: 1px;
+  }
+  /* Phase 1B-1：移动端隐藏横向 nav-links，显示汉堡按钮 + 抽屉 */
+  .nav-links {
+    display: none;
+  }
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--touch-target);
+    height: var(--touch-target);
+    margin-left: auto;
+    background: transparent;
+    border: 1.5px solid var(--teal);
+    border-radius: var(--radius-md);
+    color: var(--teal);
+    font-size: var(--fs-toggle);
+    line-height: 1;
+    cursor: pointer;
+    transition: background var(--duration-slow) var(--ease-out),
+      border-color var(--duration-slow) var(--ease-out),
+      color var(--duration-slow) var(--ease-out),
+      box-shadow var(--duration-slow) var(--ease-out);
+  }
+  .menu-toggle:hover,
+  .menu-toggle:focus-visible {
+    background: var(--teal-toggle-hover);
+  }
+  /* 异-3 修复：键盘焦点用全站统一口径（见 .qr-close:focus-visible）补真焦点环 */
+  .menu-toggle:focus-visible {
+    outline: 2px solid var(--focus-ring-dark);
+    outline-offset: 3px;
+  }
+  /* 抽屉遮罩 */
+  .nav-backdrop:not([hidden]) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: var(--backdrop);
+    backdrop-filter: blur(2px);
+    z-index: 90;
+  }
+  /* 抽屉本体：右侧滑出 + 完整 nav 7 项 */
+  .nav-drawer {
+    display: block;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: var(--navy);
+    border-top: 1px solid var(--teal-drawer);
+    box-shadow: 0 12px 36px var(--shadow-drawer);
+    z-index: 100;
+    max-height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+    /* 抽屉滚动到底/顶时不把滚动链传给背景页面 */
+    overscroll-behavior: contain;
+  }
+  .nav-drawer[hidden] {
+    display: none;
+  }
+  .nav-drawer-inner {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-3) 0;
+  }
+  .nav-drawer-inner a {
+    display: block;
+    padding: var(--space-6) var(--space-8);
+    color: var(--white);
+    text-decoration: none;
+    font-size: var(--fs-drawer-link);
+    border-left: 3px solid transparent;
+    transition: background var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+    min-height: var(--touch-target); /* 移动端可点击区域 ≥ 44px（v2.1 4.1 规范）*/
+  }
+  .nav-drawer-inner a:hover,
+  .nav-drawer-inner a:focus-visible {
+    background: var(--teal-drawer);
+    border-left-color: var(--teal);
+    color: var(--white);
+    /* 批次 2：抽屉沿用顶栏同一套发光语言 */
+    box-shadow: inset 0 0 12px rgba(0, 237, 189, 0.14);
+  }
+  /* 焦点环统一：抽屉链接补真环（深底令牌），发光与背景仅作装饰 */
+  .nav-drawer-inner a:focus-visible {
+    outline: 2px solid var(--focus-ring-dark);
+    outline-offset: 3px;
+  }
+  .nav-drawer-inner a.nav-gift {
+    color: var(--teal);
+    font-weight: 700;
+  }
+}
+
+/* --- 手机 --- */
+@media (max-width: 480px) {
+  :root {
+    --fs-brand: 13px;
+    --fs-h2: 18.5px;
+    --fs-h3: 15px;
+    --fs-note: 14px;
+    --fs-footer: 13px;
+  }
+  .wrap {
+    padding: var(--space-6) var(--space-5) 0;
+  }
+  .card {
+    padding: var(--space-7) var(--space-6);
+  }
+  .nav-inner {
+    padding: 0 var(--space-4);
+    gap: var(--space-4);
+  }
+  /* Phase 1B-1：480px 块不再依赖缩小字号（已在 768 块用抽屉替代） */
+  h2 {
+    padding-left: var(--space-5);
+    border-left-width: 3px;
+    margin-bottom: var(--space-6);
+  }
+  h3 {
+    margin: var(--space-7) 0 var(--space-4);
+  }
+  .modal {
+    padding: var(--space-5);
+  }
+  .note {
+    padding: var(--space-5) var(--space-6);
+  }
+  .footer-note {
+    margin-top: var(--space-7);
+  }
+  .qr-panel {
+    max-width: 280px;
+  }
+}
+
+/* 准则 Hover & Interactive States：按下即反馈（防“点了没反应”的感知延迟）
+   仅覆盖动作类控件；纯展示卡片按批次 2 裁决 #6 维持零反馈，不进入选择器 */
+.action:active,
+.topnav .nav-links a:active,
+.menu-toggle:active,
+.nav-drawer-inner a:active {
+  transform: translateY(1px);
+  filter: brightness(0.96);
+}

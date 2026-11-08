@@ -1,0 +1,345 @@
+/* 首页与图书页共用：延续原站的书影、深蓝和青绿色。 */
+/* ===== 2026-10-30 全站升级P03：新版首页专属（.home-page 作用域） ===== */
+/* 首页书名进标题位后，.rpt-title 内不再有 .emph；口号强调色改由 .hero-slogan 承担 */
+
+/* ===== 批次 2 · 首页首屏：书名进标题位 + 读者锚点 + CTA 分层 =====
+   1) H1 改为书名《AI指挥官》，口号降为副句；证据行补 378 页。
+   2) CTA 主次分层：主按钮 48px 实底，次按钮 40px 描边式。
+   3) 交互取 docs/cta-hover-demo.html 方案A（悬浮光晕，0.2s 过渡）。 */
+.home-page .hero-sub { font-size: var(--fs-body); color: var(--on-dark-1); margin: 0 0 var(--space-4); }
+.home-page .hero-slogan { font-size: clamp(20px, 2.1vw, 24px); font-weight: 700; color: var(--white); letter-spacing: .5px; margin: 0 0 var(--space-5); }
+.home-page .hero-slogan .emph { color: var(--teal); font-style: normal; }
+.home-page .hero-audience { font-size: var(--fs-xs); color: var(--on-dark-2); margin: 0 0 var(--space-7); padding-left: var(--space-4); border-left: 2px solid var(--teal-soft); }
+/* 主 CTA：48px 实底青绿，常态淡阴影 */
+/* 位移 / 光晕 / 亮度由 base.css 的 .tier-strong / .tier-medium 统一提供，此处只定尺寸与常态阴影 */
+.home-page .rpt-head .action { min-height: 48px; padding: var(--space-5) var(--space-8); font-size: var(--fs-sm); box-shadow: var(--shadow-cta); }
+.home-page .rpt-head .action:hover { background: var(--teal); border-color: var(--teal); }
+/* 首屏次按钮在深底上：底色用深底微亮填充，不套用浅底的 --bg-page */
+.home-page .rpt-head .action.secondary:hover { background: var(--fill-on-dark); }
+/* 次 CTA：降为 40px 描边式，hover 描边转主色 + 淡光晕 + 底色微亮 */
+.home-page .rpt-head .action.secondary { min-height: 40px; padding: var(--space-3) var(--space-6); font-size: var(--fs-xs); font-weight: 400; background: transparent; color: var(--white); border-color: var(--border-strong); box-shadow: none; }
+.home-page .rpt-head .action.secondary:hover { background: var(--fill-on-dark); color: var(--white); filter: none; }
+/* 悬停时箭头前移 */
+.home-page .cta-arrow { display: inline-block; transition: transform var(--duration-slow) var(--ease-out); }
+.home-page .action:hover .cta-arrow { transform: translateX(var(--hover-arrow-shift)); }
+.home-promo { display: grid; grid-template-columns: 180px minmax(0,1fr) auto; align-items: center; gap: var(--gap-5); background: #e0efec; border: 1px solid var(--border-subtle); }
+.home-promo-poster { display: block; }
+.home-promo-poster img { width: 180px; aspect-ratio: 16/9; object-fit: contain; background: var(--navy-d); border-radius: var(--radius-sm); display: block; }
+/* 刀8：本卡标题由 h3 升为 h2（消 h1→h3 跳级），故显式抵消 base.css 裸 h2 的左边框/缩进/字距，保持观感不变 */
+.home-promo h2 { font-size: var(--fs-subtitle); color: var(--navy); margin: var(--space-1) 0; padding-left: 0; border-left: 0; letter-spacing: normal; line-height: var(--lh-base); }
+.home-promo p { font-size: var(--fs-xs); color: var(--muted); }
+.home-promo-label { font-size: var(--fs-tiny-4); letter-spacing: 2px; color: var(--grey-3); margin: 0; }
+.home-promo .section-actions { margin-top: 0; }
+.mini-book { display: flex; gap: var(--gap-5); align-items: center; }
+.mini-book img { width: 118px; height: auto; flex: 0 0 auto; }
+.mini-book h3 { font-size: var(--fs-subtitle); color: var(--navy); margin-bottom: var(--space-2); }
+.mini-book p { font-size: var(--fs-xs); color: var(--muted); }
+.course-blueprint { border: 1px solid var(--navy-line); border-radius: var(--radius-sm); background: var(--surface); padding: var(--space-8) var(--space-8); }
+.blueprint-top { font-size: var(--fs-xs); letter-spacing: 1px; color: var(--navy); padding-bottom: var(--space-6); border-bottom: 1px solid var(--border-base); }
+.blueprint-steps { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); margin: var(--space-7) 0; gap: var(--gap-2); }
+.blueprint-steps span { font-size: var(--fs-tiny-2); text-align: center; color: var(--grey-2); }
+.blueprint-result { padding: var(--space-6); text-align: center; color: var(--navy); background: var(--bg-page); font-weight: 700; font-size: var(--fs-sm); }
+.feature-tool { padding: var(--space-8); background: var(--surface); display: flex; justify-content: space-between; align-items: center; gap: var(--gap-5); border: 1px solid var(--navy-line); margin-bottom: var(--space-4); }
+.feature-tool h3 { font-size: var(--fs-subtitle); color: var(--navy); margin: var(--space-4) 0 var(--space-3); }
+.feature-tool p { font-size: var(--fs-sm); color: var(--muted); }
+.feature-tool .section-actions { margin-top: 0; }
+.content-grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.choice-grid.five { grid-template-columns: repeat(5, minmax(0,1fr)); }
+@media (max-width: 900px) {
+  .home-promo { grid-template-columns: 150px minmax(0,1fr); }
+  .home-promo .section-actions { grid-column: 2; justify-self: start; }
+  .home-promo-poster img { width: 150px; }
+  .content-grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .choice-grid.five { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 768px) {
+  .home-promo { padding: var(--space-6); gap: var(--gap-4); grid-template-columns: 100px minmax(0,1fr); }
+  .home-promo-poster img { width: 100px; }
+  .home-promo h2 { font-size: var(--fs-body); }
+  .home-promo p { font-size: var(--fs-tiny-4); }
+  .home-promo .section-actions { grid-column: 1 / -1; justify-self: start; }
+  .mini-book { gap: var(--gap-4); }
+  .mini-book img { width: 96px; }
+  .feature-tool { display: block; padding: var(--space-7); }
+  .feature-tool .section-actions { margin-top: var(--space-6); }
+  .blueprint-steps { gap: var(--gap-1); }
+  .blueprint-steps span { font-size: var(--fs-tiny-4); }
+  .course-blueprint { padding: var(--space-7); }
+  .choice-grid.five { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .content-grid.four { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 480px) {
+  .content-grid.four { grid-template-columns: 1fr; }
+  .choice-grid.five { grid-template-columns: 1fr; }
+}
+/* 批次 2 · 白底区块底色改 --surface-tint（浅蓝灰底，去掉刺眼纯白） */
+.home-page .card:not(.home-promo):not(.closing-section) {
+  background: var(--surface-tint);
+}
+.site-content { --muted: #526077; }
+.site-content a { text-underline-offset: 4px; }
+.site-content :is(a, button, summary):focus-visible { outline: 3px solid var(--focus-ring-light); outline-offset: 3px; }
+.site-content section { scroll-margin-top: var(--nav-clear); }
+.site-content .rpt-head { padding: var(--space-11) var(--space-11) var(--space-9); align-items: center; }
+.site-content .rpt-main { top: 0; }
+.site-content .rpt-eyebrow { top: -15px; letter-spacing: 2px; font-family: inherit; }
+.site-content .rpt-title { top: 0; font-size: var(--fs-display); letter-spacing: 0; line-height: 1.4; margin: 0 0 var(--space-5); }
+.site-content .rpt-by { display: block; margin: var(--space-3) 0 0; font-size: var(--fs-sm); }
+.site-content .rpt-sub { font-size: var(--fs-body); color: var(--on-dark-2); }
+.site-content .rpt-tagline { margin: var(--space-6) 0 var(--space-5); font-size: clamp(23px, 2.7vw, 30px); }
+.hero-copy { color: var(--on-dark-1); font-size: var(--fs-sm); max-width: 620px; margin: var(--space-5) 0 var(--space-7); line-height: 1.95; }
+.site-content .rpt-book { align-self: center; position: relative; z-index: 1; }
+.site-content .rpt-book img { display: block; width: 220px; height: auto; filter: drop-shadow(0 18px 24px #08051a70); }
+.site-content .rpt-seats { flex-wrap: wrap; margin-top: var(--space-8); gap: var(--gap-3) var(--gap-5); }
+.site-content .rpt-meta { color: var(--on-dark-2); padding-top: var(--space-8); margin-top: var(--space-6); }
+.hero-facts { display: flex; gap: var(--gap-2) var(--gap-4); flex-wrap: wrap; margin-top: var(--space-7); padding-top: var(--space-6); border-top: 1px solid #ffffff26; font-size: var(--fs-xs); color: var(--on-dark-1); }
+/* 2026-11-02：数据行与分隔线横跨整个横幅宽度，避免只占左列、右侧书影下方留白。
+   桌面端把书影限制在第一行，数据行独占第二行；窄屏仍按 正文→书影→数据 的顺序纵向排列。 */
+@media (min-width: 901px) {
+  .site-content .rpt-head > .rpt-book { grid-row: 1; align-self: end; }
+  .site-content .rpt-head > .hero-facts { grid-column: 1 / -1; grid-row: 2; }
+}
+.hero-facts b { color: var(--white); font-size: var(--fs-subtitle); margin-right: var(--space-0); }
+.section-kicker { color: var(--grey-2); font-size: var(--fs-tiny-2); font-weight: 700; letter-spacing: 2px; margin-bottom: var(--space-3); }
+.section-title { font-size: clamp(21px, 2.5vw, 28px); line-height: 1.55; color: var(--navy); font-weight: 750; margin-bottom: var(--space-5); text-wrap: balance; }
+.section-lead { font-size: var(--fs-sm); color: var(--muted); max-width: 850px; margin-bottom: var(--space-7); line-height: 1.95; }
+.section-lead:last-child { margin-bottom: 0; }
+.content-grid { display: grid; gap: var(--gap-4); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.content-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* 白底区块内的卡片回到纯白，与浅蓝灰区块底形成层次 */
+.home-page .content-panel { background: var(--surface); border-color: var(--navy-line); }
+.content-panel { border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: var(--pad-card-lg); min-width: 0; background: var(--bg-tint); }
+.content-panel h3 { font-size: var(--fs-subtitle); line-height: 1.6; color: var(--navy); margin-bottom: var(--space-4); }
+.content-panel p { font-size: var(--fs-xs); color: var(--muted); line-height: 1.95; }
+.panel-index { font-family: Consolas, monospace; font-size: var(--fs-tiny-2); color: var(--grey-2); display: block; margin-bottom: var(--space-5); }
+/* 批次 2 · 白底规范：首页面板序号用深金点缀（数字/徽标层，不大面积使用） */
+.home-page .panel-index { color: var(--gold-deep); }
+.section-closing { color: var(--navy); margin-top: var(--space-7); font-size: var(--fs-ui-lg); }
+.section-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--gap-3) var(--gap-5); margin-top: var(--space-8); }
+.action { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: var(--space-4) var(--space-6); text-decoration: none; border: 1px solid var(--navy); border-radius: var(--radius-sm); background: var(--navy); color: white; font: inherit; font-size: var(--fs-xs); cursor: pointer; line-height: 1.6; text-align: center; }
+/* 批次 2：.action:hover 与 .action.secondary:hover 已收编进 base.css 的档位体系组件底色层
+   （.action:hover → var(--navy-hover)；.action.secondary:hover → var(--bg-page)）。
+   这里只保留静态样式，避免与 .tier-strong / .tier-medium 抢背景色。 */
+.action.secondary { color: var(--navy); background: transparent; border-color: var(--border-strong); }
+/* 弱档：文字链接 —— 颜色提亮 + 下划线微动 */
+.text-link { color: #285785; font-size: var(--fs-xs); text-decoration-thickness: 1px; text-underline-offset: 2px; transition: color var(--duration-med) var(--ease-out), text-underline-offset var(--duration-med) var(--ease-out), filter var(--duration-med) var(--ease-out); }
+.text-link:hover { text-underline-offset: var(--hover-underline-offset); filter: var(--hover-bright-weak); }
+.rpt-head .action { background: var(--teal); color: var(--navy-d); border-color: var(--teal); font-weight: 700; }
+.rpt-head .action.secondary { background: #ffffff09; border-color: var(--border-strong); color: var(--white); }
+.rpt-head .text-link { color: var(--on-dark-1); }
+.pathway { list-style: none; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); padding: var(--space-6) 0; gap: var(--gap-2); }
+.pathway li { position: relative; border-top: 2px solid var(--border-strong); padding-top: var(--space-5); text-align: center; font-size: var(--fs-xs); color: var(--navy); }
+.pathway span { display: block; font-family: Consolas, monospace; color: #38718b; font-size: var(--fs-tiny-2); margin-bottom: var(--space-1); }
+.proof-grid { display: grid; gap: 0 var(--gap-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.proof { padding: var(--space-7) 0; border-top: 1px solid var(--border-subtle); min-width: 0; }
+.proof:first-child { grid-column: 1 / -1; }
+.proof h3 { font-size: var(--fs-subtitle); color: var(--navy); margin: var(--space-3) 0; }
+.proof p { font-size: var(--fs-xs); color: var(--muted); }
+.status { display: inline-block; font-size: var(--fs-tiny-4); line-height: 1.8; color: var(--grey-1); background: var(--bg-teal-soft); padding: var(--space-0) var(--space-3); border-radius: var(--radius-sm); font-weight: 700; }
+.status.planning { color: #68542a; background: var(--bg-gold-soft); }
+.status.live { color: #245382; background: #e9f0fa; }
+.member-preview { display: grid; gap: var(--gap-4); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* 批次 2 · 白底规范 —— 成员卡常态藏青细描边，悬停交给 .tier-medium-on-light */
+.member-card { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: var(--gap-4); align-items: center; padding: var(--pad-card-md); border: 1px solid var(--navy-line); border-radius: var(--radius-sm); text-decoration: none; color: var(--navy); background: var(--surface); }
+.member-card img { width: 68px; height: 90px; object-fit: cover; border-radius: var(--radius-sm); }
+.member-card small { color: var(--grey-2); font: var(--fs-tiny-6) Consolas, monospace; }
+.member-card h3 { font-size: var(--fs-body); margin: var(--space-1) 0; }
+.member-card p { color: var(--muted); font-size: var(--fs-tiny-4); line-height: 1.75; }
+/* 批次 2 · 白底规范：浅蓝灰区块底上，编者按改白底以拉开层次 */
+.editor-note { margin-top: var(--space-7); padding: var(--space-6) var(--space-7); border-left: 3px solid #4c7593; background: var(--surface); font-size: var(--fs-xs); color: var(--muted); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-5); align-items: start; }
+.learning-block { padding: var(--space-8); background: var(--surface); border-radius: var(--radius-sm); }
+.learning-block h3 { color: var(--navy); font-size: var(--fs-subtitle); margin: var(--space-5) 0; }
+.learning-block p { color: var(--muted); font-size: var(--fs-xs); }
+.closing-section { background: var(--navy-d); color: var(--white); }
+.closing-section .section-title { color: var(--white); }
+.closing-section .section-kicker { color: #8bddce; }
+.choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-3); margin-top: var(--space-8); }
+.choice { display: flex; align-items: center; justify-content: space-between; gap: var(--gap-3); padding: var(--space-7); color: var(--white); font-size: var(--fs-sm); text-decoration: none; border: 1px solid #ffffff45; border-radius: var(--radius-sm); background: #ffffff05; }
+/* 深底区块（下一步选择）：青色体系，描边与光晕交给 .tier-medium，此处只管底色 */
+.choice:hover { background: var(--fill-on-dark); }
+.choice span { color: var(--teal); transition: transform var(--duration-slow) var(--ease-out); }
+.book-jump { display: flex; gap: var(--gap-2) var(--gap-5); flex-wrap: wrap; padding: var(--space-6) var(--space-7); margin-bottom: var(--space-7); background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
+.book-jump a { color: #37577d; font-size: var(--fs-tiny-2); }
+.book-story { font-size: var(--fs-body); line-height: 2.05; color: var(--grey-1); max-width: 850px; border-left: 3px solid #54a99b; padding-left: var(--space-7); }
+.fine-print { color: var(--muted); font-size: var(--fs-tiny-2); line-height: 1.9; margin-top: var(--space-6); }
+.book-page .bk2-chap { margin-bottom: var(--space-4); }
+.book-page .bk2-chap-title { font-size: var(--fs-ui-lg); }
+.book-page .bk2-chap-result { font-size: var(--fs-tiny-2); }
+.book-page .bk2-chap-body { color: var(--grey-1); }
+.army-showcase { border-top: 1px solid var(--border-subtle); margin-top: var(--space-9); padding-top: var(--space-9); scroll-margin-top: var(--nav-clear); }
+.army-title { margin: 0 0 var(--space-5); font-size: var(--fs-title); line-height: 1.5; color: var(--navy); }
+.army-group { margin-top: var(--space-9); scroll-margin-top: var(--nav-clear); }
+.army-group-head { display: flex; align-items: end; justify-content: space-between; gap: var(--gap-3); margin-bottom: var(--space-6); }
+.army-group-label { display: block; color: var(--grey-2); font-size: var(--fs-tiny-4); letter-spacing: 2px; margin-bottom: var(--space-1); }
+.army-group-head h4 { font-size: var(--fs-subtitle); color: var(--navy); line-height: 1.5; }
+.army-chapter { color: var(--muted); font-size: var(--fs-tiny-2); }
+.army-models, .army-specialists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-4); }
+.army-model, .army-specialist { display: flex; flex-direction: column; min-width: 0; padding: var(--space-8); border-radius: var(--radius-sm); }
+.army-model { background: var(--navy-d); color: var(--on-dark-1); border-top: 3px solid #69cbb8; }
+.army-specialist { border: 1px solid var(--border-subtle); background: var(--bg-tint); }
+.army-role { font-size: var(--fs-tiny-2); font-weight: 700; color: #357288; margin: 0 0 var(--space-2); }
+.army-model .army-role { color: #8cdece; }
+.army-model h5, .army-specialist h5 { font-size: var(--fs-subtitle); line-height: 1.6; margin: 0 0 var(--space-5); }
+.army-model h5 { color: var(--white); }
+.army-specialist h5 { color: var(--navy); }
+.army-description { font-size: var(--fs-xs); line-height: 1.95; margin-bottom: var(--space-6); }
+.army-specialist .army-description { color: var(--muted); }
+.army-facts { margin: 0 0 var(--space-7); font-size: var(--fs-tiny-2); }
+.army-facts > div { display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: var(--gap-2); padding: var(--space-3) 0; border-top: 1px solid var(--border-subtle); }
+.army-facts dt { color: var(--grey-2); font-weight: 700; }
+.army-facts dd { margin: 0; color: var(--grey-2); overflow-wrap: anywhere; }
+.army-model .army-facts > div { border-color: #ffffff29; }
+.army-model .army-facts dt { color: var(--on-dark-2); }
+.army-model .army-facts dd { color: var(--on-dark-1); }
+.army-link { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: var(--gap-3); color: #285785; text-decoration: none; font-size: var(--fs-tiny-2); padding: var(--space-3) 0; min-height: 44px; }
+.army-link:hover { text-decoration: underline; }
+.army-model .army-link { color: #95e4d4; }
+.army-note { font-size: var(--fs-tiny-2); color: var(--muted); margin-top: var(--space-5); line-height: 1.95; }
+.army-note a { color: #285785; }
+.specialist-heading { display: flex; gap: var(--gap-3); align-items: center; margin-bottom: var(--space-5); }
+.specialist-heading h5 { margin-bottom: 0; }
+.specialist-heading .army-role { margin-bottom: var(--space-0); }
+.specialist-no { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--navy); color: white; font: 700 var(--fs-tiny-2) Consolas, monospace; }
+.book-page details[id^="part-"] { scroll-margin-top: var(--nav-clear); }
+.formula { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--gap-2); margin: var(--space-8) 0; }
+.formula-item { padding: var(--space-6); background: var(--bg-page); border-top: 2px solid #477693; min-width: 0; }
+.formula-item b { font: bold 28px Consolas, monospace; color: var(--navy); }
+.formula-item strong { display: block; color: var(--grey-1); font-size: var(--fs-sm); margin: var(--space-1) 0; }
+.formula-item p { font-size: var(--fs-tiny-2); color: var(--muted); }
+.method-group { margin-top: var(--space-9); }
+.method-group h3 { font-size: var(--fs-subtitle); color: var(--navy); margin-bottom: var(--space-5); }
+.method-list { display: grid; gap: var(--gap-2); grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; }
+.method-list li { padding: var(--space-5) var(--space-6); border: 1px solid var(--border-subtle); font-size: var(--fs-tiny-2); color: var(--muted); border-radius: var(--radius-sm); }
+.method-list b { display: block; color: var(--navy); font-size: var(--fs-xs); margin-bottom: var(--space-1); }
+.appendix-list { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-3); }
+.appendix-list li { padding: var(--space-6); background: var(--bg-page); display: grid; grid-template-columns: 25px 1fr; gap: var(--gap-3); }
+.appendix-list span { font: 22px Consolas, monospace; color: var(--grey-2); }
+.appendix-list b { display: block; font-size: var(--fs-sm); color: var(--navy); margin-bottom: var(--space-1); }
+.appendix-list p { color: var(--muted); font-size: var(--fs-tiny-2); }
+.reader-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-3); }
+.reader-route { border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: var(--space-6) var(--space-7); background: var(--bg-tint); }
+.reader-route summary { cursor: pointer; color: var(--navy); font-size: var(--fs-sm); font-weight: 700; }
+.reader-route summary span { display: block; font-size: var(--fs-tiny-2); font-weight: 400; color: var(--muted); margin: var(--space-2) 0 0 var(--space-6); }
+.reading-route { font-family: Consolas, 'Microsoft YaHei', sans-serif; color: var(--grey-2); font-size: var(--fs-xs); padding-top: var(--space-5); overflow-wrap: anywhere; }
+.author-statement { font-size: var(--fs-ui-lg); line-height: 2; color: var(--grey-1); }
+.archive-note { margin-bottom: var(--space-7); padding: var(--space-6) var(--space-7); border-left: 3px solid #5b889f; background: var(--surface); color: var(--grey-2); font-size: var(--fs-xs); }
+.archive-note a { color: var(--navy); }
+.site-content .card { scroll-margin-top: var(--nav-clear); }
+@media (prefers-reduced-motion: reduce) { .site-content * { transition: none; } }
+@media (max-width: 900px) {
+  .site-content .rpt-head { padding: var(--space-10) var(--space-9); column-gap: var(--gap-5); }
+  .site-content .rpt-book img { width: 175px; }
+  .member-preview { gap: var(--gap-2); }
+  .member-card { grid-template-columns: 52px 1fr; padding: var(--space-5); gap: var(--gap-2); }
+  .member-card img { width: 52px; height: 72px; }
+}
+@media (max-width: 768px) {
+  .site-content .rpt-head { display: flex; flex-direction: column; align-items: stretch; padding: var(--space-9) var(--space-8); gap: var(--gap-4); }
+  .site-content .rpt-book { order: -1; align-self: center; }
+  .site-content .rpt-book img { width: 135px; }
+  .site-content .rpt-title { font-size: var(--fs-display); }
+  .site-content .rpt-tagline { font-size: 23px; }
+  .site-content .card { padding: var(--pad-card-lg) var(--pad-card-lg); }
+  .content-grid, .member-preview { grid-template-columns: 1fr; }
+  .pathway { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-4) var(--gap-2); }
+  .proof-grid, .split, .content-grid.two { grid-template-columns: 1fr; }
+  .member-card { grid-template-columns: 68px 1fr; }
+  .member-card img { width: 68px; height: 90px; }
+  .member-card p { font-size: var(--fs-tiny-2); }
+  .formula { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .appendix-list { grid-template-columns: 1fr 1fr; }
+  .book-page .bk2-chap summary { gap: var(--gap-2); padding: var(--space-6) var(--space-5); }
+  .book-page .bk2-chap-result { display: none; }
+  .book-page .bk2-chap-body { padding: 0 var(--space-5) var(--space-6); }
+  .book-story { font-size: var(--fs-sm); padding-left: var(--space-6); }
+  .army-group-head { flex-direction: column; align-items: start; gap: var(--gap-2); }
+  .army-models, .army-specialists { grid-template-columns: 1fr; }
+  .army-model, .army-specialist { padding: var(--space-7); }
+  .army-title { font-size: 22px; }
+  .army-model h5, .army-specialist h5 { font-size: var(--fs-subtitle); }
+}
+@media (max-width: 480px) {
+  .choice-grid, .reader-grid, .method-list, .appendix-list { grid-template-columns: 1fr; }
+  .site-content .rpt-title { font-size: var(--fs-display); }
+  .site-content .rpt-head { padding: var(--space-8) var(--space-7); }
+  /* 批次 2：移动端收紧首屏间距，保证「378 页 / 8 篇 31 章 / 9 项附录」整行落在首屏内 */
+  .home-page .hero-copy { margin: var(--space-5) 0 var(--space-6); }
+  .home-page .hero-audience { margin-bottom: var(--space-6); }
+  .home-page .hero-facts { gap: var(--gap-2) var(--gap-3); margin-top: var(--space-6); padding-top: var(--space-5); }
+  /* 「23 位联合出版人」在下方共建者卡片中完整呈现，首屏此处让位给三组核心证据 */
+  .home-page .hero-facts .fact-extra { display: none; }
+  .section-actions { gap: var(--gap-3); }
+  .section-actions .action { width: 100%; }
+  .site-content .card { padding: var(--pad-card-lg) var(--pad-card-md); }
+  .book-jump { gap: var(--gap-3) var(--gap-4); }
+}
+
+/* ===== 批次 2 · 首页三级 hover 体系接线 =====
+   强档 .tier-strong：主 CTA、AI 大礼包
+   中档 .tier-medium：卡片、次按钮、弹窗按钮、导航链接
+   弱档 .tier-weak：文字链接、页脚链接
+   卡片类元素若本身没有描边，用 outline 承载「描边转主色」，避免为悬停新增边框而改变布局。 */
+/* ===== 批次 2 · 白底区块规范 =====
+   浅底区块的卡片统一走 .tier-medium-on-light：
+   描边转品牌蓝紫 + 白底阴影 + 上浮 1px，不改指针、不暗示「可以点进去」。
+   mini-book / learning-block 本身没有描边，保留透明占位边框防悬停时布局跳动。 */
+/* learning-block：常态描边与 .course-blueprint 统一为藏青 25% 1px、同圆角同内距，
+   悬停时由 .tier-medium-on-light 给出蓝紫描边 + 白底阴影。 */
+.home-page .learning-block {
+  border: 1px solid var(--navy-line);
+  border-radius: var(--radius-sm);
+}
+/* 批次 2 · 学习中心两卡等高：grid 拉伸拉齐，矮卡用弹性间距撑开，
+   两卡底部内容对齐（auto 外边距吸收多余高度，不硬编码高度）。 */
+.home-page .split-cards { align-items: stretch; }
+.home-page .split-cards > .learning-block,
+.home-page .split-cards > .course-blueprint { display: flex; flex-direction: column; }
+/* 徽标是行内块，flex 容器下需阻止拉伸，保持药丸宽度 */
+.home-page .split-cards > .learning-block > .status { align-self: flex-start; }
+/* 左卡 CTA 沉底：auto 外边距吸收余量，padding-top 保住最小上间距 */
+.home-page .split-cards > .learning-block > .section-actions { margin-top: auto; padding-top: var(--space-8); }
+/* 右卡说明小字沉底：同上 */
+.home-page .split-cards > .course-blueprint > .fine-print { margin-top: auto; padding-top: var(--space-4); }
+/* 移动端内距统一（放在文件后段，避免被前段基础 padding 覆盖） */
+@media (max-width: 768px) {
+  .home-page .learning-block { padding: var(--space-7); }
+}
+/* mini-book 是纯排版块、不承载任何交互：
+   无论挂不挂档位类、无论是否悬停，卡片本身都不得出现可见变化。
+   覆盖档位类的 hover 规则，靠 !important 压过 .tier-* 的重要声明。 */
+.home-page .mini-book,
+.home-page .mini-book:hover,
+.home-page .mini-book.tier-strong:hover,
+.home-page .mini-book.tier-medium:hover,
+.home-page .mini-book.tier-medium-on-light:hover,
+.home-page .mini-book.tier-strong-on-light:hover,
+.home-page .mini-book.tier-weak:hover,
+.home-page .mini-book.tier-visual:hover {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  background: transparent !important;
+}
+/* 卡内 CTA 是真实按钮，保留自己的按钮悬停（描边 + 阴影 + 上浮）。
+   用 !important 让按钮效果不依赖是否挂档位类。 */
+.home-page .mini-book .action.secondary {
+  border-color: transparent;
+  background: transparent;
+}
+.home-page .mini-book .action.secondary:hover {
+  border-color: var(--indigo-deep) !important;
+  box-shadow: var(--shadow-light) !important;
+  transform: translateY(var(--hover-lift-medium)) !important;
+}
+/* 活动海报是真链接，走白底中档：透明占位边框，悬停才显蓝紫描边 */
+.home-page .home-promo-poster {
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+}
+/* ===== 首页先锋券推广到期隐藏 ===== */
+/* 与 landing.js 配合：landing.js 负责动态切换 class；此处的 !important 用于
+   覆盖 display: flex / grid 等已有布局，确保隐藏实际生效。 */
+.xf-promo-expired #promo {
+  display: none !important;
+}

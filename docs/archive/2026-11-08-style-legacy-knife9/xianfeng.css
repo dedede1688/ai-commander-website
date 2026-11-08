@@ -1,0 +1,1184 @@
+/* ===== 先锋营 · 样板书优惠券页 专属样式 =====
+   依赖 base.css 的设计变量与共享组件（.topnav / .footer-note / .qr-layer）。
+   页面级类一律 xf- 前缀，避免与全站样式冲突。
+
+   【视觉规范】以 base.css 令牌与全站三级 hover 体系为唯一参照：
+   - 骨架：深色首屏面板 + 浅灰底（#eef1f6）白卡正文，与模型页 .models-hero + .card 同构
+   - 首屏：模型页同款深蓝渐变 + 双层径向光晕 + 内嵌青色辉光 + 两个描边圆环；
+     等宽青色 eyebrow → 主标题 → 副文 → 顶部细线分隔的数据条（.xf-stats）
+   - 标题：h2 带中文序号，样式完全交给 base.css 的「深蓝字 + 青色左竖条」签名
+   - 子块：.xf-sub / .xf-subhd 对齐模型页 .dash-sub / .dash-sub-hd
+   - 交互：卡片 hover 上浮 + 边框变青 + 阴影加深，过渡 0.16–0.18s（与模型页一致）
+   - 强调色：--teal #00edbd 只用于深色底（首屏 / 导流条）；浅色卡上一律用
+     #00b89c / #007a5f（站点在浅底上的既有做法）
+   - 金色系：浅底上统一用 #8a5d00（深金），避免 #c88a00 在白底上对比度过低
+   - 弱化文字：浅底上统一用 #5b6675（站点页脚/次级说明的既有灰），
+     不用 --grey #8a93a6——后者在白卡上对比度仅约 3.0，读起来发虚
+   - 圆角：正文卡片 6px、Hero 面板 10px、内部功能块 10px
+   加载顺序：base.css 在前，本文件在后。 */
+
+/* ---------- 页面底色 ----------
+   首屏是深色面板，正文区沿用全站浅灰底 + 白卡，故不覆盖 body 背景。 */
+
+.xf-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--pad-card-lg) var(--pad-card-sm) 0;
+}
+
+/* ---------- 首屏：整幅「先锋就位」海报 ----------
+   海报自带标题 / 按钮 / 券卡，页面不再叠加文字；
+   海报上的扫码按钮区域用绝对定位热区承接点击。 */
+.xf-hero--poster {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  /* 只保留上圆角：底部与下方标语条紧贴，接口处取平 */
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+.xf-poster-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* 按钮热区：平时透明，悬停泛青光提示可点
+   尺寸用 %-height 压在海报上，窄屏会缩到 21px 高；这里兜到 24px 触达下限（WCAG 2.2 AA），
+   只放大不可见热区，海报视觉与定位百分比不动。 */
+.xf-hot {
+  position: absolute;
+  border: none;
+  background: transparent;
+  padding: 0;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.16s,
+    box-shadow 0.16s;
+}
+.xf-hot:hover {
+  background: rgba(0, 237, 189, 0.12);
+  box-shadow: 0 0 0 2px rgba(0, 237, 189, 0.6),
+    0 8px 22px rgba(0, 237, 189, 0.3);
+}
+.xf-hot:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+.xf-hot-claim {
+  left: 2.4%;
+  top: 44.8%;
+  width: 30.2%;
+  height: 10.4%;
+}
+
+/* CTA：hover 上浮 + 阴影加深（对齐模型页 .bs-btn 的反馈力度） */
+.xf-btn {
+  flex: 1;
+  display: block;
+  text-align: center;
+  padding: var(--space-5) var(--space-5);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-ui-lg);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-position 0.3s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+.xf-btn-main {
+  background: linear-gradient(135deg, #00edbd 0%, #5aa7e0 50%, #7b5ce0 100%);
+  background-size: 135% 135%;
+  background-position: 0% 50%;
+  color: var(--ink);
+  box-shadow: 0 6px 20px rgba(0, 237, 189, 0.28);
+}
+.xf-btn-main:hover {
+  transform: translateY(-2px);
+  background-position: 100% 50%;
+  box-shadow: 0 10px 26px rgba(0, 237, 189, 0.42);
+}
+.xf-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+.xf-btn-wide {
+  display: block;
+  max-width: 360px;
+  margin: var(--space-6) auto 0;
+  width: 100%;
+}
+.xf-btn-block {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-6);
+}
+
+/* ---------- 一句话标语条 ----------
+   它是首屏的收尾句，视觉上与首屏同属一块深色面板：
+   首屏底部取平、本条约顶部取平，两者紧贴（间距 0）合成整体，
+   顶部用一条青色细线作分界，避免“两块圆角紧贴”在左右两端露底、看着像错位。 */
+.xf-oneliner {
+  text-align: center;
+  background: var(--navy-d);
+  color: var(--white);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: var(--space-6) var(--space-7);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  border-top: 1px solid rgba(0, 237, 189, 0.14);
+  margin-bottom: var(--space-7);
+}
+.xf-oneliner span {
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- 通用 section：全站白卡 ---------- */
+.xf-sec {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 4px rgba(20, 31, 96, 0.1);
+  padding: var(--space-9) var(--space-10);
+  margin-bottom: var(--space-7);
+  scroll-margin-top: var(--nav-clear); /* 锚点定位让位导航高度，变量随换行媒体查询自适应 */
+}
+/* 提示：h2 不在本文件自定义，直接继承 base.css 的全局规则
+   （20.5px / --navy / 字距 1px / 左内边距 13px + 4px 青色竖条），
+   这样移动端字号也自动跟随 base.css 的媒体查询。 */
+
+/* 眉标：对齐模型页 .mh-eyebrow 的等宽字距，浅底上换深绿以保证对比度 */
+.xf-kicker {
+  font-family: Consolas, monospace;
+  font-size: var(--fs-tiny-3);
+  letter-spacing: 3px;
+  color: var(--link-green);
+  margin-bottom: var(--space-4);
+}
+
+/* 子块容器（对齐模型页 .dash-sub / .dash-sub-hd） */
+.xf-sub {
+  padding: var(--space-5) var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-6);
+}
+.xf-subhd {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.3px;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.xf-block {
+  font-size: var(--fs-sm);
+  line-height: 1.85;
+  color: var(--body);
+  margin: 0 0 var(--space-1);
+}
+.xf-block b {
+  color: var(--navy);
+}
+/* 浅底上的金色 / 红色：用深金保证可读性。
+   加 .xf-sec 前缀是为了压过 .xf-block b / .xf-why b 等「加粗即深蓝」的规则。 */
+.xf-sec .xf-gold {
+  color: #8a5d00;
+}
+.xf-sec .xf-red {
+  color: var(--alert-border);
+}
+
+/* ==========================================================================
+   价值章节专用样式（2026-10-12 新增）
+   展示书里最有杀伤力的独家资产：RBTFC 公式、五大魔咒、六项进阶技术。
+   配色遵循本站约定：浅底一律深蓝 / 深金，青色只留给深色底。
+   ========================================================================== */
+
+/* 引子：一句话说清这章给什么 */
+.xf-lead {
+  font-size: var(--fs-sm);
+  line-height: 1.85;
+  color: var(--body);
+  margin: 0 0 var(--space-5);
+}
+
+/* --- RBTFC 公式：五格横排，字母为主体词为注解 --- */
+.xf-formula {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--gap-2);
+  margin-bottom: var(--space-5);
+}
+.xf-fitem {
+  background: linear-gradient(160deg, #eef1fa 0%, #f7f9fc 100%);
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-3);
+  text-align: center;
+  transition: transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.xf-fitem:hover {
+  transform: translateY(-2px);
+  border-color: var(--navy);
+  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.1);
+}
+.xf-fitem b {
+  display: block;
+  font-size: var(--fs-title);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--navy);
+  margin-bottom: var(--space-2);
+}
+.xf-fitem span {
+  display: block;
+  font-size: var(--fs-tiny-1);
+  font-weight: 500;
+  color: var(--grey-1);
+  letter-spacing: 0.2px;
+}
+.xf-fitem em {
+  display: block;
+  font-style: normal;
+  font-size: var(--fs-tiny-3);
+  color: var(--grey-3);
+  margin-top: var(--space-1);
+}
+
+/* --- 五大魔咒：单列卡片，编号用汉字序号 --- */
+.xf-spells {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-2);
+  margin-bottom: var(--space-5);
+}
+.xf-spell {
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--navy);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-5) var(--space-6);
+  transition: transform 0.18s,
+    box-shadow 0.18s;
+}
+.xf-spell:hover {
+  transform: translateX(3px);
+  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.09);
+}
+.xf-spell-hd {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  margin-bottom: var(--space-2);
+}
+.xf-spell-no {
+  flex: 0 0 auto;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  font-size: var(--fs-tiny-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.xf-spell-hd b {
+  font-size: var(--fs-ui-lg);
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.5px;
+}
+.xf-spell p {
+  font-size: var(--fs-ui-sm);
+  line-height: 1.75;
+  color: var(--body);
+  margin: 0 0 var(--space-1);
+}
+.xf-spell p b {
+  color: var(--navy);
+}
+/* 书中实例：用浅金底托出，是「别人没写过的细节」的证据 */
+.xf-spell-eg {
+  font-size: var(--fs-tiny-1);
+  color: #8a5d00;
+  background: #fdf8ee;
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  margin: 0;
+}
+
+/* --- 六项进阶技术：两列网格 --- */
+.xf-techs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-2);
+  margin-bottom: var(--space-5);
+}
+.xf-tech {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-5);
+}
+.xf-tech b {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: var(--space-1);
+}
+.xf-tech span {
+  font-size: var(--fs-tiny-1);
+  line-height: 1.65;
+  color: var(--grey-2);
+}
+
+/* --- 收益卡：数字优先，最有商业说服力 --- */
+.xf-gains {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-2);
+  margin-bottom: var(--space-5);
+}
+.xf-gain {
+  border: 1px solid var(--border-base);
+  border-radius: var(--radius-md);
+  background: linear-gradient(160deg, #f4f6fc 0%, #fbfcfe 100%);
+  padding: var(--space-5) var(--space-6);
+}
+.xf-gain b {
+  display: block;
+  font-size: var(--fs-subtitle);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: var(--space-1);
+  letter-spacing: 0.3px;
+}
+.xf-gain span {
+  font-size: var(--fs-tiny-1);
+  line-height: 1.6;
+  color: var(--grey-2);
+}
+
+/* --- 说明性脚注 --- */
+.xf-note {
+  font-size: var(--fs-xs);
+  line-height: 1.85;
+  color: var(--grey-1);
+  margin: 0;
+}
+.xf-note b {
+  color: var(--navy);
+}
+.xf-note-dim {
+  color: var(--grey-3);
+  font-size: var(--fs-tiny-1);
+}
+
+/* --- 窄屏：公式与网格降为单列 --- */
+@media (max-width: 700px) {
+  .xf-formula {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .xf-techs,
+  .xf-gains {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .xf-formula {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .xf-fitem b {
+    font-size: 22px;
+  }
+}
+
+/* ---------- 一、FAB 四重价值 ---------- */
+.xf-fab-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-3);
+}
+.xf-fab {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  background: var(--surface);
+  transition: transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.xf-fab:hover {
+  transform: translateY(-3px);
+  border-color: var(--teal-accent);
+  box-shadow: 0 10px 24px rgba(20, 31, 96, 0.1);
+}
+.xf-fab-head {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  margin-bottom: var(--space-4);
+}
+.xf-badge {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: var(--fs-ui-lg);
+  box-shadow: 0 3px 8px rgba(0, 184, 156, 0.3);
+}
+/* h3 的颜色与字号交给 base.css（16px / --navy），这里只清掉默认外边距 */
+.xf-fab h3 {
+  margin: 0;
+}
+.xf-fab p {
+  font-size: var(--fs-ui-sm);
+  line-height: 1.75;
+  color: var(--body);
+  margin: 0 0 var(--space-2);
+}
+.xf-fab p b {
+  color: var(--navy);
+}
+.xf-gain {
+  color: var(--link-green);
+  font-weight: 600;
+}
+
+/* ---------- 二、痛点 ---------- */
+.xf-pain {
+  display: flex;
+  gap: var(--gap-3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-6) var(--space-6);
+  margin-bottom: var(--space-5);
+  background: var(--surface);
+  transition: transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.xf-pain:last-child {
+  margin-bottom: 0;
+}
+.xf-pain:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal-accent);
+  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.08);
+}
+.xf-q {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--bg-page);
+  color: var(--alert-border);
+  font-weight: 800;
+  font-size: var(--fs-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-0);
+}
+.xf-p {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: var(--space-0);
+}
+.xf-s {
+  font-size: var(--fs-xs);
+  color: var(--link-green);
+  line-height: 1.7;
+}
+.xf-s::before {
+  content: "▸ ";
+}
+
+/* ---------- 三、规则细节 ---------- */
+.xf-callout {
+  background: var(--note-bg);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--teal-accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-5) var(--space-6);
+  margin: var(--space-6) 0 0;
+  font-size: var(--fs-ui-sm);
+  line-height: 1.8;
+  color: var(--body);
+}
+.xf-callout b {
+  color: var(--link-green);
+}
+.xf-rules {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-ui-sm);
+}
+.xf-rules th,
+.xf-rules td {
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.7;
+}
+.xf-rules th {
+  background: var(--bg-page);
+  width: 88px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--navy);
+}
+.xf-rules td {
+  background: var(--surface);
+  color: var(--body);
+}
+.xf-rules td b {
+  color: #8a5d00;
+}
+
+.xf-why {
+  list-style: none;
+  font-size: var(--fs-sm);
+  line-height: 1.85;
+  color: var(--body);
+}
+.xf-why li {
+  padding: var(--space-2) 0 var(--space-2) var(--space-7);
+  position: relative;
+}
+.xf-why li:first-child {
+  padding-top: 0;
+}
+.xf-why li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--teal-accent);
+  font-weight: 800;
+}
+.xf-why b {
+  color: var(--navy);
+}
+.xf-meta-line {
+  margin: var(--space-5) 0 0;
+  font-size: var(--fs-ui-sm);
+  color: var(--grey-3);
+  line-height: 1.8;
+}
+.xf-meta-line b {
+  color: var(--navy);
+}
+
+/* ---------- 全书结构 / 军衔 ---------- */
+.xf-pills {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-2);
+}
+.xf-pill {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+  transition: transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.xf-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal-accent);
+  box-shadow: 0 8px 18px rgba(20, 31, 96, 0.08);
+}
+.xf-pill b {
+  display: block;
+  font-size: var(--fs-ui-sm);
+  color: var(--navy);
+}
+.xf-pill span {
+  font-size: var(--fs-tiny-3);
+  color: var(--grey-3);
+}
+.xf-pill.xf-hl {
+  border: 1.5px solid var(--teal-accent);
+}
+.xf-pill.xf-hl b::after {
+  content: "第 5 章 · 第一道命令";
+  display: block;
+  font-size: var(--fs-tiny-5);
+  color: var(--link-green);
+  font-weight: 600;
+  margin-top: var(--space-0);
+}
+.xf-pill-note {
+  margin: var(--space-5) 0 0;
+  font-size: var(--fs-tiny-2);
+  color: var(--grey-3);
+}
+.xf-ranks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--gap-1) var(--gap-2);
+  padding: 0;
+}
+.xf-ranks span {
+  font-size: var(--fs-tiny-3);
+  font-weight: 600;
+  color: var(--navy);
+}
+.xf-ranks span:not(:last-child)::after {
+  content: "→";
+  color: var(--teal-accent);
+  margin-left: var(--space-3);
+  font-weight: 400;
+}
+
+/* ---------- 四、背书 ---------- */
+.xf-endorse {
+  border-left: 3px solid var(--teal-accent);
+  padding: var(--space-0) 0 var(--space-0) var(--space-5);
+  margin: 0 0 var(--space-6);
+  font-size: var(--fs-sm);
+  line-height: 1.85;
+  color: var(--body);
+}
+.xf-endorse:last-of-type {
+  margin-bottom: 0;
+}
+.xf-endorse b {
+  color: var(--navy);
+}
+.xf-authors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--gap-2);
+  margin: var(--space-6) 0 0;
+}
+.xf-ind {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-1);
+}
+.xf-ind i {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--teal);
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  transition: transform 0.18s,
+    box-shadow 0.18s;
+}
+/* 行业圆：悬停轻放 + 青色光环，呼应“20 位联合出版人”的背书分量 */
+.xf-ind:hover i {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px rgba(0, 237, 189, 0.18);
+}
+.xf-ind em {
+  font-style: normal;
+  font-size: var(--fs-tiny-5);
+  color: var(--grey-3);
+  text-align: center;
+}
+
+/* ---------- 五、促单 ---------- */
+.xf-price-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-4);
+  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  border: 1.5px solid rgba(138, 93, 0, 0.5);
+  border-radius: var(--radius-md);
+  padding: var(--pad-card-md);
+  margin: 0 0 var(--space-6);
+}
+.xf-old {
+  font-size: var(--fs-body);
+  color: var(--grey-3);
+  text-decoration: line-through;
+}
+.xf-new {
+  font-size: var(--fs-display);
+  font-weight: 800;
+  color: #8a5d00;
+  line-height: 1;
+  font-family: Consolas, monospace;
+}
+.xf-new small {
+  font-size: var(--fs-ui-lg);
+  font-weight: 600;
+  color: var(--body);
+}
+.xf-save {
+  font-size: var(--fs-tiny-2);
+  background: #8a5d00;
+  color: var(--white);
+  border-radius: var(--radius-pill);
+  padding: var(--space-0) var(--space-4);
+  align-self: flex-start;
+}
+.xf-checklist {
+  list-style: none;
+}
+.xf-checklist li {
+  padding: var(--space-2) 0 var(--space-2) var(--space-9);
+  position: relative;
+  font-size: var(--fs-ui-md);
+  color: var(--body);
+}
+.xf-checklist li:first-child {
+  padding-top: 0;
+}
+.xf-checklist li b {
+  color: var(--navy);
+}
+.xf-checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  color: var(--ink);
+  font-size: var(--fs-tiny-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.xf-checklist li:first-child::before {
+  top: 0;
+}
+/* 领取步骤：先领券，再凭券购买 */
+.xf-steps {
+  list-style: none;
+  counter-reset: xfstep;
+  margin: var(--space-1) 0 var(--space-5);
+}
+.xf-steps li {
+  counter-increment: xfstep;
+  position: relative;
+  padding: var(--space-3) 0 var(--space-3) var(--space-10);
+  font-size: var(--fs-ui-md);
+  line-height: 1.75;
+  color: var(--body);
+}
+.xf-steps li b {
+  color: var(--navy);
+}
+.xf-steps li::before {
+  content: counter(xfstep);
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #00b89c, #00edbd);
+  color: var(--ink);
+  font-size: var(--fs-tiny-2);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.xf-claim-hint {
+  margin: var(--space-3) 0 0;
+  text-align: center;
+  font-size: var(--fs-tiny-1);
+  color: var(--grey-3);
+  line-height: 1.6;
+}
+/* 限时提示：浅金块（与 base.css 的 .note.warn-note 同语言） */
+.xf-deadline {
+  background: var(--warn-bg);
+  border: 1px solid #f0d9a8;
+  color: #8a5d00;
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-6);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  margin: 0;
+}
+.xf-cd {
+  font-size: var(--fs-subtitle);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-3);
+  color: #8a5d00;
+  font-family: Consolas, monospace;
+  /* 刀8 准则 Text：等宽数字，秒位跳变时块宽不再抖；Consolas 兜底之外的字体也稳 */
+  font-variant-numeric: tabular-nums;
+}
+/* 数字底块：加描边 + 呼吸辉光，让倒计时在浅色金块里更跳 */
+.xf-cd i {
+  font-style: normal;
+  background: rgba(138, 93, 0, 0.12);
+  border: 1px solid rgba(138, 93, 0, 0.25);
+  border-radius: var(--radius-md);
+  padding: var(--space-0) var(--space-3);
+  margin: 0 var(--space-0);
+  animation: xf-cd-breathe 2.4s ease-in-out infinite;
+}
+@keyframes xf-cd-breathe {
+  0%,
+  100% {
+    background: rgba(138, 93, 0, 0.1);
+  }
+  50% {
+    background: rgba(138, 93, 0, 0.2);
+  }
+}
+.xf-stock-coupon {
+  display: flex;
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
+  border: 1.5px solid rgba(138, 93, 0, 0.5);
+  overflow: hidden;
+}
+.xf-sc-left {
+  flex: 0 0 132px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-1);
+  padding: var(--space-5) var(--space-3);
+  border-right: 1.5px dashed rgba(138, 93, 0, 0.45);
+}
+.xf-sc-left b {
+  font-size: var(--fs-display);
+  color: #8a5d00;
+  font-family: Consolas, monospace;
+  line-height: 1;
+}
+.xf-sc-left span {
+  font-size: var(--fs-tiny-4);
+  color: var(--grey-3);
+}
+.xf-sc-left s {
+  font-size: var(--fs-tiny-5);
+  color: var(--grey-3);
+}
+.xf-sc-right {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-5) var(--space-6);
+}
+.xf-sc-t1 {
+  font-size: var(--fs-ui-lg);
+  font-weight: 700;
+  color: var(--navy);
+}
+.xf-sc-t2 {
+  margin-top: var(--space-1);
+  font-size: var(--fs-tiny-2);
+  line-height: 1.7;
+  color: var(--grey-3);
+}
+.xf-sc-t2 b {
+  color: #8a5d00;
+  font-family: Consolas, monospace;
+}
+.xf-sc-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--fs-sm);
+}
+.xf-trustbar {
+  display: flex;
+  gap: var(--gap-2);
+  margin: var(--space-6) 0 0;
+}
+.xf-trustbar div {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-3);
+  text-align: center;
+  transition: transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.xf-trustbar div:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal-accent);
+  background: var(--surface);
+  box-shadow: 0 8px 18px rgba(20, 31, 96, 0.08);
+}
+.xf-trustbar b {
+  display: block;
+  font-size: var(--fs-tiny-1);
+  color: var(--navy);
+}
+.xf-trustbar span {
+  font-size: var(--fs-tiny-5);
+  color: var(--grey-3);
+}
+.xf-interact {
+  border: 1px dashed #a8ded1;
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  background: var(--note-bg);
+  margin-top: var(--space-5);
+}
+.xf-interact > b {
+  color: var(--link-green);
+  font-size: var(--fs-sm);
+}
+.xf-interact p {
+  font-size: var(--fs-ui-sm);
+  line-height: 1.8;
+  margin: var(--space-3) 0 0;
+  color: var(--body);
+}
+.xf-interact p b {
+  color: var(--link-green);
+}
+.xf-contact {
+  margin-top: var(--space-6);
+  text-align: center;
+}
+.xf-qrbox {
+  margin: var(--space-5) auto 0;
+  max-width: 360px;
+  border: 1.5px dashed #7fd6c2;
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-6);
+  color: var(--link-green);
+  font-size: var(--fs-xs);
+  line-height: 1.8;
+  cursor: pointer;
+  transition: transform 0.16s,
+    box-shadow 0.16s,
+    border-color 0.16s,
+    background 0.16s;
+}
+.xf-qrbox:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal-accent);
+  box-shadow: 0 8px 18px rgba(20, 31, 96, 0.08);
+}
+.xf-qrbox b {
+  display: block;
+}
+.xf-qrbox span {
+  color: var(--grey-3);
+  font-size: var(--fs-tiny-2);
+}
+.xf-qrbox.xf-qrbox-dim {
+  border-color: #e0c08a;
+  background: var(--warn-bg);
+}
+.xf-qrbox.xf-qrbox-dim b {
+  color: #8a5d00;
+}
+
+/* ---------- 底部书籍导流条（对齐模型页 .book-strip） ---------- */
+.xf-book-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-4);
+  background: radial-gradient(
+      circle 280px at 90% 20%,
+      rgba(0, 237, 189, 0.12) 0%,
+      rgba(0, 237, 189, 0) 70%
+    ),
+    linear-gradient(120deg, #0c1738 0%, #16265c 55%, #223a80 100%);
+  border-radius: var(--radius-md);
+  padding: var(--space-6) var(--space-7);
+  margin-top: var(--space-8);
+}
+.xf-bs-img {
+  height: 86px;
+  width: auto;
+  flex: 0 0 auto;
+  border-radius: var(--radius-sm);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+}
+.xf-bs-text {
+  flex: 1;
+  min-width: 0;
+}
+.xf-bs-title {
+  font-size: var(--fs-subtitle);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+.xf-bs-sub {
+  margin-top: var(--space-1);
+  font-size: var(--fs-tiny-1);
+  color: var(--on-dark-2);
+  letter-spacing: 0.3px;
+}
+.xf-bs-btn {
+  flex: 0 0 auto;
+  background: var(--teal);
+  color: var(--navy);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  border-radius: var(--radius-pill);
+  padding: var(--space-3) var(--space-7);
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 0.16s,
+    box-shadow 0.16s;
+}
+.xf-bs-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 237, 189, 0.35);
+}
+
+/* ---------- 二维码弹窗关闭按钮 ----------
+   尺寸沿用 base.css 令牌（44px 触达标准）；本页只载入 base.css + 本文件，
+   base.css 没有 .qr-close 与 .qr-panel 的定位，所以在这里补齐。 */
+.qr-panel {
+  position: relative;
+}
+.qr-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--white);
+  font-size: var(--fs-icon-md);
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s,
+    outline-offset 0.15s;
+  z-index: 1;
+}
+.qr-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.qr-close:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+/* ---------- 响应式 ---------- */
+/* 正文卡内边距跟随 base.css 的 .card 断点（30/34 → 22/18 → 18/14） */
+@media (max-width: 768px) {
+  .xf-wrap {
+    padding: var(--pad-card-md) var(--space-5) 0;
+  }
+  .xf-sec {
+    padding: var(--pad-card-lg) var(--pad-card-md);
+  }
+  .xf-book-strip {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--pad-card-md);
+    gap: var(--gap-3);
+  }
+  .xf-bs-btn {
+    padding: var(--space-3) var(--space-9);
+  }
+}
+@media (max-width: 480px) {
+  .xf-wrap {
+    padding: var(--space-5) var(--space-5) 0;
+  }
+  .xf-sec {
+    padding: var(--space-6) var(--space-5);
+  }
+}
+
+/* 640px 起放大字号与双列功能块 */
+@media (min-width: 640px) {
+  .xf-fab-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .xf-pills {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ===== 活动结束终态样式 ===== */
+.xf-expired-banner {
+  display: none;
+  margin: var(--space-8) 0 var(--space-3);
+  padding: var(--space-6) var(--space-8);
+  border-left: 4px solid #c0392b;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+}
+.xf-expired-banner h2 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-subtitle);
+  color: #c0392b;
+}
+.xf-expired-banner p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--grey-3);
+}
+.xf-expired .xf-expired-banner {
+  display: block;
+}
+.xf-expired .xf-cd {
+  display: none;
+}
+/* 活动结束后仍能阅读规则，但视觉上弱化海报，避免仍可抢的错觉 */
+.xf-expired .xf-hero--poster {
+  opacity: 0.65;
+}
+.xf-expired .xf-btn-main {
+  display: none !important;
+}
+
+/* 准则 Motion：prefers-reduced-motion 下停掉无限呼吸动画
+   （base.css 全局守卫只作用于 transition，覆盖不到此处的 keyframes 动画） */
+@media (prefers-reduced-motion: reduce) {
+  .xf-cd i {
+    animation: none;
+  }
+}

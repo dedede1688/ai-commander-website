@@ -260,28 +260,10 @@
 .learning-jump { display: flex; flex-wrap: wrap; gap: var(--gap-1) var(--gap-5); background: white; border-bottom: 1px solid var(--border-base); border-radius: var(--radius-sm); padding: var(--space-5) var(--space-8); margin: var(--space-6) 0 var(--space-7); }
 .learning-jump a { display: inline-flex; align-items: center; min-height: 44px; color: #28496a; font-size: var(--fs-xs); text-decoration: none; }
 .learning-jump a:hover { text-decoration: underline; }
-.usable-layout { display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: var(--gap-6); margin-top: var(--space-8); }
-.model-tool h3 { font-size: 23px; line-height: 1.55; color: var(--navy); margin: var(--space-6) 0 var(--space-5); }
-.model-tool > p { color: var(--muted); font-size: var(--fs-sm); line-height: 1.95; }
-.model-tool .data-note { font-size: var(--fs-tiny-2); color: var(--grey-2); margin: var(--space-6) 0 var(--space-7); }
-.practice-start { padding: var(--space-8); background: var(--bg-page); border-radius: var(--radius-sm); }
-.practice-start > p:first-child { font-size: var(--fs-tiny-2); color: var(--grey-3); margin-bottom: var(--space-4); }
-.practice-start h3 { font-size: var(--fs-subtitle); color: var(--navy); line-height: 1.65; margin-bottom: var(--space-5); }
-.practice-start p { color: var(--muted); font-size: var(--fs-xs); line-height: 1.95; margin-bottom: var(--space-6); }
 .section-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gap-2) var(--gap-4); margin-bottom: var(--space-5); }
 .section-topline .section-kicker { margin-bottom: 0; }
-.course-topics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--gap-5); }
 .price-note { color: var(--navy); font-weight: 700; }
-.course-topics article { border-top: 1px solid var(--border-base); padding: var(--space-7) 0 0; }
-.course-topics article > span { font-size: var(--fs-tiny-4); color: var(--grey-4); }
-.course-topics h3 { font-size: var(--fs-subtitle); color: var(--navy); line-height: 1.6; margin: var(--space-4) 0; }
-.course-topics p { font-size: var(--fs-xs); line-height: 1.95; color: var(--muted); }
 .planning-note { border-top: 1px solid var(--border-subtle); margin-top: var(--space-8); padding-top: var(--space-6); font-size: var(--fs-tiny-2); color: var(--grey-3); }
-.system-progress { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--gap-5); }
-.system-progress article { display: flex; flex-direction: column; align-items: flex-start; border-top: 1px solid var(--border-subtle); padding-top: var(--space-7); min-width: 0; }
-.system-progress h3 { color: var(--navy); font-size: var(--fs-subtitle); line-height: 1.6; margin: var(--space-5) 0 var(--space-4); }
-.system-progress p { color: var(--muted); font-size: var(--fs-xs); line-height: 1.95; margin-bottom: var(--space-6); }
-.system-progress a { margin-top: auto; }
 .planning-list details { padding: var(--space-6) 0; border-top: 1px solid var(--border-subtle); scroll-margin-top: var(--nav-clear); }
 .planning-list summary { color: var(--grey-1); font-size: var(--fs-ui-lg); line-height: 2; cursor: pointer; min-height: 44px; }
 .planning-list summary > span:first-child { font-weight: 700; margin-right: var(--space-6); }
@@ -290,8 +272,6 @@
 .text-button { background: transparent; border: 0; color: #285785; cursor: pointer; min-height: 44px; font: inherit; font-size: var(--fs-xs); text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width:800px) {
   .learning-hero { grid-template-columns: minmax(0,1fr) 130px; gap: var(--gap-5); padding: var(--space-10) var(--space-9); }
-  .usable-layout { grid-template-columns: 1fr; gap: var(--gap-5); }
-  .course-topics, .system-progress { grid-template-columns: 1fr; gap: var(--gap-5); }
 }
 @media (max-width:520px) {
   .learning-hero { grid-template-columns: 1fr; padding: var(--space-9) var(--space-7); }
@@ -301,6 +281,5 @@
   .learning-jump { padding: var(--space-4) var(--space-7); gap: var(--gap-1) var(--gap-5); }
   .learning-page .section-actions { gap: var(--gap-3); }
   .learning-page .section-actions .action { width: 100%; }
-  .practice-start { padding: var(--space-7); }
   .planning-list summary .status { display: block; margin: var(--space-2) 0; width: fit-content; }
 }

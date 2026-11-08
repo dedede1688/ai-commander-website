@@ -1,8 +1,4 @@
 /* 成果中心：沿用 base.css 的品牌变量与字体。 */
-.preview-banner { display: flex; justify-content: space-between; gap: var(--gap-3) var(--gap-5); align-items: center; padding-top: var(--space-6); padding-bottom: 0; font-size: var(--fs-tiny-2); color: var(--grey-2); }
-.preview-banner p { font-weight: 700; }
-.preview-banner p span { font-weight: 400; margin-left: var(--space-5); }
-.preview-banner a { color: var(--navy); text-underline-offset: 4px; }
 .outcomes-page { padding-top: var(--space-6); }
 .outcomes-hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--gap-7); align-items: center; background: var(--navy-d); color: var(--on-dark-1); padding: var(--space-11) var(--space-11); border-radius: var(--radius-md); }
 .outcomes-hero .section-kicker { color: #8bddcf; }
@@ -66,8 +62,6 @@
   .outcome-jump a:last-child { margin-left: 0; }
 }
 @media (max-width: 520px) {
-  .preview-banner { flex-direction: column; align-items: flex-start; gap: var(--gap-2); }
-  .preview-banner p span { display: block; margin: var(--space-1) 0 0; }
   .outcomes-hero { padding: var(--space-9) var(--space-7); }
   .outcomes-hero h1 { font-size: var(--fs-display); }
   .outcome-jump { padding: var(--space-5) var(--space-6); gap: var(--gap-1) var(--gap-4); }

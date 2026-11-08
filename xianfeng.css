@@ -113,11 +113,6 @@
   margin: var(--space-6) auto 0;
   width: 100%;
 }
-.xf-btn-block {
-  display: block;
-  width: 100%;
-  margin-top: var(--space-6);
-}
 
 /* ---------- 一句话标语条 ----------
    它是首屏的收尾句，视觉上与首屏同属一块深色面板：
@@ -182,15 +177,6 @@
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.xf-block {
-  font-size: var(--fs-sm);
-  line-height: 1.85;
-  color: var(--body);
-  margin: 0 0 var(--space-1);
-}
-.xf-block b {
-  color: var(--navy);
-}
 /* 浅底上的金色 / 红色：用深金保证可读性。
    加 .xf-sec 前缀是为了压过 .xf-block b / .xf-why b 等「加粗即深蓝」的规则。 */
 .xf-sec .xf-gold {
@@ -198,128 +184,6 @@
 }
 .xf-sec .xf-red {
   color: var(--alert-border);
-}
-
-/* ==========================================================================
-   价值章节专用样式（2026-10-12 新增）
-   展示书里最有杀伤力的独家资产：RBTFC 公式、五大魔咒、六项进阶技术。
-   配色遵循本站约定：浅底一律深蓝 / 深金，青色只留给深色底。
-   ========================================================================== */
-
-/* 引子：一句话说清这章给什么 */
-.xf-lead {
-  font-size: var(--fs-sm);
-  line-height: 1.85;
-  color: var(--body);
-  margin: 0 0 var(--space-5);
-}
-
-/* --- RBTFC 公式：五格横排，字母为主体词为注解 --- */
-.xf-formula {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--gap-2);
-  margin-bottom: var(--space-5);
-}
-.xf-fitem {
-  background: linear-gradient(160deg, #eef1fa 0%, #f7f9fc 100%);
-  border: 1px solid var(--border-base);
-  border-radius: var(--radius-md);
-  padding: var(--space-5) var(--space-3);
-  text-align: center;
-  transition: transform 0.18s,
-    box-shadow 0.18s,
-    border-color 0.18s;
-}
-.xf-fitem:hover {
-  transform: translateY(-2px);
-  border-color: var(--navy);
-  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.1);
-}
-.xf-fitem b {
-  display: block;
-  font-size: var(--fs-title);
-  font-weight: 700;
-  line-height: 1;
-  color: var(--navy);
-  margin-bottom: var(--space-2);
-}
-.xf-fitem span {
-  display: block;
-  font-size: var(--fs-tiny-1);
-  font-weight: 500;
-  color: var(--grey-1);
-  letter-spacing: 0.2px;
-}
-.xf-fitem em {
-  display: block;
-  font-style: normal;
-  font-size: var(--fs-tiny-3);
-  color: var(--grey-3);
-  margin-top: var(--space-1);
-}
-
-/* --- 五大魔咒：单列卡片，编号用汉字序号 --- */
-.xf-spells {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--gap-2);
-  margin-bottom: var(--space-5);
-}
-.xf-spell {
-  border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--navy);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-  padding: var(--space-5) var(--space-6);
-  transition: transform 0.18s,
-    box-shadow 0.18s;
-}
-.xf-spell:hover {
-  transform: translateX(3px);
-  box-shadow: 0 6px 16px rgba(20, 31, 96, 0.09);
-}
-.xf-spell-hd {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-2);
-  margin-bottom: var(--space-2);
-}
-.xf-spell-no {
-  flex: 0 0 auto;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: var(--navy);
-  color: var(--white);
-  font-size: var(--fs-tiny-2);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.xf-spell-hd b {
-  font-size: var(--fs-ui-lg);
-  font-weight: 700;
-  color: var(--navy);
-  letter-spacing: 0.5px;
-}
-.xf-spell p {
-  font-size: var(--fs-ui-sm);
-  line-height: 1.75;
-  color: var(--body);
-  margin: 0 0 var(--space-1);
-}
-.xf-spell p b {
-  color: var(--navy);
-}
-/* 书中实例：用浅金底托出，是「别人没写过的细节」的证据 */
-.xf-spell-eg {
-  font-size: var(--fs-tiny-1);
-  color: #8a5d00;
-  background: #fdf8ee;
-  border-radius: var(--radius-md);
-  padding: var(--space-2) var(--space-4);
-  margin: 0;
 }
 
 /* --- 六项进阶技术：两列网格 --- */
@@ -386,212 +250,18 @@
 .xf-note b {
   color: var(--navy);
 }
-.xf-note-dim {
-  color: var(--grey-3);
-  font-size: var(--fs-tiny-1);
-}
 
 /* --- 窄屏：公式与网格降为单列 --- */
 @media (max-width: 700px) {
-  .xf-formula {
-    grid-template-columns: repeat(3, 1fr);
-  }
   .xf-techs,
   .xf-gains {
     grid-template-columns: 1fr;
   }
 }
-@media (max-width: 480px) {
-  .xf-formula {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .xf-fitem b {
-    font-size: 22px;
-  }
-}
 
-/* ---------- 一、FAB 四重价值 ---------- */
-.xf-fab-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--gap-3);
-}
-.xf-fab {
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: var(--space-6);
-  background: var(--surface);
-  transition: transform 0.18s,
-    box-shadow 0.18s,
-    border-color 0.18s;
-}
-.xf-fab:hover {
-  transform: translateY(-3px);
-  border-color: var(--teal-accent);
-  box-shadow: 0 10px 24px rgba(20, 31, 96, 0.1);
-}
-.xf-fab-head {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-2);
-  margin-bottom: var(--space-4);
-}
-.xf-badge {
-  flex: 0 0 38px;
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(90deg, #00b89c, #00edbd);
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: var(--fs-ui-lg);
-  box-shadow: 0 3px 8px rgba(0, 184, 156, 0.3);
-}
-/* h3 的颜色与字号交给 base.css（16px / --navy），这里只清掉默认外边距 */
-.xf-fab h3 {
-  margin: 0;
-}
-.xf-fab p {
-  font-size: var(--fs-ui-sm);
-  line-height: 1.75;
-  color: var(--body);
-  margin: 0 0 var(--space-2);
-}
-.xf-fab p b {
-  color: var(--navy);
-}
 .xf-gain {
   color: var(--link-green);
   font-weight: 600;
-}
-
-/* ---------- 二、痛点 ---------- */
-.xf-pain {
-  display: flex;
-  gap: var(--gap-3);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: var(--space-6) var(--space-6);
-  margin-bottom: var(--space-5);
-  background: var(--surface);
-  transition: transform 0.18s,
-    box-shadow 0.18s,
-    border-color 0.18s;
-}
-.xf-pain:last-child {
-  margin-bottom: 0;
-}
-.xf-pain:hover {
-  transform: translateY(-2px);
-  border-color: var(--teal-accent);
-  box-shadow: 0 8px 20px rgba(20, 31, 96, 0.08);
-}
-.xf-q {
-  flex: 0 0 26px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--bg-page);
-  color: var(--alert-border);
-  font-weight: 800;
-  font-size: var(--fs-xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: var(--space-0);
-}
-.xf-p {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--navy);
-  margin-bottom: var(--space-0);
-}
-.xf-s {
-  font-size: var(--fs-xs);
-  color: var(--link-green);
-  line-height: 1.7;
-}
-.xf-s::before {
-  content: "▸ ";
-}
-
-/* ---------- 三、规则细节 ---------- */
-.xf-callout {
-  background: var(--note-bg);
-  border: 1px solid var(--border-subtle);
-  border-left: 4px solid var(--teal-accent);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: var(--space-5) var(--space-6);
-  margin: var(--space-6) 0 0;
-  font-size: var(--fs-ui-sm);
-  line-height: 1.8;
-  color: var(--body);
-}
-.xf-callout b {
-  color: var(--link-green);
-}
-.xf-rules {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--fs-ui-sm);
-}
-.xf-rules th,
-.xf-rules td {
-  border: 1px solid var(--border-subtle);
-  padding: var(--space-4) var(--space-5);
-  text-align: left;
-  vertical-align: top;
-  line-height: 1.7;
-}
-.xf-rules th {
-  background: var(--bg-page);
-  width: 88px;
-  font-weight: 700;
-  white-space: nowrap;
-  color: var(--navy);
-}
-.xf-rules td {
-  background: var(--surface);
-  color: var(--body);
-}
-.xf-rules td b {
-  color: #8a5d00;
-}
-
-.xf-why {
-  list-style: none;
-  font-size: var(--fs-sm);
-  line-height: 1.85;
-  color: var(--body);
-}
-.xf-why li {
-  padding: var(--space-2) 0 var(--space-2) var(--space-7);
-  position: relative;
-}
-.xf-why li:first-child {
-  padding-top: 0;
-}
-.xf-why li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: var(--teal-accent);
-  font-weight: 800;
-}
-.xf-why b {
-  color: var(--navy);
-}
-.xf-meta-line {
-  margin: var(--space-5) 0 0;
-  font-size: var(--fs-ui-sm);
-  color: var(--grey-3);
-  line-height: 1.8;
-}
-.xf-meta-line b {
-  color: var(--navy);
 }
 
 /* ---------- 全书结构 / 军衔 ---------- */
@@ -750,39 +420,6 @@
   padding: var(--space-0) var(--space-4);
   align-self: flex-start;
 }
-.xf-checklist {
-  list-style: none;
-}
-.xf-checklist li {
-  padding: var(--space-2) 0 var(--space-2) var(--space-9);
-  position: relative;
-  font-size: var(--fs-ui-md);
-  color: var(--body);
-}
-.xf-checklist li:first-child {
-  padding-top: 0;
-}
-.xf-checklist li b {
-  color: var(--navy);
-}
-.xf-checklist li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 7px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, #00b89c, #00edbd);
-  color: var(--ink);
-  font-size: var(--fs-tiny-2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.xf-checklist li:first-child::before {
-  top: 0;
-}
 /* 领取步骤：先领券，再凭券购买 */
 .xf-steps {
   list-style: none;
@@ -863,65 +500,6 @@
     background: rgba(138, 93, 0, 0.2);
   }
 }
-.xf-stock-coupon {
-  display: flex;
-  border-radius: var(--radius-md);
-  background: linear-gradient(180deg, #fbfcfe, #f3f6fa);
-  border: 1.5px solid rgba(138, 93, 0, 0.5);
-  overflow: hidden;
-}
-.xf-sc-left {
-  flex: 0 0 132px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gap-1);
-  padding: var(--space-5) var(--space-3);
-  border-right: 1.5px dashed rgba(138, 93, 0, 0.45);
-}
-.xf-sc-left b {
-  font-size: var(--fs-display);
-  color: #8a5d00;
-  font-family: Consolas, monospace;
-  line-height: 1;
-}
-.xf-sc-left span {
-  font-size: var(--fs-tiny-4);
-  color: var(--grey-3);
-}
-.xf-sc-left s {
-  font-size: var(--fs-tiny-5);
-  color: var(--grey-3);
-}
-.xf-sc-right {
-  flex: 1;
-  min-width: 0;
-  padding: var(--space-5) var(--space-6);
-}
-.xf-sc-t1 {
-  font-size: var(--fs-ui-lg);
-  font-weight: 700;
-  color: var(--navy);
-}
-.xf-sc-t2 {
-  margin-top: var(--space-1);
-  font-size: var(--fs-tiny-2);
-  line-height: 1.7;
-  color: var(--grey-3);
-}
-.xf-sc-t2 b {
-  color: #8a5d00;
-  font-family: Consolas, monospace;
-}
-.xf-sc-btn {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  margin-top: var(--space-4);
-  padding: var(--space-4) var(--space-5);
-  font-size: var(--fs-sm);
-}
 .xf-trustbar {
   display: flex;
   gap: var(--gap-2);
@@ -952,64 +530,6 @@
 .xf-trustbar span {
   font-size: var(--fs-tiny-5);
   color: var(--grey-3);
-}
-.xf-interact {
-  border: 1px dashed #a8ded1;
-  border-radius: var(--radius-md);
-  padding: var(--space-6);
-  background: var(--note-bg);
-  margin-top: var(--space-5);
-}
-.xf-interact > b {
-  color: var(--link-green);
-  font-size: var(--fs-sm);
-}
-.xf-interact p {
-  font-size: var(--fs-ui-sm);
-  line-height: 1.8;
-  margin: var(--space-3) 0 0;
-  color: var(--body);
-}
-.xf-interact p b {
-  color: var(--link-green);
-}
-.xf-contact {
-  margin-top: var(--space-6);
-  text-align: center;
-}
-.xf-qrbox {
-  margin: var(--space-5) auto 0;
-  max-width: 360px;
-  border: 1.5px dashed #7fd6c2;
-  border-radius: var(--radius-md);
-  padding: var(--space-5) var(--space-6);
-  color: var(--link-green);
-  font-size: var(--fs-xs);
-  line-height: 1.8;
-  cursor: pointer;
-  transition: transform 0.16s,
-    box-shadow 0.16s,
-    border-color 0.16s,
-    background 0.16s;
-}
-.xf-qrbox:hover {
-  transform: translateY(-2px);
-  border-color: var(--teal-accent);
-  box-shadow: 0 8px 18px rgba(20, 31, 96, 0.08);
-}
-.xf-qrbox b {
-  display: block;
-}
-.xf-qrbox span {
-  color: var(--grey-3);
-  font-size: var(--fs-tiny-2);
-}
-.xf-qrbox.xf-qrbox-dim {
-  border-color: #e0c08a;
-  background: var(--warn-bg);
-}
-.xf-qrbox.xf-qrbox-dim b {
-  color: #8a5d00;
 }
 
 /* ---------- 底部书籍导流条（对齐模型页 .book-strip） ---------- */
@@ -1134,9 +654,6 @@
 
 /* 640px 起放大字号与双列功能块 */
 @media (min-width: 640px) {
-  .xf-fab-grid {
-    grid-template-columns: 1fr 1fr;
-  }
   .xf-pills {
     grid-template-columns: repeat(4, 1fr);
   }

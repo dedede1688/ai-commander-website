@@ -42,7 +42,6 @@
   top: 8px;
 }
 
-
 :root {
   /* 刀8 准则 Visual：全站浅底，显式声明配色，避免强制深色插件把表单控件/滚动条反色 */
   color-scheme: light;
@@ -297,6 +296,14 @@ input,
 select,
 textarea {
   touch-action: manipulation;
+}
+/* 准则 Touch & Interaction：页面橡皮筋抑制按指针类型分档——只在精指针（桌面）关掉过滚动回弹。
+   粗指针保持浏览器默认，否则移动端的下拉刷新会被一起打掉；
+   代价（条款明示的取舍）：none 同时关闭 scroll chaining 与系统级滑动前进/后退，桌面触控板三指导航受影响。 */
+@media (pointer: fine) {
+  html {
+    overscroll-behavior: none;
+  }
 }
 /* 注意：不要在 html 上写 scroll-behavior: smooth。
    它会把「刷新后恢复滚动位置」也变成从页顶平滑滚下来的动画，
@@ -645,12 +652,6 @@ h3:first-of-type {
 .note.alert {
   background: var(--alert-bg);
   border-left-color: var(--alert-border);
-}
-.note-title {
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: var(--space-2);
-  font-size: var(--fs-note);
 }
 
 /* ---------- 页脚 ---------- */

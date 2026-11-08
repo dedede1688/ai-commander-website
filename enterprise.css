@@ -3,10 +3,6 @@
    颜色一律取 base.css 既有令牌，不新增硬编码色值；
    交互一律挂三级 hover 体系（tier-strong / tier-medium / tier-weak，
    白底区块用 tier-medium-on-light / tier-strong-on-light）。 */
-.preview-banner { display: flex; justify-content: space-between; align-items: center; gap: var(--gap-3) var(--gap-5); padding-top: var(--space-6); padding-bottom: 0; font-size: var(--fs-tiny-2); color: var(--grey-2); }
-.preview-banner p { font-weight: 700; }
-.preview-banner span { font-weight: 400; margin-left: var(--space-5); }
-.preview-banner a { color: var(--navy); text-underline-offset: 4px; }
 .enterprise-page { padding-top: var(--space-6); }
 
 /* ---------- 一、首屏：给什么企业、解决什么问题 ---------- */
@@ -95,7 +91,6 @@
 .enterprise-faq summary { color: var(--grey-1); font-size: var(--fs-sm); font-weight: 700; min-height: 44px; cursor: pointer; }
 .enterprise-faq details p { color: var(--muted); font-size: var(--fs-xs); line-height: 1.95; padding-top: var(--space-4); }
 .contact-section { background: var(--bg-tint); }
-.contact-hint { font-size: var(--fs-tiny-2); color: var(--grey-3); line-height: 1.95; }
 @media (max-width: 800px) {
   .enterprise-hero { grid-template-columns: 1fr; gap: var(--gap-5); padding: var(--space-10) var(--space-9); }
   .flagship-layout, .service-row { grid-template-columns: 1fr; gap: var(--gap-5); }
@@ -104,8 +99,6 @@
   .enterprise-trust { padding: var(--space-9) var(--space-8); }
 }
 @media (max-width: 520px) {
-  .preview-banner { flex-direction: column; align-items: flex-start; gap: var(--gap-2); }
-  .preview-banner span { display: block; margin: var(--space-1) 0 0; }
   .enterprise-hero { padding: var(--space-9) var(--space-7); }
   .enterprise-hero h1 { font-size: var(--fs-display); }
   .hero-directions { grid-template-columns: 1fr; gap: var(--gap-2); }

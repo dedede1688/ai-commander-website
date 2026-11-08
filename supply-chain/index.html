@@ -8,8 +8,11 @@
 :root{--bg:#f6f7f9;--ink:#1a1d21;--sub:#6b7280;--line:#e6e8eb;--brand:#0f6b5c;--brand2:#14b8a6;--card:#fff;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Segoe UI","Microsoft YaHei",-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;touch-action:manipulation}
-/* 刀8 准则 Touch：对齐主站 base.css 口径——touch-action 不可继承，body 一条罩不住子元素命中区，交互元素显式覆盖 */
-a,button{touch-action:manipulation}
+/* 刀8 准则 Touch：对齐主站 base.css 口径——touch-action 不可继承，body 一条罩不住子元素命中区，交互元素显式覆盖。
+   刀10 补 tap-highlight：主站那条写在 base.css 的 body 上（可继承），子站不加载 base.css 罩不到，此处显式补。 */
+a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+/* 刀10 准则 Touch & Interaction：页面橡皮筋抑制按指针分档（同主站 base.css）——桌面精指针关回弹，触屏保持默认以下拉刷新可用 */
+@media (pointer:fine){html{overscroll-behavior:none}}
 a{color:inherit;text-decoration:none}
 .skip-link{position:fixed;left:16px;top:-80px;z-index:2000;padding:10px 16px;background:#fff;color:#141f60;border-radius:0 0 8px 8px;text-decoration:none}
 .skip-link:focus,.skip-link:focus-visible{top:8px}
