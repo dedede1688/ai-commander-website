@@ -1,10 +1,12 @@
-/* ===== AI指挥官·个人AI指挥系统实战课（course.js v5，2026-11-06 精简改版）=====
+/* ===== AI指挥官·个人AI指挥系统实战课（course.js v6，2026-11-09 第01课试点）=====
    数据驱动渲染五阶段十课卡片（平铺，不折叠）：每课含 问题/为什么学/准备/课堂30分钟四段/
    课堂最小成果/课后20—40分钟任务/配套工具表/最终可用成果/完成标准/蓝图位置。
    十课按五阶段分组直接展开（.mini-stage），每卡仍可原位展开看九要素；一次仅展开一节。
    卡片挂 tier-medium-on-light（白底中档），与全站浅底卡片悬停语言一致。
    v5 改版：删除纵向折叠 Toolbar、阶段 rail 结构与 localStorage 展开记忆（原键
-   ai-course-official-open-lesson 不再读写）；渲染目标为 #lessons 内的 #journey 容器。 */
+   ai-course-official-open-lesson 不再读写）；渲染目标为 #lessons 内的 #journey 容器。
+   v6 新增：第 01 课卡内「开始学习」（视频弹窗播放器）与「提交作业」（上传窗口，
+   支持 图片+PDF/MD/Word，本地类型/大小校验；云上传接口第 2 期接入，见 SUBMIT_ENDPOINT）。 */
 (function () {
   const stages = [
     { name: "第一阶段 · 明确方向", brief: "看清起点，选定第一条行动路线", outcome: "阶段成果：一个真实场景与第一项任务", lessons: [
@@ -113,6 +115,14 @@
         done: "蓝图包含一条主线、下一步行动和风险边界；你能向别人讲清每个部分从哪来、往哪去。",
         pos: "整合前九课成果，形成最终蓝图——本课交付点，就是你的迭代起点。" } ] }
   ];
+  /* ===== v6 第01课媒体与作业配置 =====
+     LESSON_MEDIA["01"].video：视频地址（录制完成后填入，如 素材/课程/lesson01.mp4 或云存储 URL）。
+     留空 = 视频未就绪，弹窗显示「准备中」占位，不虚构可播内容。
+     SUBMIT_ENDPOINT：作业上传云后端接口（第 2 期开通后填入，POST multipart/form-data）。
+     留空 = 提交时仅做本地校验并提示通道待开通，不假装上传成功。 */
+  const LESSON_MEDIA = { "01": { video: "" } };
+  const SUBMIT_ENDPOINT = "";
+
   const journey = document.getElementById("journey");
   if (!journey) return;
   stages.forEach((stage) => {
@@ -124,7 +134,7 @@
       const details = document.createElement("details");
       details.className = "lesson tier-medium-on-light";
       details.dataset.lesson = lesson.no;
-      details.innerHTML = `<summary><span class="no">${lesson.no}</span><div class="lesson-main"><span class="stage-tag">${stage.name}</span><h3>${lesson.title}</h3><p>本课解决的问题：${lesson.problem}</p><span class="final"><b>本课成果：</b>${lesson.final}</span></div><div class="meta"><b>课堂 30 分钟</b>课后 20—40 分钟</div><span class="toggle" aria-hidden="true">＋</span></summary><div class="expand"><p class="why-label">为什么要学这一课</p><p class="why">${lesson.why}</p><div class="expand-cols"><div><p class="label">课堂 30 分钟 · 四段安排</p><ol class="agenda">${lesson.agenda.map((x) => `<li>${x}</li>`).join("")}</ol><div class="mini"><b>课堂最小成果</b>${lesson.mini}</div></div><div><p class="label">课后 20—40 分钟 · 完善任务</p><div class="homework">${lesson.homework}</div><div class="criteria" style="margin-top:14px"><div class="criterion"><b>开始前准备</b>${lesson.prep}</div><div class="criterion tool"><b>配套工具表</b>${lesson.tool}</div><div class="criterion done"><b>最终可用成果</b>${lesson.final}</div><div class="criterion done"><b>完成标准</b>${lesson.done}</div></div></div></div><div class="blueprint"><strong>进入蓝图：</strong>${lesson.pos}</div></div>`;
+      details.innerHTML = `<summary><span class="no">${lesson.no}</span><div class="lesson-main"><span class="stage-tag">${stage.name}</span><h3>${lesson.title}</h3><p>本课解决的问题：${lesson.problem}</p><span class="final"><b>本课成果：</b>${lesson.final}</span></div><div class="meta"><b>课堂 30 分钟</b>课后 20—40 分钟</div><span class="toggle" aria-hidden="true">＋</span></summary><div class="expand"><p class="why-label">为什么要学这一课</p><p class="why">${lesson.why}</p><div class="expand-cols"><div><p class="label">课堂 30 分钟 · 四段安排</p><ol class="agenda">${lesson.agenda.map((x) => `<li>${x}</li>`).join("")}</ol><div class="mini"><b>课堂最小成果</b>${lesson.mini}</div></div><div><p class="label">课后 20—40 分钟 · 完善任务</p><div class="homework">${lesson.homework}</div><div class="criteria" style="margin-top:14px"><div class="criterion"><b>开始前准备</b>${lesson.prep}</div><div class="criterion tool"><b>配套工具表</b>${lesson.tool}</div><div class="criterion done"><b>最终可用成果</b>${lesson.final}</div><div class="criterion done"><b>完成标准</b>${lesson.done}</div></div></div></div><div class="blueprint"><strong>进入蓝图：</strong>${lesson.pos}</div>${lesson.no === "01" ? `<div class="lesson-actions"><button class="lbtn lbtn-primary tier-strong" type="button" data-act="video">开始学习<span class="lbtn-arrow" aria-hidden="true">▶</span></button><button class="lbtn lbtn-secondary tier-medium" type="button" data-act="homework">提交作业</button></div>` : ""}</div>`;
       details.addEventListener("toggle", () => {
         /* 与现版一致：打开新课自动收起上一课（作用域限 #journey 平铺区；v5 不再做 localStorage 记忆） */
         if (!details.open) return;
@@ -140,4 +150,123 @@
     });
     journey.appendChild(wrap);
   });
+
+  /* ===== v6：第 01 课「开始学习」视频弹窗 与「提交作业」上传窗口 =====
+     结构语言与全站 .qr-layer 一致（遮罩关闭 / 关闭键 / Escape 关闭 / 焦点圈定），
+     样式见 course.css v16；颜色全部取自 base.css 既有令牌。 */
+  const VIDEO_SRC = (LESSON_MEDIA["01"] && LESSON_MEDIA["01"].video) || "";
+  const HW_MAX_FILES = 6;
+  const HW_MAX_SIZE = 10 * 1024 * 1024;
+  const HW_EXT = ["jpg", "jpeg", "png", "webp", "gif", "pdf", "md", "doc", "docx"];
+
+  function buildModal(id, label, wide, inner) {
+    const layer = document.createElement("div");
+    layer.className = "modal-layer";
+    layer.id = id;
+    layer.setAttribute("role", "dialog");
+    layer.setAttribute("aria-modal", "true");
+    layer.setAttribute("aria-label", label);
+    layer.innerHTML = `<div class="modal-panel${wide ? " modal-panel-wide" : ""}"><button class="qr-close" type="button" aria-label="关闭" data-modal-close>×</button>${inner}</div>`;
+    document.body.appendChild(layer);
+    return layer;
+  }
+
+  /* 视频弹窗：有地址挂 <video>，无地址挂「准备中」占位，不虚构可播内容 */
+  const videoLayer = buildModal("lessonVideoLayer", "第 01 课视频", true,
+    `<p class="modal-kicker">第 01 课 · 看清你的AI使用起点</p><h3 class="modal-title">开始学习</h3><div class="video-frame">${VIDEO_SRC ? `<video controls preload="metadata" playsinline src="${VIDEO_SRC}"></video>` : `<div class="video-placeholder"><b>视频准备中</b><span>本课视频录制完成后将在这里直接播放。</span></div>`}</div><p class="modal-note">课堂约 30 分钟。看完可用「提交作业」上传本课成果，获得打分反馈。</p>`);
+  const videoEl = videoLayer.querySelector("video");
+
+  /* 作业弹窗：本地类型/大小校验；云上传接口第 2 期接入（SUBMIT_ENDPOINT） */
+  const hwLayer = buildModal("lessonHomeworkLayer", "提交第 01 课作业", false,
+    `<p class="modal-kicker">第 01 课作业 · 看清你的AI使用起点</p><h3 class="modal-title">提交作业</h3><p class="hw-lead">上传本课成果（判断表草稿、场景清单截图、文档等）。支持图片（JPG/PNG/WebP/GIF）与 PDF / MD / Word，单个文件 ≤10MB，最多 6 个。</p><label class="hw-label" for="hwName">你的称呼（选填）</label><input class="hw-input" id="hwName" type="text" maxlength="30" autocomplete="name" placeholder="怎么称呼你（选填）" /><div class="hw-drop" id="hwDrop" role="button" tabindex="0" aria-label="选择要上传的文件"><b>选择文件</b><span>点击选择，或把文件拖到这里</span></div><input type="file" id="hwFiles" accept="image/*,.pdf,.md,.doc,.docx" multiple hidden /><ul class="hw-list" id="hwList"></ul><button class="lbtn lbtn-primary hw-submit tier-strong" type="button" id="hwSubmit">提交作业</button><p class="hw-msg" id="hwMsg" role="status" aria-live="polite"></p>`);
+
+  const hwFiles = hwLayer.querySelector("#hwFiles");
+  const hwDrop = hwLayer.querySelector("#hwDrop");
+  const hwList = hwLayer.querySelector("#hwList");
+  const hwMsg = hwLayer.querySelector("#hwMsg");
+  const hwSubmit = hwLayer.querySelector("#hwSubmit");
+  let picked = [];
+
+  function fmtSize(n) { return n >= 1024 * 1024 ? (n / 1024 / 1024).toFixed(1) + "MB" : Math.max(1, Math.round(n / 1024)) + "KB"; }
+  function extOf(name) { const m = name.toLowerCase().match(/\.([a-z0-9]+)$/); return m ? m[1] : ""; }
+  function renderList() {
+    hwList.innerHTML = picked.map((f, i) => `<li><span class="hw-name">${f.name}</span><span class="hw-size">${fmtSize(f.size)}</span><button type="button" class="hw-remove" data-rm="${i}" aria-label="移除 ${f.name}">×</button></li>`).join("");
+    hwSubmit.disabled = picked.length === 0;
+  }
+  function addFiles(list) {
+    const msgs = [];
+    for (const f of Array.from(list)) {
+      if (picked.length >= HW_MAX_FILES) { msgs.push(`最多 ${HW_MAX_FILES} 个文件，${f.name} 未加入`); break; }
+      const ok = HW_EXT.includes(extOf(f.name)) || (f.type && f.type.startsWith("image/"));
+      if (!ok) { msgs.push(`${f.name}：不支持的类型`); continue; }
+      if (f.size > HW_MAX_SIZE) { msgs.push(`${f.name}：超过 10MB`); continue; }
+      if (picked.some((p) => p.name === f.name && p.size === f.size)) continue;
+      picked.push(f);
+    }
+    hwMsg.className = "hw-msg" + (msgs.length ? " err" : "");
+    hwMsg.textContent = msgs.join("；");
+    renderList();
+  }
+
+  hwDrop.addEventListener("click", () => hwFiles.click());
+  hwDrop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); hwFiles.click(); } });
+  hwFiles.addEventListener("change", () => { addFiles(hwFiles.files); hwFiles.value = ""; });
+  ["dragover", "dragleave", "drop"].forEach((ev) => hwDrop.addEventListener(ev, (e) => {
+    e.preventDefault();
+    hwDrop.classList.toggle("drag", ev === "dragover");
+    if (ev === "drop" && e.dataTransfer && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+  }));
+  hwList.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-rm]");
+    if (!btn) return;
+    picked.splice(Number(btn.dataset.rm), 1);
+    renderList();
+  });
+
+  hwSubmit.addEventListener("click", () => {
+    if (!picked.length) { hwMsg.className = "hw-msg err"; hwMsg.textContent = "请先选择至少 1 个文件。"; return; }
+    if (!SUBMIT_ENDPOINT) {
+      /* 第 2 期前的诚实口径：校验通过即反馈，不假装上传成功 */
+      hwMsg.className = "hw-msg ok";
+      hwMsg.textContent = `本地校验通过：${picked.length} 个文件，共 ${fmtSize(picked.reduce((s, f) => s + f.size, 0))}。云上传通道第 2 期开通后，这里将真实上传并由 AI 打分。`;
+      return;
+    }
+    const fd = new FormData();
+    fd.append("lesson", "01");
+    fd.append("name", hwLayer.querySelector("#hwName").value.trim());
+    picked.forEach((f) => fd.append("files", f, f.name));
+    hwSubmit.disabled = true;
+    hwMsg.className = "hw-msg"; hwMsg.textContent = "正在上传…";
+    fetch(SUBMIT_ENDPOINT, { method: "POST", body: fd })
+      .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then((d) => { hwMsg.className = "hw-msg ok"; hwMsg.textContent = (d && d.score != null) ? `提交成功，AI 打分：${d.score} 分。${d.comment || ""}` : "提交成功，打分结果稍后返回。"; })
+      .catch(() => { hwMsg.className = "hw-msg err"; hwMsg.textContent = "上传失败，请稍后重试。"; })
+      .finally(() => { hwSubmit.disabled = false; });
+  });
+
+  /* ===== 弹窗开关与通用交互（遮罩 / 关闭键 / Escape / 焦点圈定） ===== */
+  const layers = [videoLayer, hwLayer];
+  function openModal(layer) { layer.classList.add("on"); document.body.style.overflow = "hidden"; const c = layer.querySelector("[data-modal-close]"); if (c) c.focus(); }
+  function closeModal(layer) { layer.classList.remove("on"); document.body.style.overflow = ""; if (videoEl && !videoEl.paused) videoEl.pause(); }
+  journey.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-act]");
+    if (!btn) return;
+    if (btn.dataset.act === "video") openModal(videoLayer);
+    if (btn.dataset.act === "homework") { renderList(); openModal(hwLayer); }
+  });
+  layers.forEach((layer) => {
+    layer.addEventListener("click", (e) => { if (e.target === layer || e.target.closest("[data-modal-close]")) closeModal(layer); });
+    layer.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab" || !layer.classList.contains("on")) return;
+      const focusable = Array.from(layer.querySelectorAll("button, input, [tabindex]:not([tabindex='-1'])")).filter((el) => !el.disabled && el.offsetParent !== null);
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") layers.forEach((layer) => { if (layer.classList.contains("on")) closeModal(layer); });
+  });
+  renderList();
 })();

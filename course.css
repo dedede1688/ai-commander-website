@@ -1,4 +1,4 @@
-/* ===== AI指挥官·个人AI指挥系统实战课（course.css v14，2026-11-06 修复十课卡悬停标题隐形）=====
+/* ===== AI指挥官·个人AI指挥系统实战课（course.css v16，2026-11-09 第01课试点）=====
    归位主站层次体系：首屏为嵌入式深蓝卡片 hero（.wrap 同宽、圆角 --radius-md、底色 --navy-d，
    参照 learning.css .learning-hero），hero 以下白底正文（区块底 --surface-tint、卡片纯白）。
    颜色/阴影/描边全部取自 base.css 批次 1/2 既有令牌（--surface-tint / --navy-line /
@@ -24,6 +24,9 @@
   /* 仅排版别名（非颜色）：等宽 kicker 与无衬线栈沿用 base.css 同款字体 */
   --sans: "Noto Sans SC","Microsoft YaHei",-apple-system,sans-serif;
   --mono: Consolas,"SFMono-Regular","Menlo",monospace;
+  /* v16 新增唯一颜色令牌：表单校验错误文字色。base.css 仅有绿色系（--link-green）无红色系，
+     校验报错需要语义红，在此页局部定义、后续全站需要时再上移公共层。 */
+  --msg-err: #a32d2d;
 }
 body{background: var(--surface-tint)}
 a{color: inherit}
@@ -218,3 +221,56 @@ summary:focus-visible{outline: 3px solid var(--teal-logo);outline-offset: -3px}
    base.css 全局给 h2 加了「左侧 4px 青绿竖条 + 小字号 + letter-spacing」，
    本课页自行管理标题，抹掉该装饰；竖条由各区块自行决定。 */
 h2{border-left: 0;padding-left: 0;letter-spacing: normal}
+
+/* ---------- v16：第 01 课「开始学习 / 提交作业」按钮与弹窗 ----------
+   深蓝十课卡内的双按钮 + 两个弹窗（视频播放器 / 作业上传窗口）。
+   结构语言复用 base.css .qr-layer 体系：--overlay-heavy 遮罩、.qr-close 关闭键、
+   --shadow-panel 投影；颜色全部取自既有令牌，零新增硬编码色值。
+   十课卡为深蓝底，按钮沿用深底档位 tier-strong / tier-medium；悬停色在此页内固定。 */
+.lesson-actions{display:flex;flex-wrap:wrap;gap:var(--gap-3);margin-top:var(--space-9)}
+.lbtn{display:inline-flex;align-items:center;gap:var(--gap-2);min-height:46px;padding:var(--space-5) var(--space-7);color:var(--white);font-size:var(--fs-body);font-weight:800;line-height:1;text-decoration:none;border:1px solid transparent;border-radius:var(--radius-md);cursor:pointer;transition:transform .18s,filter .18s,background-color .18s,border-color .18s}
+.lbtn-primary{background:linear-gradient(100deg,var(--navy),var(--teal-accent));box-shadow:var(--shadow-navy-soft)}
+.lbtn-secondary{background:var(--fill-on-dark);border-color:var(--nav-line)}
+.lbtn-arrow{font-size:11px}
+.lbtn:hover{transform:translateY(-1px)}
+.lbtn-primary:hover{filter:brightness(1.08);color:var(--white)}
+.lbtn-secondary:hover{border-color:var(--teal-logo);color:var(--teal)}
+.lbtn:focus-visible{outline:3px solid var(--teal-logo);outline-offset:3px}
+.lbtn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+
+.modal-layer{position:fixed;inset:0;z-index:1000;background:var(--overlay-heavy);display:none;align-items:center;justify-content:center;padding:var(--space-7);cursor:pointer;overscroll-behavior:contain}
+.modal-layer.on{display:flex;animation:fade var(--duration-slow)}
+.modal-panel{position:relative;width:100%;max-width:460px;max-height:calc(100vh - 56px);overflow:auto;padding:var(--space-9) var(--space-8);color:var(--ink);background:var(--surface);border-radius:var(--radius-lg);box-shadow:0 20px 60px var(--shadow-panel);cursor:auto}
+.modal-panel-wide{max-width:760px}
+.modal-kicker{margin:0;color:var(--teal-accent);font-size:var(--fs-tiny-2);font-weight:800;letter-spacing:.14em}
+.modal-title{margin:var(--space-3) 0 0;color:var(--navy-d);font-size:var(--fs-title);border-left:0;padding-left:0;letter-spacing:normal}
+.modal-note{margin:var(--space-5) 0 0;color:var(--indigo-deep);font-size:var(--fs-xs);line-height:1.7}
+.video-frame{margin-top:var(--space-6);background:var(--navy-d);border-radius:var(--radius-md);overflow:hidden;aspect-ratio:16/9}
+.video-frame video{display:block;width:100%;height:100%}
+.video-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--gap-2);height:100%;color:var(--on-dark-2);text-align:center;padding:var(--space-7)}
+.video-placeholder b{color:var(--teal);font-size:var(--fs-subtitle)}
+.hw-lead{margin:var(--space-5) 0 0;color:var(--ink);font-size:var(--fs-xs);line-height:1.7}
+.hw-label{display:block;margin:var(--space-6) 0 var(--space-2);color:var(--ink);font-size:var(--fs-xs);font-weight:700}
+.hw-input{width:100%;min-height:44px;padding:var(--space-3) var(--space-4);color:var(--ink);background:var(--surface);border:1px solid var(--border-base);border-radius:var(--radius-md);font-size:var(--fs-body)}
+.hw-input:focus{outline:none;border-color:var(--teal-accent)}
+.hw-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--gap-2);margin-top:var(--space-5);padding:var(--space-7);color:var(--on-dark-2);background:var(--fill-on-dark);border:1px dashed var(--nav-line);border-radius:var(--radius-md);text-align:center;cursor:pointer;transition:border-color .18s,background-color .18s}
+.hw-drop b{color:var(--indigo-deep)}
+.hw-drop span{font-size:var(--fs-tiny-2)}
+.hw-drop:hover,.hw-drop.drag,.hw-drop:focus-visible{border-color:var(--teal-accent);outline:none}
+.hw-list{margin:var(--space-4) 0 0;padding:0;list-style:none}
+.hw-list li{display:flex;align-items:center;gap:var(--gap-2);padding:var(--space-2) 0;border-bottom:1px dashed var(--border-base);font-size:var(--fs-xs);color:var(--ink)}
+.hw-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hw-size{flex:0 0 auto;color:var(--indigo-deep)}
+.hw-remove{flex:0 0 auto;width:28px;height:28px;border:1px solid var(--border-base);border-radius:50%;background:var(--surface);color:var(--ink);font-size:15px;line-height:1;cursor:pointer}
+.hw-remove:hover{border-color:var(--teal-accent);color:var(--teal-accent)}
+.hw-submit{width:100%;margin-top:var(--space-6);justify-content:center}
+.hw-msg{margin:var(--space-4) 0 0;font-size:var(--fs-xs);line-height:1.7;min-height:1.2em}
+.hw-msg.ok{color:var(--link-green)}
+.hw-msg.err{color:var(--msg-err)}
+
+@media(max-width:760px){
+  .lesson-actions{margin-top:var(--space-7)}
+  .lbtn{flex:1;justify-content:center;padding:var(--space-5) var(--space-6)}
+  .modal-panel{max-height:calc(100dvh - 32px);padding:var(--space-7) var(--space-6)}
+  .video-frame{aspect-ratio:4/3}
+}
