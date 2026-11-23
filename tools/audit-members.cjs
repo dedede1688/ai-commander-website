@@ -7,12 +7,12 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 assert.ok(fs.existsSync(path.join(root, 'builders.html')), '正式共建者中心应存在');
 const {members, groups} = require('../member-data.js');
 const center = read('builders.html');
-assert.equal(members.length, 23);
-assert.equal(groups.length, 9);
-assert.equal(new Set(members.map(m => m.slug)).size, 23, '个人网址唯一');
-assert.equal(new Set(members.map(m => m.seat)).size, 23, '席位唯一');
+assert.equal(members.length, 24);
+assert.equal(groups.length, 10);
+assert.equal(new Set(members.map(m => m.slug)).size, 24, '个人网址唯一');
+assert.equal(new Set(members.map(m => m.seat)).size, 24, '席位唯一');
 assert.equal(fs.readdirSync(root).filter(f => /^member-.*\.html$/.test(f)).length, members.length, '成员文件与资料一一对应');
-assert.equal((center.match(/data-member-card/g) || []).length, 23);
+assert.equal((center.match(/data-member-card/g) || []).length, 24);
 assert.ok(!/previews\/|noindex|<base /i.test(center), '正式中心不得残留预览配置');
 const files = ['builders.html'];
 for (const m of members) {
@@ -60,4 +60,4 @@ const entryPage = read('explore.html');
 assert.ok(!/src="(?:script|member-data)\.js/.test(entryPage), '历史资料页不再加载成员名录脚本');
 assert.ok(entryPage.indexOf('src="shared.js') > entryPage.indexOf('</main>'), '历史资料页共享脚本应在正文之后加载');
 assert.ok(entryPage.includes('builders.html#members') && entryPage.includes('builders.html#structure'), '历史资料页应指向成员名录与行业分组');
-console.log('PASS: 共建者中心、23个成员页、单一数据源、原资料与分享码、入口/返回、元数据和公开边界');
+console.log('PASS: 共建者中心、24个成员页、单一数据源、原资料与分享码、入口/返回、元数据和公开边界');

@@ -22,7 +22,7 @@ if (!/User-agent:\s*\*/i.test(robots)) fail('robots.txt 缺少 User-agent');
 const sitemap = read('sitemap.xml');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
 if (new Set(locs).size !== locs.length) fail('站点地图存在重复地址');
-if (locs.length !== 32) fail('站点地图条数应为 32，实际 ' + locs.length);
+if (locs.length !== 33) fail('站点地图条数应为 33，实际 ' + locs.length);
 for (const loc of locs) {
   if (!loc.startsWith(SITE + '/')) fail('站点地图地址不是正式域名：' + loc);
   const rel = loc.slice(SITE.length + 1) || 'index.html';
@@ -84,7 +84,7 @@ for (const page of pages) {
   }
 }
 const memberQr = fs.readdirSync(path.join(root, '素材/二维码/成员')).filter((f) => f.endsWith('.png'));
-if (memberQr.length !== 23) fail('成员二维码应为 23 张，实际 ' + memberQr.length);
+if (memberQr.length !== 24) fail('成员二维码应为 24 张，实际 ' + memberQr.length);
 
 /* ---------- 输出 ---------- */
 console.log('发布前核对');

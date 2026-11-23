@@ -1,0 +1,297 @@
+/* ============================================================
+   李忠仁 · 联合出版人形象广告（限时活动）
+   - 首页：打开即弹的轮播弹窗（桌面横版 / 手机竖版）
+   - 成员页：简介下方活动配图
+   切换方式：两张图同格叠放，交叉淡入淡出（opacity 过渡，无位移）
+   活动期至 2026-12-30 23:59，由 home-ads.js 与 data-ads-end 控制
+   颜色一律取 base.css 令牌，不新增硬编码色值
+   ============================================================ */
+
+/* ---------- 1. 弹窗骨架（复用 .qr-layer 的遮罩与圆角语言） ---------- */
+.ads-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: grid;
+  place-items: center;
+  padding: var(--space-5);
+  /* 融化节奏：每张停留 2s，再用 2s 同步交叉淡化（单张 4s，整轮 8s） */
+  --ads-fade: 2000ms;
+}
+
+.ads-modal[hidden] { display: none; }
+
+.ads-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 24, 0.78);
+}
+
+.ads-modal-panel {
+  position: relative;
+  width: min(1100px, calc(100vw - 2 * var(--space-5)));
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 72px var(--shadow-panel);
+  overflow: hidden;
+}
+
+.ads-modal-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--gap-4);
+  /* 右侧留出关闭键位置，避免长句被按钮压住 */
+  padding: var(--space-5) calc(var(--space-7) + 56px) var(--space-4) var(--space-7);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ads-modal-label {
+  margin: 0;
+  font-size: var(--fs-tiny-2);
+  letter-spacing: 2px;
+  color: var(--grey-3);
+}
+
+.ads-modal-name {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--navy);
+  overflow-wrap: anywhere;
+}
+
+.ads-modal-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: var(--touch-target);
+  height: var(--touch-target);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--navy);
+  font-size: var(--fs-ui-lg);
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.ads-modal-close:hover,
+.ads-modal-close:focus-visible {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+
+/* ---------- 2. 轮播舞台：同格叠放 + 交叉淡化 ---------- */
+.ads-modal-stage {
+  position: relative;
+  background: var(--navy-d);
+  overflow: hidden;
+}
+
+.ads-modal-track {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ads-modal-slide {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ads-fade) linear;
+}
+
+.ads-modal-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.ads-modal-slide picture { display: block; }
+
+.ads-modal-slide img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 80vh;
+  height: auto;
+}
+
+/* ---------- 3. 控件 ---------- */
+.ads-modal-nav,
+.ads-modal-dot,
+.ads-modal-cta {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ads-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--touch-target);
+  height: var(--touch-target);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  background: rgba(10, 18, 45, 0.55);
+  color: var(--white);
+  font-size: var(--fs-ui-md);
+  line-height: 1;
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.ads-modal-nav:hover,
+.ads-modal-nav:focus-visible {
+  background: var(--navy);
+  border-color: var(--teal);
+}
+
+.ads-modal-prev { left: var(--space-4); }
+.ads-modal-next { right: var(--space-4); }
+
+.ads-modal-dots {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-4);
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.ads-modal-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.28);
+  transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.ads-modal-dot[aria-current="true"] {
+  width: 26px;
+  background: var(--teal);
+  border-color: var(--teal);
+}
+
+/* ---------- 4. 底栏 ---------- */
+.ads-modal-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-4);
+  padding: var(--space-4) var(--space-7);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--fs-tiny-2);
+  color: var(--grey-2);
+}
+
+.ads-modal-cta {
+  padding: var(--space-1) var(--space-5);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--navy-line);
+  background: var(--surface);
+  color: var(--navy);
+  font-size: var(--fs-tiny-2);
+  font-weight: 700;
+  letter-spacing: 1px;
+  min-height: var(--touch-target);
+  transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.ads-modal-cta:hover,
+.ads-modal-cta:focus-visible {
+  background: var(--navy);
+  color: var(--white);
+}
+
+body.ads-locked { overflow: hidden; }
+
+/* ---------- 5. 成员页活动配图 ---------- */
+.member-figure {
+  margin: var(--space-8) 0 0;
+}
+
+.member-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--navy-d);
+}
+
+.member-figure figcaption {
+  margin-top: var(--space-4);
+  font-size: var(--fs-tiny-2);
+  color: var(--grey-3);
+  line-height: 1.8;
+}
+
+/* ---------- 6. 断点 ---------- */
+@media (max-width: 768px) {
+  .ads-modal { padding: var(--space-3); }
+
+  .ads-modal-panel {
+    width: calc(100vw - 2 * var(--space-3));
+    max-height: calc(100vh - 2 * var(--space-3));
+  }
+
+  .ads-modal-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: var(--space-4) 52px var(--space-3) var(--space-5);
+  }
+
+  .ads-modal-label { font-size: var(--fs-tiny-4); letter-spacing: 1px; }
+
+  .ads-modal-name { font-size: var(--fs-tiny-2); }
+
+  .ads-modal-due { display: none; }
+
+  .ads-modal-close { width: 38px; height: 38px; top: var(--space-2); right: var(--space-2); }
+
+  .ads-modal-slide img { max-height: 80vh; }
+
+  .ads-modal-nav { width: 36px; height: 36px; font-size: var(--fs-ui-sm); }
+  .ads-modal-prev { left: var(--space-2); }
+  .ads-modal-next { right: var(--space-2); }
+
+  .ads-modal-dots { bottom: var(--space-3); gap: var(--space-1); }
+  .ads-modal-dot { width: 8px; height: 8px; }
+  .ads-modal-dot[aria-current="true"] { width: 20px; }
+
+  .ads-modal-foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5) var(--space-4);
+    text-align: center;
+  }
+
+  .ads-modal-cta { width: 100%; }
+
+  .member-figure { margin-top: var(--space-6); }
+}
+
+/* 交叉淡化固定使用 2s 线性过渡，不因系统“减少动画”偏好而取消。
+   原先此处为 @media (prefers-reduced-motion: reduce) { .ads-modal-slide { transition: none; } }，
+   命中时把 transition 置为 none，切换退化成硬切，破坏 2s 停留 + 2s 淡化的既定节奏。 */

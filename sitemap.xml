@@ -145,8 +145,14 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.ai-mmc.cn/member-li-zhong-ren.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://www.ai-mmc.cn/member-huzi-laoshi.html</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
