@@ -17,13 +17,14 @@
   /* ---------- 站点配置（改这里，全站生效） ---------- */
   /* 2026-11-02 导航调整（用户确认）：品牌名省略AI（LOGO已表达）；
      首页→网站；《AI指挥官》→书籍介绍；工具与成果拆为工具应用/成果展示两项。
-     2026-11-06 调整（用户确认）：17款模型速查下线，工具应用入口移除，导航为 7 项。 */
+     2026-11-06 调整（用户确认）：17款模型速查下线，工具应用入口移除，导航为 7 项。
+     2026-11-09 调整（用户确认）：共建合作下移至企业服务前，排列改为 首页/书籍/学习/成果/共建/企业。 */
   var NAV_ITEMS = [
     { file: "index.html", key: "index", text: "网站首页" },
-    { file: "builders.html", key: "builders", text: "共建合作" },
     { file: "book.html", key: "book", text: "书籍介绍" },
     { file: "learning.html", key: "learning", text: "学习中心" },
     { file: "outcomes.html", key: "outcomes", text: "成果展示" },
+    { file: "builders.html", key: "builders", text: "共建合作" },
     { file: "enterprise.html", key: "enterprise", text: "企业服务" },
   ];
   /* 详情页归属高亮：成员页/旧合作页→共建合作；先锋券活动页→书籍介绍；
